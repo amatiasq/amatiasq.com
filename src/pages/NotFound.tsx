@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export const route = '*';
+export const route = '/not-found';
 
 const Page: React.FC = () => (
   <>
