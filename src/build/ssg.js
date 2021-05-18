@@ -33,12 +33,12 @@ function generatePage(page, files, html, dist) {
 }
 
 function generatePages() {
-  const dist = path.resolve(__dirname, '..', 'dist');
+  const dist = path.resolve(__dirname, '..', '..', 'dist');
   const index = path.resolve(dist, 'index.html');
   const files = readdirSync(dist);
   const html = readFileSync(index, 'utf8');
   const pages = getPages();
-  return Promise.all(pages.map(page => generatePage(page, files, html, dist)));
+  return Promise.all(pages.map((page) => generatePage(page, files, html, dist)));
 }
 
 if (require.main === module) {

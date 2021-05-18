@@ -18,7 +18,7 @@ function getAllFiles(dir) {
 }
 
 function getPages() {
-  const dir = join(__dirname, 'pages');
+  const dir = join(__dirname, '..', 'pages');
   const pageDetails = getAllFiles(dir).map((m) => {
     const content = readFileSync(m, 'utf8');
     const defaultRoute =

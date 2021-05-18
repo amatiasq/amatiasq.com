@@ -42,12 +42,12 @@ React.Suspense = ({ children }) => React.createElement(React.Fragment, undefined
 React.useLayoutEffect = () => {};
 
 function setupExtensions(files) {
-  ['.png', '.svg', '.jpg', '.jpeg', '.mp4', '.mp3', '.woff', '.tiff', '.tif', '.xml'].forEach(extension => {
+  ['.png', '.svg', '.jpg', '.jpeg', '.mp4', '.mp3', '.woff', '.tiff', '.tif', '.xml'].forEach((extension) => {
     require.extensions[extension] = (module, file) => {
       const parts = basename(file).split('.');
       const ext = parts.pop();
       const front = parts.join('.');
-      const ref = files.filter(m => m.startsWith(front) && m.endsWith(ext)).pop() || '';
+      const ref = files.filter((m) => m.startsWith(front) && m.endsWith(ext)).pop() || '';
       module.exports = '/' + ref;
     };
   });
@@ -64,7 +64,7 @@ function renderApp(source, target, dist) {
   const sourceModule = require(source);
   const route = (sourceModule.route || target).substring(1);
   const Page = sourceModule.default;
-  const Layout = require('./Layout').default;
+  const Layout = require('../Layout').default;
   const element = React.createElement(
     MemoryRouter,
     undefined,
@@ -87,7 +87,7 @@ function makePage(outPath, html, content) {
   writeFileSync(outPath, file, 'utf8');
 }
 
-process.on('message', msg => {
+process.on('message', (msg) => {
   const { source, target, files, html, dist } = msg;
   setupExtensions(files);
 

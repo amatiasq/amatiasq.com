@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { hydrate } from 'react-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 import Layout from './Layout';
 
-const pages = require('./toc.codegen');
-const [notFound] = pages.filter((m) => m.route === '*');
+const pages = require('./build/toc.codegen');
+const [notFound] = pages.filter((m) => m.route === '/not-found');
 const standardPages = pages.filter((m) => m !== notFound);
 
 const App = () => (
