@@ -1,4 +1,6 @@
-import React from 'react';
+import '../styles/index.scss';
+
+import * as React from 'react';
 import { useRouteData } from 'react-static';
 
 import { Experiments, ExperimentsProps } from '../chunks/Experiments';
@@ -18,12 +20,12 @@ export default function Index() {
   return (
     <>
       <Navigation />
-      <div className="container">
+      <main className="page-content">
         <ProfessionalExperiences jobPositions={props.jobPositions} />
         <Projects projects={props.projects} />
         <Talks talks={props.talks} />
         <Experiments experiments={props.experiments} />
-      </div>
+      </main>
     </>
   );
 }

@@ -8,6 +8,7 @@
   background: var(--navbar-color);
   // box-shadow: 0 3px 13px rgb(100 110 140 / 10%), 0 2px 4px rgb(100 110 140 / 15%);
   padding: 0.5rem 0;
+  top: 0;
 
   &__container {
     @extend .container;

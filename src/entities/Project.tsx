@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 import { RemixIcon } from '../components/RemixIcon';
 import { TagList } from '../components/TagList';
