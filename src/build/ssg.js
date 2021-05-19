@@ -11,7 +11,7 @@ function generatePage(page, files, html, dist) {
   return new Promise((resolve, reject) => {
     const ps = fork(modPath, [], {
       cwd: process.cwd(),
-      stdio: 'ignore',
+      stdio: 'inherit',
       detached: true,
     });
 
@@ -38,7 +38,7 @@ function generatePages() {
   const files = readdirSync(dist);
   const html = readFileSync(index, 'utf8');
   const pages = getPages();
-  return Promise.all(pages.map((page) => generatePage(page, files, html, dist)));
+  return Promise.all(pages.map(page => generatePage(page, files, html, dist)));
 }
 
 if (require.main === module) {

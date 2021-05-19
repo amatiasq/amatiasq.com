@@ -2,7 +2,7 @@ const { getPages } = require('./helpers');
 
 module.exports = () => {
   const pageDetails = getPages();
-  const pages = pageDetails.map((page) => {
+  const pages = pageDetails.map(page => {
     const meta = [
       `"content": lazy(() => import('./${page.folder}/${page.name}'))`,
       `${JSON.stringify('route')}: ${JSON.stringify(page.route)}`,
@@ -11,6 +11,8 @@ module.exports = () => {
     return `{ ${meta.join(', ')} }`;
   });
 
-  return `const { lazy } = require('react');
-module.exports = [${pages.join(', ')}];`;
+  return `
+    const { lazy } = require('react');
+    module.exports = [${pages.join(', ')}];
+  `;
 };

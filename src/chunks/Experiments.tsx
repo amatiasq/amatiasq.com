@@ -1,0 +1,17 @@
+import * as React from 'react';
+
+import { Project, ProjectView } from '../entities/Project';
+
+export interface ExperimentsProps {
+  experiments: Project[];
+}
+
+export function Experiments({ experiments }: ExperimentsProps) {
+  return (
+    <section className="experiments">
+      {experiments.map(x => (
+        <ProjectView {...x} />
+      ))}
+    </section>
+  );
+}

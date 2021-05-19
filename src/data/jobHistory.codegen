@@ -1,0 +1,4 @@
+const { join } = require('path');
+const { generateMarkdownList } = require('../build/helpers');
+
+module.exports = () => generateMarkdownList(join(__dirname, 'jobHistory'));

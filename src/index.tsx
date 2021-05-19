@@ -4,15 +4,15 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Layout from './Layout';
 
-const pages = require('./build/toc.codegen');
-const [notFound] = pages.filter((m) => m.route === '/not-found');
-const standardPages = pages.filter((m) => m !== notFound);
+const pages = require('./build/pages.codegen');
+const [notFound] = pages.filter(m => m.route === '/not-found');
+const standardPages = pages.filter(m => m !== notFound);
 
 const App = () => (
   <BrowserRouter>
     <Layout>
       <Switch>
-        {standardPages.map((page) => (
+        {standardPages.map(page => (
           <Route key={page.route} path={page.route} exact component={page.content} />
         ))}
         {notFound && <Route component={notFound.content} />}

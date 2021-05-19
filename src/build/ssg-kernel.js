@@ -1,5 +1,6 @@
 const { readFileSync, writeFileSync, mkdirSync } = require('fs');
 const { basename, dirname, resolve } = require('path');
+const { markdownToJson } = require('./helpers');
 
 require = require('esm')(module);
 
@@ -42,12 +43,12 @@ React.Suspense = ({ children }) => React.createElement(React.Fragment, undefined
 React.useLayoutEffect = () => {};
 
 function setupExtensions(files) {
-  ['.png', '.svg', '.jpg', '.jpeg', '.mp4', '.mp3', '.woff', '.tiff', '.tif', '.xml'].forEach((extension) => {
+  ['.png', '.svg', '.jpg', '.jpeg', '.mp4', '.mp3', '.woff', '.tiff', '.tif', '.xml', '.scss'].forEach(extension => {
     require.extensions[extension] = (module, file) => {
       const parts = basename(file).split('.');
       const ext = parts.pop();
       const front = parts.join('.');
-      const ref = files.filter((m) => m.startsWith(front) && m.endsWith(ext)).pop() || '';
+      const ref = files.filter(m => m.startsWith(front) && m.endsWith(ext)).pop() || '';
       module.exports = '/' + ref;
     };
   });
@@ -57,6 +58,13 @@ function setupExtensions(files) {
     module._compile(content, file);
     const code = module.exports();
     module._compile(code, file);
+  };
+
+  require.extensions['.md'] = (module, file) => {
+    const content = readFileSync(file, 'utf8');
+    const data = markdownToJson(content, basename(file));
+    const json = JSON.stringify(data);
+    module._compile(`module.exports = ${json}`, file);
   };
 }
 
@@ -87,7 +95,7 @@ function makePage(outPath, html, content) {
   writeFileSync(outPath, file, 'utf8');
 }
 
-process.on('message', (msg) => {
+process.on('message', msg => {
   const { source, target, files, html, dist } = msg;
   setupExtensions(files);
 
