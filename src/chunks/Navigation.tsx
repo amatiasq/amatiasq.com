@@ -5,12 +5,13 @@ import React from 'react';
 import { Link } from '@reach/router';
 
 import { Translatable } from '../components/Translatable';
+import { runtimeOnly } from '../util/runtimeOnly';
 
-// const js = /*js*/ `
-//   $('[data-toggle-light-mode]').addEventListener('click', () =>
-//     document.body.classList.toggle('light-theme')
-//   );
-// `;
+runtimeOnly($ => {
+  $('[data-action="toggle-light-mode"]', x =>
+    x.addEventListener('click', () => document.body.classList.toggle('light-theme')),
+  );
+});
 
 export function Navigation() {
   return (
@@ -31,17 +32,15 @@ export function Navigation() {
         </div>
 
         <div className="Navigation__controls">
-          <button data-toggle-lang>
+          <button data-action="toggle-lang">
             <span lang="en">🇪🇸</span>
             <span lang="es">🇬🇧</span>
           </button>
 
-          <button data-toggle-light-mode>
+          <button data-action="toggle-light-mode">
             <span className="dark-only">☀️</span>
             <span className="light-only">🌙</span>
           </button>
-
-          {/* <Runtime js={js} /> */}
         </div>
       </div>
     </nav>

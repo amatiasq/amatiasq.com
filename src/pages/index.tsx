@@ -15,8 +15,6 @@ export type IndexProps = ExperimentsProps & ProjectsProps & ProfessionalExperien
 export default function Index() {
   const props = useRouteData<IndexProps>();
 
-  console.log({ props });
-
   return (
     <>
       <Navigation />

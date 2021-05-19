@@ -12,14 +12,12 @@ addPrefetchExcludes(['dynamic']);
 function App() {
   return (
     <Root>
-      <div className="content">
-        <React.Suspense fallback={<em>Loading...</em>}>
-          <Router>
-            <Dynamic path="dynamic" />
-            <Routes path="*" />
-          </Router>
-        </React.Suspense>
-      </div>
+      <React.Suspense fallback={<em>Loading...</em>}>
+        <Router>
+          <Dynamic path="dynamic" />
+          <Routes path="*" />
+        </Router>
+      </React.Suspense>
     </Root>
   );
 }
