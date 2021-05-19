@@ -28,6 +28,11 @@ const plugins = [{
         hooks: {}
       },
 {
+        location: "__react_static_root__/src/tools/postcss-sass-loader",
+        plugins: [],
+        hooks: {}
+      },
+{
         location: "__react_static_root__/",
         plugins: [],
         hooks: {}

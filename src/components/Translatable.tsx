@@ -1,3 +1,5 @@
+import './Translatable.scss';
+
 import React from 'react';
 
 export type Language = 'en' | 'es';
