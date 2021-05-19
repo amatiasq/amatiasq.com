@@ -1,25 +1,25 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
-    "declaration": false,
-    "noImplicitAny": false,
-    "removeComments": false,
-    "noLib": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es6",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "skipLibCheck": true,
-    "lib": ["dom", "es2018"],
-    "moduleResolution": "node",
+    "target": "esnext",
     "module": "esnext",
-    "jsx": "react",
-    "importHelpers": true
+    "jsx": "preserve",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "sourceMap": true,
+    "skipLibCheck": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "components/*": ["src/components/*"],
+      "containers/*": ["src/containers/*"],
+      "types/*": ["types/*"]
+    },
+    "lib": ["dom", "es2015", "es2016"]
   },
-  "include": [
-    "./src"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["artifacts/**/*", "dist/**/*", "public/**/*", "node_modules"]
 }

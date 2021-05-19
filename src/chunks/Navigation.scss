@@ -1,0 +1,138 @@
+@import '../styles/custom-media.scss';
+@import '../styles/layout.scss';
+@import '../styles/theme.scss';
+
+.Navigation {
+  position: fixed;
+  width: 100%;
+  background: var(--navbar-color);
+  // box-shadow: 0 3px 13px rgb(100 110 140 / 10%), 0 2px 4px rgb(100 110 140 / 15%);
+  padding: 0.5rem 0;
+
+  &__container {
+    @extend .container;
+    display: grid;
+  }
+
+  &__name {
+    font-weight: 700;
+    color: white;
+    white-space: nowrap;
+    line-height: 1;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+
+    .is-abbreviated {
+      display: inline-block;
+      overflow: hidden;
+      max-width: 0.7em;
+      transition: max-width 0.2s ease-out;
+    }
+
+    &:hover .is-abbreviated {
+      max-width: 5em;
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    grid-column: 1 / span 2;
+
+    a {
+      color: var(--transparent-text);
+      font-size: 0.95rem;
+      border-radius: 0.35rem;
+      border: 1px solid transparent;
+      line-height: 1;
+      background: hsla(0, 0%, 39.2%, 0.3);
+      padding: 0.5rem 0.4rem;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: flex-end;
+    grid-row: first-line/1;
+    grid-column: 2;
+    gap: 0.5rem;
+
+    button {
+      appearance: none;
+      background-color: transparent;
+      border: none;
+      padding: 0.5rem 0 0.5rem 0.5rem;
+      border-radius: 0.35rem;
+      box-sizing: content-box;
+      cursor: pointer;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+  }
+
+  @media (--narrow) {
+    &__container {
+      grid-template-columns: auto auto 90px;
+      grid-template-rows: auto;
+      align-items: center;
+    }
+
+    &__name {
+      font-size: 1.2rem;
+    }
+
+    &__links {
+      grid-column: auto;
+
+      a {
+        font-size: 1.1rem;
+        padding: 0.5rem;
+      }
+    }
+
+    &__controls {
+      grid-column: auto;
+      grid-row: auto;
+
+      button {
+        font-size: 1.3rem;
+      }
+    }
+  }
+
+  @media (--wide) {
+    position: static;
+    padding: 2.5rem 0;
+    background: transparent;
+    box-shadow: none;
+
+    &__name {
+      font-size: 1.5rem;
+    }
+
+    &__links {
+      a {
+        padding: 1rem 1.25rem;
+        font-size: 1.3rem;
+        font-weight: 400;
+        color: var(--transparent-text);
+        background: transparent;
+
+        @include light-theme {
+          color: var(--font-color);
+        }
+      }
+    }
+
+    &__controls {
+      button {
+        font-size: 1.6rem;
+      }
+    }
+  }
+}

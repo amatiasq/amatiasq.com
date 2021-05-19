@@ -17,7 +17,7 @@ export interface JobPosition extends Article {
   tags: TranslatableString[];
 }
 
-export function JobPositionView({ from, to, org, link, role, tags, content }: JobPosition) {
+export function JobPositionView({ from, org, link, role, tags, content }: JobPosition) {
   const title = <Translatable value={org} />;
   const orgElement = link ? (
     <a target="_blank" href={link}>

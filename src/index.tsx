@@ -1,24 +1,37 @@
-import * as React from 'react';
-import { hydrate } from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { AppContainer } from 'react-hot-loader'
 
-import Layout from './Layout';
+// Your top level component
+import App from './App'
 
-const pages = require('./build/toc.codegen');
-const [notFound] = pages.filter((m) => m.route === '/not-found');
-const standardPages = pages.filter((m) => m !== notFound);
+// Export your top level component as JSX (for static rendering)
+export default App
 
-const App = () => (
-  <BrowserRouter>
-    <Layout>
-      <Switch>
-        {standardPages.map((page) => (
-          <Route key={page.route} path={page.route} exact component={page.content} />
-        ))}
-        {notFound && <Route component={notFound.content} />}
-      </Switch>
-    </Layout>
-  </BrowserRouter>
-);
+// Render your app
+if (typeof document !== 'undefined') {
+  const target = document.getElementById('root')
 
-hydrate(<App />, document.querySelector('#app'));
+  const renderMethod = target.hasChildNodes()
+    ? ReactDOM.hydrate
+    : ReactDOM.render
+
+  const render = (Comp: Function) => {
+    renderMethod(
+      <AppContainer>
+        <Comp />
+      </AppContainer>,
+      target
+    )
+  }
+
+  // Render!
+  render(App)
+
+  // Hot Module Replacement
+  if (module && module.hot) {
+    module.hot.accept('./App', () => {
+      render(App)
+    })
+  }
+}

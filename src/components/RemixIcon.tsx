@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { TranslatableString } from './Translatable';
 
 export interface RemixIconProps {
@@ -6,7 +8,7 @@ export interface RemixIconProps {
   fill?: boolean;
 }
 
-export function RemixIcon({ name, title, fill }: RemixIconProps) {
+export function RemixIcon({ name, fill }: RemixIconProps) {
   const paintMode = fill ? 'fill' : 'line';
   return <i className={`ri-${name}-${paintMode}`}></i>;
 }

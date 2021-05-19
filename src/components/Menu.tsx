@@ -1,6 +1,6 @@
 import './Menu.scss';
 
-import { Children, PropsWithChildren } from 'react';
+import React, { Children, PropsWithChildren } from 'react';
 
 export function Menu({ children }: PropsWithChildren<{}>) {
   const [first, ...rest] = Children.toArray(children);

@@ -1,5 +1,3 @@
-import './Translatable.scss';
-
 import React from 'react';
 
 export type Language = 'en' | 'es';
@@ -13,19 +11,29 @@ export type TranslatableProps = (TranslatableKeys | TranslatableValue) & {
   render?: (value: string) => JSX.Element;
 };
 
-const js = /*js*/ `
-  $('[data-toggle-lang]').addEventListener('click', () => {
-    const cl = document.body.classList
+// const css = /*css*/ `
+//   .display-en [lang='es'] {
+//     display: none;
+//   }
 
-    if (cl.contains('display-en')) {
-      cl.remove('display-en');
-      cl.add('display-es');
-    } else {
-      cl.remove('display-es');
-      cl.add('display-en');
-    }
-  });
-`;
+//   .display-es [lang='en'] {
+//     display: none;
+//   }
+// `;
+
+// const js = /*js*/ `
+//   $('[data-toggle-lang]').addEventListener('click', () => {
+//     const cl = document.body.classList
+
+//     if (cl.contains('display-en')) {
+//       cl.remove('display-en');
+//       cl.add('display-es');
+//     } else {
+//       cl.remove('display-es');
+//       cl.add('display-en');
+//     }
+//   });
+// `;
 
 export function getKeyFrom(value: TranslatableString) {
   return typeof value === 'string' ? value : value.en;

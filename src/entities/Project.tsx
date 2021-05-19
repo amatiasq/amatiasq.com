@@ -1,13 +1,8 @@
 import React from 'react';
 
 import { RemixIcon } from '../components/RemixIcon';
-import { Tag } from '../components/Tag';
 import { TagList } from '../components/TagList';
-import {
-  getKeyFrom,
-  Translatable,
-  TranslatableString
-} from '../components/Translatable';
+import { Translatable, TranslatableString } from '../components/Translatable';
 import { ValidUrl } from '../types';
 
 const linkTypes = {
@@ -38,7 +33,7 @@ export function ProjectView({ name, links, media = {}, tags, content }: Project)
 
         {Object.entries(links).map(([type, url]) => (
           <a key={type} href={url}>
-            {linkTypes[type]}
+            {linkTypes[type as LinkTypes]}
           </a>
         ))}
       </h4>

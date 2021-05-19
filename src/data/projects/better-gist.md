@@ -1,5 +1,9 @@
 ---
-name: Better Gist
+key: better-gist
+
+name:
+  en: Better Gist
+  es: Better Gist
 
 links:
   live: https://gist.amatiasq.com/

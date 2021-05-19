@@ -1,4 +1,4 @@
-import './TagList.scss';
+import React from 'react';
 
 import { getKeyFrom, Translatable, TranslatableString } from './Translatable';
 

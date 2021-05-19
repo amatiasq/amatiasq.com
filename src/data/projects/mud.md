@@ -1,4 +1,6 @@
 ---
+key: mud
+
 name:
   en: Web MUD client
   es: Cliente MUD web

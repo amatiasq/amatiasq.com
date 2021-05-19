@@ -1,4 +1,6 @@
 ---
+key: requirejs-talk
+
 name:
   en: Modularize your Javascript
   es: Modulariza tu Javascript

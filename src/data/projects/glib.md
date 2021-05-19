@@ -1,4 +1,5 @@
 ---
+key: glib
 name: GLib
 
 links:

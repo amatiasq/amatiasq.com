@@ -1,3 +1,5 @@
+import React from 'react';
+
 import { Month } from '../types';
 import { Translatable, TranslatableString } from './Translatable';
 
