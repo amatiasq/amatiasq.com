@@ -23,10 +23,12 @@ export default function Index() {
       <Navigation />
       <main className="page-content">
         <IndexHeader />
-        {/* <ArticleList jobPositions={props.jobPositions} /> */}
-        <Projects projects={props.projects} />
-        <Talks talks={props.talks} />
-        <Experiments experiments={props.experiments} />
+        <div className="container">
+          <ProfessionalExperiences jobPositions={props.jobPositions} />
+          <Projects projects={props.projects} />
+          <Talks talks={props.talks} />
+          <Experiments experiments={props.experiments} />
+        </div>
       </main>
     </>
   );

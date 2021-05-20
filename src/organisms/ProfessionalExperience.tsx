@@ -1,7 +1,8 @@
 import React from 'react';
 
 import { Translatable } from '../atoms/Translatable';
-import { JobPosition, JobPositionView } from '../molecules/JobPosition';
+import { JobPosition } from '../molecules/JobPosition';
+import { ArticleList } from './ArticleList';
 
 export interface ProfessionalExperiencesProps {
   jobPositions: JobPosition[];
@@ -9,18 +10,17 @@ export interface ProfessionalExperiencesProps {
 
 export function ProfessionalExperiences({ jobPositions }: ProfessionalExperiencesProps) {
   return (
-    <section>
-      <Translatable
-        value={{
-          en: 'Professional Experience',
-          es: 'Experiencia Profesional',
-        }}
-        render={x => <h2>{x}</h2>}
-      />
-
-      {jobPositions.reverse().map(x => (
-        <JobPositionView {...x} />
-      ))}
-    </section>
+    <ArticleList
+      items={jobPositions}
+      viewAllLink="/resume"
+      header={{ en: 'Job History', es: 'Historial Laboral' }}
+      getLink={x => `/resume#${x.key}`}
+      getDate={x => x.from}
+      getTitle={x => (
+        <>
+          <Translatable value={x.role} /> <Translatable en="at" es="en" /> <Translatable value={x.org} />
+        </>
+      )}
+    />
   );
 }

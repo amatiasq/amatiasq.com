@@ -2,6 +2,7 @@ import { TranslatableString } from '../atoms/Translatable';
 
 export interface Article {
   key: string;
+  title: string;
   content: TranslatableString;
 }
 
