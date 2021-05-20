@@ -18,7 +18,7 @@ export function Section({ className, title, viewAllLink, children }: PropsWithCh
       <h2>
         <Translatable value={title} />
         {viewAllLink ? (
-          <Link to={viewAllLink}>
+          <Link to={viewAllLink} className="view-more-button">
             <Translatable value={{ en: 'View all', es: 'Ver todo' }} />
           </Link>
         ) : null}

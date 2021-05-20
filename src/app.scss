@@ -59,3 +59,8 @@ body.light-theme .dark-only,
 body:not(.light-theme) .light-only {
   display: none;
 }
+
+::selection {
+  background: #3b5bdb;
+  color: #fff;
+}
