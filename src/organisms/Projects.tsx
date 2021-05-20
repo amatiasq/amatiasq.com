@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Project, ProjectView } from '../entities/Project';
+import { Project, ProjectView } from '../molecules/Project';
 
 export interface ProjectsProps {
   projects: Project[];

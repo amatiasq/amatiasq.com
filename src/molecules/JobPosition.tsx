@@ -2,9 +2,9 @@ import './JobPosition.scss';
 
 import React from 'react';
 
-import { Moment } from '../components/Moment';
-import { TagList } from '../components/TagList';
-import { Translatable, TranslatableString } from '../components/Translatable';
+import { Moment } from '../atoms/Moment';
+import { TagList } from '../atoms/TagList';
+import { Translatable, TranslatableString } from '../atoms/Translatable';
 import { Month } from '../types';
 import { Article } from './Article';
 

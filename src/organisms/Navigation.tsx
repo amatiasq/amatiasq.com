@@ -4,14 +4,14 @@ import React from 'react';
 
 import { Link } from '@reach/router';
 
-import { Translatable } from '../components/Translatable';
+import { Translatable } from '../atoms/Translatable';
 import { runtimeOnly } from '../util/runtimeOnly';
 
-// runtimeOnly($ => {
-//   $('[data-action="toggle-light-mode"]', x =>
-//     x.addEventListener('click', () => document.body.classList.toggle('light-theme')),
-//   );
-// });
+runtimeOnly($ => {
+  $('[data-action="toggle-light-mode"]', x =>
+    x.addEventListener('click', () => document.body.classList.toggle('light-theme')),
+  );
+});
 
 export function Navigation() {
   return (

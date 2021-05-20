@@ -3,7 +3,7 @@ import path from 'path';
 
 // Typescript support in static.config.js is not yet supported, but is coming in a future update!
 import getRoutes from './src/data';
-import { Document } from './src/containers/Document';
+import { Document } from './src/templates/Document';
 
 export default {
   entry: path.join(__dirname, 'src', 'index.tsx'),
@@ -19,7 +19,7 @@ export default {
     ],
     require.resolve('react-static-plugin-reach-router'),
     require.resolve('react-static-plugin-sitemap'),
-    require.resolve('react-static-plugin-sass'),
-    path.join(__dirname, 'src', 'tools', 'postcss-sass-loader'),
+    // require.resolve('react-static-plugin-sass'),
+    path.join(__dirname, 'src', 'util', 'postcss-sass-loader'),
   ],
 };

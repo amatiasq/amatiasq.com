@@ -39,12 +39,13 @@ export default ({ cssLoaderConfigOptions = {}, sassIncludePaths = [] }) => ({
     if (stage === 'dev') {
       // Dev
       loaders = [
-        {
-          loader: ExtractCssChunks.loader,
-          options: {
-            hot: true,
-          },
-        },
+        // {
+        //   loader: ExtractCssChunks.loader,
+        //   options: {
+        //     hot: true,
+        //   },
+        // },
+        'style-loader',
         cssLoader,
         postcssLoader,
         sassLoader,

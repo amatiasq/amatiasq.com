@@ -1,16 +1,17 @@
-import '../styles/index.scss';
+import '../pages-parts/index.scss';
 
 import * as React from 'react';
 import { useRouteData } from 'react-static';
 
-import { Experiments, ExperimentsProps } from '../chunks/Experiments';
-import { Navigation } from '../chunks/Navigation';
+import { Experiments, ExperimentsProps } from '../organisms/Experiments';
+import { Navigation } from '../organisms/Navigation';
 import {
   ProfessionalExperiences,
   ProfessionalExperiencesProps
-} from '../chunks/ProfessionalExperience';
-import { Projects, ProjectsProps } from '../chunks/Projects';
-import { Talks, TalksProps } from '../chunks/Talks';
+} from '../organisms/ProfessionalExperience';
+import { Projects, ProjectsProps } from '../organisms/Projects';
+import { Talks, TalksProps } from '../organisms/Talks';
+import { IndexHeader } from '../pages-parts/IndexHeader';
 
 export type IndexProps = ExperimentsProps & ProjectsProps & ProfessionalExperiencesProps & TalksProps;
 
@@ -21,7 +22,8 @@ export default function Index() {
     <>
       <Navigation />
       <main className="page-content">
-        <ProfessionalExperiences jobPositions={props.jobPositions} />
+        <IndexHeader />
+        {/* <ArticleList jobPositions={props.jobPositions} /> */}
         <Projects projects={props.projects} />
         <Talks talks={props.talks} />
         <Experiments experiments={props.experiments} />

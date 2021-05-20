@@ -43,7 +43,7 @@ export default async () => {
 
       children: posts.map((post /* : Post */) => ({
         path: `/post/${post.id}`,
-        template: 'src/containers/Post',
+        template: 'src/templates/Post',
         getData: () => ({
           post,
         }),

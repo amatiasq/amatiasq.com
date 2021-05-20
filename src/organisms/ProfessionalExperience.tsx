@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Translatable } from '../components/Translatable';
-import { JobPosition, JobPositionView } from '../entities/JobPosition';
+import { Translatable } from '../atoms/Translatable';
+import { JobPosition, JobPositionView } from '../molecules/JobPosition';
 
 export interface ProfessionalExperiencesProps {
   jobPositions: JobPosition[];

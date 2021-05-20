@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&family=Source+Code+Pro:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:ital@1&display=swap');
 
-@import './styles/reset.css';
+// @import './styles/reset.css';
 
 :root {
   --font-color: #b3b9c5;
@@ -24,6 +24,7 @@
   --border-color: #3b3b3b;
   --font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Roboto', Roboto, Arial, 'Noto Sans',
     sans-serif, 'Apple Color Emoji', 'Segoe UI', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-family-secondary: DM Mono, Georgia, serif;
 }
 
 html {
@@ -36,6 +37,14 @@ html {
 
 body {
   background: var(--background);
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
 }
 
 a {

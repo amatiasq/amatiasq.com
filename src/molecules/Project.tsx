@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { RemixIcon } from '../components/RemixIcon';
-import { TagList } from '../components/TagList';
-import { Translatable, TranslatableString } from '../components/Translatable';
+import { RemixIcon } from '../atoms/RemixIcon';
+import { TagList } from '../atoms/TagList';
+import { Translatable, TranslatableString } from '../atoms/Translatable';
 import { ValidUrl } from '../types';
 
 const linkTypes = {
