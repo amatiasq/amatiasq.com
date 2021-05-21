@@ -7,7 +7,7 @@ export function IndexHeader() {
     <header className="IndexHeader">
       <div className="container">
         <div>
-          <h1>I'm A. Matías Quezada.</h1>
+          <h1>I'm A. Matías Quezada</h1>
 
           <p>
             I'm a human who codes. This website is my digital garden — a compendium of the things I've learned and

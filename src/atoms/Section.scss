@@ -47,4 +47,15 @@ section {
       color: var(--heading-color);
     }
   }
+
+  @media (--wide) {
+    > h2 {
+      font-size: 2rem;
+      margin: 0 0 1.5rem;
+    }
+
+    .view-more-button {
+      font-size: 1rem;
+    }
+  }
 }
