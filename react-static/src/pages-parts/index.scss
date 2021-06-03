@@ -1,0 +1,13 @@
+@import '../styles/custom-media.scss';
+
+.page-content {
+  margin-top: 100px;
+
+  @media (--narrow) {
+    margin-top: 50px;
+  }
+
+  @media (--wide) {
+    margin-top: 0;
+  }
+}
