@@ -1,0 +1,40 @@
+:root {
+  /* dark */
+}
+
+body.light-theme .dark-only,
+body:not(.light-theme) .light-only {
+  display: none;
+}
+
+body {
+  --fg-primary: #ffffff;
+  /* --fg-secondary: red; */
+  --fg-secondary: #dfe2e6;
+  --bg-primary: #1d1d1d;
+  --bg-secondary: #2d2d31;
+  --primary: #f9d486;
+  --border-color: #3b3b3b;
+  --subtle-border: rgba(255, 255, 255, 0.1);
+  --heading-font-family: 'DM Mono', Menlo, monospace;
+}
+
+body {
+  color: var(--fg-secondary);
+  background: var(--bg-primary);
+}
+
+::selection {
+  background: #3b5bdb;
+  color: #fff;
+}
+
+button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+}
+
+a {
+  text-decoration: none;
+}

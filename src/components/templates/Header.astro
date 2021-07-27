@@ -1,0 +1,72 @@
+---
+import Container from '../atoms/Container.astro';
+---
+<header>
+  <Container class="flex">
+    <div>
+      <h1>I'm A. Matías Quezada</h1>
+
+      <p>
+        I'm a human who codes. This website is my digital garden — a compendium of the things I've learned and
+        created over the years.
+      </p>
+    </div>
+
+    <div>
+      <img src="/foto-cropped.png" alt="Matias" class="avatar" />
+    </div>
+  </Container>
+</header>
+
+<style lang="scss">
+  @import '../../styles/mixins.scss';
+
+  header {
+    background-color: var(--bg-secondary);
+    border-top: 1px solid var(--subtle-border);
+    border-bottom: 1px solid var(--subtle-border);
+    padding: 2.5rem 0;
+
+    @include wide {
+      padding: 3rem 0;
+    }
+  }
+
+  .flex {
+    @include wide {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  h1 {
+    color: var(--fg-primary);
+    font-family: var(--heading-font-family);
+    font-size: 2.75rem;
+    margin-bottom: 2rem;
+  }
+
+  p {
+    font-size: 1.2rem;
+
+    @include wide {
+      max-width: 750px;
+      font-size: 1.4rem;
+      line-height: 1.6;
+    }
+  }
+
+  .avatar {
+    max-height: 200px;
+    margin: 1.5rem auto 0;
+    border: 3px solid var(--border-color);
+
+    @include wide {
+      margin-top: 0;
+      max-height: none;
+      max-width: 350px;
+      margin-left: 2rem;
+    }
+  }
+</style>

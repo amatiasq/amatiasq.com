@@ -1,0 +1,22 @@
+---
+const className = Astro.props['class']
+---
+
+<div class={`container ${className}`}>
+  <slot />
+</div>
+
+<style lang="scss" global>
+  @import '../../styles/mixins.scss';
+
+  .container {
+    max-width: 1000px;
+    padding: 0 1.5rem;
+    margin-left: auto;
+    margin-right: auto;
+
+    @include wide {
+      padding: 0 2rem;
+    }
+  }
+</style>

@@ -1,0 +1,12 @@
+<button data-action="toggle-light-mode">
+  <span class="dark-only">☀️</span>
+  <span class="light-only">🌙</span>
+</button>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () =>
+    document.querySelector('[data-action="toggle-light-mode"]').addEventListener('click', () =>
+      document.body.classList.toggle('light-theme')
+    )
+  );
+</script>
