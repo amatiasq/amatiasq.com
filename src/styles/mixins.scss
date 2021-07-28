@@ -1,10 +1,10 @@
-@mixin dark-theme {
+@mixin dark {
   body:not(.light-theme) {
     @content;
   }
 }
 
-@mixin light-theme {
+@mixin light {
   body.light-theme {
     @content;
   }

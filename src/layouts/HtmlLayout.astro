@@ -1,0 +1,35 @@
+---
+import Navigation from '../components/templates/Navigation.astro';
+
+const { lang, pageTitle } = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{pageTitle}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="stylesheet" href="/reset.css">
+    <link rel="stylesheet" href="/global.css">
+  </head>
+  <body>
+    <Navigation lang={lang} />
+    <main>
+      <slot />
+    </main>
+
+    <style lang="scss">
+      @import '../styles/mixins.scss';
+
+      main {
+        margin-top: 95px;
+
+        @include wide {
+          margin-top: 80px;
+        }
+      }
+    </style>
+  </body>
+</html>

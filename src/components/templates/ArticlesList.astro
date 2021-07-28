@@ -1,0 +1,19 @@
+---
+import Translate from '../atoms/Translate.tsx';
+import Section from '../molecules/Section.astro';
+import ArticleSummary from '../organisms/ArticleSummary.astro';
+
+const { lang, title, viewAllLink, articles } = Astro.props;
+---
+
+<Section
+  lang={lang}
+  title={title}
+  viewAllLink={viewAllLink}
+>
+  <div class="posts">
+    {articles.map(article =>
+      <ArticleSummary lang={lang} article={article} />
+    )}
+  </div>
+</Section>

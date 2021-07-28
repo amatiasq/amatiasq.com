@@ -4,9 +4,23 @@
 </button>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () =>
-    document.querySelector('[data-action="toggle-light-mode"]').addEventListener('click', () =>
-      document.body.classList.toggle('light-theme')
-    )
-  );
+  (() => {
+    const storageKey = 'amatiasq.com/light-theme';
+    const lightTheme = 'light-theme';
+    const button = document.querySelector('[data-action="toggle-light-mode"]');
+
+    button.addEventListener('click', () => {
+      document.body.classList.toggle(lightTheme)
+
+      if (document.body.classList.contains(lightTheme)) {
+        localStorage.setItem(storageKey, 1);
+      } else {
+        localStorage.removeItem(storageKey);
+      }
+    });
+
+    if (localStorage.getItem(storageKey)) {
+      document.body.classList.add(lightTheme)
+    }
+  })()
 </script>

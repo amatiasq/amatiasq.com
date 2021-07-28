@@ -3,18 +3,23 @@ import Container from '../atoms/Container.astro';
 import Translate from '../atoms/Translate.tsx';
 import ThemeSwitcher from '../molecules/ThemeSwitcher.astro';
 
-const { lang } = Astro.props;
+import { DEFAULT_LANGUAGE } from '../../constants';
 
+const { lang } = Astro.props;
+const root = lang === DEFAULT_LANGUAGE ? '/' : lang;
 ---
+
 <nav>
   <Container>
     <div class="grid">
-      <a class="name">A. Matías Quezada</a>
+      <a class="name" href={root}>A. Matías Quezada</a>
+
       <div class="sections">
         <a href="/blog">Blog</a>
         <a href="/projects"><Translate lang={lang} en="Projects" es="Projectos" /></a>
         <a href="/about-me"><Translate lang={lang} en="About me" es="Sobre mi" /></a>
       </div>
+
       <div class="controls">
         { lang !== 'en' ? <a href="/en">🇬🇧</a> : null }
         { lang !== 'es' ? <a href="/es">🇪🇸</a> : null }
@@ -23,6 +28,7 @@ const { lang } = Astro.props;
     </div>
   </Container>
 </nav>
+
 <style lang="scss">
   @import '../../styles/mixins.scss';
 
@@ -37,7 +43,7 @@ const { lang } = Astro.props;
     padding: .5rem 0;
     white-space: nowrap;
 
-    @include dark-theme {
+    @include dark {
       border-bottom: 2px solid rgba(255, 255, 255, 0.1);
     }
 
@@ -63,7 +69,7 @@ const { lang } = Astro.props;
   }
 
   .name {
-    color: var(--fg-primary);
+    color: var(--fg-heading);
     font-family: var(--heading-font-family);
     font-size: 1.5rem;
   }
@@ -87,7 +93,7 @@ const { lang } = Astro.props;
     }
 
     > a {
-      color: var(--navbar-color);
+      color: var(--fg-color);
       font-family: var(--heading-font-family);
       font-weight: 500;
       font-size: .9rem;
@@ -95,9 +101,8 @@ const { lang } = Astro.props;
       line-height: 1;
       margin: 0;
       padding: .5rem .2rem;
-      background: #2d2d31;
+      background: var(--bg-secondary);
       letter-spacing: -.05rem;
-      color: hsla(0,0%,100%,.8);
 
       @include narrow {
         font-size: 1.1rem;

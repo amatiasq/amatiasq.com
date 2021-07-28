@@ -1,0 +1,45 @@
+---
+import HtmlLayout from '../../layouts/HtmlLayout.astro';
+import Container from '../../components/atoms/Container.astro';
+import Translate from '../../components/atoms/Translate.tsx';
+import Header from '../../components/molecules/Header.astro';
+import ArticlesList from '../../components/templates/ArticlesList.astro';
+
+import { DEFAULT_LANGUAGE, PAGE_TITLE } from '../../constants.ts';
+import { cleanAndSort } from '../../util/article';
+
+const { lang = DEFAULT_LANGUAGE } = Astro.props;
+const posts = Astro.fetchContent('../../data/blog/*.md')
+const articlesByYear = {};
+
+cleanAndSort(posts, '/post').forEach(x => {
+  const year = x.date.getFullYear();
+
+  if (articlesByYear[year])
+    articlesByYear[year].push(x);
+  else
+    articlesByYear[year] = [x];
+});
+
+const years = Object.keys(articlesByYear).map(x => parseInt(x, 10)).sort((a, b) => b - a);
+---
+
+<HtmlLayout lang={lang} pageTitle={PAGE_TITLE}>
+  <Header lang={lang}>
+    <h1>Blog</h1>
+    <p>
+      I write about my experiences with JavaScript, React, Redux, and more.
+      This is both as a way to keep myself up to date with the latest technologies and to help newcomers.
+    </p>
+  </Header>
+
+  <Container>
+    {years.map(year => (
+      <ArticlesList
+        lang={lang}
+        title={year}
+        articles={articlesByYear[year]}
+      />
+    ))}
+  </Container>
+</HtmlLayout>
