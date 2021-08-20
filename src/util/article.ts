@@ -12,7 +12,7 @@ export function parseArticle(article: RawArticle, urlPrefix = '') {
   const date = new Date(article.date);
   const year = date.getFullYear();
   const month = padLeft(date.getMonth() + 1);
-  const day = padLeft(date.getDate());
+  // const day = padLeft(date.getDate());
 
   const title = typeof article.title === 'object' ? article.title[DEFAULT_LANGUAGE] : article.title;
   const slug = title.replace(/\W+/g, '-').toLowerCase();
@@ -20,8 +20,8 @@ export function parseArticle(article: RawArticle, urlPrefix = '') {
   return {
     ...article,
     date,
-    url: `${urlPrefix}/${year}/${month}/${day}/${slug}`,
-    urlParams: { year, month, day, slug },
+    url: `${urlPrefix}/${year}/${month}/${slug}`,
+    urlParams: { year, month, slug },
   };
 }
 
