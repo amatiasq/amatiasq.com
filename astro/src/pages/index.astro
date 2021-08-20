@@ -46,7 +46,7 @@ const posts = Astro.fetchContent('../data/blog/*.md')
       lang={lang}
       title={{ en: 'Lastest Articles', es: 'Últimos artículos' }}
       viewAllLink="/blog"
-      articles={getTopArticles(posts, '/post')}
+      articles={getTopArticles(posts, '/blog')}
     />
 
     <!-- <ArticlesList

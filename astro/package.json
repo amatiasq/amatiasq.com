@@ -8,6 +8,6 @@
   },
   "devDependencies": {
     "@astrojs/renderer-react": "^0.2.0",
-    "astro": "^0.18.1"
+    "astro": "^0.18.12"
   }
 }
