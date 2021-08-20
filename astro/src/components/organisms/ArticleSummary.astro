@@ -1,0 +1,45 @@
+---
+import Translate from '../atoms/Translate.tsx';
+import PrintDate from '../atoms/PrintDate.tsx';
+
+const { lang, article: { url, title, date } } = Astro.props;
+---
+
+<div class="article-summary">
+  <a href={url}>
+    <PrintDate lang={lang} date={date} />
+    <h3><Translate lang={lang} value={title} /></h3>
+  </a>
+</div>
+
+<style lang="scss">
+  @import '../../styles/mixins.scss';
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+    padding: 1rem 0;
+    border-bottom: 2px solid var(--bg-secondary);
+    color: var(--fg-color);
+    font-weight: 700;
+
+    @include wide {
+      border-color: transparent;
+    }
+  }
+
+  h3 {
+    flex: 1 1;
+    margin-top: .1rem;
+    margin-bottom: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-decoration: none;
+
+    @include wide {
+      font-size: 1.4rem;
+      letter-spacing: -.02rem;
+    }
+  }
+</style>

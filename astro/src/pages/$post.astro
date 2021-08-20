@@ -1,0 +1,37 @@
+---
+import { Markdown } from 'astro/components';
+import HtmlLayout from '../layouts/HtmlLayout.astro';
+import Container from '../components/atoms/Container.astro';
+import Translate from '../components/atoms/Translate.tsx';
+import Header from '../components/molecules/Header.astro';
+
+import { DEFAULT_LANGUAGE, PAGE_TITLE } from '../constants.ts';
+import { cleanAndSort } from '../util/article.ts';
+
+export async function createCollection() {
+  const rawPosts = Astro.fetchContent('../data/blog/*.md')
+  const posts = cleanAndSort(rawPosts, '/post');
+
+  return {
+    route: '/post/:year/:month/:day/:slug',
+    paths: () => posts.map(post => ({ params: post.urlParams })),
+    props: (x) => ({ post: posts.find(p => p.urlParams.slug === x.params.slug) }),
+  };
+}
+
+const { $scope, post, lang = DEFAULT_LANGUAGE } = Astro.props
+---
+
+<HtmlLayout lang={lang} pageTitle={PAGE_TITLE}>
+  <Header lang={lang}>
+    <h1><Translate lang={lang} value={post.title} /></h1>
+  </Header>
+
+  <Container>
+    <!-- <Markdown content="# Polla" /> -->
+    <!-- <Markdown># Polla</Markdown> -->
+    <div class="markdown-root">
+      {post.astro.html}
+    </div>
+  </Container>
+</HtmlLayout>

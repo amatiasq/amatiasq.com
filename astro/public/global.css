@@ -1,0 +1,60 @@
+body.light-theme .dark-only,
+body:not(.light-theme) .light-only {
+  display: none;
+}
+
+body {
+  --heading-font-family: 'DM Mono', Menlo, monospace;
+  --code-font-family: Menlo, 'DM Mono', 'Roboto Mono', Courier New, monospace;
+
+  --fg-heading: #ffffff;
+  --fg-color: #dfe2e6;
+  --bg-primary: #1d1d1d;
+  --bg-secondary: #2d2d31;
+  --primary: #f9d486;
+  --border-color: #3b3b3b;
+  --subtle-border: rgba(255, 255, 255, 0.1);
+
+  color: var(--fg-color);
+  background: var(--bg-primary);
+}
+
+body.light-theme {
+  --fg-heading: #353a3f;
+  --fg-color: #4a5056;
+  --bg-primary: #ffffff;
+  --bg-secondary: #f2f4f8;
+  --primary: #353a3f;
+  --border-color: #1b1d24;
+  --subtle-border: rgba(255, 255, 255, 0.1);
+}
+
+::selection {
+  background: #3b5bdb;
+  color: #fff;
+}
+
+button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+}
+
+/* prettier-ignore */
+*, :after, :before {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+time {
+  display: block;
+  white-space: nowrap;
+  font-weight: 400;
+  color: #868e96;
+  flex: 0 0 75px;
+  font-size: 0.9rem;
+  font-family: var(--code-font-family);
+}
