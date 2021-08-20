@@ -3,7 +3,6 @@
 
     <head>
         {{ partial "head/metadata.html" . }}
-        {{ if .Site.Params.plausible }}{{ partial "head/plausible.html" . }}{{ end }}
         {{ partial "head/openGraph.html" . }}
         {{ partial "head/favicons.html" . }}
         {{ partial "head/css.html" . }}
@@ -12,9 +11,6 @@
     <body>
         {{ with .Site.GetPage "/home" }}
         <section id="top" class="hero is-{{ .Site.Params.home.introHeight | default "fullheight" }}">
-            <!-- Hero head section to play nice with Bulma -->
-            <div class="hero-head"></div>
-
             <!-- Super sweet Hero body title -->
             <div class="hero-body">
                 <div class="container has-text-centered">

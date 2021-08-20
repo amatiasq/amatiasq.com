@@ -125,7 +125,7 @@
         color: var(--transparent-text);
         background: transparent;
 
-        @include light-theme {
+        @include light {
           color: var(--font-color);
         }
       }

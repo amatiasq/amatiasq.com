@@ -10,9 +10,3 @@
 {{ $bundle := $bundleRaw | toCSS $cssOpts | postCSS $postCSSOpts | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $bundle.RelPermalink }}" integrity="{{ $bundle.Data.Integrity }}" crossorigin="anonymous" media="screen">
 {{ end }}
-
-<!-- Custom css -->
-{{ range .Site.Params.customCSS -}}
-    {{ $style := resources.Get . }}
-    <link rel="stylesheet" href="{{ $style.RelPermalink }}" integrity="{{ $style.Data.Integrity }}" crossorigin="anonymous" media="screen">
-{{- end }}

@@ -1,29 +1,9 @@
-{{ $themeStyle := .Site.Params.themeStyle | default "light" }}
+.abbr
+    display: inline-block
+    max-width: 0.7em
+    overflow: hidden
+    vertical-align: bottom
+    transition: max-width 0.5s ease
 
-{{ if eq $themeStyle "auto" }}
-@import "fonts"
-@import "light-variables"
-@import "base-variables"
-@import "bulma-import"
-@import "fontawesome-import"
-@import "base"
-@import "light-style"
-
-@media (prefers-color-scheme: dark)
-    @import "fonts"
-    @import "dark-variables"
-    @import "base-variables"
-    @import "fontawesome-import"
-    @import "base"
-    @import "dark-style"
-
-{{ else }}
-@import "fonts"
-@import "{{ $themeStyle }}-variables"
-@import "base-variables"
-@import "bulma-import"
-@import "fontawesome-import"
-@import "base"
-@import "{{ $themeStyle }}-style"
-
-{{ end }}
+    h1:hover &
+        max-width: 10em
