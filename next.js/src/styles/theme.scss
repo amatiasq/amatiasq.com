@@ -1,0 +1,5 @@
+@mixin light-theme {
+  body.light-theme {
+    @content;
+  }
+}
