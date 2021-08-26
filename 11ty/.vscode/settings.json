@@ -1,6 +1,7 @@
 {
   "editor.formatOnSave": true,
   "cSpell.words": ["eleventy"],
+  "html.format.indentHandlebars": true,
   "[markdown]": {
     "editor.formatOnSave": false
   }

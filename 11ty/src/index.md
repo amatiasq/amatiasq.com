@@ -1,4 +1,8 @@
-# A. Matías Quezada
+---
+title: A. Matías Quezada
+---
+
+# {{ title }}
 
 ## Blog
 

@@ -6,10 +6,16 @@
   "scripts": {
     "eleventy": "eleventy",
     "clean": "rm -rf dist",
-    "start": "npm run eleventy -- --serve",
+    "watch:eleventy": "npm run eleventy -- --serve",
+    "watch:sass": "sass src/css:dist/css --watch",
+    "start": "concurrently 'npm:watch:*'",
     "build": "npm run clean && npm run eleventy"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1"
+  },
+  "dependencies": {
+    "concurrently": "^6.2.1",
+    "sass": "^1.38.1"
   }
 }
