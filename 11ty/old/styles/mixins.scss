@@ -1,0 +1,23 @@
+@mixin dark {
+  body:not(.light-theme) {
+    @content;
+  }
+}
+
+@mixin light {
+  body.light-theme {
+    @content;
+  }
+}
+
+@mixin narrow {
+  @media (min-width: 650px) {
+    @content;
+  }
+}
+
+@mixin wide {
+  @media (min-width: 800px) {
+    @content;
+  }
+}

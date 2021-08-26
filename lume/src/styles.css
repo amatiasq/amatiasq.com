@@ -1,8 +1,0 @@
-@import './styles/reset.css';
-@import '../node_modules/remixicon/fonts/remixicon.css';
-@import './styles/icon-button.css';
-
-.container {
-  max-width: 50rem;
-  margin: 0 auto;
-}

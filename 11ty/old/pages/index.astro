@@ -1,0 +1,84 @@
+---
+import HtmlLayout from '../layouts/HtmlLayout.astro';
+import Container from '../components/atoms/Container.astro';
+import Translate from '../components/atoms/Translate.tsx';
+import Header from '../components/molecules/Header.astro';
+import ArticlesList from '../components/templates/ArticlesList.astro';
+
+import { DEFAULT_LANGUAGE, PAGE_TITLE } from '../constants.ts';
+import { getTopArticles } from '../util/article';
+
+const { lang = DEFAULT_LANGUAGE } = Astro.props;
+
+const posts = Astro.fetchContent('../data/blog/*.md')
+// const talks = Astro.fetchContent('../data/talks/*.md')
+---
+
+<HtmlLayout lang={lang} pageTitle={PAGE_TITLE}>
+  <Header lang={lang}>
+    <div class="flex">
+      <div>
+        <h1>
+          <Translate
+            lang={lang}
+            en="I'm Matías"
+            es="Soy Matías"
+          />
+        </h1>
+
+        <p>
+          <Translate
+            lang={lang}
+            en="I'm a human who codes. This is my digital garden: a compendium of the things I've learned and created over the years."
+            es="Soy un humano que escribe código. Esto es mi jardín digital: un compendio de las cosas que he aprendido y creado en los años."
+          />
+        </p>
+      </div>
+
+      <div>
+        <img alt="Matias" class="avatar" src="/foto-cropped.png" />
+      </div>
+    </div>
+  </Header>
+
+  <Container>
+    <ArticlesList
+      lang={lang}
+      title={{ en: 'Lastest Articles', es: 'Últimos artículos' }}
+      viewAllLink="/blog"
+      articles={getTopArticles(posts, '/blog')}
+    />
+
+    <!-- <ArticlesList
+      lang={lang}
+      title={{ en: 'Talks', es: 'Charlas' }}
+      viewAllLink="/talks"
+      articles={getTopArticles(talks, '/talk')}
+    /> -->
+  </Container>
+
+  <style lang="scss">
+    @import '../styles/mixins.scss';
+
+    .flex {
+      @include wide {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    .avatar {
+      max-height: 200px;
+      margin: 1.5rem auto 0;
+      border: 3px solid var(--border-color);
+
+      @include wide {
+        margin-top: 0;
+        max-height: none;
+        max-width: 350px;
+        margin-left: 2rem;
+      }
+    }
+  </style>
+</HtmlLayout>

@@ -1,0 +1,134 @@
+---
+import Container from '../atoms/Container.astro';
+import Translate from '../atoms/Translate.tsx';
+import ThemeSwitcher from '../molecules/ThemeSwitcher.astro';
+
+import { DEFAULT_LANGUAGE } from '../../constants';
+
+const { lang } = Astro.props;
+const root = lang === DEFAULT_LANGUAGE ? '/' : lang;
+---
+
+<nav>
+  <Container>
+    <div class="grid">
+      <a class="name" href={root}>A. Matías Quezada</a>
+
+      <div class="sections">
+        <a href="/blog">Blog</a>
+        <a href="/projects"><Translate lang={lang} en="Projects" es="Projectos" /></a>
+        <a href="/about-me"><Translate lang={lang} en="About me" es="Sobre mi" /></a>
+      </div>
+
+      <div class="controls">
+        { lang !== 'en' ? <a href="/en">🇬🇧</a> : null }
+        { lang !== 'es' ? <a href="/es">🇪🇸</a> : null }
+        <ThemeSwitcher />
+      </div>
+    </div>
+  </Container>
+</nav>
+
+<style lang="scss">
+  @import '../../styles/mixins.scss';
+
+  nav {
+    position: fixed;
+    background: var(--bg-primary);
+    width: 100%;
+    top: 0;
+    // left: 0;
+    z-index: 2;
+    box-shadow: 0 3px 13px rgb(100 110 140 / 10%), 0 2px 4px rgb(100 110 140 / 15%);
+    padding: .5rem 0;
+    white-space: nowrap;
+
+    @include dark {
+      border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @include wide {
+      padding: 0;
+      box-shadow: none;
+    }
+  }
+
+  .grid {
+    display: grid;
+
+    @include narrow {
+      grid-template-columns: auto 1fr auto;
+      grid-template-rows: auto;
+      align-items: center;
+      height: 80px;
+    }
+
+    // @include wide {
+    //   grid-template-columns: auto 550px 50px;
+    // }
+  }
+
+  .name {
+    color: var(--fg-heading);
+    font-family: var(--heading-font-family);
+    font-size: 1.5rem;
+  }
+
+  .sections {
+    padding: .25rem 0;
+    display: grid;
+    grid-column: 1/span 2;
+    grid-template-columns: repeat(auto-fit,minmax(50px,1fr));
+    text-align: center;
+    grid-gap: .5rem;
+
+    @include narrow {
+      grid-column: auto;
+      display: flex;
+      justify-self: flex-end;
+    }
+
+    @include wide {
+      grid-gap: .75rem;
+    }
+
+    > a {
+      color: var(--fg-color);
+      font-family: var(--heading-font-family);
+      font-weight: 500;
+      font-size: .9rem;
+      border: 1px solid transparent;
+      line-height: 1;
+      margin: 0;
+      padding: .5rem .2rem;
+      background: var(--bg-secondary);
+      letter-spacing: -.05rem;
+
+      @include narrow {
+        font-size: 1.1rem;
+        padding: 1rem;
+      }
+
+      @include wide {
+        padding: 1rem 1.25rem;
+        font-size: 1.2rem;
+      }
+    }
+  }
+
+  .controls {
+    grid-row: first-line/1;
+    grid-column: 2;
+    align-self: center;
+    display: flex;
+
+    @include narrow {
+      grid-row: auto;
+      grid-column: auto;
+    }
+
+    > a, > button {
+      padding: 1rem;
+    }
+  }
+</style>

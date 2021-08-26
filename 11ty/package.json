@@ -2,20 +2,14 @@
   "name": "amatiasq.com-11ty",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "author": "A. Matías Quezada <amatiasq@gmail.com>",
   "scripts": {
-    "elevently": "ELEVENTY_EXPERIMENTAL=true eleventy",
+    "eleventy": "eleventy",
     "clean": "rm -rf dist",
-    "start": "npm run elevently -- --serve",
-    "build": "npm run clean && npm run elevently"
+    "start": "npm run eleventy -- --serve",
+    "build": "npm run clean && npm run eleventy"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@11ty/eleventy": "^0.12.1"
-  },
-  "dependencies": {
-    "@11ty/eleventy-plugin-vue": "^0.5.0"
   }
 }
