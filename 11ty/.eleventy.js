@@ -10,7 +10,8 @@ module.exports = config => {
   config.addFilter('log', value => console.log(Object.keys(value)));
   config.addFilter('tr', text => (typeof text === 'string' ? text : text[lang]));
 
-  loadModules('./src/_widgets').forEach(module => config.addShortcode(module.name, module.handler(lang)));
+  loadModules('./src/_helpers').forEach(module => config.addShortcode(module.name, module.handler(lang)));
+  loadModules('./src/_widgets').forEach(module => config.addPairedShortcode(module.name, module.handler(lang)));
 
   // config.addShortcode('shortdate', date => `<time>${date.toLocaleDateString(locales[lang], shortDate)}</time>`);
 

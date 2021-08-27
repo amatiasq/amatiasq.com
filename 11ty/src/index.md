@@ -2,10 +2,21 @@
 title: A. Matías Quezada
 ---
 
-# {{ title }}
+<amq-nav />
 
-## Blog
+<amq-header>
 
-{{#each collections.post }}
-- {{{ shortdate data.date }}} [{{data.title}}]({{this.url}})
-{{/each}}
+</amq-header>
+
+
+<section class="container">
+
+  # {{ title }}
+
+  ## Blog
+
+  {{#each collections.post }}
+  - {{{ shortdate data.date }}} [{{data.title}}]({{this.url}})
+  {{/each}}
+
+</section>
