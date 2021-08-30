@@ -23,10 +23,17 @@ module.exports = config => {
     return isHtml && !startsWithDoctype ? `${doctype}${content}` : content;
   });
 
+  // config.addTransform('mdx', (content, outputPath) => {
+  //   const isHtml = outputPath.endsWith('.md');
+  //   const startsWithDoctype = content.trim().toLowerCase().startsWith(doctype);
+
+  //   return isHtml && !startsWithDoctype ? `${doctype}${content}` : content;
+  // });
+
   return {
     // dataTemplateEngine: 'njk',
     // htmlTemplateEngine: 'njk',
-    templateFormats: ['md', 'hbs', '11ty.js'],
+    templateFormats: ['md', 'njk', '11ty.js'],
     markdownTemplateEngine: 'hbs',
     dir: {
       input: 'src',

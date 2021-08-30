@@ -1,22 +1,12 @@
 ---
 title: A. Matías Quezada
+layout: layouts/base.njk
 ---
 
-<amq-nav />
+# {{ title }}
 
-<amq-header>
+## Blog
 
-</amq-header>
-
-
-<section class="container">
-
-  # {{ title }}
-
-  ## Blog
-
-  {{#each collections.post }}
-  - {{{ shortdate data.date }}} [{{data.title}}]({{this.url}})
-  {{/each}}
-
-</section>
+{{#each collections.post }}
+- {{{ shortdate data.date }}} [{{data.title}}]({{this.url}})
+{{/each}}

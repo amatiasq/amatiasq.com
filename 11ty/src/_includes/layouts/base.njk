@@ -5,10 +5,8 @@
     <link rel="stylesheet" href="/css/styles.css" />
   </head>
   <body>
-    <nav>
-      
-    </nav>
-
-    <main>{{ content }}</main>
+    {% include 'parts/nav.njk' %}
+    <main>{{ content | safe }}</main>
+    {% include 'parts/footer.njk' %}
   </body>
 </html>
