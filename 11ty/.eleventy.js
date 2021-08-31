@@ -1,72 +1,75 @@
 const { readdirSync } = require('fs');
 const { join } = require('path');
-const Nunjucks = require('nunjucks');
 
 const lang = process.env.LOCALE || 'en';
-const config = {
-  // dataTemplateEngine: 'njk',
-  // htmlTemplateEngine: 'njk',
-  templateFormats: ['md', 'njk', '11ty.js'],
-  markdownTemplateEngine: 'njk',
-  dir: {
-    input: 'src',
-    output: 'dist',
-  },
-};
 
 module.exports = eleventyConfig => {
   // eleventyConfig.setQuietMode(true);
   eleventyConfig.setBrowserSyncConfig({ files: './dist/css/**/*.css' });
+  eleventyConfig.setLibrary('md', createFullMarkdownLibrary());
 
-  configureNunjucks(eleventyConfig);
-  setLayoutAliases(eleventyConfig);
-  setFiltersAndShortcodes(eleventyConfig);
-  addHtmlTransform(eleventyConfig);
+  const markdown = createMarkdownLibrary();
+  const params = { lang, markdown };
 
-  return config;
+  loadModules('./src/_11ty').forEach(x => x(eleventyConfig, params));
+
+  return {
+    templateFormats: ['md', 'njk', '11ty.js'],
+    markdownTemplateEngine: 'njk',
+    dir: {
+      input: 'src',
+      output: 'dist',
+    },
+  };
 };
 
-function configureNunjucks(eleventyConfig) {
-  const loader = new Nunjucks.FileSystemLoader('src/_includes');
-  const env = new Nunjucks.Environment(loader, {
-    // throwOnUndefined: true,
-    trimBlocks: true,
-    lstripBlocks: true,
-  });
-
-  eleventyConfig.setLibrary('njk', env);
+function loadModules(path) {
+  const dir = join(__dirname, path);
+  return readdirSync(dir)
+    .map(x => x.replace(/\.js$/, ''))
+    .map(x => require(join(dir, x)));
 }
 
-function setLayoutAliases(eleventyConfig) {
-  eleventyConfig.addLayoutAlias('base', 'layouts/base.njk');
-  eleventyConfig.addLayoutAlias('designed', 'layouts/designed.njk');
-  eleventyConfig.addLayoutAlias('post', 'layouts/post.njk');
+function createMarkdownLibrary() {
+  const markdownIt = require('markdown-it');
+
+  return (
+    markdownIt({
+      html: true, // html tag inside source
+      breaks: true, // use '\n' as <br>
+      linkify: true, // Autoconvert URL-like text to links
+    })
+      // ==mark==   to   <mark>mark<mark>
+      .use(require('markdown-it-mark'))
+      // # header {.my-class}   to   <h1 class="my-class">header</h1>
+      .use(require('markdown-it-attrs'), {
+        // use {:} options
+        leftDelimiter: '{:',
+        rightDelimiter: '}',
+      })
+      // [[toc]] generates Table Of Contents
+      .use(require('markdown-it-table-of-contents'))
+      // [ ] or [x] to checkbox
+      .use(require('markdown-it-task-lists'))
+      // ::: container to <div class="container">
+      .use(require('markdown-it-container'), 'container')
+      // [[Ctrl]] to <kbd>Ctrl</kdb>
+      .use(require('markdown-it-kbd'))
+      // ^[Inlines footnotes]
+      .use(require('markdown-it-footnote'))
+  );
+
+  // .use(require('@gerhobbelt/markdown-it-inline-text-color'));
+  // .use(require('markdown-it-emoji'))
+  // .use(require('@iktakahiro/markdown-it-katex'))
 }
 
-function setFiltersAndShortcodes(eleventyConfig) {
-  eleventyConfig.addFilter('log', value => console.log(Object.keys(value)));
-  eleventyConfig.addFilter('tr', text => (typeof text === 'string' ? text : text[lang]));
-
-  loadModules('./src/_helpers').forEach(x => eleventyConfig.addShortcode(x.name, x.handler(lang)));
-  loadModules('./src/_widgets').forEach(x => eleventyConfig.addPairedShortcode(x.name, x.handler(lang)));
-
-  function loadModules(path) {
-    const dir = join(__dirname, path);
-
-    eleventyConfig.addWatchTarget(path);
-
-    return readdirSync(dir)
-      .map(x => x.replace(/\.js$/, ''))
-      .map(x => ({ name: x, ...require(join(dir, x)) }));
-  }
-}
-
-function addHtmlTransform(eleventyConfig) {
-  eleventyConfig.addTransform('add-html-doctype', (content, outputPath) => {
-    const doctype = '<!doctype html>';
-    const isHtml = outputPath.endsWith('.html');
-    const startsWithDoctype = content.trim().toLowerCase().startsWith(doctype);
-
-    return isHtml && !startsWithDoctype ? `${doctype}${content}` : content;
-  });
+function createFullMarkdownLibrary() {
+  // Add anchor links to headers
+  return createMarkdownLibrary();
+  // .use(require('markdown-it-anchor'), {
+  //   permalink: true,
+  //   permalinkClass: 'direct-link',
+  //   permalinkSymbol: '#',
+  // });
 }

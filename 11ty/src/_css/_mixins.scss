@@ -1,11 +1,17 @@
 @mixin dark {
-  body:not(.light-theme) {
+  @media (prefers-color-scheme: dark) {
     @content;
   }
 }
 
 @mixin light {
-  body.light-theme {
+  @media (prefers-color-scheme: light) {
+    @content;
+  }
+}
+
+@mixin small {
+  @media (max-width: 649px) {
     @content;
   }
 }

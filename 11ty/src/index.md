@@ -1,6 +1,6 @@
 ---
 title: A. Matías Quezada
-layout: layouts/base.njk
+layout: base
 ---
 
 # {{ title }}

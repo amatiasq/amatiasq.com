@@ -1,0 +1,42 @@
+@import './_reset';
+@import './_mixins';
+@import './font';
+@import './_icon-button';
+@import './_layout';
+@import '../_includes/parts/nav';
+
+:root {
+  --bg-color: black;
+  --bg-color-highlight: #292929;
+  --color-primary: blue;
+  --font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Roboto', Roboto, Arial, 'Noto Sans',
+    sans-serif, 'Apple Color Emoji', 'Segoe UI', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+body {
+  font-size: 16px;
+  background-color: var(--bg-color);
+  font-family: var(--font-family);
+  margin: 0;
+}
+
+time {
+  font-family: monospace;
+}
+
+.container {
+  max-width: 60rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: transform ease-in 0.2s;
+  transform: rotate(0) scale(1);
+
+  &:hover {
+    transform: rotate(5deg) scale(1.1);
+  }
+}
