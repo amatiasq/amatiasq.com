@@ -7,6 +7,6 @@ layout: layouts/base.njk
 
 ## Blog
 
-{{#each collections.post }}
-- {{{ shortdate data.date }}} [{{data.title}}]({{this.url}})
-{{/each}}
+{% for post in collections.post | reverse %}
+- {% shortdate post.data.date %} [{{post.data.title}}]({{post.url}})
+{% endfor %}

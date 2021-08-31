@@ -1,53 +1,72 @@
 const { readdirSync } = require('fs');
 const { join } = require('path');
+const Nunjucks = require('nunjucks');
 
 const lang = process.env.LOCALE || 'en';
+const config = {
+  // dataTemplateEngine: 'njk',
+  // htmlTemplateEngine: 'njk',
+  templateFormats: ['md', 'njk', '11ty.js'],
+  markdownTemplateEngine: 'njk',
+  dir: {
+    input: 'src',
+    output: 'dist',
+  },
+};
 
-module.exports = config => {
-  // config.setQuietMode(true);
-  config.setBrowserSyncConfig({ files: './dist/css/**/*.css' });
+module.exports = eleventyConfig => {
+  // eleventyConfig.setQuietMode(true);
+  eleventyConfig.setBrowserSyncConfig({ files: './dist/css/**/*.css' });
 
-  config.addFilter('log', value => console.log(Object.keys(value)));
-  config.addFilter('tr', text => (typeof text === 'string' ? text : text[lang]));
+  configureNunjucks(eleventyConfig);
+  setLayoutAliases(eleventyConfig);
+  setFiltersAndShortcodes(eleventyConfig);
+  addHtmlTransform(eleventyConfig);
 
-  loadModules('./src/_helpers').forEach(module => config.addShortcode(module.name, module.handler(lang)));
-  loadModules('./src/_widgets').forEach(module => config.addPairedShortcode(module.name, module.handler(lang)));
+  return config;
+};
 
-  // config.addShortcode('shortdate', date => `<time>${date.toLocaleDateString(locales[lang], shortDate)}</time>`);
+function configureNunjucks(eleventyConfig) {
+  const loader = new Nunjucks.FileSystemLoader('src/_includes');
+  const env = new Nunjucks.Environment(loader, {
+    // throwOnUndefined: true,
+    trimBlocks: true,
+    lstripBlocks: true,
+  });
 
-  config.addTransform('add-html-doctype', (content, outputPath) => {
+  eleventyConfig.setLibrary('njk', env);
+}
+
+function setLayoutAliases(eleventyConfig) {
+  eleventyConfig.addLayoutAlias('base', 'layouts/base.njk');
+  eleventyConfig.addLayoutAlias('designed', 'layouts/designed.njk');
+  eleventyConfig.addLayoutAlias('post', 'layouts/post.njk');
+}
+
+function setFiltersAndShortcodes(eleventyConfig) {
+  eleventyConfig.addFilter('log', value => console.log(Object.keys(value)));
+  eleventyConfig.addFilter('tr', text => (typeof text === 'string' ? text : text[lang]));
+
+  loadModules('./src/_helpers').forEach(x => eleventyConfig.addShortcode(x.name, x.handler(lang)));
+  loadModules('./src/_widgets').forEach(x => eleventyConfig.addPairedShortcode(x.name, x.handler(lang)));
+
+  function loadModules(path) {
+    const dir = join(__dirname, path);
+
+    eleventyConfig.addWatchTarget(path);
+
+    return readdirSync(dir)
+      .map(x => x.replace(/\.js$/, ''))
+      .map(x => ({ name: x, ...require(join(dir, x)) }));
+  }
+}
+
+function addHtmlTransform(eleventyConfig) {
+  eleventyConfig.addTransform('add-html-doctype', (content, outputPath) => {
     const doctype = '<!doctype html>';
     const isHtml = outputPath.endsWith('.html');
     const startsWithDoctype = content.trim().toLowerCase().startsWith(doctype);
 
     return isHtml && !startsWithDoctype ? `${doctype}${content}` : content;
   });
-
-  // config.addTransform('mdx', (content, outputPath) => {
-  //   const isHtml = outputPath.endsWith('.md');
-  //   const startsWithDoctype = content.trim().toLowerCase().startsWith(doctype);
-
-  //   return isHtml && !startsWithDoctype ? `${doctype}${content}` : content;
-  // });
-
-  return {
-    // dataTemplateEngine: 'njk',
-    // htmlTemplateEngine: 'njk',
-    templateFormats: ['md', 'njk', '11ty.js'],
-    markdownTemplateEngine: 'hbs',
-    dir: {
-      input: 'src',
-      output: 'dist',
-    },
-  };
-
-  function loadModules(path) {
-    const dir = join(__dirname, path);
-
-    config.addWatchTarget(path);
-
-    return readdirSync(dir)
-      .map(x => x.replace(/\.js$/, ''))
-      .map(x => ({ name: x, ...require(join(dir, x)) }));
-  }
-};
+}
