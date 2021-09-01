@@ -4,14 +4,13 @@ const { join } = require('path');
 const lang = process.env.LOCALE || 'en';
 
 module.exports = eleventyConfig => {
-  // eleventyConfig.setQuietMode(true);
+  eleventyConfig.setQuietMode(true);
   eleventyConfig.setBrowserSyncConfig({ files: './dist/css/**/*.css' });
   eleventyConfig.setLibrary('md', createFullMarkdownLibrary());
 
   const markdown = createMarkdownLibrary();
-  const params = { lang, markdown };
 
-  loadModules('./src/_11ty').forEach(x => x(eleventyConfig, params));
+  loadConfigDir(eleventyConfig, './src/_11ty', { lang, markdown });
 
   return {
     templateFormats: ['md', 'njk', '11ty.js'],
@@ -23,11 +22,24 @@ module.exports = eleventyConfig => {
   };
 };
 
-function loadModules(path) {
+function loadConfigDir(eleventyConfig, path, params) {
   const dir = join(__dirname, path);
+
+  eleventyConfig.on('beforeWatch', modified => {
+    if (modified.some(filePath => filePath.startsWith(path))) {
+      modified.push('./.eleventy.js');
+    }
+  });
+
   return readdirSync(dir)
     .map(x => x.replace(/\.js$/, ''))
-    .map(x => require(join(dir, x)));
+    .map(x => requireFromDisk(join(dir, x)))
+    .forEach(x => x(eleventyConfig, params));
+
+  function requireFromDisk(path) {
+    delete require.cache[require.resolve(path)];
+    return require(path);
+  }
 }
 
 function createMarkdownLibrary() {
