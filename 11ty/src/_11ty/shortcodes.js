@@ -10,5 +10,12 @@ const locales = {
 };
 
 module.exports = function setShortcodes(eleventyConfig, { lang }) {
-  eleventyConfig.addShortcode('shortdate', date => `<time>${date.toLocaleDateString(locales[lang], shortDate)}</time>`);
+  const shortcodes = {
+    shortdate: date => `<time>${date.toLocaleDateString(locales[lang], shortDate)}</time>`,
+    year: date => (date ? `<time>${date.getFullYear()}</time>` : ''),
+  };
+
+  for (const [name, shortcode] of Object.entries(shortcodes)) {
+    eleventyConfig.addShortcode(name, shortcode);
+  }
 };
