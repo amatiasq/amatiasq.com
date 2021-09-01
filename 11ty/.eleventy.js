@@ -4,13 +4,13 @@ const { join } = require('path');
 const lang = process.env.LOCALE || 'en';
 
 module.exports = eleventyConfig => {
-  eleventyConfig.setQuietMode(true);
-  eleventyConfig.setBrowserSyncConfig({ files: './dist/css/**/*.css' });
-  eleventyConfig.setLibrary('md', createFullMarkdownLibrary());
-
   const markdown = createMarkdownLibrary();
 
   loadConfigDir(eleventyConfig, './src/_11ty', { lang, markdown });
+
+  eleventyConfig.setQuietMode(true);
+  eleventyConfig.setBrowserSyncConfig({ files: './dist/css/**/*.css' });
+  eleventyConfig.setLibrary('md', markdown);
 
   return {
     templateFormats: ['md', 'njk', '11ty.js'],
@@ -63,8 +63,6 @@ function createMarkdownLibrary() {
       .use(require('markdown-it-table-of-contents'))
       // [ ] or [x] to checkbox
       .use(require('markdown-it-task-lists'))
-      // ::: container to <div class="container">
-      .use(require('markdown-it-container'), 'container')
       // [[Ctrl]] to <kbd>Ctrl</kdb>
       .use(require('markdown-it-kbd'))
       // ^[Inlines footnotes]
