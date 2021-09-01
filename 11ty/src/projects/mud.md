@@ -1,5 +1,6 @@
 ---
 key: mud
+date: 2020-10-29
 
 name:
   en: Web MUD client

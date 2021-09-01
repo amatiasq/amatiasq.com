@@ -12,12 +12,12 @@ I'm a software engineer. I'm fucking god so you better adore me. ADORE ME!
 
 ## Blog
 
-{% for post in collections.posts | reverse | limit(5) %}
+{% for post in collections.posts | limit(5) %}
 - {% shortdate post.data.date %} [{{post.data.title}}]({{post.url}})
 {% endfor %}
 
 ## Projects
 
-{% for post in collections.projects | reverse | limit(5) %}
-- [{{post.data.title}}]({{post.url}})
+{% for project in collections.projects | limit(5) %}
+- [{{project.data.name | tr }}]({{project.url}})
 {% endfor %}

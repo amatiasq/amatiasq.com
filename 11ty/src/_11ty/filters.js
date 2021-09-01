@@ -1,4 +1,4 @@
-module.exports = function setFilters(eleventyConfig) {
+module.exports = function setFilters(eleventyConfig, { lang }) {
   eleventyConfig.addFilter('log', value => console.log(Object.keys(value)));
 
   eleventyConfig.addFilter('tr', text => (typeof text === 'string' ? text : text[lang]));
