@@ -9,6 +9,7 @@ module.exports = eleventyConfig => {
   loadConfigDir(eleventyConfig, './src/_11ty', { lang, markdown });
 
   eleventyConfig.setQuietMode(true);
+  eleventyConfig.addPassthroughCopy('assets');
   eleventyConfig.setBrowserSyncConfig({ files: './dist/css/**/*.css' });
   eleventyConfig.setLibrary('md', markdown);
 

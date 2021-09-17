@@ -1,22 +1,17 @@
-@import './_reset';
-@import './_mixins';
-@import './font';
-@import './_icon-button';
-@import './_layout';
-@import '../_includes/parts/nav';
-
-:root {
-  --bg-color: black;
-  --bg-color-highlight: #292929;
-  --color-primary: blue;
-  --font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Roboto', Roboto, Arial, 'Noto Sans',
-    sans-serif, 'Apple Color Emoji', 'Segoe UI', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-}
+@import './0_mixins';
+@import './0_variables';
+@import './0_variables_dark';
+@import './1_font';
+@import './2_layout';
+@import './3_icon-button';
+@import './4_nav';
 
 body {
-  background-color: var(--bg-color);
-  font-size: 16px;
+  color: var(--font-color);
+  background-color: var(--navbar-color);
   font-family: var(--font-family);
+  font-size: 16px;
+  min-height: 100vh;
   margin: 0;
 }
 
@@ -31,7 +26,7 @@ time {
 }
 
 a {
-  color: var(--color-primary);
+  color: var(--primary);
   text-decoration: none;
   transition: transform ease-in 0.2s;
   transform: rotate(0) scale(1);

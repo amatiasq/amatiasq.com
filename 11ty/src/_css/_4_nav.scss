@@ -1,0 +1,46 @@
+.navbar {
+  background-color: var(--bg-color-highlight);
+  padding: 1.5rem 0;
+  font-size: 1.4rem;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+
+    @include small {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 1rem;
+    }
+
+    @include narrow {
+      align-items: center;
+    }
+  }
+
+  ul {
+    // flex: 1;
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    font-size: 1.1rem;
+
+    @include narrow {
+      gap: 1rem;
+    }
+
+    a {
+      // font-weight: bold;
+      padding: 0.3em 0.5em;
+      background-color: var(--light-background);
+
+      &:hover {
+        background-color: var(--light-background-hover);
+      }
+
+      @include narrow {
+        padding: 0.6em 1.2em;
+      }
+    }
+  }
+}
