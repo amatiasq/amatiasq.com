@@ -1,0 +1,42 @@
+@import './tools/mixins.scss';
+@import './tools/variables.scss';
+@import './tools/variables_dark.scss';
+@import './base/reset.scss';
+@import './base/font.scss';
+@import './base/layout.scss';
+@import './components/icon-button.scss';
+@import './partials/nav.scss';
+
+body {
+  color: var(--font-color);
+  background-color: var(--navbar-color);
+  font-family: var(--font-family);
+  font-size: 16px;
+  min-height: 100vh;
+  margin: 0;
+}
+
+time {
+  font-family: monospace;
+}
+
+.container {
+  max-width: 60rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: transform ease-in 0.2s;
+  transform: rotate(0) scale(1);
+
+  &:hover {
+    transform: rotate(5deg) scale(1.1);
+  }
+}
+
+section {
+  margin: 2rem 0;
+}
