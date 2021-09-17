@@ -1,9 +1,6 @@
 {
   "scripts": {
-    "start": "charge serve pages",
-    "build": "charge build pages dist"
-  },
-  "devDependencies": {
-    "@static/charge": "^1.7.0"
+    "start": "DEBUG=true node ./charge/cli.js serve pages",
+    "build": "node ./charge/cli.js build pages dist"
   }
 }
