@@ -2,7 +2,7 @@ import { assertEquals } from 'https://deno.land/std/testing/asserts.ts';
 
 import { build } from '../lib/build.ts';
 import { Logger, LogLevel } from '../lib/Logger.ts';
-import { MockedFs, MockedWorkdir } from '../lib/Workdir.ts';
+import { MockedFs, MockedWorkdir } from './WorkdirMock.ts';
 
 test('Build should copy unknown files', { foo: 'bar' });
 test('Build should copy html files', { 'index.html': 'bar' });

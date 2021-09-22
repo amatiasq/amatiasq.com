@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "start": "npm run test:watch",
+    "run": "deno run --allow-read=.  mod.ts  build . bar  --dir a",
+    "run:watch": "denon run --allow-read=.  mod.ts  build . bar  --dir a",
+    "test": "deno test --allow-read=.",
+    "test:watch": "denon test --allow-read=."
+  },
+  "dependencies": {
+    "@mdx-js/mdx": "^1.6.22"
+  }
+}
