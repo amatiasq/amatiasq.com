@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "install": "deno run -A https://deno.land/x/lume/install.ts",
+    "build": "lume --src src/pages --dest dist",
+    "start": "npm run build -- --serve"
+  }
+}

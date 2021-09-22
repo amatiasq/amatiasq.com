@@ -1,5 +1,9 @@
 import { expandGlobSync } from 'https://deno.land/std@0.107.0/fs/expand_glob.ts';
-import { extname, join } from 'https://deno.land/std@0.107.0/path/mod.ts';
+import {
+  dirname,
+  extname,
+  join
+} from 'https://deno.land/std@0.107.0/path/mod.ts';
 
 export class Workdir {
   constructor(readonly inputPath: string, readonly outputPath: string) {}
@@ -9,11 +13,7 @@ export class Workdir {
 
     return Array.from(expandGlobSync(glob))
       .filter(x => !x.isDirectory)
-      .map(x => new WorkdirFile(x.path));
-  }
-
-  read(file: WorkdirFile) {
-    return Deno.readTextFile(file.path);
+      .map(x => new WorkdirFile(x.path, () => Deno.readTextFile(x.path)));
   }
 
   write(filePath: string, content: string) {
@@ -26,30 +26,13 @@ export class WorkdirFile {
     return extname(this.path).substr(1);
   }
 
-  constructor(readonly path: string) {}
-}
-
-// Mock
-
-export type MockedFs = Record<string, string>;
-
-export class MockedWorkdir implements Workdir {
-  readonly output: MockedFs = {};
-  readonly inputPath = 'inputPath';
-  readonly outputPath = 'outputPath';
-
-  constructor(private readonly files: MockedFs) {}
-
-  list(): WorkdirFile[] {
-    return Object.keys(this.files).map(x => new WorkdirFile(x));
+  get dir() {
+    return dirname(this.path);
   }
 
-  read(file: WorkdirFile): Promise<string> {
-    return Promise.resolve(this.files[file.path]);
-  }
+  constructor(readonly path: string, readonly read: () => Promise<string>) {}
 
-  write(filePath: string, content: string): Promise<void> {
-    this.output[filePath] = content;
-    return Promise.resolve();
+  removeExtension() {
+    return this.path.substr(0, this.path.length - this.ext.length);
   }
 }
