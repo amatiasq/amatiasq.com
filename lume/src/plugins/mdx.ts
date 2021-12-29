@@ -7,7 +7,7 @@ import { isPlainObject } from 'lume/core/utils.ts';
 async function mdxLoader(path: string) {
   const content = await Deno.readTextFile(path);
   const jsx = await mdx(content);
-  const mod = await import(`data:base64,${btoa(jsx)}`);
+  const mod = await loadModuleFromString(path, jsx);
   const data: Data = {};
 
   for (const [name, value] of Object.entries(mod)) {
@@ -31,4 +31,13 @@ export default function () {
     const processor = new JsxEngine();
     site.loadPages(['.mdx'], mdxLoader, processor);
   };
+}
+
+async function loadModuleFromString(path: string, module: string) {
+  const random = Math.round(Math.random() * 1_000_000);
+  const tmpPath = `${path}.${random}.tsx`;
+  await Deno.writeTextFile(tmpPath, module);
+  const mod = import(tmpPath);
+  // await Deno.remove(tmpPath);
+  return mod;
 }

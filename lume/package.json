@@ -1,7 +1,8 @@
 {
   "scripts": {
     "install": "deno run -A https://deno.land/x/lume/install.ts",
-    "build": "lume --src src/pages --dest dist",
+    "lume": "deno run -A --unstable --import-map .vscode/lume_import_map.json /Users/amatiasq/repos/lume/cli.ts",
+    "build": "npm run lume -- --src src/pages --dest dist",
     "start": "npm run build -- --serve"
   }
 }

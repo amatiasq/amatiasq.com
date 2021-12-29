@@ -4,37 +4,23 @@
     {
       "request": "launch",
       "type": "pwa-node",
-      "program": "https:/deno.land/x/lume@v1.1.0/cli.ts",
+      "program": "/Users/amatiasq/repos/lume/cli.ts",
       "cwd": "${workspaceFolder}",
       "runtimeExecutable": "deno",
-      "runtimeArgs": [
-        "run",
-        "--unstable",
-        "--import-map=.vscode/lume_import_map.json",
-        "--inspect",
-        "--allow-all"
-      ],
+      "runtimeArgs": ["run", "--unstable", "--import-map=.vscode/lume_import_map.json", "--inspect", "--allow-all"],
       "attachSimplePort": 9229,
       "name": "Lume build"
     },
     {
       "request": "launch",
       "type": "pwa-node",
-      "program": "https:/deno.land/x/lume@v1.1.0/cli.ts",
+      "program": "/Users/amatiasq/repos/lume/cli.ts",
       "cwd": "${workspaceFolder}",
       "runtimeExecutable": "deno",
-      "runtimeArgs": [
-        "run",
-        "--unstable",
-        "--import-map=.vscode/lume_import_map.json",
-        "--inspect",
-        "--allow-all"
-      ],
+      "runtimeArgs": ["run", "--unstable", "--import-map=.vscode/lume_import_map.json", "--inspect", "--allow-all"],
       "attachSimplePort": 9229,
       "name": "Lume serve",
-      "args": [
-        "--serve"
-      ]
+      "args": ["--serve"]
     }
   ]
 }
