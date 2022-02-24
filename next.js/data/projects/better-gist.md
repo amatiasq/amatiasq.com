@@ -1,19 +1,17 @@
 ---
 key: better-gist
-
-name:
-  en: Better Gist
-  es: Better Gist
+date: 2021-02-04
+name: Better Gist
 
 links:
   live: https://gist.amatiasq.com/
   github: https://github.com/amatiasq/np/
   video: https://youtu.be/GO97zFLc8T0
 
-tags:
+labels:
   - Typescript
   - React
-  - Progressive Web Application (PWA
+  - Progressive Web Application (PWA)
   - Page Visibility API
   - OAuth
 ---

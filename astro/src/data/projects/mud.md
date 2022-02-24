@@ -1,5 +1,6 @@
 ---
 key: mud
+date: 2020-10-29
 
 name:
   en: Web MUD client
@@ -9,7 +10,7 @@ links:
   live: https://amatiasq.github.io/mud/
   github: https://github.com/amatiasq/mud/
 
-tags:
+labels:
   - Typescript
   - Preact
   - WebSockets

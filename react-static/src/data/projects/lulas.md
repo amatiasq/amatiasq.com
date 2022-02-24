@@ -1,5 +1,6 @@
 ---
 key: lulas
+date: 2011-01-01
 
 name:
   en: Lulas (cell simulation)
@@ -10,7 +11,7 @@ links:
   github: https://github.com/amatiasq/lulas/
   tests: https://coveralls.io/github/amatiasq/lulas
 
-tags:
+labels:
   - TDD
   - Typescript
   - Canvas
