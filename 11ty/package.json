@@ -1,31 +1,27 @@
 {
-  "name": "amatiasq.com-11ty",
-  "author": "A. Matías Quezada <amatiasq@gmail.com>",
+  "name": "amatiasq.com",
   "scripts": {
-    "eleventy": "eleventy",
-    "clean": "rm -rf dist",
-    "watch:eleventy": "npm run eleventy -- --serve",
-    "watch:sass": "sass src/_css:dist/css --watch",
-    "startb": "npm run eleventy -- --serve",
-    "start": "concurrently 'npm:watch:*'",
-    "build": "npm run clean && npm run eleventy"
+    "clean": "rm -rf out",
+    "build": "npm-run-all clean build:ts copy:md build:11ty",
+    "start": "NODE_ENV=dev npm-run-all clean build:ts copy:md -p start:*",
+    "copy:md": "cp -r data/* out/js",
+    "build:ts": "tsc --outDir out/js",
+    "start:ts": "npm run build:ts -- --watch",
+    "build:11ty": "npm run eleventy",
+    "start:11ty": "npm run eleventy -- --serve --watch",
+    "eleventy": "ELEVENTY_EXPERIMENTAL=true eleventy"
   },
   "dependencies": {
-    "@11ty/eleventy": "^0.12.1",
-    "concurrently": "^6.2.1",
-    "sass": "^1.38.1"
+    "@emotion/react": "^11.8.1",
+    "@emotion/styled": "^11.8.1",
+    "emotion-reset": "^3.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@iktakahiro/markdown-it-katex": "^4.0.1",
-    "markdown-it": "^10.0.0",
-    "markdown-it-anchor": "^8.3.0",
-    "markdown-it-attrs": "^4.0.0",
-    "markdown-it-container": "^3.0.0",
-    "markdown-it-emoji": "^2.0.0",
-    "markdown-it-footnote": "^3.0.3",
-    "markdown-it-kbd": "^2.2.2",
-    "markdown-it-mark": "^3.0.1",
-    "markdown-it-table-of-contents": "^0.5.2",
-    "markdown-it-task-lists": "^2.1.1"
+    "@11ty/eleventy": "^1.0.0",
+    "@types/react-dom": "^17.0.11",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^4.5.5"
   }
 }

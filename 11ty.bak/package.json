@@ -1,0 +1,31 @@
+{
+  "name": "amatiasq.com-11ty",
+  "author": "A. Matías Quezada <amatiasq@gmail.com>",
+  "scripts": {
+    "eleventy": "eleventy",
+    "clean": "rm -rf dist",
+    "watch:eleventy": "npm run eleventy -- --serve",
+    "watch:sass": "sass src/_css:dist/css --watch",
+    "startb": "npm run eleventy -- --serve",
+    "start": "concurrently 'npm:watch:*'",
+    "build": "npm run clean && npm run eleventy"
+  },
+  "dependencies": {
+    "@11ty/eleventy": "^0.12.1",
+    "concurrently": "^6.2.1",
+    "sass": "^1.38.1"
+  },
+  "devDependencies": {
+    "@iktakahiro/markdown-it-katex": "^4.0.1",
+    "markdown-it": "^10.0.0",
+    "markdown-it-anchor": "^8.3.0",
+    "markdown-it-attrs": "^4.0.0",
+    "markdown-it-container": "^3.0.0",
+    "markdown-it-emoji": "^2.0.0",
+    "markdown-it-footnote": "^3.0.3",
+    "markdown-it-kbd": "^2.2.2",
+    "markdown-it-mark": "^3.0.1",
+    "markdown-it-table-of-contents": "^0.5.2",
+    "markdown-it-task-lists": "^2.1.1"
+  }
+}
