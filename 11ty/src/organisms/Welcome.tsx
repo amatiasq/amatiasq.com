@@ -7,6 +7,7 @@ import { container } from '../styles';
 const Header = styled.header`
   ${container}
   margin-top: 3em;
+  width: auto;
 `;
 
 export function Welcome() {

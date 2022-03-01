@@ -8,6 +8,13 @@ const pages = {
   '/about': 'About me',
 };
 
+const Background = styled.header`
+  background-color: hsla(240, 17%, 99%, 0.97);
+  border-bottom: 0.0625em solid #fff;
+  box-shadow: 0 0.25em 0 hsl(0deg 0% 0% / 5%);
+  color: black;
+`;
+
 const Nav = styled.nav`
   ${container}
   display: flex;
@@ -19,16 +26,18 @@ const H1 = styled.h1``;
 
 export function Navigation() {
   return (
-    <Nav>
-      <H1>
-        <Matias fixedSize />
-      </H1>
+    <Background>
+      <Nav>
+        <H1>
+          <Matias fixedSize />
+        </H1>
 
-      {Object.entries(pages).map(([url, name]) => (
-        <Link key={url} href={url}>
-          {name}
-        </Link>
-      ))}
-    </Nav>
+        {Object.entries(pages).map(([url, name]) => (
+          <Link key={url} href={url}>
+            {name}
+          </Link>
+        ))}
+      </Nav>
+    </Background>
   );
 }
