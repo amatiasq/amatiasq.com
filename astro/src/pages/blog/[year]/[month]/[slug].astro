@@ -1,25 +1,23 @@
 ---
 import { Markdown } from 'astro/components';
-import HtmlLayout from '../layouts/HtmlLayout.astro';
-import Container from '../components/atoms/Container.astro';
-import Translate from '../components/atoms/Translate.tsx';
-import Header from '../components/molecules/Header.astro';
+// import HtmlLayout from '../layouts/HtmlLayout.astro';
+// import Container from '../components/atoms/Container.astro';
+// import Translate from '../components/atoms/Translate.tsx';
+// import Header from '../components/molecules/Header.astro';
 
-import { DEFAULT_LANGUAGE, PAGE_TITLE } from '../constants.ts';
-import { cleanAndSort } from '../util/article.ts';
+import { DEFAULT_LANGUAGE } from '../../../../constants.ts';
+import { cleanAndSort, ArticleFrontmatter } from '../../../../util/article.ts';
 
 export async function getStaticPaths() {
-  const posts = cleanAndSort(Astro.fetchContent('../data/blog/*.md'), '/blog');
-
-  return posts.map(post => ({
-    params: post.urlParams
-    props: { post }
-  }))
+  const files = await Astro.glob<ArticleFrontmatter>('../../../../data/blog/*.md');
+  const posts = cleanAndSort(files, '/blog');
+  return posts.map(post => ({ params: post.urlParams, props: { post } }));
 }
 
-const { $scope, post, lang = DEFAULT_LANGUAGE } = Astro.props
+const { post, lang = DEFAULT_LANGUAGE } = Astro.props
 
 const content = '# test'
+
 ---
 
 <Markdown content={content}/>

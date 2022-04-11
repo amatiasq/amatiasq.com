@@ -3,7 +3,7 @@ title: Hello World!
 date: 2011-12-07
 ---
 
-```c++
+```cpp
 int main(char** args) {
     print("Hello World!");
     return 0;

@@ -1,38 +1,41 @@
+import { MarkdownInstance } from 'astro';
 import { TranslatableString } from '../components/atoms/Translate';
 import { DEFAULT_LANGUAGE } from '../constants';
 
-interface RawArticle {
+export interface ArticleFrontmatter {
   date: string;
   title: TranslatableString;
 }
 
+type ArticleFile = MarkdownInstance<ArticleFrontmatter>;
+
 export type Article = ReturnType<typeof parseArticle>;
 
-export function parseArticle(article: RawArticle, urlPrefix = '') {
-  const date = new Date(article.date);
-  const year = date.getFullYear();
-  const month = padLeft(date.getMonth() + 1);
-  const day = padLeft(date.getDate());
+const pad = (value: number) => value.toString().padStart(2, '0');
 
-  const title = typeof article.title === 'object' ? article.title[DEFAULT_LANGUAGE] : article.title;
+export function parseArticle(article: ArticleFile, urlPrefix = '') {
+  const { frontmatter } = article;
+  const date = new Date(frontmatter.date);
+  const year = date.getFullYear().toString();
+  const month = pad(date.getMonth() + 1);
+  // const day = pad(date.getDate());
+
+  const title = typeof frontmatter.title === 'object' ? frontmatter.title[DEFAULT_LANGUAGE] : frontmatter.title;
   const slug = title.replace(/\W+/g, '-').toLowerCase();
 
   return {
-    ...article,
+    ...frontmatter,
+    // x: article.file,
     date,
-    url: `${urlPrefix}/${year}/${month}/${day}/${slug}`,
-    urlParams: { year, month, day, slug },
+    url: `${urlPrefix}/${year}/${month}/${slug}`,
+    urlParams: { year, month, slug },
   };
 }
 
-export function cleanAndSort(articles: RawArticle[], urlPrefix = '') {
+export function cleanAndSort(articles: ArticleFile[], urlPrefix = '') {
   return articles.map(x => parseArticle(x, urlPrefix)).sort((a, b) => Number(b.date) - Number(a.date));
 }
 
-export function getTopArticles(articles: RawArticle[], urlPrefix = '', max = 5) {
+export function getTopArticles(articles: ArticleFile[], urlPrefix = '', max = 5) {
   return cleanAndSort(articles, urlPrefix).slice(0, max);
-}
-
-function padLeft(value: number) {
-  return value < 10 ? `0${value}` : value;
 }

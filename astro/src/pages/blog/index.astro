@@ -1,15 +1,15 @@
 ---
 import HtmlLayout from '../../layouts/HtmlLayout.astro';
 import Container from '../../components/atoms/Container.astro';
-import Translate from '../../components/atoms/Translate.tsx';
+// import Translate from '../../components/atoms/Translate.tsx';
 import Header from '../../components/molecules/Header.astro';
 import ArticlesList from '../../components/templates/ArticlesList.astro';
 
 import { DEFAULT_LANGUAGE, PAGE_TITLE } from '../../constants.ts';
-import { cleanAndSort } from '../../util/article';
+import { cleanAndSort, ArticleFrontmatter } from '../../util/article';
 
 const { lang = DEFAULT_LANGUAGE } = Astro.props;
-const posts = Astro.fetchContent('../../data/blog/*.md')
+const posts = await Astro.glob<ArticleFrontmatter>('../../data/blog/*.md')
 const articlesByYear = {};
 
 cleanAndSort(posts, '/post').forEach(x => {

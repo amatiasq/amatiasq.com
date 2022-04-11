@@ -7,7 +7,10 @@
     "build": "astro build"
   },
   "devDependencies": {
-    "@astrojs/renderer-react": "^0.2.0",
-    "astro": "^0.18.12"
+    "@astrojs/react": "^0.1.0",
+    "astro": "^1.0.0-beta.7",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "sass": "^1.50.0"
   }
 }

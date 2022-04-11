@@ -13,6 +13,9 @@ const Background = styled.header`
   border-bottom: 0.0625em solid #fff;
   box-shadow: 0 0.25em 0 hsl(0deg 0% 0% / 5%);
   color: black;
+
+  @media (min-width: 600px) {
+  }
 `;
 
 const Nav = styled.nav`
