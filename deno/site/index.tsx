@@ -6,7 +6,7 @@ import { AmqHeader } from '../components/AmqHeader.tsx';
 export default (props: any) => {
   return (
     <AmqDocument title="A. Matías Quezada" {...props}>
-      <AmqHeader>A. Matías Quezada</AmqHeader>
+      <AmqHeader />
     </AmqDocument>
   );
 };
