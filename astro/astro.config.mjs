@@ -7,6 +7,7 @@ export default defineConfig({
   srcDir: './src',
   publicDir: './public',
   outDir: './dist',
+  base: '/',
   integrations: [react()],
   vite: { ssr: false },
   experimental: { ssr: false },
