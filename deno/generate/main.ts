@@ -1,8 +1,8 @@
-import { FunctionComponent } from 'react';
 import { dirname } from 'path';
 import { getFilesRecursively } from './getFilesRecursively.ts';
 import { getDestFile } from './getDestFile.ts';
-import { render } from './render.tsx';
+import { isMd, renderMd } from './render-md.tsx';
+import { isTsx, renderTsx } from './render-tsx.tsx';
 
 const { fromRoot, relative } = path();
 const source = fromRoot('./site');
@@ -17,9 +17,15 @@ for (const file of await getFilesRecursively(source)) {
   const dest = getDestFile(source, target, file);
   console.log(`Generating ${relative(file)} -> ${relative(dest)}`);
 
-  const mod = await import(file);
-  const Page = validateModule(file, mod);
-  const html = render(Page, {});
+  let html: string;
+
+  if (isTsx(file)) {
+    html = await renderTsx(file, {});
+  } else if (isMd(file)) {
+    html = await renderMd(file, {});
+  } else {
+    throw new Error(`Unkown handler for ${relative(file)}`);
+  }
 
   await Deno.mkdir(dirname(dest), { recursive: true });
   await Deno.writeTextFile(dest, html);
@@ -34,19 +40,4 @@ function path() {
   const fromRoot = (path: string) => new URL(path, root).pathname;
   const relative = (path: string) => `./${path.replace(root.pathname, '')}`;
   return { fromRoot, relative };
-}
-
-// deno-lint-ignore no-explicit-any
-function validateModule<T extends { default: FunctionComponent<any> }>(file: string, module: T) {
-  const Page = module.default;
-
-  if (!Page) {
-    throw new Error(`Page ${relative(file)} doesn't have default export!`);
-  }
-
-  if (typeof Page !== 'function') {
-    throw new Error(`Page ${relative(file)} doesn't export a function component`);
-  }
-
-  return Page;
 }
