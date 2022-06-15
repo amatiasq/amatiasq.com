@@ -2,6 +2,8 @@ import { flush, cache } from '@emotion/css';
 import { extname } from 'path';
 import React, { FunctionComponent } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
+import { LangProvider } from '../components/Lang.tsx';
+import { PageProps } from './PageProps.ts';
 
 // HACK: this is necessary for emotion to work
 (globalThis as any).document = undefined;
@@ -11,11 +13,16 @@ export function isTsx(file: string) {
   return extension === '.ts' || extension === '.tsx';
 }
 
-export async function renderTsx<P>(file: string, props: P) {
+export async function renderTsx<P extends PageProps>(file: string, props: P) {
   const mod = await import(file);
   const Page = validateModule(file, mod);
 
-  const html = renderToStaticMarkup(<Page {...props} />);
+  const html = renderToStaticMarkup(
+    <LangProvider value={props.lang}>
+      <Page {...props} />
+    </LangProvider>,
+  ).replace(/<script><\/script>/g, '');
+
   const css = Object.values(cache.inserted);
   const htmlWithStyles = html.replace('STYLES_PLACEHOLDER', css.join('\n'));
 

@@ -3,10 +3,11 @@ export async function getFilesRecursively(currentPath: string) {
 
   for await (const dirEntry of Deno.readDir(currentPath)) {
     const entryPath = `${currentPath}/${dirEntry.name}`;
-    names.push(entryPath);
 
     if (dirEntry.isDirectory) {
-      names.push(...(await getFilesRecursively(entryPath)));
+      names.push(...(await getFilesRecursively(entryPath)).sort());
+    } else {
+      names.push(entryPath);
     }
   }
 

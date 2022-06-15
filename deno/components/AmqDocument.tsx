@@ -2,10 +2,9 @@ import React from 'react';
 
 export interface AmqDocumentProps {
   title: string;
-  styles: string;
 }
 
-export function AmqDocument({ title, styles, children }: React.PropsWithChildren<AmqDocumentProps>) {
+export function AmqDocument({ title, children }: React.PropsWithChildren<AmqDocumentProps>) {
   return (
     <html lang="en">
       <head>

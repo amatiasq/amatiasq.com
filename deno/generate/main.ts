@@ -3,35 +3,51 @@ import { getFilesRecursively } from './getFilesRecursively.ts';
 import { getDestFile } from './getDestFile.ts';
 import { isMd, renderMd } from './render-md.tsx';
 import { isTsx, renderTsx } from './render-tsx.tsx';
+import { Language } from '../components/Lang.tsx';
 
 const { fromRoot, relative } = path();
 const source = fromRoot('./site');
 const target = fromRoot('./dist');
 
-try {
-  await Deno.remove(target, { recursive: true });
-  // deno-lint-ignore no-empty
-} catch {}
+const [, sources] = await Promise.all([
+  // multiline
+  recursivelyRemoveDir(target),
+  getFilesRecursively(source),
+]);
 
-for (const file of await getFilesRecursively(source)) {
-  const dest = getDestFile(source, target, file);
-  console.log(`Generating ${relative(file)} -> ${relative(dest)}`);
-
-  let html: string;
-
-  if (isTsx(file)) {
-    html = await renderTsx(file, {});
-  } else if (isMd(file)) {
-    html = await renderMd(file, {});
-  } else {
-    throw new Error(`Unkown handler for ${relative(file)}`);
-  }
-
-  await Deno.mkdir(dirname(dest), { recursive: true });
-  await Deno.writeTextFile(dest, html);
-}
+await Promise.all([
+  // multiline
+  generate(sources, 'en', '/en'),
+  generate(sources, 'es', '/es'),
+  generate(sources, 'en'),
+]);
 
 console.log('Done');
+
+// EXECUTION END
+
+async function generate(sources: string[], lang: Language, path = '') {
+  const props = { lang };
+
+  for (const file of sources) {
+    const dist = getDestFile(source, `${target}${path}`, file);
+
+    console.log(`Generating ${relative(file)} -> ${relative(dist)}`);
+
+    let html: string;
+
+    if (isTsx(file)) {
+      html = await renderTsx(file, props);
+    } else if (isMd(file)) {
+      html = await renderMd(file, props);
+    } else {
+      throw new Error(`Unkown handler for ${relative(file)}`);
+    }
+
+    await Deno.mkdir(dirname(dist), { recursive: true });
+    await Deno.writeTextFile(dist, html);
+  }
+}
 
 // HELPERS
 
@@ -40,4 +56,11 @@ function path() {
   const fromRoot = (path: string) => new URL(path, root).pathname;
   const relative = (path: string) => `./${path.replace(root.pathname, '')}`;
   return { fromRoot, relative };
+}
+
+async function recursivelyRemoveDir(dir: string) {
+  try {
+    await Deno.remove(dir, { recursive: true });
+    // deno-lint-ignore no-empty
+  } catch {}
 }
