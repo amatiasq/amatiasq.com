@@ -1,3 +1,4 @@
-import { React } from '../deps.ts';
+import React from 'react';
+import { AmqHeader } from '../components/AmqHeader.tsx';
 
-export default () => <div>POTATO</div>;
+export default () => <AmqHeader>POTATO</AmqHeader>;

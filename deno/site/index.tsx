@@ -1,6 +1,12 @@
-import { React } from '../deps.ts';
-import { AmqDocument } from '../src/AmqDocument.tsx';
+import React from 'react';
 
-export default () => {
-  return <AmqDocument title="A. Matías Quezada" />;
+import { AmqDocument } from '../components/AmqDocument.tsx';
+import { AmqHeader } from '../components/AmqHeader.tsx';
+
+export default (props: any) => {
+  return (
+    <AmqDocument title="A. Matías Quezada" {...props}>
+      <AmqHeader>A. Matías Quezada</AmqHeader>
+    </AmqDocument>
+  );
 };

@@ -1,10 +1,11 @@
-import { React } from '../deps.ts';
+import React from 'react';
 
 export interface AmqDocumentProps {
   title: string;
+  styles: string;
 }
 
-export function AmqDocument({ title, children }: React.PropsWithChildren<AmqDocumentProps>) {
+export function AmqDocument({ title, styles, children }: React.PropsWithChildren<AmqDocumentProps>) {
   return (
     <html lang="en">
       <head>
@@ -12,6 +13,7 @@ export function AmqDocument({ title, children }: React.PropsWithChildren<AmqDocu
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>{title}</title>
+        <style>STYLES_PLACEHOLDER</style>
       </head>
       <body>{children}</body>
     </html>
