@@ -1,14 +1,3 @@
 {
-  "include": [
-    "components/**/*.ts",
-    "components/**/*.tsx",
-    "generate/**/*.ts",
-    "generate/**/*.tsx",
-    "site/**/*.ts",
-    "site/**/*.tsx",
-    "templates/**/*.ts",
-    "templates/**/*.tsx",
-  ],
-  "compilerOptions": {
-  }
+  "include": [ "src/**/*.ts", "src/**/*.tsx" ],
 }
