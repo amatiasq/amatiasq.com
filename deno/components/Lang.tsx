@@ -12,10 +12,10 @@ const LangContext = React.createContext<Language>('en');
 
 export const LangProvider = LangContext.Provider;
 
-export type AmqText = Record<string, string> | string;
+export type Translatable = Record<Language, string> | string[] | string;
 
 export interface LangProps {
-  tr: AmqText;
+  tr: Translatable;
 }
 
 export function Lang({ tr }: LangProps) {

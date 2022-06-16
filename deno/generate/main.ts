@@ -30,6 +30,10 @@ async function generate(sources: string[], lang: Language, path = '') {
   const props = { lang };
 
   for (const file of sources) {
+    if (file.endsWith('/_template.tsx')) {
+      continue;
+    }
+
     const dist = getDestFile(source, `${target}${path}`, file);
 
     console.log(`Generating ${relative(file)} -> ${relative(dist)}`);
