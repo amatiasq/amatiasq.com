@@ -1,5 +1,5 @@
 import React from 'react';
-import { css } from '@emotion/css';
+import { css } from '../deps/emotion.ts';
 import { Lang, Translatable } from './Lang.tsx';
 
 export interface TagProps {

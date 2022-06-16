@@ -1,10 +1,11 @@
 import React from 'react';
 
 export interface AmqDocumentProps {
+  className?: string;
   title: string;
 }
 
-export function AmqDocument({ title, children }: React.PropsWithChildren<AmqDocumentProps>) {
+export function AmqDocument({ className, title, children }: React.PropsWithChildren<AmqDocumentProps>) {
   return (
     <html lang="en">
       <head>
@@ -14,7 +15,7 @@ export function AmqDocument({ title, children }: React.PropsWithChildren<AmqDocu
         <title>{title}</title>
         <style>STYLES_PLACEHOLDER</style>
       </head>
-      <body>{children}</body>
+      <body className={className}>{children}</body>
     </html>
   );
 }

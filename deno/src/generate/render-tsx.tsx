@@ -1,8 +1,8 @@
-import { flush, cache } from '@emotion/css';
 import { extname } from 'path';
 import React, { FunctionComponent } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { LangProvider } from '../components/Lang.tsx';
+import { cache, flush } from '../deps/emotion.ts';
 import { PageProps } from './PageProps.ts';
 
 // HACK: this is necessary for emotion to work

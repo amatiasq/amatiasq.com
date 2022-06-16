@@ -3,7 +3,9 @@ from: 2008-02
 to: 2009-06
 org: Ibermática
 link: https://ibermatica.com/
-role: Programador
+role:
+  en: Programmer
+  es: Programador
 
 labels:
   - C#

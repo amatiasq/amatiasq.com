@@ -4,16 +4,16 @@ import { getDestFile } from './getDestFile.ts';
 import { isMd, renderMd } from './render-md.tsx';
 import { isTsx, renderTsx } from './render-tsx.tsx';
 import { Language } from '../components/Lang.tsx';
-import { emptyDirectory } from './emptyDirectory.ts';
+// import { emptyDirectory } from './emptyDirectory.ts';
 
 const { fromRoot, relative } = path();
 const source = fromRoot('./src/site');
 const target = fromRoot('./dist');
 
-const [, sources] = await Promise.all([
+const [sources] = await Promise.all([
   // multiline
-  emptyDirectory(target),
   getFilesRecursively(source),
+  // emptyDirectory(target),
 ]);
 
 await Promise.all([
