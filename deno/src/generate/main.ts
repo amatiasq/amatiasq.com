@@ -4,14 +4,15 @@ import { getDestFile } from './getDestFile.ts';
 import { isMd, renderMd } from './render-md.tsx';
 import { isTsx, renderTsx } from './render-tsx.tsx';
 import { Language } from '../components/Lang.tsx';
+import { emptyDirectory } from './emptyDirectory.ts';
 
 const { fromRoot, relative } = path();
-const source = fromRoot('./site');
+const source = fromRoot('./src/site');
 const target = fromRoot('./dist');
 
 const [, sources] = await Promise.all([
   // multiline
-  recursivelyRemoveDir(target),
+  emptyDirectory(target),
   getFilesRecursively(source),
 ]);
 
@@ -56,15 +57,8 @@ async function generate(sources: string[], lang: Language, path = '') {
 // HELPERS
 
 function path() {
-  const root = new URL('..', import.meta.url);
+  const root = new URL('../..', import.meta.url);
   const fromRoot = (path: string) => new URL(path, root).pathname;
   const relative = (path: string) => `./${path.replace(root.pathname, '')}`;
   return { fromRoot, relative };
-}
-
-async function recursivelyRemoveDir(dir: string) {
-  try {
-    await Deno.remove(dir, { recursive: true });
-    // deno-lint-ignore no-empty
-  } catch {}
 }
