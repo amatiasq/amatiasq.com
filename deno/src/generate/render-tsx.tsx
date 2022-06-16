@@ -1,7 +1,7 @@
 import { extname } from 'path';
 import React, { FunctionComponent } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { LangProvider } from '../components/Lang.tsx';
+import { LangProvider } from '../atoms/Lang.tsx';
 import { cache, flush } from '../deps/emotion.ts';
 import { PageProps } from './PageProps.ts';
 

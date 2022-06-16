@@ -1,6 +1,7 @@
 {
   "imports": {
     "@emotion/css": "https://esm.sh/@emotion/css@11.9.0",
+    "markdown": "https://deno.land/x/markdown@v2.0.0/mod.ts",
     "path": "https://deno.land/std@0.143.0/path/mod.ts",
     "react-dom/": "https://esm.sh/react-dom@18.2.0/",
     "react": "https://esm.sh/react@18.2.0",

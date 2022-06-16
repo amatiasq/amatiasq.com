@@ -1,4 +1,4 @@
 import React from 'react';
-import { AmqHeader } from '../components/AmqHeader.tsx';
+import { AmqHeader } from '../organisms/AmqHeader.tsx';
 
 export default () => <AmqHeader>POTATO</AmqHeader>;

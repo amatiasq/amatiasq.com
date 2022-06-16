@@ -1,4 +1,4 @@
-import { Language } from '../components/Lang.tsx';
+import { Language } from '../atoms/Lang.tsx';
 
 export interface PageProps {
   lang: Language;

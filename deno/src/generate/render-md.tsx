@@ -1,6 +1,6 @@
+import { Marked } from 'markdown';
 import { dirname, extname } from 'path';
 import { parse } from 'std/encoding/yaml.ts';
-import { Marked } from 'https://deno.land/x/markdown@v2.0.0/mod.ts';
 import { PageProps } from './PageProps.ts';
 import { renderTsx } from './render-tsx.tsx';
 

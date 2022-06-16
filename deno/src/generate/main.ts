@@ -3,11 +3,11 @@ import { getFilesRecursively } from './getFilesRecursively.ts';
 import { getDestFile } from './getDestFile.ts';
 import { isMd, renderMd } from './render-md.tsx';
 import { isTsx, renderTsx } from './render-tsx.tsx';
-import { Language } from '../components/Lang.tsx';
+import { Language } from '../atoms/Lang.tsx';
 // import { emptyDirectory } from './emptyDirectory.ts';
 
 const { fromRoot, relative } = path();
-const source = fromRoot('./src/site');
+const source = fromRoot('./src/pages');
 const target = fromRoot('./dist');
 
 const [sources] = await Promise.all([

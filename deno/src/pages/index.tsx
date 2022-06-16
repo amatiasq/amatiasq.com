@@ -1,7 +1,6 @@
 import React from 'react';
-
-import { AmqDocument } from '../components/AmqDocument.tsx';
-import { AmqHeader } from '../components/AmqHeader.tsx';
+import { AmqDocument } from '../templates/AmqDocument.tsx';
+import { AmqHeader } from '../organisms/AmqHeader.tsx';
 
 export default (props: any) => {
   return (

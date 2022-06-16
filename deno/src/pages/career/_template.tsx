@@ -1,8 +1,8 @@
 import React from 'react';
-import { AmqDocument } from '../../components/AmqDocument.tsx';
-import { DateTime, StringDate } from '../../components/DateTime.tsx';
-import { Translatable, Lang } from '../../components/Lang.tsx';
-import { Tag } from '../../components/Tag.tsx';
+import { AmqDocument } from '../../templates/AmqDocument.tsx';
+import { DateTime, StringDate } from '../../atoms/DateTime.tsx';
+import { Translatable, Lang } from '../../atoms/Lang.tsx';
+import { Tag } from '../../atoms/Tag.tsx';
 import { css } from '../../deps/emotion.ts';
 
 interface CareerProps {
