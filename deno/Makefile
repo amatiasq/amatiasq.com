@@ -8,6 +8,8 @@ generate:
 		--import-map=import_map.json \
 		--allow-read \
 		--allow-write=./dist \
+		--lock=lock.json \
+		--lock-write \
 		--allow-net=esm.sh,cdn.esm.sh,deno.land \
 		src/generate/main.ts
 
