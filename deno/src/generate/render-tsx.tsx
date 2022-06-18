@@ -6,6 +6,7 @@ import { cache, flush } from '../deps/emotion.ts';
 import { PageProps } from './PageProps.ts';
 
 // HACK: this is necessary for emotion to work
+// deno-lint-ignore no-explicit-any
 (globalThis as any).document = undefined;
 
 export function isTsx(file: string) {
@@ -13,12 +14,12 @@ export function isTsx(file: string) {
   return extension === '.ts' || extension === '.tsx';
 }
 
-export async function renderTsx<P extends PageProps>(file: string, props: P) {
+export async function renderTsx<P extends PageProps>(file: string, { lang, ...props }: P) {
   const mod = await import(file);
   const Page = validateModule(file, mod);
 
   const html = renderToStaticMarkup(
-    <LangProvider value={props.lang}>
+    <LangProvider value={lang}>
       <Page {...props} />
     </LangProvider>,
   ).replace(/<script><\/script>/g, '');

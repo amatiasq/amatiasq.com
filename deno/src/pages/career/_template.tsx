@@ -4,6 +4,7 @@ import { DateTime, StringDate } from '../../atoms/DateTime.tsx';
 import { Translatable, Lang } from '../../atoms/Lang.tsx';
 import { Tag } from '../../atoms/Tag.tsx';
 import { css } from '../../deps/emotion.ts';
+import { Container } from '../../atoms/Container.tsx';
 
 interface CareerProps {
   org: string;
@@ -26,22 +27,24 @@ export default ({ org, link, role, from, to, labels, content }: CareerProps) => 
 
   return (
     <AmqDocument className={body} title={org}>
-      <h1>
-        <Lang tr={role} />
-        <Lang en=" at " es=" en " />
-        <Lang tr={org} />
-      </h1>
+      <Container>
+        <h1>
+          <Lang tr={role} />
+          <Lang en=" at " es=" en " />
+          <Lang tr={org} />
+        </h1>
 
-      <div className={labelsContainer}>
-        {labels.map(x => (
-          <Tag>{x}</Tag>
-        ))}
-      </div>
+        <div className={labelsContainer}>
+          {labels.map(x => (
+            <Tag>{x}</Tag>
+          ))}
+        </div>
 
-      <DateTime value={from} />
-      <DateTime value={to} />
+        <DateTime value={from} />
+        <DateTime value={to} />
 
-      <Lang tr={content} />
+        <Lang tr={content} />
+      </Container>
     </AmqDocument>
   );
 };
