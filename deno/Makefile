@@ -1,24 +1,36 @@
-all: generate
+all: build
 	make -j 2 watch start-server
 
 
-generate:
+build:
 	@echo "Building..."
 	deno run \
-		--import-map=import_map.json \
+		--import-map=import-map.json \
 		--allow-read \
 		--allow-write=./dist \
 		--lock=lock.json \
-		--lock-write \
 		--allow-net=esm.sh,cdn.esm.sh,deno.land \
 		src/generate/main.ts
 
 
 watch:
 	@echo "Watching ./src..."
-	fswatch  -o src | xargs -n1 -I{} make generate
+	fswatch  -o src | xargs -n1 -I{} make build
 
 
 start-server:
 	@echo "Serving ./dist..."
 	live-server --port=8088 -q dist
+
+
+lock:
+	@echo "Locking dependencies..."
+	deno run \
+		--import-map=import-map.json \
+		--allow-read \
+		--allow-write=./dist \
+		--reload \
+		--lock=lock.json \
+		--lock-write \
+		--allow-net=esm.sh,cdn.esm.sh,deno.land \
+		src/generate/main.ts

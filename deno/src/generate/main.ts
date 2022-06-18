@@ -1,4 +1,4 @@
-import { dirname } from 'path';
+import { dirname } from 'std/path/mod.ts';
 import { getFilesRecursively } from './getFilesRecursively.ts';
 import { getDestFile } from './getDestFile.ts';
 import { isMd, renderMd } from './render-md.tsx';

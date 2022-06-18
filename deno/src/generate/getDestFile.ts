@@ -1,4 +1,4 @@
-import { basename, extname } from 'path';
+import { basename, extname } from 'std/path/mod.ts';
 
 export function getDestFile(source: string, target: string, file: string) {
   const extension = extname(file);

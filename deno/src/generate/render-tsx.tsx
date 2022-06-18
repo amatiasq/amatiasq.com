@@ -1,4 +1,4 @@
-import { extname } from 'path';
+import { extname } from 'std/path/mod.ts';
 import React, { FunctionComponent } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { LangProvider } from '../atoms/Lang.tsx';

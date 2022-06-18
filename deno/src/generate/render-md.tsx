@@ -1,5 +1,5 @@
 import { Marked } from 'markdown';
-import { dirname, extname } from 'path';
+import { dirname, extname } from 'std/path/mod.ts';
 import { parse } from 'std/encoding/yaml.ts';
 import { PageProps } from './PageProps.ts';
 import { renderTsx } from './render-tsx.tsx';
