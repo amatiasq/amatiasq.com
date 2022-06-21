@@ -3,7 +3,10 @@ import { isMd, renderMd } from './render-md.tsx';
 import { isTsx, renderTsx } from './render-tsx.tsx';
 import { Language } from '../atoms/Lang.tsx';
 import { getPageDestinationOnDisk, getPagePath, getPagesFromDisk, SitePage } from './pages.ts';
+import { path } from '../util/path.ts';
 // import { emptyDirectory } from './emptyDirectory.ts';
+
+const { relative } = path('../..', import.meta.url);
 
 const [sources] = await Promise.all([
   // multiline
@@ -26,13 +29,9 @@ async function generate(sources: SitePage[], lang: Language, path = '') {
   const props = { lang };
 
   for (const file of sources) {
-    if (file.endsWith('/_template.tsx')) {
-      continue;
-    }
-
     const dist = getPageDestinationOnDisk(file, path);
 
-    // console.log(`Generating ${relative(file)} -> ${relative(dist)}`);
+    console.log(`Generating ${relative(file)} -> ${relative(dist)}`);
 
     let html: string;
 
@@ -41,7 +40,7 @@ async function generate(sources: SitePage[], lang: Language, path = '') {
     } else if (isMd(file)) {
       html = await renderMd(file, props);
     } else {
-      throw new Error(`Unkown handler for ${getPagePath(file)}`);
+      throw new Error(`Unkown handler for ${relative(file)}`);
     }
 
     await Deno.mkdir(dirname(dist), { recursive: true });

@@ -8,8 +8,9 @@ const { fromRoot } = path('../..', import.meta.url);
 const source = fromRoot('./src/pages');
 const target = fromRoot('./dist');
 
-export function getPagesFromDisk() {
-  return getFilesRecursively(source) as Promise<SitePage[]>;
+export async function getPagesFromDisk() {
+  const files = await getFilesRecursively(source);
+  return files.filter(x => !x.endsWith('/_template.tsx')) as SitePage[];
 }
 
 export function getPageDestinationOnDisk(page: SitePage, path = '') {
@@ -20,10 +21,16 @@ export function getPageDestinationOnDisk(page: SitePage, path = '') {
   return page.replace(source, `${target}${path}`).replace(extension, newExtension);
 }
 
-export function getPagePath(page: SitePage, path = '/') {
+export function getPagePath(page: SitePage, path = '') {
   const extension = extname(page);
   const filename = basename(page);
   const isIndex = filename.replace(extension, '') === 'index';
   const flat = page.replace(source, path).replace(extension, '');
-  return isIndex ? flat.replace(/\/index$/, '') : flat;
+  const final = isIndex ? flat.replace(/\/index$/, '') : flat;
+  return final || '/';
+}
+
+export async function getPagesPath() {
+  const pages = await getPagesFromDisk();
+  return pages.map(x => getPagePath(x));
 }
