@@ -1,21 +1,22 @@
 import React, { PropsWithChildren } from 'react';
 import { css } from '../deps/emotion.ts';
 
+const mq = {
+  narrow: '@media (min-width: 650px)',
+  md: '@media (min-width: 800px)',
+};
+
 export interface ContainerProps {}
 
 export function Container({ children }: PropsWithChildren<ContainerProps>) {
-  return (
-    <div
-      className={css`
-        width: 60rem;
-        margin: 0 auto;
+  const styles = css`
+    width: 60rem;
+    margin: 0 auto;
 
-        @media (max-width: 60rem) {
-          width: 30rem;
-        }
-      `}
-    >
-      {children}
-    </div>
-  );
+    ${mq.narrow} {
+      width: 30rem;
+    }
+  `;
+
+  return <div className={styles}>{children}</div>;
 }
