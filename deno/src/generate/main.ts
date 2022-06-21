@@ -1,18 +1,13 @@
 import { dirname } from 'std/path/mod.ts';
-import { getFilesRecursively } from './getFilesRecursively.ts';
-import { getDestFile } from './getDestFile.ts';
 import { isMd, renderMd } from './render-md.tsx';
 import { isTsx, renderTsx } from './render-tsx.tsx';
 import { Language } from '../atoms/Lang.tsx';
+import { getPageDestinationOnDisk, getPagePath, getPagesFromDisk, SitePage } from './pages.ts';
 // import { emptyDirectory } from './emptyDirectory.ts';
-
-const { fromRoot, relative } = path();
-const source = fromRoot('./src/pages');
-const target = fromRoot('./dist');
 
 const [sources] = await Promise.all([
   // multiline
-  getFilesRecursively(source),
+  getPagesFromDisk(),
   // emptyDirectory(target),
 ]);
 
@@ -27,7 +22,7 @@ console.log('Done');
 
 // EXECUTION END
 
-async function generate(sources: string[], lang: Language, path = '') {
+async function generate(sources: SitePage[], lang: Language, path = '') {
   const props = { lang };
 
   for (const file of sources) {
@@ -35,9 +30,9 @@ async function generate(sources: string[], lang: Language, path = '') {
       continue;
     }
 
-    const dist = getDestFile(source, `${target}${path}`, file);
+    const dist = getPageDestinationOnDisk(file, path);
 
-    console.log(`Generating ${relative(file)} -> ${relative(dist)}`);
+    // console.log(`Generating ${relative(file)} -> ${relative(dist)}`);
 
     let html: string;
 
@@ -46,19 +41,10 @@ async function generate(sources: string[], lang: Language, path = '') {
     } else if (isMd(file)) {
       html = await renderMd(file, props);
     } else {
-      throw new Error(`Unkown handler for ${relative(file)}`);
+      throw new Error(`Unkown handler for ${getPagePath(file)}`);
     }
 
     await Deno.mkdir(dirname(dist), { recursive: true });
     await Deno.writeTextFile(dist, html);
   }
-}
-
-// HELPERS
-
-function path() {
-  const root = new URL('../..', import.meta.url);
-  const fromRoot = (path: string) => new URL(path, root).pathname;
-  const relative = (path: string) => `./${path.replace(root.pathname, '')}`;
-  return { fromRoot, relative };
 }
