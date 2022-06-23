@@ -1,9 +1,9 @@
 import React from 'react';
 import { AmqDocument } from '../templates/AmqDocument.tsx';
 import { AmqHeader } from '../organisms/AmqHeader.tsx';
-import { getPagesPath } from '../generate/pages.ts';
+import { getPagePathRelativeTo, getPagesPath } from '../generate/pages.ts';
 
-const pages = await getPagesPath();
+const pages = await getPagesPath(import.meta.url);
 
 export default (props: any) => {
   return (
@@ -12,7 +12,7 @@ export default (props: any) => {
       <ul>
         {pages.map(x => (
           <li>
-            <a href={x}>{x}</a>
+            <a href={getPagePathRelativeTo(import.meta.url, x)}>{x}</a>
           </li>
         ))}
       </ul>

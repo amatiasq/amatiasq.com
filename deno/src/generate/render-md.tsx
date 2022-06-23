@@ -6,12 +6,12 @@ import { renderTsx } from './render-tsx.tsx';
 
 const templatesDir = '../templates';
 
-export function isMd(file: string) {
+export function isMarkdown(file: string) {
   const extension = extname(file);
   return extension === '.md';
 }
 
-export async function renderMd<P extends PageProps>(file: string, props: P) {
+export async function readMarkdown(file: string) {
   const content = await Deno.readTextFile(file);
 
   const [head, ...body] = content
@@ -40,9 +40,14 @@ export async function renderMd<P extends PageProps>(file: string, props: P) {
 
   const templateRelative = new URL(template, import.meta.url).pathname;
 
-  return renderTsx(templateRelative, {
-    ...props,
-    ...data,
+  return {
+    data,
+    template: templateRelative,
     content: body.map(x => Marked.parse(x).content),
-  });
+  };
+}
+
+export async function renderMd<P extends PageProps>(file: string, props: P) {
+  const { data, template, content } = await readMarkdown(file);
+  return renderTsx(template, { ...props, ...data, content });
 }

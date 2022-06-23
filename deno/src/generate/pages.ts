@@ -1,4 +1,4 @@
-import { basename, extname } from 'std/path/mod.ts';
+import { basename, extname, relative } from 'std/path/mod.ts';
 import { path } from '../util/path.ts';
 import { getFilesRecursively } from './getFilesRecursively.ts';
 
@@ -30,7 +30,11 @@ export function getPagePath(page: SitePage, path = '') {
   return final || '/';
 }
 
-export async function getPagesPath() {
-  const pages = await getPagesFromDisk();
-  return pages.map(x => getPagePath(x));
+export function getPagesPath(base: string) {
+  return getPagesFromDisk() as Promise<SitePage[]>;
+}
+
+export function getPagePathRelativeTo(base: string, page: SitePage) {
+  const from = getPagePath(base.replace('file://', '') as SitePage);
+  return relative(from, getPagePath(page));
 }
