@@ -1,10 +1,12 @@
 import React from 'react';
 import { AmqDocument } from '../templates/AmqDocument.tsx';
 import { AmqHeader } from '../organisms/AmqHeader.tsx';
-import { getPagePathRelativeTo, getPagesPath } from '../generate/pages.ts';
+import { createPageUtils, getAllPages } from '../generate/page-utils.tsx';
 
-const pages = await getPagesPath(import.meta.url);
+const { Link } = createPageUtils(import.meta.url);
+const pages = await getAllPages();
 
+// deno-lint-ignore no-explicit-any
 export default (props: any) => {
   return (
     <AmqDocument title="A. Matías Quezada" {...props}>
@@ -12,7 +14,7 @@ export default (props: any) => {
       <ul>
         {pages.map(x => (
           <li>
-            <a href={getPagePathRelativeTo(import.meta.url, x)}>{x}</a>
+            <Link href={x.type}>{x.title}</Link>
           </li>
         ))}
       </ul>

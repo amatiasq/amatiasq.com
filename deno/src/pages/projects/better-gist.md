@@ -1,7 +1,7 @@
 ---
 key: better-gist
 date: 2021-02-04
-name: Better Gist
+title: Better Gist
 
 links:
   live: https://gist.amatiasq.com/

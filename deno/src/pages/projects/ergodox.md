@@ -2,7 +2,7 @@
 key: ergodox
 date: 2016-09-11
 
-name:
+title:
   en: Ergodox keyboard configuration
   es: Configurador de teclado Ergodox
 

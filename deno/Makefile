@@ -34,3 +34,8 @@ lock:
 		--lock-write \
 		--allow-net=esm.sh,cdn.esm.sh,deno.land \
 		src/generate/main.ts
+
+
+install-deps:
+	npm i -g live-server
+	brew install fswatch

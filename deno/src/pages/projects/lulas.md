@@ -2,7 +2,7 @@
 key: lulas
 date: 2011-01-01
 
-name:
+title:
   en: Lulas (cell simulation)
   es: Lulas (simulación celular)
 

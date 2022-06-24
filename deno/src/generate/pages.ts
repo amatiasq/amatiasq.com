@@ -1,6 +1,7 @@
 import { basename, extname, relative } from 'std/path/mod.ts';
 import { path } from '../util/path.ts';
 import { getFilesRecursively } from './getFilesRecursively.ts';
+import { isMarkdown, readMarkdown } from './render-md.tsx';
 
 export type SitePage = 'snowflake SitePage';
 
@@ -30,11 +31,37 @@ export function getPagePath(page: SitePage, path = '') {
   return final || '/';
 }
 
-export function getPagesPath(base: string) {
-  return getPagesFromDisk() as Promise<SitePage[]>;
+export async function getPageMetadata(page: SitePage) {
+  if (isMarkdown(page)) {
+    const { data, ...rest } = await readMarkdown(page);
+
+    return {
+      type: 'md',
+      file: page,
+      title: getPageTitle(page),
+      ...data,
+      ...rest,
+    };
+  }
+
+  return {
+    type: 'tsx',
+    file: page,
+    title: getPageTitle(page),
+  };
 }
 
-export function getPagePathRelativeTo(base: string, page: SitePage) {
-  const from = getPagePath(base.replace('file://', '') as SitePage);
-  return relative(from, getPagePath(page));
+function getPageTitle(page: SitePage) {
+  const extension = extname(page);
+  const filename = removeDate(basename(page));
+  const result = filename.replace(extension, '').replace(/-(\w)/, x => x[1].toUpperCase());
+  return firstUppercase(result) || page;
+}
+
+function firstUppercase(text: string) {
+  return text[0].toUpperCase() + text.slice(1);
+}
+
+function removeDate(text: string) {
+  return text.replace(/^\d{4}-(\d{2}-){0,2}/, '');
 }

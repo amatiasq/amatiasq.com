@@ -1,7 +1,7 @@
 ---
 key: you-cant
 date: 2018-06-10
-name: You can't
+title: You can't
 
 links:
   live: https://repos.amatiasq.com/gmtk/

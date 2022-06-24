@@ -1,7 +1,7 @@
 ---
 key: glib
 date: 2013-05-02
-name: GLib
+title: GLib
 
 links:
   github: https://github.com/amatiasq/glib

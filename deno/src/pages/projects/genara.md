@@ -1,6 +1,6 @@
 ---
 key: genara
-name: Genara
+title: Genara
 date: 2017-12-12
 
 links:

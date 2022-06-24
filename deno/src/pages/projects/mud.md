@@ -2,7 +2,7 @@
 key: mud
 date: 2020-10-29
 
-name:
+title:
   en: Web MUD client
   es: Cliente MUD web
 

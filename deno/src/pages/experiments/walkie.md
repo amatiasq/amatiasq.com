@@ -1,7 +1,7 @@
 ---
 key: walkie
 date: 2020-09-10
-name: Walkie
+title: Walkie
 
 links:
   live: https://amatiasq.github.io/walkie/
