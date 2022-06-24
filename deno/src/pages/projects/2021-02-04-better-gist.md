@@ -1,6 +1,5 @@
 ---
 key: better-gist
-date: 2021-02-04
 title: Better Gist
 
 links:

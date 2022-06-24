@@ -1,7 +1,5 @@
 ---
 key: spanish-constitution
-date: 2018-05-31
-
 title:
   en: Spanish Constitution
   es: Constitución Española

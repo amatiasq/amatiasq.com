@@ -40,7 +40,11 @@ export async function readMarkdown(file: string) {
 
   const templateRelative = new URL(template, import.meta.url).pathname;
 
+  // const base = await import(templateRelative);
+  // const meta = base?.meta || (() => ({}));
+
   return {
+    // ...meta(data),
     data,
     template: templateRelative,
     content: body.map(x => Marked.parse(x).content),

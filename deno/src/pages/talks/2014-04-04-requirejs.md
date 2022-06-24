@@ -1,6 +1,5 @@
 ---
 key: requirejs-talk
-date: 2014-04-04
 
 title:
   en: Modularize your Javascript

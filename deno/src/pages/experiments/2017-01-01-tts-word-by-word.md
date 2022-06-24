@@ -1,7 +1,5 @@
 ---
 key: tts-word-by-word
-date: 2017-01-01
-
 title:
   en: Text to speech word by word
   es: Texto a voz palabra por palabra
