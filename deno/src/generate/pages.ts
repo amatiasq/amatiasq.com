@@ -1,4 +1,4 @@
-import { basename, extname, relative } from 'std/path/mod.ts';
+import { basename, extname } from 'std/path/mod.ts';
 import { path } from '../util/path.ts';
 import { getFilesRecursively } from './getFilesRecursively.ts';
 import { isMarkdown, readMarkdown } from './render-md.tsx';
@@ -60,6 +60,10 @@ function getPageTitle(page: SitePage) {
 
 function firstUppercase(text: string) {
   return text[0].toUpperCase() + text.slice(1);
+}
+
+export function getDateFrom(text: string) {
+  return text.match(/^\d{4}-(\d{2}-){0,2}/);
 }
 
 function removeDate(text: string) {

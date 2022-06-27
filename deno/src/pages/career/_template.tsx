@@ -1,10 +1,11 @@
 import React from 'react';
 import { AmqDocument } from '../../templates/AmqDocument.tsx';
 import { DateTime, StringDate } from '../../atoms/DateTime.tsx';
-import { Translatable, Lang } from '../../atoms/Lang.tsx';
+import { Translatable, Lang, i18n } from '../../atoms/Lang.tsx';
 import { Tag } from '../../atoms/Tag.tsx';
 import { css } from '../../deps/emotion.ts';
 import { Container } from '../../atoms/Container.tsx';
+import { meta as defaultMeta } from '../../templates/default.tsx';
 
 interface CareerProps {
   org: string;
@@ -14,6 +15,14 @@ interface CareerProps {
   to: StringDate;
   labels: Translatable[];
   content: Translatable;
+}
+
+export function meta({ org, role }: CareerProps, file: string) {
+  const x = defaultMeta({}, file);
+  return {
+    ...x,
+    title: i18n`${(x as any).date} ${role} ${{ en: 'at', es: 'en' }} ${org}`,
+  };
 }
 
 export default ({ org, link, role, from, to, labels, content }: CareerProps) => {

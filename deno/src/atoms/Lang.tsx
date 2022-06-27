@@ -32,3 +32,19 @@ export function tr(...args: [Translatable] | string[]) {
   const content = args.length === 1 ? (args[0] as Translatable) : (args as string[]);
   return <Lang tr={content} />;
 }
+
+export function i18n(parts: TemplateStringsArray, ...params: Translatable[]) {
+  const requireTr = params.filter(x => typeof x !== 'string');
+
+  if (!requireTr.length) {
+    return String.raw(parts, ...params);
+  }
+
+  const langs = Array.from(new Set(requireTr.flatMap(x => Object.keys(x))));
+  const values = langs.map(lang => {
+    const langParams = params.map(x => (typeof x === 'string' ? x : (x as any)[lang]));
+    return [lang, String.raw(parts, ...langParams)];
+  });
+
+  return Object.fromEntries(values);
+}
