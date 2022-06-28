@@ -31,24 +31,44 @@ export function getPagePath(page: SitePage, path = '') {
   return final || '/';
 }
 
-export async function getPageMetadata(page: SitePage) {
+export function getPagesBySection(pages: PageMetadata[]) {
+  const sections: Record<string, PageMetadata[]> = {};
+
+  for (const page of pages) {
+    const [, section] = page.path.split('/');
+    if (!sections[section]) sections[section] = [page];
+    else sections[section].push(page);
+  }
+
+  return sections;
+}
+
+export interface PageMetadata {
+  type: 'md' | 'tsx';
+  file: SitePage;
+  path: string;
+  title: string;
+}
+
+export async function getPageMetadata(page: SitePage): Promise<PageMetadata> {
+  const base: Omit<PageMetadata, 'type'> = {
+    file: page,
+    path: getPagePath(page),
+    title: getPageTitle(page),
+  };
+
   if (isMarkdown(page)) {
     const { data, ...rest } = await readMarkdown(page);
 
     return {
       type: 'md',
-      file: page,
-      title: getPageTitle(page),
+      ...base,
       ...data,
       ...rest,
     };
   }
 
-  return {
-    type: 'tsx',
-    file: page,
-    title: getPageTitle(page),
-  };
+  return { type: 'tsx', ...base };
 }
 
 function getPageTitle(page: SitePage) {
@@ -63,9 +83,16 @@ function firstUppercase(text: string) {
 }
 
 export function getDateFrom(text: string) {
-  return text.match(/^\d{4}-(\d{2}-){0,2}/);
+  const match = text.match(/^\d{4}(-\d{2}){0,2}/);
+  return match && match[0];
 }
 
 function removeDate(text: string) {
   return text.replace(/^\d{4}-(\d{2}-){0,2}/, '');
+}
+
+export async function getAllPages() {
+  const pages = await getPagesFromDisk();
+  const promises = pages.map(getPageMetadata);
+  return Promise.all(promises);
 }

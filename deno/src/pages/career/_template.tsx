@@ -8,6 +8,7 @@ import { Container } from '../../atoms/Container.tsx';
 import { meta as defaultMeta } from '../../templates/default.tsx';
 
 interface CareerProps {
+  title: string;
   org: string;
   link: string;
   role: Translatable;
@@ -21,11 +22,11 @@ export function meta({ org, role }: CareerProps, file: string) {
   const x = defaultMeta({}, file);
   return {
     ...x,
-    title: i18n`${(x as any).date} ${role} ${{ en: 'at', es: 'en' }} ${org}`,
+    title: i18n`${role} ${{ en: 'at', es: 'en' }} ${org}`,
   };
 }
 
-export default ({ org, link, role, from, to, labels, content }: CareerProps) => {
+export default ({ org, title, role, from, to, labels, content }: CareerProps) => {
   const body = css`
     display: grid;
   `;
@@ -37,11 +38,7 @@ export default ({ org, link, role, from, to, labels, content }: CareerProps) => 
   return (
     <AmqDocument className={body} title={org}>
       <Container>
-        <h1>
-          <Lang tr={role} />
-          <Lang en=" at " es=" en " />
-          <Lang tr={org} />
-        </h1>
+        <h1>{title}</h1>
 
         <div className={labelsContainer}>
           {labels.map(x => (
