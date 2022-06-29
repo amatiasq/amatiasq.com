@@ -1,11 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import { css } from '../deps/emotion.ts';
-
-const mq = {
-  sm: '@media (min-width: 650px)',
-  md: '@media (min-width: 50rem)',
-  lg: '@media (min-width: 70rem)',
-};
+import { cssBreakpoint } from '../theme.ts';
 
 export interface ContainerProps {}
 
@@ -15,12 +10,12 @@ export function Container({ children }: PropsWithChildren<ContainerProps>) {
     margin: 0 auto;
     padding: 0 1rem;
 
-    ${mq.md} {
+    ${cssBreakpoint.medium} {
       width: 50rem;
       padding: 0 5rem;
     }
 
-    ${mq.lg} {
+    ${cssBreakpoint.wide} {
       width: 60rem;
       padding: 0 5rem;
     }

@@ -1,19 +1,19 @@
 import React from 'react';
 import { AmqDocument } from '../../templates/AmqDocument.tsx';
-import { DateTime, StringDate } from '../../atoms/DateTime.tsx';
 import { Translatable, Lang, i18n } from '../../atoms/Lang.tsx';
 import { Tag } from '../../atoms/Tag.tsx';
 import { css } from '../../deps/emotion.ts';
 import { Container } from '../../atoms/Container.tsx';
 import { meta as defaultMeta } from '../../templates/default.tsx';
+import { Time, YearMonthDay } from '../../atoms/Time.tsx';
 
 interface CareerProps {
   title: string;
   org: string;
   link: string;
   role: Translatable;
-  from: StringDate;
-  to: StringDate;
+  from: YearMonthDay;
+  to: YearMonthDay;
   labels: Translatable[];
   content: Translatable;
 }
@@ -39,16 +39,12 @@ export default ({ org, title, role, from, to, labels, content }: CareerProps) =>
     <AmqDocument className={body} title={org}>
       <Container>
         <h1>{title}</h1>
-
         <div className={labelsContainer}>
           {labels.map(x => (
             <Tag>{x}</Tag>
           ))}
         </div>
-
-        <DateTime value={from} />
-        <DateTime value={to} />
-
+        <Time value={from} omitDay /> to <Time value={to} omitDay />
         <Lang tr={content} />
       </Container>
     </AmqDocument>

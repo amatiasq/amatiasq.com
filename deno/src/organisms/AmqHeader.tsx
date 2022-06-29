@@ -7,6 +7,7 @@ export interface AmqHeaderProps {}
 export function AmqHeader({}: React.PropsWithChildren<AmqHeaderProps>) {
   const styles = css`
     font-size: 2rem;
+    margin: 2rem 0;
   `;
 
   return (

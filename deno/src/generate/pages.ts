@@ -1,4 +1,5 @@
 import { basename, extname } from 'std/path/mod.ts';
+import { YearMonthDay } from '../atoms/Time.tsx';
 import { path } from '../util/path.ts';
 import { getFilesRecursively } from './getFilesRecursively.ts';
 import { isMarkdown, readMarkdown } from './render-md.tsx';
@@ -48,6 +49,7 @@ export interface PageMetadata {
   file: SitePage;
   path: string;
   title: string;
+  date: YearMonthDay;
 }
 
 export async function getPageMetadata(page: SitePage): Promise<PageMetadata> {
