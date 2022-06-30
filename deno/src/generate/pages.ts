@@ -10,6 +10,10 @@ const { fromRoot } = path('../..', import.meta.url);
 const source = fromRoot('./src/pages');
 const target = fromRoot('./dist');
 
+export function getPagesRoot() {
+  return source;
+}
+
 export async function getPagesFromDisk() {
   const files = await getFilesRecursively(source);
   return files.filter(x => !x.endsWith('/_template.tsx')) as SitePage[];

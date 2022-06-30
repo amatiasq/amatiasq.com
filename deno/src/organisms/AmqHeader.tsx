@@ -1,19 +1,68 @@
 import React from 'react';
 import { Container } from '../atoms/Container.tsx';
+import { usePageUtils } from '../generate/PageUtils.tsx';
 import { css } from '../deps/emotion.ts';
-import { cssFontSize, cssSpace } from '../theme.ts';
+import { getPagesRoot } from '../generate/pages.ts';
+import { cssColor, cssFontSize, cssSpace } from '../theme.ts';
 
-export interface AmqHeaderProps {}
+const root = getPagesRoot();
 
-export function AmqHeader({}: React.PropsWithChildren<AmqHeaderProps>) {
+export interface AmqHeaderProps {
+  className?: string;
+}
+
+export function AmqHeader({ className = '' }: React.PropsWithChildren<AmqHeaderProps>) {
+  const { Link } = usePageUtils();
+
   const styles = css`
+    padding: ${cssSpace.md} 0;
+    margin-bottom: ${cssSpace.lg};
+    background-color: ${cssColor.primary};
+    color: ${cssColor.background};
+  `;
+
+  const containerStyles = css`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  `;
+
+  const navStyles = css`
+    display: flex;
+    gap: ${cssSpace.md};
+
+    a {
+      color: ${cssColor.background};
+      text-decoration: none;
+      padding: calc(${cssSpace.sm} / 2) ${cssSpace.sm};
+      border-radius: 6px;
+      border: 1px solid transparent;
+    }
+
+    a.parent {
+      border: 1px solid ${cssColor.background};
+    }
+
+    a:hover {
+      border: 1px solid ${cssColor.link};
+    }
+  `;
+
+  const nameStyles = css`
     font-size: ${cssFontSize.xl};
-    margin: ${cssSpace.lg} 0;
   `;
 
   return (
-    <header className={styles}>
-      <Container>A. Matías Quezada</Container>
+    <header className={`${styles} ${className}`}>
+      <Container className={containerStyles}>
+        <h2 className={nameStyles}>A. Matías Quezada</h2>
+
+        <nav className={navStyles}>
+          <Link href={`${root}/blog`}>Blog</Link>
+          <Link href={`${root}/career`}>Career</Link>
+          <Link href={`${root}/projects`}>Projects</Link>
+        </nav>
+      </Container>
     </header>
   );
 }

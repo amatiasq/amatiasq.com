@@ -4,10 +4,11 @@ import { cssColor } from '../theme.ts';
 import { Lang, Translatable } from './Lang.tsx';
 
 export interface TagProps {
+  className?: string;
   children: Translatable;
 }
 
-export function Tag({ children }: TagProps) {
+export function Tag({ className = '', children }: TagProps) {
   const styles = css`
     background-color: ${cssColor.primary};
     color: ${cssColor.background};
@@ -17,7 +18,7 @@ export function Tag({ children }: TagProps) {
   `;
 
   return (
-    <span className={styles}>
+    <span className={`${styles} ${className}`}>
       <Lang tr={children} />
     </span>
   );

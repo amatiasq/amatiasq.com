@@ -7,6 +7,7 @@ import { meta as defaultMeta } from '../../templates/default.tsx';
 import { Time, YearMonthDay } from '../../atoms/Time.tsx';
 import { TagList } from '../../molecules/TagList.tsx';
 import { AmqHeader } from '../../organisms/AmqHeader.tsx';
+import { cssFontSize, cssSpace } from '../../theme.ts';
 
 interface CareerProps {
   title: string;
@@ -20,10 +21,8 @@ interface CareerProps {
 }
 
 export function meta({ org, role }: CareerProps, file: string) {
-  const x = defaultMeta({}, file);
-
   return {
-    ...x,
+    ...defaultMeta({}, file),
     title: i18n`${role} ${{ en: 'at', es: 'en' }} ${org}`,
   };
 }
@@ -33,17 +32,32 @@ export default ({ org, title, role, from, to, labels, content }: CareerProps) =>
     display: grid;
   `;
 
+  const timeSpanStyles = css`
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: ${cssSpace.md};
+
+    time {
+      font-size: ${cssFontSize.md};
+    }
+  `;
+
   return (
-    <AmqDocument title={org}>
+    <AmqDocument title={title}>
       <AmqHeader />
       <Container className={body}>
         <h1>
-          <Lang tr={title} />
+          <Lang tr={role} />
+          <small>
+            <Lang en=" at " es=" en " />
+          </small>
+          <Lang tr={org} />
         </h1>
-        <TagList list={labels} />
-        <div>
-          <Time value={from} omitDay /> to <Time value={to} omitDay />
+        <div className={timeSpanStyles}>
+          <Time value={from} omitDay /> - <Time value={to} omitDay />
         </div>
+        <TagList list={labels} />
         <Lang tr={content} />
       </Container>
     </AmqDocument>

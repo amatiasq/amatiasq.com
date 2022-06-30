@@ -1,16 +1,17 @@
 import React from 'react';
-import { usePageUtils } from '../atoms/PageUtils.tsx';
+import { usePageUtils } from '../generate/PageUtils.tsx';
 import { Time } from '../atoms/Time.tsx';
 import { css } from '../deps/emotion.ts';
 import { PageMetadata } from '../generate/pages.ts';
 import { cssColor, cssFontSize, cssSpace } from '../theme.ts';
 
 export interface AmqPageListProps {
+  className?: string;
   name: string;
   list: PageMetadata[];
 }
 
-export function AmqPageList({ name, list }: AmqPageListProps) {
+export function AmqPageList({ className = '', name, list }: AmqPageListProps) {
   const { Link } = usePageUtils();
 
   const styles = css`
@@ -28,6 +29,10 @@ export function AmqPageList({ name, list }: AmqPageListProps) {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    a {
+      text-decoration: none;
+    }
   `;
 
   const viewMoreStyles = css`
@@ -44,7 +49,7 @@ export function AmqPageList({ name, list }: AmqPageListProps) {
   const bottom = reverse.slice(5);
 
   return (
-    <div className={styles}>
+    <div className={`${styles} ${className}`}>
       <h3 className={headerStyles}>{name}</h3>
       <ul>
         {top.map(x => (

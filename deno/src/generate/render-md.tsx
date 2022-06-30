@@ -34,6 +34,7 @@ export async function readMarkdown(file: string) {
       if (stat.isFile) {
         template = folderTemplate;
       }
+
       // deno-lint-ignore no-empty
     } catch {}
   }
@@ -49,11 +50,11 @@ export async function readMarkdown(file: string) {
       ...data,
     },
     template: templateRelative,
-    content: body.map(x => Marked.parse(x).content),
+    content: body.map(x => `<div class="md">${Marked.parse(x).content}</div>`),
   };
 }
 
 export async function renderMd<P extends PageProps>(file: string, props: P) {
   const { data, template, content } = await readMarkdown(file);
-  return renderTsx(template, { ...props, ...data, content });
+  return renderTsx(template, { ...props, ...data, content }, file);
 }

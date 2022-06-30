@@ -8,11 +8,12 @@ type TwoDigits = `${number}${number}`;
 export type YearMonthDay = `${FourDigits}` | `${FourDigits}-${TwoDigits}` | `${FourDigits}-${TwoDigits}-${TwoDigits}`;
 
 export interface TimeProps {
+  className?: string;
   value: YearMonthDay | Date | null;
   omitDay?: boolean;
 }
 
-export function Time({ value, omitDay = false }: TimeProps) {
+export function Time({ className = '', value, omitDay = false }: TimeProps) {
   if (!value) return null;
 
   const dateStyles = css`
@@ -24,7 +25,7 @@ export function Time({ value, omitDay = false }: TimeProps) {
   // font-size: ${cssFontSize.sm};
 
   return (
-    <time className={dateStyles} dateTime={formatDateTime(value)}>
+    <time className={`${dateStyles} ${className}`} dateTime={formatDateTime(value)}>
       {printDate(value, { omitDay })}
     </time>
   );

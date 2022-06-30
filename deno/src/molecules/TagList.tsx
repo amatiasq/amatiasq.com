@@ -5,10 +5,11 @@ import { css } from '../deps/emotion.ts';
 import { cssSpace } from '../theme.ts';
 
 interface TagListProps {
+  className?: string;
   list: Translatable[];
 }
 
-export function TagList({ list }: TagListProps) {
+export function TagList({ className = '', list }: TagListProps) {
   const labelsContainer = css`
     display: flex;
     gap: ${cssSpace.lg};
@@ -16,7 +17,7 @@ export function TagList({ list }: TagListProps) {
   `;
 
   return (
-    <div className={labelsContainer}>
+    <div className={`${labelsContainer} ${className}`}>
       {list.map(x => (
         <Tag>{x}</Tag>
       ))}

@@ -22,7 +22,16 @@ export function createPageUtils(page: string) {
 
   function Link({ href, children }: { href: string; children: Translatable }) {
     const target = getPagePath(urlToSitePage(href));
-    return <a href={relative(path, target)}>{tr(children)}</a>;
+
+    const isActive = target === path;
+    const isContained = !isActive && path.startsWith(target);
+    const classes = [isActive ? 'active' : null, isContained ? 'parent' : null].filter(Boolean).join(' ');
+
+    return (
+      <a href={relative(path, target)} className={classes}>
+        {tr(children)}
+      </a>
+    );
   }
 
   return { Link };

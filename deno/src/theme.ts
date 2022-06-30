@@ -44,6 +44,11 @@ export const cssGlobal = `
   a {
     color: ${cssColor.link};
   }
+
+  .md p {
+    margin: ${cssSpace.lg} 0;
+    text-align: justify;
+  }
 `;
 
 export const cssReset = `

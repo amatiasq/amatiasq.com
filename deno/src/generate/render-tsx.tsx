@@ -4,6 +4,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { LangProvider } from '../atoms/Lang.tsx';
 import { cache, flush } from '../deps/emotion.ts';
 import { PageProps } from './PageProps.ts';
+import { createPageUtils, UtilsProvider } from './PageUtils.tsx';
 
 // HACK: this is necessary for emotion to work
 // deno-lint-ignore no-explicit-any
@@ -14,14 +15,17 @@ export function isTsx(file: string) {
   return extension === '.ts' || extension === '.tsx';
 }
 
-export async function renderTsx<P extends PageProps>(file: string, { lang, ...props }: P) {
+export async function renderTsx<P extends PageProps>(file: string, { lang, ...props }: P, filePath?: string) {
   const mod = await import(file);
   const Page = validateModule(file, mod);
+  const utils = createPageUtils(filePath || file);
 
   const html = renderToStaticMarkup(
-    <LangProvider value={lang}>
-      <Page {...props} />
-    </LangProvider>,
+    <UtilsProvider value={utils}>
+      <LangProvider value={lang}>
+        <Page {...props} />
+      </LangProvider>
+    </UtilsProvider>,
   ).replace(/<script><\/script>/g, '');
 
   const css = Object.values(cache.inserted);
