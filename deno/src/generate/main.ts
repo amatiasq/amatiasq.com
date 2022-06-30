@@ -1,9 +1,9 @@
 import { dirname } from 'std/path/mod.ts';
+import { Language } from '../atoms/Lang.tsx';
+import { path } from '../util/path.ts';
+import { getPageDestinationOnDisk, getPagesFromDisk, SitePage } from './pages.ts';
 import { isMarkdown, renderMd } from './render-md.tsx';
 import { isTsx, renderTsx } from './render-tsx.tsx';
-import { Language } from '../atoms/Lang.tsx';
-import { getPageDestinationOnDisk, getPagesFromDisk, SitePage } from './pages.ts';
-import { path } from '../util/path.ts';
 // import { emptyDirectory } from './emptyDirectory.ts';
 
 const { relative } = path('../..', import.meta.url);

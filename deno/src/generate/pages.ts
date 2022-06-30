@@ -49,7 +49,7 @@ export interface PageMetadata {
   file: SitePage;
   path: string;
   title: string;
-  date: YearMonthDay;
+  date: YearMonthDay | null;
 }
 
 export async function getPageMetadata(page: SitePage): Promise<PageMetadata> {
@@ -57,6 +57,7 @@ export async function getPageMetadata(page: SitePage): Promise<PageMetadata> {
     file: page,
     path: getPagePath(page),
     title: getPageTitle(page),
+    date: getDateFrom(basename(page)),
   };
 
   if (isMarkdown(page)) {
@@ -84,9 +85,9 @@ function firstUppercase(text: string) {
   return text[0].toUpperCase() + text.slice(1);
 }
 
-export function getDateFrom(text: string) {
+function getDateFrom(text: string) {
   const match = text.match(/^\d{4}(-\d{2}){0,2}/);
-  return match && match[0];
+  return match && (match[0] as YearMonthDay);
 }
 
 function removeDate(text: string) {

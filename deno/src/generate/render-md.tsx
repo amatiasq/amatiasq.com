@@ -44,8 +44,10 @@ export async function readMarkdown(file: string) {
   const meta = base?.meta || (() => ({}));
 
   return {
-    ...meta(data, file),
-    data,
+    data: {
+      ...meta(data, file),
+      ...data,
+    },
     template: templateRelative,
     content: body.map(x => Marked.parse(x).content),
   };

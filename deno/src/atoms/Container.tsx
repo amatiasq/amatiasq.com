@@ -2,9 +2,11 @@ import React, { PropsWithChildren } from 'react';
 import { css } from '../deps/emotion.ts';
 import { cssBreakpoint } from '../theme.ts';
 
-export interface ContainerProps {}
+export interface ContainerProps {
+  className?: string;
+}
 
-export function Container({ children }: PropsWithChildren<ContainerProps>) {
+export function Container({ className, children }: PropsWithChildren<ContainerProps>) {
   const styles = css`
     width: 30rem;
     margin: 0 auto;
@@ -21,5 +23,5 @@ export function Container({ children }: PropsWithChildren<ContainerProps>) {
     }
   `;
 
-  return <div className={styles}>{children}</div>;
+  return <div className={`${styles} ${className || ''}`}>{children}</div>;
 }

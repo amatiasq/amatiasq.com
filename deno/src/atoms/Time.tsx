@@ -2,13 +2,13 @@ import React from 'react';
 import { css } from '../deps/emotion.ts';
 import { cssColor, cssFontSize } from '../theme.ts';
 
-type FourDigits = `${number}` & { length: 4 };
-type TwoDigits = `${number}` & { length: 2 };
+type FourDigits = `${number}${number}${number}${number}`;
+type TwoDigits = `${number}${number}`;
 
 export type YearMonthDay = `${FourDigits}` | `${FourDigits}-${TwoDigits}` | `${FourDigits}-${TwoDigits}-${TwoDigits}`;
 
 export interface TimeProps {
-  value: YearMonthDay;
+  value: YearMonthDay | Date | null;
   omitDay?: boolean;
 }
 
@@ -24,14 +24,14 @@ export function Time({ value, omitDay = false }: TimeProps) {
   // font-size: ${cssFontSize.sm};
 
   return (
-    <time className={dateStyles} dateTime={value}>
+    <time className={dateStyles} dateTime={formatDateTime(value)}>
       {printDate(value, { omitDay })}
     </time>
   );
 }
 
-function printDate(value: YearMonthDay, { omitDay }: { omitDay: boolean }) {
-  const [year, month, day] = value.split('-').map(x => parseInt(x, 10));
+function printDate(value: YearMonthDay | Date, { omitDay }: { omitDay: boolean }) {
+  const [year, month, day] = decomposeDate(value);
 
   if (!month) {
     return year;
@@ -44,4 +44,26 @@ function printDate(value: YearMonthDay, { omitDay }: { omitDay: boolean }) {
   }
 
   return new Intl.DateTimeFormat('default', { year: 'numeric', month: 'short', day: 'numeric' }).format(date);
+}
+
+function formatDateTime(value: YearMonthDay | Date) {
+  const [year, month, day] = decomposeDate(value);
+
+  if (!month) {
+    return `${year}`;
+  }
+
+  const date = new Date(year, (month || 1) - 1, day || 1);
+
+  if (!day) {
+    return new Intl.DateTimeFormat('default', { year: 'numeric', month: '2-digit' }).format(date);
+  }
+
+  return new Intl.DateTimeFormat('default', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(date);
+}
+
+function decomposeDate(value: YearMonthDay | Date) {
+  return typeof value === 'string'
+    ? value.split('-').map(x => parseInt(x, 10))
+    : [value.getFullYear(), value.getMonth() + 1, value.getDate()];
 }

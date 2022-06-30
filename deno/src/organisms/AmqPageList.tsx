@@ -19,7 +19,7 @@ export function AmqPageList({ name, list }: AmqPageListProps) {
   `;
 
   const headerStyles = css`
-    font-size: ${cssFontSize.lg};
+    font-size: ${cssFontSize.md};
     color: ${cssColor.primary};
     border-bottom: 1px solid ${cssColor.foreground}55;
   `;
@@ -33,8 +33,10 @@ export function AmqPageList({ name, list }: AmqPageListProps) {
   const viewMoreStyles = css`
     position: absolute;
     list-style: none;
+    font-size: ${cssFontSize.xs};
     top: ${cssSpace.md};
     right: 0;
+    cursor: pointer;
   `;
 
   const reverse = list.slice().reverse();
