@@ -1,0 +1,285 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>potato</title><style>
+  /* Box sizing rules */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  /* Remove default padding */
+  ul, ol {
+    padding: 0;
+  }
+
+  /* Remove default margin */
+  body, h1, h2, h3, h4, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
+    margin: 0;
+  }
+
+  /* Set core body defaults */
+  body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+  }
+
+  /* Remove list styles on ul, ol elements with a class attribute */
+  ul, ol {
+    list-style: none;
+  }
+
+  /* A elements that don&#x27;t have a class get default styles */
+  a:not([class]) {
+    text-decoration-skip-ink: auto;
+  }
+
+  /* Make images easier to work with */
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* Natural flow and rhythm in articles by default */
+  article &gt; * + * {
+    margin-top: 1em;
+  }
+
+  /* Inherit fonts for inputs and buttons */
+  input, button, textarea, select {
+    font: inherit;
+  }
+
+  /* Remove all animations and transitions for people that prefer not to see them */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  @import url(&#x27;https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap&#x27;);
+
+  :root {
+    background-color: #1B2430;
+    color: #FDFBF8;
+    font-family: Inter, Helvetica;
+    font-size: 18px;
+  }
+
+  a {
+    color: #A8E0FF;
+  }
+
+  .md p {
+    margin: 20px 0;
+    text-align: justify;
+  }
+</style><style></style></head><body class=""><div class="md"><p>Lo prometido es deuda (bien lo saben las funciones) y he encontrado un momento para empezar a explicar la forma en la que he implementado el patrón Promise en mi caso, no tiene porqué ser la mejor, pero cumple con su cometido.</p>
+<p><strong>NOTA:</strong> Me gustaría implementarla en Test Driven Development, pero ya es bastante para quien lee y para el que escribe seguir la implementación como para encima añadir TDD, pero no quisiera dejar de recomendarlo.</p>
+<h3 id="primero-funcionalidad-b-sica">Primero: Funcionalidad básica</h3>
+<p>Lo que necesitamos de un objeto Promise es:</p>
+
+<ul>
+<li>Crear instancias totalmente independientes</li>
+<li>Añadirle callbacks que serán llamados cuando se cumpla la promesa</li>
+<li>Notificarle cuando se ha cumplido la promesa</li>
+</ul>
+<!--more Seguir leyendo → -->
+<p>Con los objetivos en la mano es más sencillo ver que hacer, lo primero necesitamos una clase, a la hora de crear clases en Javascript yo me decanto por el patrón de constructor con prototipos que espero explicar algún día.</p>
+
+<pre><code class="lang-js">function Promise() {}
+</code></pre>
+<p><strong>Segundo punto:</strong> poder añadirle callbacks, ésto consiste en el método <code>.then()</code> al que deberemos poder llamar pasándole las funciones que queremos que se ejecuten cuando la promesa se cumpla. Puesto de debe poderse añadir más de un callback para cada promise lo más lógico sería crear un Array donde almacenarlos</p>
+
+<pre><code class="lang-js">function Promise() {
+  this._callbacks = [];
+}
+</code></pre>
+<p>Y el método <code>.then()</code> que vaya añadiendo al Array los callbacks que se le pasen, puesto que es mejor que los errores se detecten cuanto antes también podemos asegurarnos que el callback es una función:</p>
+
+<pre><code class="lang-js">Promise.prototype.then = function (callback) {
+  if (typeof callback !== &#39;function&#39;) {
+    throw new Error(&quot;[Promise.then] El argumento &#39;callback&#39; no es una función &quot; + typeof callback);
+  }
+
+  this._callbacks.push(callback);
+};
+</code></pre>
+<p>Y ahora que ya tenemos todos los callbacks en un Array necesitamos algún sistema para avisarle al Promise que ya tiene los datos que necesita y que se los pase a los callbacks. Sobre ésto no he visto ninguna implementación, pero a mi me parece bastante razonable crear un método <code>Promise.done()</code> que notifica al Promise que ya está cumplido y ejecuta los callbacks.</p>
+
+<pre><code class="lang-js">Promise.prototype.done = function () {
+  var callback;
+  for (var i = 0; i &lt; this._callbacks.length; i++) {
+    callback = this._callbacks[i];
+    callback();
+  }
+};
+</code></pre>
+<p>Y ya lo tenemos hecho, hemos creado un Promise básico, vamos a probarlo. Imaginemos cualquier función asíncrona, por ejemplo vamos a crear una función que nos avise cuando pase un segundo:</p>
+
+<pre><code class="lang-js">function esperarUnSegundo() {
+  var promise = new Promise();
+  // Hacemos un timeout a mil milisegundos
+  setTimeout(function () {
+    promise.done();
+  }, 1000);
+  return promise;
+}
+
+esperarUnSegundo().then(function () {
+  alert(&#39;Ha pasado un segundo =D&#39;);
+});
+</code></pre>
+<p><a href="http://jsfiddle.net/amatiasq/4LBWd/2/" target="_blank">Pruébame</a></p>
+<p>Si probamos todo el código veremos que al cabo de un segundo ejecuta el alert.</p>
+<p>Todo funciona perfectamente, vamos un punto más allá, ésta vez descarguemos una página, como no nos importa ahora mismo el código que descarga la página fingiremos llamar a una función <code>peticiónHttp(url, callback)</code> que lo hará por nosotros.</p>
+
+<pre><code class="lang-js">function descargar(url) {
+  var promise = new Promise();
+  peticiónHttp(url, function (codigoHtml) {
+    promise.done();
+  });
+  return promise;
+}
+descargar(&#39;www.google.com&#39;).then(function () {
+  // Y ahora?
+});
+</code></pre>
+<p>Sorpresa! La función ha descargado la página y obtenido el html, pero nuestro Promise no ha sido capaz de pasarlo al callback. La función del Promise en un principio era avisar cuando una tarea asíncrona termina, pero la mayoría de las tareas asíncronas devuelven un resultado y cuando avisemos al Promise que se ha cumplido también querremos que pase el resultado a todos los callbacks. Para ello modificaremos el método done y para que pase a los callbacks todos los argumentos que se le pasen a él (si no sabes lo que hace el método apply puedes mirarlo [aquí][1]):</p>
+
+<pre><code class="lang-js">Promise.prototype.done = function () {
+  // Guardamos los argumentos que se le ha pasado a .done()
+  var args = arguments;
+  var callback;
+  for (var i = 0; i &lt; this._callbacks.length; i++) {
+    callback = this._callbacks[i];
+    // Y se los pasamos al callback
+    callback.apply(null, args);
+  }
+};
+</code></pre>
+<p>Y ya está, ahora podemos pasarle argumentos a <code>.done()</code>:</p>
+
+<pre><code class="lang-js">function descargar(url) {
+  var promise = new Promise();
+  peticiónHttp(url, function (codigoHtml) {
+    promise.done(codigoHtml);
+  });
+  return promise;
+}
+
+descargar(&#39;www.google.com&#39;).then(function (codigoHtml) {
+  alert(codigoHtml);
+});
+</code></pre>
+<p>Ya tenemos nuestra versión 0.1 de la clase Promise :D</p>
+<h3 id="segundo-gesti-n-de-errores">Segundo: Gestión de errores</h3>
+<p>Hasta aquí ya tenemos un Promise con el que avisar cuando acaba una tarea asíncrona, pero nos olvidamos de algo muy importante, a la hora de programar no todo sale como quisiéramos y muchas veces nos encontramos con errores, que pasaría si <code>peticiónHttp()</code> fallara? Que jamás se ejecutaría el <code>.done()</code> del Promise que hemos devuelto y el callback esperará sentado a que lo llamen el resto de su vida. Hay que preparar el Promise para que avise cuando algo va mal. Necesitamos añadirle al Promise:</p>
+
+<ul>
+<li>Poder añadir callbacks especiales para cuando se produzca un error</li>
+<li>Avisarle cuando se produzca un error</li>
+<li>Que le pase al callback de error el objeto Error que se ha lanzado</li>
+</ul>
+<p>Lo primero es que el Promise no solo reciba un callback normal sino que también reciba otro callback que será ejecutado solo si se produce un error. Una idea que me gusta es dárselo al método <code>.then()</code> como segundo argumento, ya que el primero es el callback normal. Y éste debería guardarlo, para ello debemos crear otro Array donde guardar los callbacks de errores:</p>
+
+<pre><code class="lang-js">function Promise() {
+  this._callbacks = [];
+  this._onError = [];
+}
+Promise.prototype.then = function (callback, onError) {
+  // Validamos el callback normal
+  if (typeof callback !== &#39;function&#39;) {
+    throw new Error(&quot;[Promise.then] El argumento &#39;callback&#39; no es una función &quot; + typeof callback);
+  }
+  // Validamos el callback de error. Como es opcional puede ser &#39;undefined&#39; o una función
+  if (onError &amp;&amp; typeof onError !== &#39;function&#39;) {
+    throw new Error(&quot;[Promise.then] El argumento &#39;onError&#39; no es una función &quot; + typeof onError);
+  }
+
+  this._callbacks.push(callback);
+  // Si no era undefined debe ser una función, porque ya lo validamos
+  if (onError) {
+    this._onError.push(onError);
+  }
+};
+</code></pre>
+<p>Como se ve es prácticamente lo mismo que para los callbacks, ya que se trata de lo mismo, un callback por si hay errores. Ahora vamos a matar los últimos dos puntos de un tiro. Añadiremos un método para avisar al Promise cuando se produzca un error y le pasaremos el objeto Error para que lo pase a todos los callbacks de error.</p>
+
+<pre><code class="lang-js">Promise.prototype.fail = function (error) {
+  var callback;
+  for (var i = 0; i &lt; this._onError.length; i++) {
+    callback = this._onError[i];
+    callback(error);
+  }
+};
+</code></pre>
+<p>Y ya está, ahora cuando llamemos al método <code>.fail()</code> llamará a todos los callbacks de error y les pasará el objeto Error. Ahora podemos adaptar la función <code>descargar()</code> para que también notifique cuando se produzca un error:</p>
+
+<pre><code class="lang-js">function descargar(url) {
+  var promise = new Promise();
+  try {
+    peticiónHttp(url, function (codigoHtml) {
+      promise.done(codigoHtml);
+    });
+  } catch (error) {
+    promise.fail(error);
+  }
+  return promise;
+}
+descargar(&#39;www.google.com&#39;).then(function (codigoHtml) {
+  alert(codigoHtml);
+});
+</code></pre>
+<p>Ahora ya podemos decir que tenemos la versión 0.2 del Promise tengo que dejar para otro post métodos más complicados como <code>.then()</code> concatenados y el <code>.and()</code> porque ya es muy tarde. Aquí dejo el código completo al que le he añadido la propiedad <code>_estado</code> para evitar que se pueda cumplir o fallar un Promise cuando ya está cumplido o fallado.</p>
+
+<pre><code class="lang-js">function Promise() {
+  this._callbacks = [];
+  this._onError = [];
+  this._estado = &#39;esperando&#39;;
+}
+
+Promise.prototype.then = function (callback, onError) {
+  // Validamos el callback normal
+  if (typeof callback !== &#39;function&#39;)
+    throw new Error(&quot;[Promise.then] El argumento &#39;callback&#39; no es una función &quot; + typeof callback);
+
+  // Validamos el callback de error. Como es opcional puede ser &#39;undefined&#39; o una función
+  if (onError &amp;&amp; typeof onError !== &#39;function&#39;)
+    throw new Error(&quot;[Promise.then] El argumento &#39;onError&#39; no es una función &quot; + typeof onError);
+
+  this._callbacks.push(callback);
+  // Si no era undefined debe ser una función, porque ya lo validamos
+  if (onError) this._onError.push(onError);
+};
+
+Promise.prototype.done = function (error) {
+  if (this._estado !== &#39;esperando&#39;) throw new Error(&#39;Intentando cumplir un promise que ya ha finalizado&#39;);
+
+  this._estado = &#39;cumplido&#39;;
+  // Guardamos los argumentos que se le ha pasado a .done()
+  var args = arguments;
+  var callback;
+
+  for (var i = 0; i &lt; this._callbacks.length; i++) {
+    callback = this._callbacks[i];
+    // Y se los pasamos al callback
+    callback.apply(null, args);
+  }
+};
+
+Promise.prototype.fail = function (error) {
+  if (this._estado !== &#39;esperando&#39;) throw new Error(&#39;Intentando hacer fallar un promise que ya ha finalizado&#39;);
+
+  this._estado = &#39;fallado&#39;;
+  var callback;
+
+  for (var i = 0; i &lt; this._onError.length; i++) {
+    callback = this._onError[i];
+    callback(error);
+  }
+};
+</code></pre>
+<p>[1]: <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/apply">https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/apply</a> &#39;appy method&#39;</p>
+</div></body></html>

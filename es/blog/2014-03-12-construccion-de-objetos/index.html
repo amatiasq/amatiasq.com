@@ -1,0 +1,397 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>potato</title><style>
+  /* Box sizing rules */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  /* Remove default padding */
+  ul, ol {
+    padding: 0;
+  }
+
+  /* Remove default margin */
+  body, h1, h2, h3, h4, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
+    margin: 0;
+  }
+
+  /* Set core body defaults */
+  body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+  }
+
+  /* Remove list styles on ul, ol elements with a class attribute */
+  ul, ol {
+    list-style: none;
+  }
+
+  /* A elements that don&#x27;t have a class get default styles */
+  a:not([class]) {
+    text-decoration-skip-ink: auto;
+  }
+
+  /* Make images easier to work with */
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* Natural flow and rhythm in articles by default */
+  article &gt; * + * {
+    margin-top: 1em;
+  }
+
+  /* Inherit fonts for inputs and buttons */
+  input, button, textarea, select {
+    font: inherit;
+  }
+
+  /* Remove all animations and transitions for people that prefer not to see them */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  @import url(&#x27;https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap&#x27;);
+
+  :root {
+    background-color: #1B2430;
+    color: #FDFBF8;
+    font-family: Inter, Helvetica;
+    font-size: 18px;
+  }
+
+  a {
+    color: #A8E0FF;
+  }
+
+  .md p {
+    margin: 20px 0;
+    text-align: justify;
+  }
+</style><style></style></head><body class=""><div class="md"><p>He hablado antes de la limitación de los constructores javascript:</p>
+
+<pre><code class="lang-js">function Person(name) {
+  this.name = name;
+}
+Person.prototype.methodA = function() { ... }
+</code></pre>
+<p>En este caso quiero referirme a las limitaciones en cuanto a memoria pero hará falta un poco de introducción</p>
+<!--more Seguir leyendo → -->
+<h2 id="recolector-de-basura">Recolector de Basura</h2>
+<p>Javascript cuenta con un recolector de basura (Garbage collector) que periódicamente busca y elimina los objetos que nuestro código ya no utiliza, en los sistemas javascript modernos están lo bastante optimizados para detectar los objetos a los que ya no podemos utilizar porque no lo tenemos en ninguna variable:</p>
+
+<pre><code class="lang-js">var a = {};
+a = null;
+</code></pre>
+<p>En la próxima pasada del recolector de basura el objeto que teníamos en la variable <code>a</code> será eliminado de la memoria.</p>
+<p>Esto es muy cómodo porque no necesitamos limpiar la memoria manualmente, pero como javascript solo tiene un hilo el recolector de basura impide que ningún código se ejecute mientras está recolectando objetos y en aplicaciones que hacen un uso intenso del procesador, como los juegos en los que debemos generar 60 fotogramas por segundo, una pasada del recolector de basura puede congelar la imagen una fracción de segundo reduciendo la jugabilidad.</p>
+<p>Podemos reducir esto intentando ahorrarle trabajo al recolector de basura, es decir, intentando no crear y abandonar demasiados objetos en memoria. Para esto podemos cambiar el código para no crear un objeto que solo usaremos en una función o podemos intentar reutilizar los objetos que ya no nos sirvan. Esto es un punto clave para conseguir un buen rendimiento</p>
+<h2 id="constructores-javascript">Constructores Javascript</h2>
+<p>Y aquí entran los constructores, la forma más común de crear objetos en Javascript</p>
+
+<pre><code class="lang-js">function Vector(x, y) {
+  this.x = x;
+  this.y = y;
+}
+var v = new Vector(0, 0);
+</code></pre>
+<p><a target="_blank" href="http://jsfiddle.net/amatiasq/tHMB2/">Pruébame</a></p>
+<p>Cuando invocamos un constructor con <code>new</code> el operador hace algo similar a esto</p>
+
+<pre><code class="lang-js">function fakeNew(Constructor, params) {
+  var instance = Object.create(Constructor.prototype);
+  Constructor.apply(instance, params);
+  return instance;
+}
+var v = fakeNew(Vector, [0, 0]);
+</code></pre>
+<p><a target="_blank" href="http://jsfiddle.net/amatiasq/wgeZP/">Pruébame</a></p>
+<p>Vemos el el constructor en sí es una función normal y corriente solo que se usa su propiedad <code>prototype</code> como prototipo del nuevo objeto y se le pasa el nuevo objeto como <code>this</code> (si no sabes lo que hace <code>apply</code> lo encontrarás <a href="http://blog.amatiasq.com/2012/01/javascript-conceptos-basicos-this-call-y-apply/">aquí</a>).</p>
+<p>Un secreto poco conocido de los constructores es que como funciones que son pueden devolver un valor. Pero <a href="http://jsfiddle.net/amatiasq/p8Red/">haciendo pruebas</a> he encontrado que cierto tipo de valores son ignorados por new. En resumen parece ser que si el constructor devuelve un valor nativo (<code>null</code>, <code>Boolean</code>, <code>Number</code> y <code>String</code>) <code>new</code> lo ignora y devuelve la instancia recién creada, pero si es un objeto (<code>{}</code>, <code>[]</code>, <code>new Date()</code>...) devuelve ese objeto con lo que para que la función <code>fakeNew</code> funcione de forma idéntica al operador new debería ser así:</p>
+
+<pre><code class="lang-js">function fakeNew(Constructor, params) {
+  var instance = Object.create(Constructor.prototype);
+  var value = Constructor.apply(instance, params);
+
+  if (typeof value === &#39;object&#39; &amp;&amp; value !== null) return value;
+
+  return instance;
+}
+</code></pre>
+<p><a target="_blank" href="http://jsfiddle.net/amatiasq/3D9es/">Pruébame</a></p>
+<h2 id="devolviendo-valores-desde-el-constructor">Devolviendo valores desde el constructor</h2>
+<p>Entonces sabiendo que podemos devolver un objeto desde un constructor quizás podamos usar esto para ahorrar trabajo al recolector de basura si en lugar de devolver un objeto nuevo cada vez reutilizamos antiguos, lo que en cualquier lenguaje se llama una <a href="https://en.wikipedia.org/wiki/Factory_object"><code>factory</code></a>, así que supongamos que tenemos el siguiente constructor:</p>
+
+<pre><code class="lang-js">function MyNumber(value) {
+  this.value = value;
+}
+var num = new MyNumber(3);
+</code></pre>
+<p>Y queremos que si ya existe un objeto con ese número nos lo devuelva en lugar de crear otro pero no queremos cambiar todo el código así que la función tiene que seguir funcionando con el operador <code>new</code>.</p>
+
+<pre><code class="lang-js">function MyNumber(value) {
+  if (MyNumber.cache[value]) return MyNumber.cache[value];
+
+  this.value = value;
+  MyNumber.cache[value] = this;
+  return this;
+}
+MyNumber.cache = {};
+
+var num1 = new MyNumber(3);
+var num2 = new MyNumber(3);
+</code></pre>
+<p><a target="_blank" href="http://jsfiddle.net/amatiasq/pn2Qf/">Pruébame</a></p>
+<p>Y parece que hemos conseguido ahorrar trabajo al recolector de basura, en lugar de tener dos objetos iguales tenemos uno reutilizado. Pero solo en apariencia, si echamos un vistazo a la función <code>fakeNew</code> veremos que la segunda llamada a <code>MyNumber</code> si que ha creado un objeto, solo que nos ha devuelto otro, pero el objeto existe y se reservó espacio en memoria y el recolector de basura va a tener que eliminarlo.</p>
+<p>Entonces parece ser que que el operador <code>new</code> <strong>siempre</strong> crea un objeto con en consiguiente trabajo para el recolector de basura.</p>
+<h2 id="alternativas">Alternativas</h2>
+<p>Llegado a este punto probé me di cuenta que para estas operaciones como los juegos, que hacen un uso intenso del procesador y la memoria lo más recomendable era evitar el operador <code>new</code>. Decidí probar varias alternativas, la primera y más sencilla, que cada &quot;constructor&quot; (ahora una simple función) creara directamente los objetos que necesita:</p>
+
+<pre><code class="lang-js">function Vector(x, y) {
+  return { x: x, y: y };
+}
+var v = Vector();
+</code></pre>
+<p>Pero esto tiene la desventaja que ese objeto no prototipa <code>Vector.prototype</code> así que si queremos métodos prototipados habría que probar más algo como:</p>
+
+<pre><code class="lang-js">function Vector(x, y) {
+  var instance = Object.create(Vector.prototype);
+  instance.x = x;
+  instance.y = y;
+}
+var v = Vector(x, y);
+</code></pre>
+<p>Pero esto era mucho código repetido en cada constructor además el hecho de repetir el nombre del constructor complicaba aún más el código.</p>
+<h2 id="-constructor-protototype-prototype-constructor-"><code>Constructor.protototype</code> =&gt; <code>prototype.constructor</code></h2>
+<p>En este punto me di cuenta de un factor muy curioso, todas las funciones javascript tienen la propiedad <code>prototype</code> que a su vez tiene (por defecto) la propiedad <code>constructor</code> que es el propio constructor:</p>
+
+<pre><code class="lang-js">function Testing() {}
+console.log(Testing.prototype.constructor === Testing);
+
+var proto = Testing.prototype;
+console.log(proto.constructor.prototype === proto);
+</code></pre>
+<p><a target="_blank" href="http://jsfiddle.net/amatiasq/f9rZp/">Pruébame</a></p>
+<p>Esto me hizo pensar que quizás la intención original de los objetos en javascript no era tener constructores que contienen prototipos sino tener prototipos que contienen constructores:</p>
+
+<pre><code class="lang-js">var Vector = {
+  constructor: function (x, y) {
+    this.x = x;
+    this.y = y;
+  },
+  toString: function () {
+    return &#39;[Vector{&#39; + this.x + &#39;,&#39; + this.y + &#39;}]&#39;;
+  },
+};
+
+var v = Object.create(Vector);
+v.constructor(0, 0);
+</code></pre>
+<p><a target="_blank" href="http://jsfiddle.net/amatiasq/LVMnC/">Pruébame</a></p>
+<p>Vaya! No parece una forma mucho más sencilla de declarar tipos? <a href="http://jsfiddle.net/amatiasq/D6cJY/">Aquí</a> podemos comparar el mismo tipo escrito con constructores y con este paradigma y juzguen ustedes mismos.</p>
+<p>Desde luego no es tan bonito instanciarlos pero si declararlos, mucho más sencillo, tan sencillo que me hace preguntarme si quizás la intención inicial al diseñar el lenguaje no sería la de crear objetos de una forma similar a ésta:</p>
+
+<pre><code class="lang-js">// NOT valid javascript
+var Vector = {
+  constructor: function(x, y) { ... }
+};
+var v = Object.instanciate(Vector, [ 0, 0 ]);
+</code></pre>
+<p>Incluso se parece bastante a la forma de escribir clases en ECMAScript6</p>
+
+<pre><code class="lang-js">class Vector {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  },
+  toString() { ... }
+}
+</code></pre>
+<h2 id="-a-name-paradigma-code-type-new-code-es-el-nuevo-code-new-code-a-"><a name="paradigma"><code>Type.new()</code> es el nuevo <code>new</code>!</a></h2>
+<p>Entonces con esto en mente decidí invertir el proceso, en lugar de crear un constructor y añadir métodos a su prototipo decidí crear un prototipo que contenga el constructor.</p>
+<p>Y ya que instanciarlo requiere cierta complejidad decidí crear también un método para instanciar, como ECMAScript5 nos permite usar palabras reservadas como propiedades de objeto la llamé <code>new</code></p>
+<p>NOTA: dentro del método <code>new</code> <code>this</code> es <code>Vector</code>, si no conoces como funcionan los contextos en javascript te recomiendo leer <a href="http://blog.amatiasq.com/2012/01/javascript-conceptos-basicos-this-call-y-apply/">esto</a>;</p>
+
+<pre><code class="lang-js">var Vector = {
+  new: function () {
+    var instance = Object.create(this);
+    instance.constructor.apply(instance, arguments);
+    return instance;
+  },
+
+  constructor: function (x, y) {
+    this.x = x;
+    this.y = y;
+  },
+
+  toString: function () {
+    return &#39;[Vector{&#39; + this.x + &#39;,&#39; + this.y + &#39;}]&#39;;
+  },
+};
+
+var v = Vector.new(0, 0);
+</code></pre>
+<p><a target="_blank" href="http://jsfiddle.net/amatiasq/wtQ8S/">Pruébame</a></p>
+<p>Resultó muy sencillo y agradable, lo que lo hace más fácil de mantener. Un último detalle es que todos mis tipos usaban un método <code>new</code> idéntico así que decidí hacerlo global para que cada uno de mis tipos pudiera referenciarlo</p>
+
+<pre><code class="lang-js">function $new() {
+  var instance = Object.create(this);
+  instance.constructor.apply(instance, arguments);
+  return instance;
+}
+
+var Vector = {
+  new: $new,
+  constructor: function(x, y) {
+    this.x = x;
+    this.y = y;
+  },
+  ...
+};
+
+var Cell = {
+  new: $new,
+  constructor: function(row, col) {
+    this.position = row + &#39;-&#39; + col;
+  }
+};
+</code></pre>
+<p><a target="_blank" href="http://jsfiddle.net/amatiasq/46TaS/">Pruébame</a></p>
+<p>Me encontré muy a gusto con este nuevo paradigma de definir tipos y crear objetos, incluso tiene bonus inesperados como que todos los subtipos tienen el método <code>new</code> para crear subinstancias</p>
+
+<pre><code class="lang-js">var vector3D = Vector.new(0, 0);
+vector3D.z = 10;
+
+var other = vector3D.new(3, 4);
+console.log(other.z); // 10
+</code></pre>
+<p><a target="_blank" href="http://jsfiddle.net/amatiasq/LPAu7/">Pruébame</a></p>
+<p>Me parece un paradigma mucho más natural en javascript, más orientado a objetos (y menos a clases) a objetos que extienden de objetos. Es el paradigma que he seguido en <a href="https://github.com/amatiasq/mq/tree/master/src">mis últimas implementaciones</a> y es muy sencillo y cómodo aunque en este caso preferí usar <code>init</code> en lugar de <code>constructor</code> por ser más compacto y específico ya que no se trata de construir sino de inicializar.</p>
+<p>Personalmente recomiendo a todo javascripter probar al menos en proyectos personales este paradigma ya que es una forma de ignorar las parafernalias de los constructores y ver la naturaleza pura y sencilla de javascript que está ahí aunque hayan mil capas puestas encima.</p>
+<h2 id="todo-junto">Todo junto</h2>
+<p>Volviendo a los inicios, el recolector de basura, utilizando éste paradigma la operación de crear objetos (el operador <code>new</code> y el método <code>.new()</code>) está en nuestro control ya que podemos modificar el método <code>.new()</code> e impedir que se cree ningún objeto cuando nos haga falta sin cambiar el resto del código, si yo tengo este código</p>
+
+<pre><code class="lang-js">var MyNumber = {
+  new: $new,
+
+  constructor: function (value) {
+    this.value = value;
+  },
+};
+
+var num1 = MyNumber.new(3);
+var num2 = MyNumber.new(3);
+
+console.log(num1 === num2); // false
+</code></pre>
+<p><a target="_blank" href="http://jsfiddle.net/amatiasq/j54Gx/">Pruébame</a></p>
+<p>Podemos cambiarlo para que deje de crear objetos duplicados sin que el código ajeno tenga que cambiarse, lo que demuestra una buena encapsulación</p>
+
+<pre><code class="lang-js">var MyNumber = {
+  _cache: {},
+  new: function (value) {
+    if (this._cache[value]) return this._cache[value];
+
+    var instance = $new.call(this);
+    Object.freeze(instance);
+    this._cache[value] = instance;
+    return instance;
+  },
+
+  constructor: function (value) {
+    this.value = value;
+  },
+};
+
+var num1 = MyNumber.new(3);
+var num2 = MyNumber.new(3);
+
+console.log(num1 === num2); // true
+</code></pre>
+<p><a target="_blank" href="http://jsfiddle.net/amatiasq/Xhqb5/">Pruébame</a></p>
+<p>Y ahora si hemos conseguido evitar que ningún objeto se cree en la segunda llamada a <code>MyNumber.new(3)</code> reduciendo el trabajo del recolector de basura. Esta es una forma muy sencilla de evitar crear objetos duplicados que por el otro lado requiere que los objetos sean inmutables, es decir que no se puedan modificar, esto está hecho en el ejemplo mediante Object.freeze. De lo contrario si cambiamos la propiedad <code>value</code> de <code>num1</code> también cambiaríamos la pripiedad <code>value</code> de <code>num2</code> ya que son el mismo objeto. Si necesitamos otro tipo de valor podemos crear otro objeto</p>
+
+<pre><code class="lang-js">var Vector = {
+  ...
+
+  merge: function(vector) {
+    return Vector.new(this.x + vector.x, this.y + vector.y);
+  },
+};
+</code></pre>
+<p>Por otro lado tenemos otro tipo de objetos que no son tan fáciles de reciclar, por ejemplo las entidades de un juego (enemigos, objetos interactuables...) que se crean y se destruyen constantemente y no hay dos iguales. Para estos casos decidí añadir el método <code>.dispose()</code> que lo que hace es pedirle al objeto que vuelva al estado de un objeto recién creado para que pueda ser reciclado la próxima vez que necesitemos otra instancia, en pocas palabras debe deshacer el trabajo del constructor.</p>
+
+<pre><code class="lang-js">var Enemy = {
+  _pool: [],
+  new: function () {
+    var instance = this._pool.length ? this._pool.pop() : Object.create(this);
+
+    instance.constructor.apply(this, arguments);
+    return instance;
+  },
+
+  constructor: function () {
+    this.id = createId();
+  },
+
+  dispose: function () {
+    delete this.id;
+    Enemy._pool.push(this);
+  },
+
+  die: function () {
+    console.log(&#39;Tell my wife I love her...&#39;);
+  },
+};
+
+var enemy1 = Enemy.new();
+enemy1.die();
+enemy1.dispose();
+// aquí deberíamos setear enemy1 a null
+// porque puede ser reciclado en cualquier momento
+//enemy1 = null;
+
+var enemy2 = Enemy.new();
+console.log(enemy1 === enemy2); // true
+</code></pre>
+<p><a target="_blank" href="http://jsfiddle.net/amatiasq/YyLwZ/">Pruébame</a></p>
+<p>Los que hayan usado C++ notarán que parece que estemos volviendo a la gestión de memoria manual pero son los extremos que hay que llegar cuando necesitamos eficiencia.</p>
+<p>Et voilà! Cambiando solo el método <code>new</code> hemos conseguido optimizar nuestro programa para reducir el trabajo del recolector de basura y conseguir más eficiencia en el código. En mi opinión las posibilidades de mejorar el comportamiento de todo el código cambiando solo una pequeña parte tiene un potencial enorme que no debe ser subestimado. Por supuesto estos son conceptos, como todas las optimizaciones, que solo deben aplicarse allí cuando y donde se encuentre un cuello de botella y no antes.</p>
+<p>De momento seguiré con mi juego usando estos patrones, en cuanto al futuro parece ser que ECMAScript6 ha puesto la mira sobre este problema, entre las nuevas funcionalidades encontramos el símbolo <code>@@create</code> que <a href="https://github.com/lukehoban/es6features">si no lo he entendido mal</a> nos permitirá re-definir la creación de objetos mediante el operador <code>new</code>, es decir, reescribiendo el método estático <code>@@create</code> podremos evitar que <code>new</code> cree un objeto</p>
+
+<pre><code class="lang-js">// Source: https://github.com/lukehoban/es6features
+
+// Pseudo-code of Array
+class Array {
+  constructor(...args) {
+    /* ... */
+  }
+  static [Symbol.create]() {
+    // Install special [[DefineOwnProperty]]
+    // to magically update &#39;length&#39;
+  }
+}
+
+// User code of Array subclass
+class MyArray extends Array {
+  constructor(...args) {
+    super(...args);
+  }
+}
+
+// Two-phase &#39;new&#39;:
+// 1) Call @@create to allocate object
+// 2) Invoke constructor on new instance
+var arr = new MyArray();
+arr[1] = 12;
+arr.length == 2;
+</code></pre>
+<p>Por otro lado el paradigma de crear objetos con un método <code>.new()</code> es un sistema muy agradable que facilita muchas cosas, me ha dado buenas experiencias y permite tener un código más legible (no más <code>Constructor.prototype.method</code> por todos lados) más conciso y más controlable. Creo que es algo muy recomendable.</p>
+</div></body></html>

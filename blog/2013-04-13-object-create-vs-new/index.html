@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>potato</title><style>
+  /* Box sizing rules */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  /* Remove default padding */
+  ul, ol {
+    padding: 0;
+  }
+
+  /* Remove default margin */
+  body, h1, h2, h3, h4, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
+    margin: 0;
+  }
+
+  /* Set core body defaults */
+  body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+  }
+
+  /* Remove list styles on ul, ol elements with a class attribute */
+  ul, ol {
+    list-style: none;
+  }
+
+  /* A elements that don&#x27;t have a class get default styles */
+  a:not([class]) {
+    text-decoration-skip-ink: auto;
+  }
+
+  /* Make images easier to work with */
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* Natural flow and rhythm in articles by default */
+  article &gt; * + * {
+    margin-top: 1em;
+  }
+
+  /* Inherit fonts for inputs and buttons */
+  input, button, textarea, select {
+    font: inherit;
+  }
+
+  /* Remove all animations and transitions for people that prefer not to see them */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  @import url(&#x27;https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap&#x27;);
+
+  :root {
+    background-color: #1B2430;
+    color: #FDFBF8;
+    font-family: Inter, Helvetica;
+    font-size: 18px;
+  }
+
+  a {
+    color: #A8E0FF;
+  }
+
+  .md p {
+    margin: 20px 0;
+    text-align: justify;
+  }
+</style><style></style></head><body class=""><div class="md"><blockquote>
+<p>Actualización 19/3/2014: Finalmente he entendido la utilidad de reemplazar <code>new</code>, se puede ver <a href="http://blog.amatiasq.com/2014/03/type-new/">aquí</a></p>
+</blockquote>
+<p>JotaEseros! Tengo un dilema existencial que me impide dormir.</p>
+<p>Hasta donde sé los constructores hacen más o menos esto</p>
+
+<pre><code class="lang-js">function fakeNew(Ctor) {
+  var instance = Object.create(Ctor.prototype);
+  instance.constructor();
+  return instance;
+}
+</code></pre>
+<p>Todo empezó cuando quise hacer polyfill de Object.create(), así podría crear objectos sin usar <code>new</code>, decidí usar la versión sencilla</p>
+
+<pre><code class="lang-js">Object.create = function (proto) {
+  function F() {}
+  F.prototype = proto;
+  return new F();
+};
+</code></pre>
+<p>Y empecé a crear un montón de objetos y a prototiparlos, pero como los objetos muchas veces necesitaban inicializar sus propiedades les hice el método <code>.init()</code></p>
+
+<pre><code class="lang-js">var base = {
+  init: function () {
+    EmitterMixin.call(this);
+    return this;
+  },
+};
+
+var obj = Object.create(base).init();
+</code></pre>
+<p>Pero claro, tengo que acordarme de devolver <code>this</code> siempre al acabar <code>.init()</code> y muchas veces lo olvidaba o me olvidaba de invocar <code>.init()</code> que es peor. Así que intentando como simplificar la inicialización de un objeto pensé crear una funcioń global que se encargara de invocar a <code>Object.create</code>, llamar a la función inicializadora y devolver this:</p>
+
+<pre><code class="lang-js">function create(proto) {
+  var child = Object.create(proto);
+  child.init();
+  return child;
+}
+</code></pre>
+<p>Y me empezaron a dar ganas de reventarme la cabeza contra la pared al darme cuenta que <strong>lo que estaba haciendo es prácticamente lo mismo que hace el operador nativo <code>new</code></strong> pero mucho más lento y, en caso de usar el polyfill the <code>Object.create</code> incluso usando <code>new</code> por debajo.</p>
+<p>Entonces me pregunto, que beneficios aporta abandonar <code>new</code>? es <a href="http://jsperf.com/object-create-vs-constructor-vs-object-literal/49">notablemente más rápido</a> en la mayoría de navegadores y por la naturaleza de javascript solemos necesitar crear una función inicializadora que en el caso de <code>new</code> es el constructor.</p>
+<p>Y lo que es más grave aún, he notado que <strong>usaba dos tipos diferentes de objetos</strong>, unos &quot;<em>abstractos</em>&quot; y otros &quot;<em>instancias</em>&quot; la mayor diferencia es que en las instancias tenía que invocar <code>.init()</code> siempre mientras que los abstractos no era necesario porque solo serían usados para crear otros objetos que los prototiparan. Y es un patrón que he visto mientras usaba <code>new</code>:</p>
+
+<pre><code class="lang-js">function Foo() { }
+Foo.prototype.method = function() { ... };
+
+function Bar() { }
+// Objeto &quot;abstracto&quot;, no se invoca inicializador
+Bar.prototype = Object.create(Foo.prototype);
+Bar.prototype.other = function() { ... };
+
+// Objeto &quot;instancia&quot;
+// se invoca el constructor como inicializador
+var obj = new Bar();
+</code></pre>
+<p>Realmente hay es una ventaja abandonar <code>new</code>? estamos seguros que no se trata de una herramienta de alto nivel que simplifica algo que igualmente tendremos que hacer nosotros a mano? Que pros y contras tienen <code>new</code> y <code>Object.create</code>?</p>
+</div></body></html>

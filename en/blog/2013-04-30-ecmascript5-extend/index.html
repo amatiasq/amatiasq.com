@@ -1,0 +1,182 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>potato</title><style>
+  /* Box sizing rules */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  /* Remove default padding */
+  ul, ol {
+    padding: 0;
+  }
+
+  /* Remove default margin */
+  body, h1, h2, h3, h4, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
+    margin: 0;
+  }
+
+  /* Set core body defaults */
+  body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+  }
+
+  /* Remove list styles on ul, ol elements with a class attribute */
+  ul, ol {
+    list-style: none;
+  }
+
+  /* A elements that don&#x27;t have a class get default styles */
+  a:not([class]) {
+    text-decoration-skip-ink: auto;
+  }
+
+  /* Make images easier to work with */
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* Natural flow and rhythm in articles by default */
+  article &gt; * + * {
+    margin-top: 1em;
+  }
+
+  /* Inherit fonts for inputs and buttons */
+  input, button, textarea, select {
+    font: inherit;
+  }
+
+  /* Remove all animations and transitions for people that prefer not to see them */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  @import url(&#x27;https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap&#x27;);
+
+  :root {
+    background-color: #1B2430;
+    color: #FDFBF8;
+    font-family: Inter, Helvetica;
+    font-size: 18px;
+  }
+
+  a {
+    color: #A8E0FF;
+  }
+
+  .md p {
+    margin: 20px 0;
+    text-align: justify;
+  }
+</style><style></style></head><body class=""><div class="md"><p>A algunos ya os he comentado los problemas que <a href="http://www.nczonline.net/blog/2012/12/11/are-your-mixins-ecmascript-5-compatible/">NC Zakas comenta</a> con el <code>_.extend</code> de underscore y los getters:</p>
+
+<pre><code class="lang-js">var a = {
+  init: function () {
+    this.list = [];
+  },
+
+  get first() {
+    return this.list[0];
+  },
+};
+</code></pre>
+<p>O</p>
+
+<pre><code class="lang-js">var a = {
+  init: function () {
+    this.list = [];
+  },
+};
+
+Object.defineProperty(a, &#39;first&#39;, {
+  get: function () {
+    return this.list[0];
+  },
+});
+</code></pre>
+<p>Y que si hacemos <code>_.extend(a)</code> va a fallar porque intentará hacer <code>result.first = a.first</code> ejecutando el getter. Pero como aún no hemos llamado al <code>.init()</code> en <code>a</code> porque solo es un prototipo, la propiedad <code>.list</code> es undefined produciendo un error.</p>
+<p>Pues bien, yo creía que esto se solucionaba extrayendo el descriptor de la propiedad y usando ese mismo descriptor para copiar la propiedad al nuevo objeto:</p>
+
+<pre><code class="lang-js">function extend(obj) {
+  var result = {};
+  var properties = Object.keys(obj);
+
+  properties.forEach(function (prop) {
+    var descriptor = Object.getOwnPropertyDescriptor(obj, prop);
+    Object.defineProperty(result, prop, descriptor);
+  });
+
+  return result;
+}
+</code></pre>
+<p>Pero he usado esto en la librería de promises y me he dado cuenta que solo hereda las propiedades directas, tanto <code>Object.keys</code> como <code>Object.getOwnPropertyDescriptor</code> solo funcionan si la propiedad está directamente declarada en el objeto y no en ninguno de sus prototipos. Y no hay ninguna forma de decir <code>Object.getPropertyDescriptorFromHimOrHisPrototypes()</code> así que la única forma es recorrer todos los prototipos.</p>
+
+<pre><code class="lang-js">function extend(obj) {
+  var result = {};
+  var proto = obj;
+
+  while (proto) {
+    Object.keys(proto).forEach(function (prop) {
+      var descriptor = Object.getOwnPropertyDescriptor(proto, prop);
+      Object.defineProperty(result, prop, descriptor);
+    });
+
+    proto = Object.getPrototypeOf(proto);
+  }
+
+  return result;
+}
+</code></pre>
+<p>Pero eso tampoco funciona del todo bien porque las propiedades de los ancestros se impondrían sobre las propiedades propias del objeto. Así que primero hay que empezar por el último prototipo y acabar por el propio objeto</p>
+
+<pre><code class="lang-js">function extend(obj) {
+  var result = {};
+  var proto = obj;
+  var protos = [];
+
+  while (proto) {
+    protos.push(proto);
+    proto = Object.getPrototypeOf(proto);
+  }
+
+  protos.reverse().forEach(function (ancestor) {
+    Object.keys(ancestor).forEach(function (prop) {
+      var descriptor = Object.getOwnPropertyDescriptor(ancestor, prop);
+      Object.defineProperty(result, prop, descriptor);
+    });
+  });
+
+  return result;
+}
+</code></pre>
+<p>Y esto ya funciona, pero le falta un detallito, mediante el property descriptor se puede poner que una propiedad no sea enumerable por lo que no se interará sobre ella con un <code>for .. in ..</code> ni con <code>Object.keys</code> pero si las podemos obtener si utilizamos <code>Object.getOwnPropertyNames</code> (Fuente: <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames">MDN</a>). Así que remplazando <code>Object.keys</code> con <code>Object.getOwnPropertyNames</code> esta vez si (espero, rezo, suplico -.-) tenemos una función que crea una copia de todas las propiedades propias y heredadas de un objeto.</p>
+
+<pre><code class="lang-js">function ecma5extend(obj) {
+  var proto = obj;
+  var protos = [];
+  var result = {};
+
+  while (proto) {
+    protos.push(proto);
+    proto = Object.getPrototypeOf(proto);
+  }
+
+  protos.reverse().forEach(function (ancestor) {
+    Object.getOwnPropertyNames(ancestor).forEach(function (prop) {
+      var descriptor = Object.getOwnPropertyDescriptor(ancestor, prop);
+      Object.defineProperty(result, prop, descriptor);
+    });
+  });
+
+  return result;
+}
+</code></pre>
+<p>Como al final el código ha quedado bastante más complejo de lo que me gustaría lo he apuntado en <a href="https://gist.github.com/amatiasq/5492466">un Gist</a> que podría venirles bien.</p>
+</div></body></html>

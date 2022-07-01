@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>potato</title><style>
+  /* Box sizing rules */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  /* Remove default padding */
+  ul, ol {
+    padding: 0;
+  }
+
+  /* Remove default margin */
+  body, h1, h2, h3, h4, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
+    margin: 0;
+  }
+
+  /* Set core body defaults */
+  body {
+    min-height: 100vh;
+    scroll-behavior: smooth;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+  }
+
+  /* Remove list styles on ul, ol elements with a class attribute */
+  ul, ol {
+    list-style: none;
+  }
+
+  /* A elements that don&#x27;t have a class get default styles */
+  a:not([class]) {
+    text-decoration-skip-ink: auto;
+  }
+
+  /* Make images easier to work with */
+  img {
+    max-width: 100%;
+    display: block;
+  }
+
+  /* Natural flow and rhythm in articles by default */
+  article &gt; * + * {
+    margin-top: 1em;
+  }
+
+  /* Inherit fonts for inputs and buttons */
+  input, button, textarea, select {
+    font: inherit;
+  }
+
+  /* Remove all animations and transitions for people that prefer not to see them */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  @import url(&#x27;https://fonts.googleapis.com/css2?family=Inter:wght@400;700&amp;display=swap&#x27;);
+
+  :root {
+    background-color: #1B2430;
+    color: #FDFBF8;
+    font-family: Inter, Helvetica;
+    font-size: 18px;
+  }
+
+  a {
+    color: #A8E0FF;
+  }
+
+  .md p {
+    margin: 20px 0;
+    text-align: justify;
+  }
+</style><style></style></head><body class=""><div class="md"><p>Acabo de leer <a href="http://scottchacon.com/2011/08/31/github-flow.html">un artículo</a> creado por los trabajadores de <a href="http://www.github.com">Github</a> que han dado una vuelta de tuerca a lo que sabía de GIT y creo que será muy útil compartirlo, pero primero vamos por partes:</p>
+<h3 id="control-de-versiones">Control de Versiones</h3>
+<p>Prefiero empezar por lo más básico porque ésto es algo que los programadores damos por hecho pero para alguien empezando puede ser totalmente desconocido. Una de las herramientas más básicas de un programador junto con el editor de texto es un <strong>sistema de control de versiones</strong>. Se trata básicamente de un programa que <strong>registra los cambios que vamos haciendo en los archivos y cuando nosotros se lo ordenamos (hacemos commit) se guarda el estado actual de los archivos</strong>, si más adelante seguimos haciendo cambio en los archivos y en lugar de mejorar empeora gracias al sistema de control de versiones podemos revertir los archivos y dejarlos tal y como estaban en el último commit o cualquier commit anterior. Además permite que <strong>dos o más personas puedan archivos de un mismo proyecto y cuando ambos envíen sus cambios el sistema hará lo posible por combinarlos</strong> (hacer merge), en caso de que el merge no se pueda hacer automático el sistema notifica un conflicto de cambios y nos pide que lo hagamos a mano.</p>
+<!--more Seguir leyendo → -->
+<h3 id="git">GIT</h3>
+<p>Después de usar SVN y TFS y SourceSafe en los cuales hacer merge era dramático o bien imposible (en SourceSafe dos personas no pueden modificar el mismo archivo a la vez), descubrir GIT fue fascinante, <strong>la eficacia con la que resuelve conflictos y la capacidad de crear, combinar y destruir ramas</strong> con un simple comando es una herramienta invaluable. El principal problema con las grandes herramientas es que <strong>hay tantas formas de usarlas que si no sabes lo que haces probablemente te encuentres en un caos</strong> y esa es la sensación que tuve al dar mis primeros pasos con GIT, estar gastando tiempo y esfuerzo en usar una herramienta compleja sin conseguir exprimirle el jugo.</p>
+<h3 id="git-flow">GIT Flow</h3>
+<p>Finalmente me crucé con <a href="http://nvie.com/posts/a-successful-git-branching-model/">GIT Flow</a>, <strong>una guía para aprovechar el potencial de GIT</strong> en el ámbito laboral. La idea es bastante sencilla pero las directrices deben ser respetadas para garantizar el orden:</p>
+
+<ul>
+<li>Mantener en la <strong>rama <code>master</code> una versión del código lista</strong> para ser utilizada (production-ready)</li>
+<li>Mantener en la <strong>rama <code>develop</code> las nuevas funcionalidades</strong> completas de nuestra aplicación, esperando a que podamos lanzar otra versión estable (release)</li>
+<li>Las nuevas funcionalidades se desarrollan en ramas creadas a partir de la rama <code>develop</code> y una vez completadas se &quot;mergean&quot; a <code>develop</code></li>
+<li>Cuando develop esté listo para una nueva release se abre una rama y se hace la fase final de testing y los cambios de versión. Una vez completada ésta fase la rama de release se &quot;mergea&quot; a <code>develop</code> y <code>master</code> y se añade un <code>tag</code> en <code>master</code> para marcar la release.</li>
+<li>Los bugs se arreglan en ramas creadas a partir de <code>master</code> y una vez corregidos igual que una rama de release se se actualiza la versión y se &quot;mergea&quot; a <code>master</code> y <code>develop</code> y se añade un tag en <code>master</code></li>
+</ul>
+<p>Para una explicación más detallada recomiendo leer el <a href="http://nvie.com/posts/a-successful-git-branching-model/">artículo original</a> (inglés) ya que lo explica mucho mejor de lo que yo podría. Cada una de éstas operaciones está compuesta de varios comandos git que deben ser ejecutados en un orden dado y es muy común olvidar algún paso, principalmente al empezar con el Workflow, por ello <strong>disponemos de <a href="https://github.com/nvie/gitflow">git-flow</a>, una herramienta que añade comandos a git</strong>. <a href="https://github.com/nvie/gitflow/wiki/Installation">Una vez instalado</a> podremos ejecutar comandos como:</p>
+
+<pre><code>git flow feature start my-feature-name
+</code></pre>
+<p>Que gestionará por nosotros la creación de la rama a partir de <code>develop</code>. Podemos ver una introducción a git-flow en el artículo <a href="http://jeffkreeftmeijer.com/2010/why-arent-you-using-git-flow/">Why aren&#39;t you using git-flow?</a> (ingĺés). Aunque no sobra decir que <strong>en el caso de las interfaces gráficas de GIT hay que seguir los pasos manualmente</strong>.</p>
+<p>Personalmente creo que éste sistema es bueno si tenemos GIT y no tenemos claro que Workflow seguir. <strong>Es un sistema muy extendido</strong> entre los usuarios de GIT lo que permite que la gente se adapte rápidamente y lo considero un punto medio entre complejidad y simpleza. Hay una variante para proyectos que necesitan mantener más de una versión (es decir, la mayoría de los productos que se venden como paquete cerrado) <strong>en ésta variante en lugar de poner un tag en <code>master</code> por versión creamos una nueva rama</strong>, por ejemplo &quot;release-1.4&quot;, de ésta forma disponemos de distintas ramas para cada versión. Ésto nos permite corregir un bug en una versión pasada y sacar un parche específico.</p>
+<p>El proceso <strong>al detectar un bug en la última release es probar las releases anteriores hasta detectar la release en la que se introdujo el bug</strong>. Por ejemplo, estamos en la versión 1.8 pero detectamos un bug que afecta a nuestro producto desde la versión 1.2. En ese caso corregimos el bug en una rama creada a partir de la rama de la primera versión que contiene el bug, y una vez corregido se envía a cada rama de release que contenga el bug. Evidentemente <strong>se trata de un Workflow mucho más costoso que no debe ser utilizado a menos que tengamos la necesidad</strong> de mantener más de una versión del producto que por mi experiencia considero una mala práctica, pero si nos encontramos en ésta situación nos puede reducir los problemas y ahorrar mucho tiempo. Continúa en [la segunda parte][7]...</p>
+<p>[7]: <a href="http://www.amatiasq.com/2012/12/git-workflow-flujo-de-trabajo-parte-2/">http://www.amatiasq.com/2012/12/git-workflow-flujo-de-trabajo-parte-2/</a> &#39;GIT Workflow (Flujo de trabajo) (Parte 2)&#39;</p>
+</div></body></html>
