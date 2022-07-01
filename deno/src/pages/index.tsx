@@ -14,10 +14,10 @@ export default (props: any) => {
       <AmqHeader />
       <Container>
         <AmqPageList name="Blog" list={sections.blog} />
-        <AmqPageList name="Career" list={sections.career} />
-        <AmqPageList name="Experiments" list={sections.experiments} />
-        <AmqPageList name="Projects" list={sections.projects} />
-        <AmqPageList name="Talks" list={sections.talks} />
+        <AmqPageList name={{ en: 'Career', es: 'Experiencia' }} list={sections.career} />
+        <AmqPageList name={{ en: 'Experiments', es: 'Experimentos' }} list={sections.experiments} />
+        <AmqPageList name={{ en: 'Projects', es: 'Proyectos' }} list={sections.projects} />
+        <AmqPageList name={{ en: 'Talks', es: 'Charlas' }} list={sections.talks} />
       </Container>
     </AmqDocument>
   );

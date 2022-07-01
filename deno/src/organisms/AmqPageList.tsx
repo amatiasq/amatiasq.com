@@ -4,10 +4,11 @@ import { Time } from '../atoms/Time.tsx';
 import { css } from '../deps/emotion.ts';
 import { PageMetadata } from '../generate/pages.ts';
 import { cssColor, cssFontSize, cssSpace } from '../theme.ts';
+import { Lang, Translatable } from '../atoms/Lang.tsx';
 
 export interface AmqPageListProps {
   className?: string;
-  name: string;
+  name: Translatable;
   list: PageMetadata[];
 }
 
@@ -50,7 +51,9 @@ export function AmqPageList({ className = '', name, list }: AmqPageListProps) {
 
   return (
     <div className={`${styles} ${className}`}>
-      <h3 className={headerStyles}>{name}</h3>
+      <h3 className={headerStyles}>
+        <Lang tr={name} />
+      </h3>
       <ul>
         {top.map(x => (
           <li key={x.file} className={listItemStyles}>

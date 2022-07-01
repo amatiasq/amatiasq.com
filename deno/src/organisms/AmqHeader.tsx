@@ -4,6 +4,7 @@ import { usePageUtils } from '../generate/PageUtils.tsx';
 import { css } from '../deps/emotion.ts';
 import { getPagesRoot } from '../generate/pages.ts';
 import { cssColor, cssFontSize, cssSpace } from '../theme.ts';
+import { Lang } from '../atoms/Lang.tsx';
 
 const root = getPagesRoot();
 
@@ -59,8 +60,12 @@ export function AmqHeader({ className = '' }: React.PropsWithChildren<AmqHeaderP
 
         <nav className={navStyles}>
           <Link href={`${root}/blog`}>Blog</Link>
-          <Link href={`${root}/career`}>Career</Link>
-          <Link href={`${root}/projects`}>Projects</Link>
+          <Link href={`${root}/career`}>
+            <Lang en="Career" es="Experiencia" />
+          </Link>
+          <Link href={`${root}/projects`}>
+            <Lang en="Projects" es="Proyectos" />
+          </Link>
         </nav>
       </Container>
     </header>

@@ -20,7 +20,7 @@ const urlToSitePage = (url: string) => url.replace('file://', '') as SitePage;
 export function createPageUtils(page: string) {
   const path = getPagePath(urlToSitePage(page));
 
-  function Link({ href, children }: { href: string; children: Translatable }) {
+  function Link({ href, children }: { href: string; children: Translatable | JSX.Element }) {
     const target = getPagePath(urlToSitePage(href));
 
     const isActive = target === path;
@@ -29,7 +29,7 @@ export function createPageUtils(page: string) {
 
     return (
       <a href={relative(path, target)} className={classes}>
-        {tr(children)}
+        {isJsxElement(children) ? children : tr(children)}
       </a>
     );
   }
@@ -38,3 +38,7 @@ export function createPageUtils(page: string) {
 }
 
 export type PageUtils = ReturnType<typeof createPageUtils>;
+
+function isJsxElement(target: any): target is JSX.Element {
+  return React.isValidElement(target);
+}
