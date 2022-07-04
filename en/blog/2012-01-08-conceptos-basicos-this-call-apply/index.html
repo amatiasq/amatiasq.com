@@ -176,7 +176,11 @@
 </code>
 <p>Aquí tenemos dos objetos totalmente independientes y ambos tienen la propiedad <code>myMethod</code> apuntado a <code>myFunction</code> a pesar de que no tienen una clase en común más que <code>Object</code>. Entonces cuál es <strong>el valor de this</strong> en <code>myFunction</code>? No es fijo, <strong>cambia según como lo llamemos</strong>.</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div></div><div>objectA<span class="shj-syn-oper">.</span><span class="shj-syn-func">myMethod</span>();
+<span class="shj-syn-cmnt">// Imprime "Alice"
+</span>
+objectB<span class="shj-syn-oper">.</span><span class="shj-syn-func">myMethod</span>();
+<span class="shj-syn-cmnt">// Imprime "Bob"</span></div></div>
 </code>
 <p><a href="http://jsfiddle.net/amatiasq/YUX5B/" target="_blank">Pruébame</a></p>
 <!--more Seguir leyendo → -->

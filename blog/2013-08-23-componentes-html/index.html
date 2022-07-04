@@ -157,16 +157,56 @@
 <h3 id="la-soluci-n">La solución</h3>
 <p>Entonces me encuentro con <a href="http://www.webcomponentsshift.com/">estas diapositivas</a> que hablan de los HTML WebComponents y resulta ser justo lo que hace falta:</p>
 
-<code class="code-block shj-lang-html">LOADING...
+<code class="code-block shj-lang-html"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">element</span> <span class="shj-syn-class">name</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"x-tarjeta"</span> <span class="shj-syn-class">extends</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"button"</span><span class="shj-syn-oper">&gt;</span>
+    <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">template</span><span class="shj-syn-oper">&gt;</span>
+        <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">style</span><span class="shj-syn-oper">&gt;</span>
+            <span class="shj-syn-kwd">h</span><span class="shj-syn-num">1</span> {
+                <span class="shj-syn-var">color</span>: <span class="shj-syn-num">red</span>;
+            }
+            <span class="shj-syn-kwd">img</span> {
+                <span class="shj-syn-var">height</span>: <span class="shj-syn-num">32</span><span class="shj-syn-var">px</span><span class="shj-syn-num"></span>;
+                <span class="shj-syn-var">width</span>: <span class="shj-syn-num">32</span><span class="shj-syn-var">px</span><span class="shj-syn-num"></span>;
+            }
+            <span class="shj-syn-var">.separator</span> { ... }
+        <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">style</span><span class="shj-syn-oper">&gt;</span>
+
+        <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">header</span><span class="shj-syn-oper">&gt;</span>
+            Full name: <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">content</span> <span class="shj-syn-class">select</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"h1"</span><span class="shj-syn-oper">&gt;</span><span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">content</span><span class="shj-syn-oper">&gt;</span>
+            Age: <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">content</span> <span class="shj-syn-class">select</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">".age"</span><span class="shj-syn-oper">&gt;</span><span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">content</span><span class="shj-syn-oper">&gt;</span>
+        <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">header</span><span class="shj-syn-oper">&gt;</span>
+        <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">div</span> <span class="shj-syn-class">class</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"separator"</span><span class="shj-syn-oper">&gt;</span><span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">div</span><span class="shj-syn-oper">&gt;</span>
+        <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">section</span><span class="shj-syn-oper">&gt;</span>
+            <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">content</span> <span class="shj-syn-class">select</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"img"</span><span class="shj-syn-oper">&gt;</span><span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">content</span><span class="shj-syn-oper">&gt;</span>
+        <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">section</span><span class="shj-syn-oper">&gt;</span>
+    <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">template</span><span class="shj-syn-oper">&gt;</span>
+
+    <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">script</span><span class="shj-syn-oper">&gt;</span>
+        <span class="shj-syn-kwd">var</span> template <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">querySelector</span>(<span class="shj-syn-str">'template'</span>);
+        <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">register</span>({ <span class="shj-syn-cmnt">// this == &lt;element&gt;
+</span>            prototype<span class="shj-syn-oper">:</span> {
+                readyCallback<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span>() {
+                    <span class="shj-syn-kwd">var</span> dom <span class="shj-syn-oper">=</span> template<span class="shj-syn-oper">.</span>content<span class="shj-syn-oper">.</span><span class="shj-syn-func">cloneNode</span>(<span class="shj-syn-bool">true</span>);
+                    <span class="shj-syn-kwd">var</span> shadow <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">createShadowRoot</span>()
+                    shadow<span class="shj-syn-oper">.</span><span class="shj-syn-func">appendChild</span>(dom);
+                }
+            }
+        });
+    <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">script</span><span class="shj-syn-oper">&gt;</span>
+<span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">element</span><span class="shj-syn-oper">&gt;</span></div></div>
 </code>
 <p>Al estar los estilos dentro del template se vuelven a añadir al dom cada vez que creamos un <code>x-tarjeta</code> (como con angular) pero en este caso gracias al <code>ShadowDOM</code> los estilos solo se aplican al template y a su contenido.</p>
 <p>Además el estándard de html templates nos permite mezclar el template con los elementos que inserten dentro de <code>x-tarjeta</code></p>
 
-<code class="code-block shj-lang-html">LOADING...
+<code class="code-block shj-lang-html"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">&lt;!-- Uso --&gt;</span>
+<span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">x-tarjeta</span><span class="shj-syn-oper">&gt;</span>
+  &lt;h1&gt;A. Matías Q.&lt;/h1&gt;
+  <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">div</span> <span class="shj-syn-class">class</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"age"</span><span class="shj-syn-oper">&gt;</span>24<span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">div</span><span class="shj-syn-oper">&gt;</span>
+  <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">img</span> <span class="shj-syn-class">src</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"/.../foto.png"</span> <span class="shj-syn-oper">/&gt;</span>
+<span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">x-tarjeta</span><span class="shj-syn-oper">&gt;</span></div></div>
 </code>
 <p>Y por último el estándard html imports nos permite tener este componente en un archivo html independiente y transportable e importarlo en donde lo necesitemos, incluyendo otros compoentes.</p>
 
-<code class="code-block shj-lang-html">LOADING...
+<code class="code-block shj-lang-html"><div><div class="shj-numbers"><div></div></div><div><span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">link</span> <span class="shj-syn-class">rel</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"import"</span> <span class="shj-syn-class">href</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"x-tarjeta.html"</span> <span class="shj-syn-oper">/&gt;</span></div></div>
 </code>
 <h3 id="conclusi-n">Conclusión</h3>
 <p>Ahora mismo estoy dividido entre angular y los web components:</p>

@@ -162,7 +162,7 @@
 <p>Una vez entendido el concepto podemos pasar a la práctica, sabemos que para crear instancias de clases hacemos <code>new MyClass()</code> pero cómo hacemos que objetos hereden de objetos? Aquí entran los prototipos. <strong>Todos los objetos Javascript tienen una propiedad oculta que llamaremos <code>[[Prototype]]</code></strong>, con corchetes (aunque en algunos navegadores es posible acceder a ella mediante la propiedad <code>.__proto__</code>, con dos barras bajas a cada lado, pero no es estándar) <strong>que es un puntero al objeto del cual hereda</strong>. Y que significa que hereda? Podríamos resumir la herencia en que un objeto tiene las mismas propiedades que otro.</p>
 <p>Con ésto nos ahorramos tener que poner las mismas propiedades en más de un objeto. Esto trae un nuevo concepto que puede confundir a muchos: <strong>en Javascript todo es una instancia, y cuando heredamos de un objeto también se puede decir que estamos creando una instancia de ése objeto</strong>, para evitar confunsiones <strong>suele decirse que un objeto &quot;extiende&quot; otro</strong>. Imaginemos que tenemos un objeto perro que hereda de animal. Que significa ésto? que la propiedad <code>[[Prototype]]</code> de perro es animal, o lo que es lo mismo:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div></div><div>perro<span class="shj-syn-oper">.</span>__proto__ <span class="shj-syn-oper">==</span> animal; <span class="shj-syn-cmnt">// true</span></div></div>
 </code>
 <p>El código de ejemplo es el siguiente:</p>
 

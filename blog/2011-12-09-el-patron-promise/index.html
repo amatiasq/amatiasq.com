@@ -156,69 +156,149 @@
 <h4 id="1-ensuciar-la-api">1 - Ensuciar la API</h4>
 <p>Todas las llamadas reciben un último argumento que es el callback:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> dir <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Directory</span>(<span class="shj-syn-str">'file:///home/user/Desktop'</span>);
+dir<span class="shj-syn-oper">.</span><span class="shj-syn-func">browse</span>(<span class="shj-syn-kwd">function</span> (dir<span class="shj-syn-oper">,</span> items) {
+  <span class="shj-syn-cmnt">// ...
+</span>});</div></div>
 </code>
 <p>Con ésto la API resulta confusa desde el punto de vista de la simpleza y de la semántica. Semánticamente una función recibe la información mínima indispensable para devolver un dato relacionado a lo que se le ha solicitado, como vemos no es el caso en métodos asíncronos:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">void</span> <span class="shj-syn-class">Directory</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">browse</span>(<span class="shj-syn-class">Function</span> callback);
+<span class="shj-syn-kwd">void</span> <span class="shj-syn-class">File</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">getContent</span>(<span class="shj-syn-class">String</span> encoding<span class="shj-syn-oper">,</span> <span class="shj-syn-class">Function</span> callback);
+<span class="shj-syn-kwd">void</span> <span class="shj-syn-class">File</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">getPermission</span>(<span class="shj-syn-class">Function</span> callback);</div></div>
 </code>
 <!--more Seguir leyendo → -->
 <h3 id="2-llamadas-anidadas">2 - Llamadas anidadas</h3>
 <p>En muchas ocaciones deberemos ejecutar una llamada al acabar otra, ésto nos obliga a anidar callbacks:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> file <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">File</span>();
+file<span class="shj-syn-oper">.</span><span class="shj-syn-func">isReadable</span>(<span class="shj-syn-kwd">function</span> (permission) {
+  <span class="shj-syn-kwd">if</span> (permission) {
+    file<span class="shj-syn-oper">.</span><span class="shj-syn-func">getContent</span>(<span class="shj-syn-kwd">function</span> (content) {
+      <span class="shj-syn-cmnt">// do something with the content
+</span>    });
+  }
+});</div></div>
 </code>
 <p>A medida que vamos añadiendo niveles de profundidad ésto se vuelve muy confuso.</p>
 <h3 id="3-llamadas-concurrentes">3 - Llamadas concurrentes</h3>
 <p>También necesitaremos realizar llamadas asíncronas paralelas y ejecutar una acción al acabar todas:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> isFile1Done <span class="shj-syn-oper">=</span> <span class="shj-syn-bool">false</span>;
+<span class="shj-syn-kwd">var</span> isFile2Done <span class="shj-syn-oper">=</span> <span class="shj-syn-bool">false</span>;
+
+<span class="shj-syn-kwd">function</span> <span class="shj-syn-func">testIsOver</span>() {
+  <span class="shj-syn-kwd">if</span> (isFile1Done <span class="shj-syn-oper">&#38;&#38;</span> isFile2Done) {
+    <span class="shj-syn-cmnt">// Both files loaded.
+</span>  }
+}
+
+<span class="shj-syn-class">File</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">get</span>(<span class="shj-syn-str">'http://www.somedomain.com/file1'</span><span class="shj-syn-oper">,</span> <span class="shj-syn-kwd">function</span> () {
+  isFile1Done <span class="shj-syn-oper">=</span> <span class="shj-syn-bool">true</span>;
+  <span class="shj-syn-func">testIsOVer</span>();
+});
+<span class="shj-syn-class">File</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">get</span>(<span class="shj-syn-str">'http://www.somedomain.com/file2'</span><span class="shj-syn-oper">,</span> <span class="shj-syn-kwd">function</span> () {
+  isFile2Done <span class="shj-syn-oper">=</span> <span class="shj-syn-bool">true</span>;
+  <span class="shj-syn-func">testIsOVer</span>();
+});</div></div>
 </code>
 <p>Como podemos ver algo tan sencillo como dos peticiones paralelas necesitan mucho código para manejarlas.</p>
 <h3 id="4-gesti-n-de-errores">4 - Gestión de errores</h3>
 <p>Es traumática la forma de gestionar errores mediante callbacks, el método más extendido que he visto ha sido el de nodejs, el primer argumento de cada callback es el objeto Error si es que hubo alguna excepción, lo que me parece horrible ya que cada función debe confirmar que su primer argumento es <code>undefined</code> para asegurar que no han habido errores:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-class">File</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">get</span>(<span class="shj-syn-str">'http://www.somedomain.com/file2'</span><span class="shj-syn-oper">,</span> <span class="shj-syn-kwd">function</span> (error<span class="shj-syn-oper">,</span> file) {
+  <span class="shj-syn-kwd">if</span> (error) {
+    <span class="shj-syn-cmnt">// Show blue screen of death
+</span>  }
+  <span class="shj-syn-cmnt">// do something with file.
+</span>});</div></div>
 </code>
 <h2 id="solucion">SOLUCION</h2>
 <p>Queda claro que las peticiones asíncronas son necesarias en cliente y servidor ya que permiten al programa continuar trabajando mientras espera la respuesta a la petición, pero éstos problemas podrían dificultar la manutención del código. Y aquí es donde viene a ayudarnos el Patrón Promise. El patrón Promise asiste a una función que no puede devolver inmediatamente su resultado (es decir, una función asíncrona) y devuelve la promesa de que tendrá el resultado en un futuro (a lo que llamo cumplir la promesa :P). A nivel de implementación, una función devuelve un objeto <strong>Promise</strong> que gestionará por ella el callback. Veamos cómo soluciona nuestros problemas:</p>
 <h4 id="1-claridad-en-los-m-todos">1 - Claridad en los métodos</h4>
 <p>La función solo debe recibir la información necesaria para hacer la petición y devuelve la promesa de que esos datos llegarán.</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> dir <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Directory</span>(<span class="shj-syn-str">'file:///home/user/Desktop'</span>);
+<span class="shj-syn-kwd">var</span> promise <span class="shj-syn-oper">=</span> dir<span class="shj-syn-oper">.</span><span class="shj-syn-func">browse</span>();
+promise<span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span>(<span class="shj-syn-kwd">function</span> (dir<span class="shj-syn-oper">,</span> items) {
+  <span class="shj-syn-cmnt">// ...
+</span>});</div></div>
 </code>
 <p>Y ésto aún lo podríamos mejorar llamando directamente a la función then sin guardar el promise en una variable:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> dir <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Directory</span>(<span class="shj-syn-str">'file:///home/user/Desktop'</span>);
+dir<span class="shj-syn-oper">.</span><span class="shj-syn-func">browse</span>()<span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span>(<span class="shj-syn-kwd">function</span> (dir<span class="shj-syn-oper">,</span> items) {
+  <span class="shj-syn-cmnt">// ...
+</span>});</div></div>
 </code>
 <p>Y muchos dirán ¿qué diferencia hay entre ésto y el código que teníamos antes? Es sencillo, la diferencia está en quién maneja el callback. Con el código anterior cada función debía encargarse de comprobar si se le había pasado un callback válido y llamarlo al acabar su tarea con los argumentos necesarios. Ahora todo ése código está en la clase <code>Promise</code> y la función puede encargarse de aquello que le corresponde siempre que devuelva un promise y le notifique cuando termine. Finalmente la API queda bastante más clara:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div></div><div><span class="shj-syn-class">Promise</span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-class">Array</span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-class">File</span><span class="shj-syn-oper">&gt;&gt;</span> <span class="shj-syn-class">Directory</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">browse</span>();
+<span class="shj-syn-class">Promise</span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-class">String</span><span class="shj-syn-oper">&gt;</span> <span class="shj-syn-class">File</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">getContent</span>(<span class="shj-syn-class">String</span> encoding);
+<span class="shj-syn-class">Promise</span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-class">Boolean</span><span class="shj-syn-oper">&gt;</span> <span class="shj-syn-class">File</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">getPermission</span>();</div></div>
 </code>
 <h3 id="2-llamadas-secuenciales">2 - Llamadas secuenciales</h3>
 <p>El promise trae una sorpresa que no me esperaba, el método <code>then</code> de la clase <code>Promise</code> devuelve un nuevo <code>promise</code>. Para qué? para poder ejecutar código secuencialmente, veamoslo:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> file <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">File</span>();
+file
+  <span class="shj-syn-oper">.</span><span class="shj-syn-func">isReadable</span>()
+  <span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span>(<span class="shj-syn-kwd">function</span> (permission) {
+    <span class="shj-syn-kwd">if</span> (permission) {
+      <span class="shj-syn-kwd">return</span> file<span class="shj-syn-oper">.</span><span class="shj-syn-func">getContent</span>();
+    }
+  })
+  <span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span>(<span class="shj-syn-kwd">function</span> (content) {
+    <span class="shj-syn-cmnt">// do something with the content
+</span>  });</div></div>
 </code>
 <p>Qué es ésta locura? La idea es muy sencilla, pero es confusa porque la explicación utiliza demasiadas veces la palabra <code>Promise</code>, primero expandiremos el código para verlo más claro:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> file <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">File</span>();
+<span class="shj-syn-kwd">var</span> promise1 <span class="shj-syn-oper">=</span> file<span class="shj-syn-oper">.</span><span class="shj-syn-func">isReadable</span>();
+
+<span class="shj-syn-kwd">var</span> promise2 <span class="shj-syn-oper">=</span> promise1<span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span>(<span class="shj-syn-kwd">function</span> (permission) {
+  <span class="shj-syn-kwd">if</span> (permission) {
+    <span class="shj-syn-kwd">var</span> promise3 <span class="shj-syn-oper">=</span> file<span class="shj-syn-oper">.</span><span class="shj-syn-func">getContent</span>();
+    <span class="shj-syn-kwd">return</span> promise3;
+  }
+});
+
+promise2<span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span>(<span class="shj-syn-kwd">function</span> (content) {
+  <span class="shj-syn-cmnt">// do something with the content
+</span>});</div></div>
 </code>
 <p>Debemos intentar seguirlo poco a poco, la llamada a llamada <code>file.isReadable()</code> nos devuelve <code>promise1</code>, y cuando llamamos al método then de <code>promise1</code> nos devuelve <code>promise2</code>. Cuando <code>promise1</code> termina se ejecuta el callback pasado y se descubre que el callback devuelve un nuevo <code>Promise</code>, <code>promise3</code>. Cuando <code>promise3</code> se cumpla (es decir pase a estado &quot;done&quot;) también se cumplirá el <code>promise2</code> ejecutando el callback que le han pasado. En resumen, podemos seguir añadiendo callbacks que se ejecutarán al acabar el anterior encadenando llamadas a then.</p>
 <h3 id="3-llamadas-paralelas">3 - Llamadas paralelas</h3>
 <p>Además me planteé añadir la posibilidad de manejar llamadas paralelas desde <code>Promise</code>, puesto que ya hemos visto lo complejo que puede ser. Para ésto añadí el método <code>and</code> al Promise:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-class">File</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">get</span>(<span class="shj-syn-str">'http://www.somedomain.com/file1'</span>)
+  <span class="shj-syn-oper">.</span><span class="shj-syn-func">and</span>(<span class="shj-syn-class">File</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">get</span>(<span class="shj-syn-str">'http://www.somedomain.com/file2'</span>))
+  <span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span>(<span class="shj-syn-kwd">function</span> () {
+    <span class="shj-syn-cmnt">// Both files loaded.
+</span>  });</div></div>
 </code>
 <p>Una vez más expandamos el código para ver más claramente que está sucediendo:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> promise1 <span class="shj-syn-oper">=</span> <span class="shj-syn-class">File</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">get</span>(<span class="shj-syn-str">'http://www.somedomain.com/file1'</span>);
+<span class="shj-syn-kwd">var</span> promise2 <span class="shj-syn-oper">=</span> <span class="shj-syn-class">File</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">get</span>(<span class="shj-syn-str">'http://www.somedomain.com/file2'</span>);
+<span class="shj-syn-kwd">var</span> promise3 <span class="shj-syn-oper">=</span> promise1<span class="shj-syn-oper">.</span><span class="shj-syn-func">and</span>(promise2);
+promise3<span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span>(<span class="shj-syn-kwd">function</span> () {
+  <span class="shj-syn-cmnt">// Both files loaded.
+</span>});</div></div>
 </code>
 <p>Al expandirlo es más fácil ver lo que sucede, todo <code>Promise</code> tiene un método <code>and</code> al que se le pasa otro <code>Promise</code>, y ésto devuelve un nuevo <code>Promise</code> que se cumplirá cuando los dos primeros estén cumplidos.</p>
 <h3 id="4-callbacks-espec-ficos">4 - Callbacks específicos</h3>
 <p>Finalmente el patrón Promise también trae una mejora al problema de la gestión de errores, aún no lo he mencionado pero el método <code>then</code> recibe dos argumentos: el primero el callback que será llamado cuando el Promise se cumpla, el segundo otro callback que será llamado si la ejecución asíncrona falla:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-class">File</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">get</span>(<span class="shj-syn-str">'http://www.somedomain.com/file2'</span>)<span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span>(
+  <span class="shj-syn-kwd">function</span> (file) {
+    <span class="shj-syn-cmnt">// do something with file.
+</span>  }<span class="shj-syn-oper">,</span>
+  <span class="shj-syn-kwd">function</span> (error) {
+    <span class="shj-syn-cmnt">// Show blue screen of death
+</span>  }<span class="shj-syn-oper">,</span>
+);</div></div>
 </code>
 <p>Esto nos permite separar claramente la responsabilidad de cada función y nos libera de la carga de comprobar errores.</p>
 <h2 id="conclusion">CONCLUSION</h2>

@@ -176,21 +176,70 @@ impresora<span class="shj-syn-oper">.</span><span class="shj-syn-func">apagar</s
 <h4 id="privacidad-por-constructor">Privacidad por constructor</h4>
 <p>Los closures son un curioso método de privacidad, cuando creamos una función dentro de otra, <strong>la función hija puede acceder a las variables de la función padre, pero no al revés</strong>:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> a <span class="shj-syn-oper">=</span> <span class="shj-syn-num">5</span>;
+
+<span class="shj-syn-kwd">function</span>() {
+    <span class="shj-syn-kwd">var</span> b <span class="shj-syn-oper">=</span> <span class="shj-syn-num">6</span>;
+
+    <span class="shj-syn-kwd">function</span>() {
+        <span class="shj-syn-kwd">var</span> c <span class="shj-syn-oper">=</span> <span class="shj-syn-num">7</span>;
+        <span class="shj-syn-cmnt">// Desde aquí puedo acceder a 'a', 'b' y 'c'
+</span>    }
+
+    <span class="shj-syn-cmnt">// Desde aquí puedo acceder a 'a' y 'b'.
+</span>    <span class="shj-syn-cmnt">// 'c' no existe
+</span>}
+
+<span class="shj-syn-cmnt">// Desde aquí solo puedo acceder a 'a'.
+</span><span class="shj-syn-cmnt">// 'b' y 'c' no existen</span></div></div>
 </code>
 <p>Con ésto podemos buscar la privacidad, si analizamos el constructor de la clase <code>Impresora</code> veremos que es una función, igual que las del ejemplo. De alguna forma <strong>podemos crear variables privadas ahí</strong>.</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Impresora</span>() {
+  <span class="shj-syn-kwd">var</span> a <span class="shj-syn-oper">=</span> <span class="shj-syn-str">'Privada!'</span>;
+  console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-str">'Accediendo desde dentro:'</span> <span class="shj-syn-oper">+</span> a);
+}
+
+<span class="shj-syn-kwd">var</span> temp <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Impresora</span>();
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-str">"Intentando acceder desde fuera usando 'temp.a': "</span> <span class="shj-syn-oper">+</span> temp<span class="shj-syn-oper">.</span>a);
+
+<span class="shj-syn-cmnt">// Esta línea no se ejecuta porque 'a' no existe aquí y falla.
+</span>console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-str">"Intentando acceder desde fuera usando 'a': "</span> <span class="shj-syn-oper">+</span> a);</div></div>
 </code>
 <p><a href="http://jsfiddle.net/amatiasq/qJnvS/" target="_blank">Pruébame</a></p>
 <p>Funciona! Ahora añadamos los métodos:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Impresora</span>() {
+  <span class="shj-syn-kwd">var</span> a <span class="shj-syn-oper">=</span> <span class="shj-syn-str">'Privada!'</span>;
+}
+
+<span class="shj-syn-class">Impresora</span><span class="shj-syn-oper">.</span>prototype <span class="shj-syn-oper">=</span> {
+  probando<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+    console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-str">"Intentando acceder desde un método usando 'this.a': "</span> <span class="shj-syn-oper">+</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>a);
+
+    <span class="shj-syn-cmnt">// Esta línea no se ejecuta porque 'a' no existe aquí y falla.
+</span>    console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-str">"Intentando acceder desde un método usando 'a': "</span> <span class="shj-syn-oper">+</span> a);
+  }<span class="shj-syn-oper">,</span>
+};
+
+<span class="shj-syn-kwd">var</span> temp <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Impresora</span>();
+temp<span class="shj-syn-oper">.</span><span class="shj-syn-func">probando</span>();</div></div>
 </code>
 <p><a href="http://jsfiddle.net/amatiasq/jQLQf/" target="_blank">Pruébame</a></p>
 <p>Pero no podemos acceder desde los métodos! <strong>Porque no están dentro del closure</strong>, de que nos sirve una variable privada si no podemos acceder a ella desde los métodos públicos? Hay una solución: el closure en el que hemos guardado la variable privada es el constructor del objeto, por lo que podríamos aprovechar el dinamismo de Javascript e injectar los métodos en el objeto dentro del constructor, así los métodos podrían acceder a las variables privadas:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Impresora</span>() {
+  <span class="shj-syn-kwd">var</span> a <span class="shj-syn-oper">=</span> <span class="shj-syn-str">'Privada!'</span>;
+
+  <span class="shj-syn-cmnt">// This es el objeto que éste constructor está creando
+</span>  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">probando</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span> () {
+    console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-str">"Intentando acceder desde un método usando 'this.a': "</span> <span class="shj-syn-oper">+</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>a);
+    console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-str">"Intentando acceder desde un método usando 'a': "</span> <span class="shj-syn-oper">+</span> a);
+  };
+}
+
+<span class="shj-syn-kwd">var</span> temp <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Impresora</span>();
+temp<span class="shj-syn-oper">.</span><span class="shj-syn-func">probando</span>();</div></div>
 </code>
 <p><a href="http://jsfiddle.net/amatiasq/gRVqv/" target="_blank">Pruébame</a></p>
 <p>Bien! éste sistema funciona, verdad? No tiene ningún inconveniente? Bueno, tiene uno, pero no es visible a simple vista porque nuestro cerebro y el intérprete de Javascript funcionan de forma distinta. <strong>Para nosotros <code>this.probando = function() { ... }</code> es crear una función y añadirla a todos las instancias de <code>Impresora</code></strong> pero el intérprete no lo ve así, para la máquina Javascript <strong>estamos creando una función por cada método para cada instancia</strong> y tiene sentido, si la primera función <code>probando</code> que creamos accede a la variable privada <code>a</code> de la primera instancia que creamos necesitaremos una función distinta para acceder a la variable privada de la segunda instancia que creemos.</p>
@@ -198,12 +247,59 @@ impresora<span class="shj-syn-oper">.</span><span class="shj-syn-func">apagar</s
 <h3 id="privacidad-de-librer-a">Privacidad de librería</h3>
 <p>Ahora tengo que confesar que he hecho trampas, todos los patrones descritos son para hacer privacidad a nivel de clase, pero <strong>hay una forma más sencilla de hacer privada una clase entera, los closures</strong>. Ahora pensarás &quot;pero me acabas de decir que los closures volvían a crear los métodos por cada instancia!&quot; si, cuando el closure es el constructor. <strong>Pero si englobamos toda la clase en un closure podemos tener privacidad a nivel de librería:</strong></p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">// función de ejecución inmediata, se crea, se ejecuta y no se vuelve a utilizar
+</span><span class="shj-syn-cmnt">// es el closure que guardará la privacidad
+</span>(<span class="shj-syn-kwd">function</span> (global) {
+  <span class="shj-syn-kwd">var</span> contador <span class="shj-syn-oper">=</span> <span class="shj-syn-num">0</span>;
+
+  <span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Impresora</span>() {
+    contador<span class="shj-syn-oper">++</span>;
+  }
+
+  <span class="shj-syn-cmnt">// Creamos un método estático
+</span>  <span class="shj-syn-class">Impresora</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">cantidadDeInstancias</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span> () {
+    <span class="shj-syn-kwd">return</span> contador;
+  };
+
+  global<span class="shj-syn-oper">.</span><span class="shj-syn-class">Impresora</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Impresora</span>;
+})(<span class="shj-syn-kwd">this</span>);
+
+<span class="shj-syn-kwd">var</span> temp <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Impresora</span>();
+<span class="shj-syn-kwd">var</span> temp2 <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Impresora</span>();
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-class">Impresora</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">cantidadDeInstancias</span>());</div></div>
 </code>
 <p><a href="http://jsfiddle.net/amatiasq/HJzAB/" target="_blank">Pruébame</a></p>
 <p>La variable <code>contador</code> es <strong>privada a nivel de librería</strong>, significa que <strong>todo lo que esté dentro del closure accede a ella</strong> y como podemos ver todo el código dentro del closure accede a la misma variable, lo que significa que todas las instancias de <code>Impresora</code> comparten la misma variable. También podemos usar éste patrón para ocultar clases y funciones, <strong>lo único que será publicado de dentro del closure será lo que guardemos en la variable <code>global</code>.</strong></p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">// función de ejecución inmediata, se crea, se ejecuta y no se vuelve a utilizar
+</span><span class="shj-syn-cmnt">// es el closure que guardará la privacidad
+</span>(<span class="shj-syn-kwd">function</span> (global) {
+  <span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Papel</span>() {}
+  <span class="shj-syn-class">Papel</span><span class="shj-syn-oper">.</span>prototype <span class="shj-syn-oper">=</span> {
+    hayPapelEn<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (impresora) {
+      <span class="shj-syn-cmnt">// no hay papel
+</span>      <span class="shj-syn-kwd">return</span> <span class="shj-syn-bool">false</span>;
+    }<span class="shj-syn-oper">,</span>
+    pedirAlUsuario<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+      console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-str">'Oye tu! ponme papel!'</span>);
+    }<span class="shj-syn-oper">,</span>
+  };
+
+  <span class="shj-syn-kwd">var</span> papel <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Papel</span>();
+
+  <span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Impresora</span>() {}
+  <span class="shj-syn-class">Impresora</span><span class="shj-syn-oper">.</span>prototype <span class="shj-syn-oper">=</span> {
+    imprimir<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (datos) {
+      <span class="shj-syn-kwd">if</span> (<span class="shj-syn-oper">!</span>papel<span class="shj-syn-oper">.</span><span class="shj-syn-func">hayPapelEn</span>(<span class="shj-syn-kwd">this</span>)) papel<span class="shj-syn-oper">.</span><span class="shj-syn-func">pedirAlUsuario</span>();
+      <span class="shj-syn-cmnt">// imprimir
+</span>    }<span class="shj-syn-oper">,</span>
+  };
+
+  global<span class="shj-syn-oper">.</span><span class="shj-syn-class">Impresora</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Impresora</span>;
+})(<span class="shj-syn-kwd">this</span>);
+
+<span class="shj-syn-kwd">var</span> temp <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Impresora</span>();
+temp<span class="shj-syn-oper">.</span><span class="shj-syn-func">imprimir</span>();</div></div>
 </code>
 <p><a href="http://jsfiddle.net/amatiasq/vc2ke/" target="_blank">Pruébame</a></p>
 <p>Este es un patrón muy recomendable, ya que mediante una función autoejecutable ocultamos todo lo que el usuario de nuestra librería no necesita conocer. Por poner un ejemplo, <a href="http://nodejs.org/">node.js</a> utiliza un patrón similar para generar librerías, en las que todas las variables que creamos en el archivo .js quedan ocultas y solo se exponen las propiedades que añadimos al objeto global <code>exports</code>. Ejemplo de saludo.js:</p>

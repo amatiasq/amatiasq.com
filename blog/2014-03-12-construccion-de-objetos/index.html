@@ -275,7 +275,11 @@ v<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span>
 <p>Vaya! No parece una forma mucho más sencilla de declarar tipos? <a href="http://jsfiddle.net/amatiasq/D6cJY/">Aquí</a> podemos comparar el mismo tipo escrito con constructores y con este paradigma y juzguen ustedes mismos.</p>
 <p>Desde luego no es tan bonito instanciarlos pero si declararlos, mucho más sencillo, tan sencillo que me hace preguntarme si quizás la intención inicial al diseñar el lenguaje no sería la de crear objetos de una forma similar a ésta:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">// NOT valid javascript
+</span><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">Vector</span> <span class="shj-syn-oper">=</span> {
+  <span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span>(x<span class="shj-syn-oper">,</span> y) { <span class="shj-syn-oper">...</span> }
+};
+<span class="shj-syn-kwd">var</span> v <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">instanciate</span>(<span class="shj-syn-class">Vector</span><span class="shj-syn-oper">,</span> [ <span class="shj-syn-num">0</span><span class="shj-syn-oper">,</span> <span class="shj-syn-num">0</span> ]);</div></div>
 </code>
 <p>Incluso se parece bastante a la forma de escribir clases en ECMAScript6</p>
 
@@ -339,7 +343,11 @@ v<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/46TaS/">Pruébame</a></p>
 <p>Me encontré muy a gusto con este nuevo paradigma de definir tipos y crear objetos, incluso tiene bonus inesperados como que todos los subtipos tienen el método <code>new</code> para crear subinstancias</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> vector3D <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Vector</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>(<span class="shj-syn-num">0</span><span class="shj-syn-oper">,</span> <span class="shj-syn-num">0</span>);
+vector3D<span class="shj-syn-oper">.</span>z <span class="shj-syn-oper">=</span> <span class="shj-syn-num">10</span>;
+
+<span class="shj-syn-kwd">var</span> other <span class="shj-syn-oper">=</span> vector3D<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>(<span class="shj-syn-num">3</span><span class="shj-syn-oper">,</span> <span class="shj-syn-num">4</span>);
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(other<span class="shj-syn-oper">.</span>z); <span class="shj-syn-cmnt">// 10</span></div></div>
 </code>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/LPAu7/">Pruébame</a></p>
 <p>Me parece un paradigma mucho más natural en javascript, más orientado a objetos (y menos a clases) a objetos que extienden de objetos. Es el paradigma que he seguido en <a href="https://github.com/amatiasq/mq/tree/master/src">mis últimas implementaciones</a> y es muy sencillo y cómodo aunque en este caso preferí usar <code>init</code> en lugar de <code>constructor</code> por ser más compacto y específico ya que no se trata de construir sino de inicializar.</p>
@@ -347,12 +355,42 @@ v<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span>
 <h2 id="todo-junto">Todo junto</h2>
 <p>Volviendo a los inicios, el recolector de basura, utilizando éste paradigma la operación de crear objetos (el operador <code>new</code> y el método <code>.new()</code>) está en nuestro control ya que podemos modificar el método <code>.new()</code> e impedir que se cree ningún objeto cuando nos haga falta sin cambiar el resto del código, si yo tengo este código</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">MyNumber</span> <span class="shj-syn-oper">=</span> {
+  <span class="shj-syn-kwd">new</span><span class="shj-syn-oper">:</span> $<span class="shj-syn-kwd">new</span><span class="shj-syn-oper">,</span>
+
+  <span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (value) {
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>value <span class="shj-syn-oper">=</span> value;
+  }<span class="shj-syn-oper">,</span>
+};
+
+<span class="shj-syn-kwd">var</span> num1 <span class="shj-syn-oper">=</span> <span class="shj-syn-class">MyNumber</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>(<span class="shj-syn-num">3</span>);
+<span class="shj-syn-kwd">var</span> num2 <span class="shj-syn-oper">=</span> <span class="shj-syn-class">MyNumber</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>(<span class="shj-syn-num">3</span>);
+
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(num1 <span class="shj-syn-oper">===</span> num2); <span class="shj-syn-cmnt">// false</span></div></div>
 </code>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/j54Gx/">Pruébame</a></p>
 <p>Podemos cambiarlo para que deje de crear objetos duplicados sin que el código ajeno tenga que cambiarse, lo que demuestra una buena encapsulación</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">MyNumber</span> <span class="shj-syn-oper">=</span> {
+  _cache<span class="shj-syn-oper">:</span> {}<span class="shj-syn-oper">,</span>
+  <span class="shj-syn-kwd">new</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (value) {
+    <span class="shj-syn-kwd">if</span> (<span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_cache[value]) <span class="shj-syn-kwd">return</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_cache[value];
+
+    <span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> $<span class="shj-syn-kwd">new</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">call</span>(<span class="shj-syn-kwd">this</span>);
+    <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">freeze</span>(instance);
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_cache[value] <span class="shj-syn-oper">=</span> instance;
+    <span class="shj-syn-kwd">return</span> instance;
+  }<span class="shj-syn-oper">,</span>
+
+  <span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (value) {
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>value <span class="shj-syn-oper">=</span> value;
+  }<span class="shj-syn-oper">,</span>
+};
+
+<span class="shj-syn-kwd">var</span> num1 <span class="shj-syn-oper">=</span> <span class="shj-syn-class">MyNumber</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>(<span class="shj-syn-num">3</span>);
+<span class="shj-syn-kwd">var</span> num2 <span class="shj-syn-oper">=</span> <span class="shj-syn-class">MyNumber</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>(<span class="shj-syn-num">3</span>);
+
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(num1 <span class="shj-syn-oper">===</span> num2); <span class="shj-syn-cmnt">// true</span></div></div>
 </code>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/Xhqb5/">Pruébame</a></p>
 <p>Y ahora si hemos conseguido evitar que ningún objeto se cree en la segunda llamada a <code>MyNumber.new(3)</code> reduciendo el trabajo del recolector de basura. Esta es una forma muy sencilla de evitar crear objetos duplicados que por el otro lado requiere que los objetos sean inmutables, es decir que no se puedan modificar, esto está hecho en el ejemplo mediante Object.freeze. De lo contrario si cambiamos la propiedad <code>value</code> de <code>num1</code> también cambiaríamos la pripiedad <code>value</code> de <code>num2</code> ya que son el mismo objeto. Si necesitamos otro tipo de valor podemos crear otro objeto</p>
@@ -367,14 +405,70 @@ v<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span>
 </code>
 <p>Por otro lado tenemos otro tipo de objetos que no son tan fáciles de reciclar, por ejemplo las entidades de un juego (enemigos, objetos interactuables...) que se crean y se destruyen constantemente y no hay dos iguales. Para estos casos decidí añadir el método <code>.dispose()</code> que lo que hace es pedirle al objeto que vuelva al estado de un objeto recién creado para que pueda ser reciclado la próxima vez que necesitemos otra instancia, en pocas palabras debe deshacer el trabajo del constructor.</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">Enemy</span> <span class="shj-syn-oper">=</span> {
+  _pool<span class="shj-syn-oper">:</span> []<span class="shj-syn-oper">,</span>
+  <span class="shj-syn-kwd">new</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+    <span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_pool<span class="shj-syn-oper">.</span>length <span class="shj-syn-oper">?</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_pool<span class="shj-syn-oper">.</span><span class="shj-syn-func">pop</span>() <span class="shj-syn-oper">:</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-kwd">this</span>);
+
+    instance<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">apply</span>(<span class="shj-syn-kwd">this</span><span class="shj-syn-oper">,</span> arguments);
+    <span class="shj-syn-kwd">return</span> instance;
+  }<span class="shj-syn-oper">,</span>
+
+  <span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>id <span class="shj-syn-oper">=</span> <span class="shj-syn-func">createId</span>();
+  }<span class="shj-syn-oper">,</span>
+
+  dispose<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+    <span class="shj-syn-kwd">delete</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>id;
+    <span class="shj-syn-class">Enemy</span><span class="shj-syn-oper">.</span>_pool<span class="shj-syn-oper">.</span><span class="shj-syn-func">push</span>(<span class="shj-syn-kwd">this</span>);
+  }<span class="shj-syn-oper">,</span>
+
+  die<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+    console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-str">'Tell my wife I love her...'</span>);
+  }<span class="shj-syn-oper">,</span>
+};
+
+<span class="shj-syn-kwd">var</span> enemy1 <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Enemy</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>();
+enemy1<span class="shj-syn-oper">.</span><span class="shj-syn-func">die</span>();
+enemy1<span class="shj-syn-oper">.</span><span class="shj-syn-func">dispose</span>();
+<span class="shj-syn-cmnt">// aquí deberíamos setear enemy1 a null
+</span><span class="shj-syn-cmnt">// porque puede ser reciclado en cualquier momento
+</span><span class="shj-syn-cmnt">//enemy1 = null;
+</span>
+<span class="shj-syn-kwd">var</span> enemy2 <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Enemy</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>();
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(enemy1 <span class="shj-syn-oper">===</span> enemy2); <span class="shj-syn-cmnt">// true</span></div></div>
 </code>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/YyLwZ/">Pruébame</a></p>
 <p>Los que hayan usado C++ notarán que parece que estemos volviendo a la gestión de memoria manual pero son los extremos que hay que llegar cuando necesitamos eficiencia.</p>
 <p>Et voilà! Cambiando solo el método <code>new</code> hemos conseguido optimizar nuestro programa para reducir el trabajo del recolector de basura y conseguir más eficiencia en el código. En mi opinión las posibilidades de mejorar el comportamiento de todo el código cambiando solo una pequeña parte tiene un potencial enorme que no debe ser subestimado. Por supuesto estos son conceptos, como todas las optimizaciones, que solo deben aplicarse allí cuando y donde se encuentre un cuello de botella y no antes.</p>
 <p>De momento seguiré con mi juego usando estos patrones, en cuanto al futuro parece ser que ECMAScript6 ha puesto la mira sobre este problema, entre las nuevas funcionalidades encontramos el símbolo <code>@@create</code> que <a href="https://github.com/lukehoban/es6features">si no lo he entendido mal</a> nos permitirá re-definir la creación de objetos mediante el operador <code>new</code>, es decir, reescribiendo el método estático <code>@@create</code> podremos evitar que <code>new</code> cree un objeto</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">// Source: https://github.com/lukehoban/es6features
+</span>
+<span class="shj-syn-cmnt">// Pseudo-code of Array
+</span><span class="shj-syn-kwd">class</span> <span class="shj-syn-class">Array</span> {
+  <span class="shj-syn-kwd">constructor</span>(<span class="shj-syn-oper">...</span>args) {
+    <span class="shj-syn-cmnt">/* ... */</span>
+  }
+  <span class="shj-syn-kwd">static</span> [<span class="shj-syn-class">Symbol</span><span class="shj-syn-oper">.</span>create]() {
+    <span class="shj-syn-cmnt">// Install special [[DefineOwnProperty]]
+</span>    <span class="shj-syn-cmnt">// to magically update 'length'
+</span>  }
+}
+
+<span class="shj-syn-cmnt">// User code of Array subclass
+</span><span class="shj-syn-kwd">class</span> <span class="shj-syn-class">MyArray</span> <span class="shj-syn-kwd">extends</span> <span class="shj-syn-class">Array</span> {
+  <span class="shj-syn-kwd">constructor</span>(<span class="shj-syn-oper">...</span>args) {
+    <span class="shj-syn-kwd">super</span>(<span class="shj-syn-oper">...</span>args);
+  }
+}
+
+<span class="shj-syn-cmnt">// Two-phase 'new':
+</span><span class="shj-syn-cmnt">// 1) Call @@create to allocate object
+</span><span class="shj-syn-cmnt">// 2) Invoke constructor on new instance
+</span><span class="shj-syn-kwd">var</span> arr <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">MyArray</span>();
+arr[<span class="shj-syn-num">1</span>] <span class="shj-syn-oper">=</span> <span class="shj-syn-num">12</span>;
+arr<span class="shj-syn-oper">.</span>length <span class="shj-syn-oper">==</span> <span class="shj-syn-num">2</span>;</div></div>
 </code>
 <p>Por otro lado el paradigma de crear objetos con un método <code>.new()</code> es un sistema muy agradable que facilita muchas cosas, me ha dado buenas experiencias y permite tener un código más legible (no más <code>Constructor.prototype.method</code> por todos lados) más conciso y más controlable. Creo que es algo muy recomendable.</p>
 </div></article></div></body></html>

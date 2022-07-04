@@ -190,7 +190,17 @@
 <p>Entonces me pregunto, que beneficios aporta abandonar <code>new</code>? es <a href="http://jsperf.com/object-create-vs-constructor-vs-object-literal/49">notablemente más rápido</a> en la mayoría de navegadores y por la naturaleza de javascript solemos necesitar crear una función inicializadora que en el caso de <code>new</code> es el constructor.</p>
 <p>Y lo que es más grave aún, he notado que <strong>usaba dos tipos diferentes de objetos</strong>, unos &quot;<em>abstractos</em>&quot; y otros &quot;<em>instancias</em>&quot; la mayor diferencia es que en las instancias tenía que invocar <code>.init()</code> siempre mientras que los abstractos no era necesario porque solo serían usados para crear otros objetos que los prototiparan. Y es un patrón que he visto mientras usaba <code>new</code>:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Foo</span>() { }
+<span class="shj-syn-class">Foo</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">method</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span>() { <span class="shj-syn-oper">...</span> };
+
+<span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Bar</span>() { }
+<span class="shj-syn-cmnt">// Objeto "abstracto", no se invoca inicializador
+</span><span class="shj-syn-class">Bar</span><span class="shj-syn-oper">.</span>prototype <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-class">Foo</span><span class="shj-syn-oper">.</span>prototype);
+<span class="shj-syn-class">Bar</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">other</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span>() { <span class="shj-syn-oper">...</span> };
+
+<span class="shj-syn-cmnt">// Objeto "instancia"
+</span><span class="shj-syn-cmnt">// se invoca el constructor como inicializador
+</span><span class="shj-syn-kwd">var</span> obj <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Bar</span>();</div></div>
 </code>
 <p>Realmente hay es una ventaja abandonar <code>new</code>? estamos seguros que no se trata de una herramienta de alto nivel que simplifica algo que igualmente tendremos que hacer nosotros a mano? Que pros y contras tienen <code>new</code> y <code>Object.create</code>?</p>
 </div></article></div></body></html>

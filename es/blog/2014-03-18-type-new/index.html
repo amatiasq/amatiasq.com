@@ -233,12 +233,14 @@ instancia<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructo
 </code>
 <p>No estamos obligados, a diferenia del primer caso, a crear un nuevo constructor para crear un subtipo, por la herencia por prototipos tenemos el mismo constructor que <code>MyType</code></p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div></div><div>console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-class">SubType</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span> <span class="shj-syn-oper">===</span> <span class="shj-syn-class">MyType</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span>);
+<span class="shj-syn-cmnt">// true</span></div></div>
 </code>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/VRKYv/">Pruébame</a></p>
 <p>Y la mejor parte, que pasa si queremos crear un tipo sin constructor? No hay problema.</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">MyType</span> <span class="shj-syn-oper">=</span> {};
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-class">MyType</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span>); <span class="shj-syn-cmnt">// Object</span></div></div>
 </code>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/yGJLL/">Pruébame</a></p>
 <h2 id="ecmascript-6">ECMAScript 6</h2>
@@ -253,7 +255,25 @@ instancia<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructo
 </code>
 <p>Que alguno dirá, si, pero con las clases de ECMAScript 6 podemos extender clases, llamar al método padre con <code>super</code> y nos ahorramos poner <code>function</code>... Pero esas no son funcionalidades de las clases de ECMAScript 6, esas son funcionalidades <a href="https://github.com/lukehoban/es6features#enhanced-object-literals">de todos los objetos</a> en ECMAScript 6.</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">// Clase ECMAScript 6
+</span><span class="shj-syn-kwd">class</span> <span class="shj-syn-class">Employee</span> <span class="shj-syn-kwd">extends</span> <span class="shj-syn-class">Person</span> {
+  <span class="shj-syn-kwd">constructor</span>(name<span class="shj-syn-oper">,</span> postition) {
+    <span class="shj-syn-kwd">super</span>(name);
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>position <span class="shj-syn-oper">=</span> postition;
+  }
+  <span class="shj-syn-func">methodA</span>() { <span class="shj-syn-oper">...</span> }
+}
+
+<span class="shj-syn-cmnt">// Objeto en ECMAScript 6 estándar
+</span><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">Employee</span> <span class="shj-syn-oper">=</span> {
+  __proto__<span class="shj-syn-oper">:</span> <span class="shj-syn-class">Person</span><span class="shj-syn-oper">,</span>
+
+  <span class="shj-syn-kwd">constructor</span>() {
+    <span class="shj-syn-kwd">super</span>(name)
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>id <span class="shj-syn-oper">=</span> <span class="shj-syn-num">1</span>;
+  }<span class="shj-syn-oper">,</span>
+  <span class="shj-syn-func">methodA</span>() { <span class="shj-syn-oper">...</span> }
+};</div></div>
 </code>
 <p>Las diferencias entre una clase ECMAScript 6 y un objeto en ECMAScript 6 son mínimas, pero mientras que una clase nos hace pensar que <code>Employee</code> se comportará como una clase Java cuando no es así, un objeto es simplemente eso, un objeto y todos somos capaces de entender como se comporta un objeto, no? (si no que haces leyendo esto? o.o)</p>
 <p>Pero dejemos ECMAScript 6 de lado por ahora, que aún tiene que transcurrir tiempo antes de que podamos usarlo en serio.</p>
@@ -268,7 +288,18 @@ instancia<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructo
 </code>
 <p>Pero, un momento... Esto es exactamente lo mismo que hicimos para crear un subtipo, no? Si. Entonces en que se diferencia una instancia de un subtipo? En general, nada. <strong>Una instancia ES un subtipo</strong>. Pero en la mayoría de los casos las &quot;instancias&quot; tienen una necesidad que los subtipos no tienen: en una instancia se invoca al constructor, en un subtipo no.</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">MyType</span> <span class="shj-syn-oper">=</span> {
+  <span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>id <span class="shj-syn-oper">=</span> <span class="shj-syn-num">1</span>;
+  }<span class="shj-syn-oper">,</span>
+};
+
+<span class="shj-syn-cmnt">// Crear sub-tipo
+</span><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">SubType</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-class">MyType</span>);
+
+<span class="shj-syn-cmnt">// Crear instancia
+</span><span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-class">MyType</span>);
+instance<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span>();</div></div>
 </code>
 <p>Esta similitud entre una instancia y un SubTipo nos ayuda a entender hasta que punto en el fondo Javascript es muy, muy sencillo: todo son objetos; no hay diferencia entre un tipo y una instancia porque la diferencia es conceptual.</p>
 <p>Esto es muy útil para entender la sencillez y el corazón de Javascript, pero es un poco tedioso tener que hacer dos pasos para instanciar, podríamos simplificarlo?</p>
@@ -348,7 +379,14 @@ instancia<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructo
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/tGD7G/">Pruébame</a></p>
 <p>O convertir un constructor a este paradigma:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">MyConstructor</span>() {
+  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>value <span class="shj-syn-oper">=</span> <span class="shj-syn-num">1</span>;
+}
+<span class="shj-syn-class">MyConstructor</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">myMethod</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span>() { <span class="shj-syn-oper">...</span> };
+
+<span class="shj-syn-kwd">var</span> <span class="shj-syn-class">MyType</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-class">MyConstructor</span><span class="shj-syn-oper">.</span>prototype;
+<span class="shj-syn-cmnt">// y si queres añadir new...
+</span><span class="shj-syn-class">MyType</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span> <span class="shj-syn-oper">=</span> $<span class="shj-syn-kwd">new</span>;</div></div>
 </code>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/5R4z2/">Pruébame</a></p>
 <h2 id="inicializador">Inicializador</h2>

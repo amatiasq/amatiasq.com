@@ -154,7 +154,10 @@
 <!-- end extract -->
 <p>Para empezar está claro que es necesario tener un closure, para ocultar las variables desde fuera:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">// función de ejecución inmediata
+</span>(<span class="shj-syn-kwd">function</span> (global) {
+  <span class="shj-syn-cmnt">// Contenido oculto
+</span>})(<span class="shj-syn-kwd">this</span>);</div></div>
 </code>
 <p>Dentro de éste closure definiría la clase:</p>
 
@@ -257,13 +260,61 @@ mapping[indice] <span class="shj-syn-oper">=</span> <span class="shj-syn-str">'M
 <p><a href="http://jsfiddle.net/amatiasq/cQZmS/" target="_blank">Pruébame</a></p>
 <p>Entonces <strong>tanto <code>pepe</code> como <code>maria</code> se convierten a <code>[object Object]</code> cuando los utilizo como índices</strong> del mapping. Y hasta aquí había llegado hasta que descubrí los [<code>WeakMap</code> de Firefox][3]. Consiste básicamente en una clase con métodos <code>.set(id, valor);</code> y <code>.get(id);</code> por lo que cumple la misma funcionalidad que un mapping, con la diferencia de que si el único punto del programa en el que se usa una referencia es un <code>WeakMap</code>, <strong>el recolector de basura la puede borrar</strong>. Es una funcionalidad que es necesaria en Javascript por motivos que no voy a enumerar ahora, pero para mi trae un éxtra: &quot;WeakMaps are key/value maps in which <strong>keys are objects</strong>&quot; (Los WeakMaps son mappings clave/valor donde <strong>las claves son objetos</strong>). Sorpresa! Los <code>WeakMap</code> a diferencia de los mappings comunes no usan strings como claves, sino objetos. Esto haría viable la implementación anterior:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div>(<span class="shj-syn-kwd">function</span> (global) {
+  <span class="shj-syn-kwd">var</span> secreto <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">WeakMap</span>();
+
+  <span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Persona</span>() {}
+  <span class="shj-syn-class">Persona</span><span class="shj-syn-oper">.</span>prototype <span class="shj-syn-oper">=</span> {
+    guardarSecreto<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (susurro) {
+      secreto<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">set</span>(<span class="shj-syn-kwd">this</span><span class="shj-syn-oper">,</span> susurro);
+    }<span class="shj-syn-oper">,</span>
+    revelarSecreto<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+      <span class="shj-syn-cmnt">// Si no tenemos ningún secreto
+</span>      <span class="shj-syn-kwd">if</span> (<span class="shj-syn-oper">!</span>secreto<span class="shj-syn-oper">.</span><span class="shj-syn-func">has</span>(<span class="shj-syn-kwd">this</span>)) <span class="shj-syn-kwd">return</span> <span class="shj-syn-str">'Nada'</span>;
+      <span class="shj-syn-kwd">else</span> <span class="shj-syn-kwd">return</span> secreto<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">get</span>(<span class="shj-syn-kwd">this</span>);
+    }<span class="shj-syn-oper">,</span>
+  };
+
+  global<span class="shj-syn-oper">.</span><span class="shj-syn-class">Persona</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Persona</span>;
+})(<span class="shj-syn-kwd">this</span>);
+
+<span class="shj-syn-kwd">var</span> pepe <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Persona</span>();
+<span class="shj-syn-kwd">var</span> maria <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Persona</span>();
+
+pepe<span class="shj-syn-oper">.</span><span class="shj-syn-func">guardarSecreto</span>(<span class="shj-syn-str">'estás en matrix'</span>);
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-str">'Secreto de María: '</span> <span class="shj-syn-oper">+</span> maria<span class="shj-syn-oper">.</span><span class="shj-syn-func">revelarSecreto</span>());
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-str">'Secreto de Pepe: '</span> <span class="shj-syn-oper">+</span> pepe<span class="shj-syn-oper">.</span><span class="shj-syn-func">revelarSecreto</span>());</div></div>
 </code>
 <p><a href="http://jsfiddle.net/amatiasq/dAzjx/" target="_blank">Pruébame</a></p>
 <p><strong>Nota</strong>: Aunque los WeakMap solo están en Firefox, ésto funcionará en todos los navegadores porque he creado una clase que se comporta de forma similar, pero que no permite al recolector de basura eliminar los objetos, la implementación puede verse al final del artículo.</p>
 <p>Funciona! Hemos conseguido guardar una variable privada por instancia con un closure por clase. Ahora llémoslo un poco más allá, que pasa si <strong>en lugar de guardar una variable guardamos un objeto donde podremos tener todas las variables que queramos</strong> para ésa instancia?</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div>(<span class="shj-syn-kwd">function</span> (global) {
+  <span class="shj-syn-kwd">var</span> privadas <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">WeakMap</span>();
+
+  <span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Persona</span>() {
+    <span class="shj-syn-cmnt">// Inicializamos el objeto
+</span>    privadas<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">set</span>(<span class="shj-syn-kwd">this</span><span class="shj-syn-oper">,</span> {});
+    privadas<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">get</span>(<span class="shj-syn-kwd">this</span>)<span class="shj-syn-oper">.</span>otraPrivada <span class="shj-syn-oper">=</span> <span class="shj-syn-str">'Variable inaccesible desde fuera'</span>;
+  }
+
+  <span class="shj-syn-class">Persona</span><span class="shj-syn-oper">.</span>prototype <span class="shj-syn-oper">=</span> {
+    guardarSecreto<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (susurro) {
+      privadas<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">get</span>(<span class="shj-syn-kwd">this</span>)<span class="shj-syn-oper">.</span>secreto <span class="shj-syn-oper">=</span> susurro;
+    }<span class="shj-syn-oper">,</span>
+    revelarSecreto<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+      <span class="shj-syn-kwd">return</span> privadas<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">get</span>(<span class="shj-syn-kwd">this</span>)<span class="shj-syn-oper">.</span>secreto;
+    }<span class="shj-syn-oper">,</span>
+  };
+
+  global<span class="shj-syn-oper">.</span><span class="shj-syn-class">Persona</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Persona</span>;
+})(<span class="shj-syn-kwd">this</span>);
+
+<span class="shj-syn-kwd">var</span> pepe <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Persona</span>();
+<span class="shj-syn-kwd">var</span> maria <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Persona</span>();
+
+pepe<span class="shj-syn-oper">.</span><span class="shj-syn-func">guardarSecreto</span>(<span class="shj-syn-str">'estás en matrix'</span>);
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-str">'Secreto de María: '</span> <span class="shj-syn-oper">+</span> maria<span class="shj-syn-oper">.</span><span class="shj-syn-func">revelarSecreto</span>());</div></div>
 </code>
 <p><a href="http://jsfiddle.net/amatiasq/RzDAE/" target="_blank">Pruébame</a></p>
 <!-- TODO: This causes error `Expected "=>" but found end of file` -->
@@ -313,7 +364,41 @@ console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(
 <p>Como ya he dicho muchas veces, la gracia de <strong>esto no es forzar Javascript a su límite, sino forzar la mente</strong>, si hoy forzamos la imaginación hasta sus límites mañana podremos sobrepasarlos. La idea es ejercitar y mejorar la capacidad de buscar soluciones creativas y funcionales por extrañas o imposibles que parezcan.</p>
 <p>Finalmente, como expliqué en la nota, aquí está la implementación que usé para que los ejemplos funcionen en navegadores que no sean Firefox, guarda en los objetos la propiedad <em>$$ID</em> para no tener que buscar en todo el array de claves el índice del objeto:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">if</span> (<span class="shj-syn-kwd">typeof</span> <span class="shj-syn-class">WeakMap</span> <span class="shj-syn-oper">===</span> <span class="shj-syn-str">'undefined'</span>) {
+  window<span class="shj-syn-oper">.</span><span class="shj-syn-class">WeakMap</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span> <span class="shj-syn-class">WeakMap</span>() {
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>keys <span class="shj-syn-oper">=</span> [];
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>values <span class="shj-syn-oper">=</span> [];
+  };
+  <span class="shj-syn-class">WeakMap</span><span class="shj-syn-oper">.</span>prototype <span class="shj-syn-oper">=</span> {
+    <span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">:</span> <span class="shj-syn-class">WeakMap</span><span class="shj-syn-oper">,</span>
+
+    <span class="shj-syn-kwd">set</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (key<span class="shj-syn-oper">,</span> value) {
+      <span class="shj-syn-kwd">var</span> id <span class="shj-syn-oper">=</span> (key<span class="shj-syn-oper">.</span>$$<span class="shj-syn-num">ID</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>keys<span class="shj-syn-oper">.</span>length);
+      <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>keys[id] <span class="shj-syn-oper">=</span> key;
+      <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>values[id] <span class="shj-syn-oper">=</span> value;
+    }<span class="shj-syn-oper">,</span>
+
+    <span class="shj-syn-kwd">get</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (key) {
+      <span class="shj-syn-kwd">var</span> id <span class="shj-syn-oper">=</span> key<span class="shj-syn-oper">.</span>$$<span class="shj-syn-num">ID</span>;
+
+      <span class="shj-syn-cmnt">// Si el índice del objeto no se corresponde
+</span>      <span class="shj-syn-cmnt">// con su posición en la lista de claves
+</span>      <span class="shj-syn-cmnt">// Es que ha sido modificado, debemos corregirlo.
+</span>      <span class="shj-syn-kwd">if</span> (<span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>keys[id] <span class="shj-syn-oper">!==</span> key) id <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">_fixIndex</span>(key);
+
+      <span class="shj-syn-kwd">return</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>values[id];
+    }<span class="shj-syn-oper">,</span>
+
+    has<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (key) {
+      <span class="shj-syn-kwd">return</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">_fixIndex</span>(key) <span class="shj-syn-oper">!==</span> <span class="shj-syn-num">null</span>;
+    }<span class="shj-syn-oper">,</span>
+
+    _fixIndex<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (key) {
+      <span class="shj-syn-kwd">for</span> (<span class="shj-syn-kwd">var</span> i <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>keys<span class="shj-syn-oper">.</span>length; i<span class="shj-syn-oper">--</span>; ) <span class="shj-syn-kwd">if</span> (<span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>keys[i] <span class="shj-syn-oper">===</span> key) <span class="shj-syn-kwd">return</span> (key<span class="shj-syn-oper">.</span>$$<span class="shj-syn-num">ID</span> <span class="shj-syn-oper">=</span> i);
+      <span class="shj-syn-kwd">return</span> <span class="shj-syn-num">null</span>;
+    }<span class="shj-syn-oper">,</span>
+  };
+}</div></div>
 </code>
 <p>[1]: <a href="http://www.amatiasq.com/2012/02/conceptos-basicos-javascript-privacidad/">http://www.amatiasq.com/2012/02/conceptos-basicos-javascript-privacidad/</a> &#39;Conceptos Básicos Javascript: Privacidad&#39;
 [2]: <a href="http://www.amatiasq.com/?p=174">http://www.amatiasq.com/?p=174</a> &#39;Conceptos Básicos Javascript: Privacidad&#39;

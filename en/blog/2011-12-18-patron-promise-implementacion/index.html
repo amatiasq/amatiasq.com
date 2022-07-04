@@ -160,37 +160,90 @@
 <!--more Seguir leyendo → -->
 <p>Con los objetivos en la mano es más sencillo ver que hacer, lo primero necesitamos una clase, a la hora de crear clases en Javascript yo me decanto por el patrón de constructor con prototipos que espero explicar algún día.</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Promise</span>() {}</div></div>
 </code>
 <p><strong>Segundo punto:</strong> poder añadirle callbacks, ésto consiste en el método <code>.then()</code> al que deberemos poder llamar pasándole las funciones que queremos que se ejecuten cuando la promesa se cumpla. Puesto de debe poderse añadir más de un callback para cada promise lo más lógico sería crear un Array donde almacenarlos</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Promise</span>() {
+  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_callbacks <span class="shj-syn-oper">=</span> [];
+}</div></div>
 </code>
 <p>Y el método <code>.then()</code> que vaya añadiendo al Array los callbacks que se le pasen, puesto que es mejor que los errores se detecten cuanto antes también podemos asegurarnos que el callback es una función:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-class">Promise</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span> (callback) {
+  <span class="shj-syn-kwd">if</span> (<span class="shj-syn-kwd">typeof</span> callback <span class="shj-syn-oper">!==</span> <span class="shj-syn-str">'function'</span>) {
+    <span class="shj-syn-kwd">throw</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Error</span>(<span class="shj-syn-str">"[Promise.then] El argumento 'callback' no es una función "</span> <span class="shj-syn-oper">+</span> <span class="shj-syn-kwd">typeof</span> callback);
+  }
+
+  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_callbacks<span class="shj-syn-oper">.</span><span class="shj-syn-func">push</span>(callback);
+};</div></div>
 </code>
 <p>Y ahora que ya tenemos todos los callbacks en un Array necesitamos algún sistema para avisarle al Promise que ya tiene los datos que necesita y que se los pase a los callbacks. Sobre ésto no he visto ninguna implementación, pero a mi me parece bastante razonable crear un método <code>Promise.done()</code> que notifica al Promise que ya está cumplido y ejecuta los callbacks.</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-class">Promise</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">done</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span> () {
+  <span class="shj-syn-kwd">var</span> callback;
+  <span class="shj-syn-kwd">for</span> (<span class="shj-syn-kwd">var</span> i <span class="shj-syn-oper">=</span> <span class="shj-syn-num">0</span>; i <span class="shj-syn-oper">&lt;</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_callbacks<span class="shj-syn-oper">.</span>length; i<span class="shj-syn-oper">++</span>) {
+    callback <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_callbacks[i];
+    <span class="shj-syn-func">callback</span>();
+  }
+};</div></div>
 </code>
 <p>Y ya lo tenemos hecho, hemos creado un Promise básico, vamos a probarlo. Imaginemos cualquier función asíncrona, por ejemplo vamos a crear una función que nos avise cuando pase un segundo:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">esperarUnSegundo</span>() {
+  <span class="shj-syn-kwd">var</span> promise <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Promise</span>();
+  <span class="shj-syn-cmnt">// Hacemos un timeout a mil milisegundos
+</span>  <span class="shj-syn-func">setTimeout</span>(<span class="shj-syn-kwd">function</span> () {
+    promise<span class="shj-syn-oper">.</span><span class="shj-syn-func">done</span>();
+  }<span class="shj-syn-oper">,</span> <span class="shj-syn-num">1000</span>);
+  <span class="shj-syn-kwd">return</span> promise;
+}
+
+<span class="shj-syn-func">esperarUnSegundo</span>()<span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span>(<span class="shj-syn-kwd">function</span> () {
+  <span class="shj-syn-func">alert</span>(<span class="shj-syn-str">'Ha pasado un segundo =D'</span>);
+});</div></div>
 </code>
 <p><a href="http://jsfiddle.net/amatiasq/4LBWd/2/" target="_blank">Pruébame</a></p>
 <p>Si probamos todo el código veremos que al cabo de un segundo ejecuta el alert.</p>
 <p>Todo funciona perfectamente, vamos un punto más allá, ésta vez descarguemos una página, como no nos importa ahora mismo el código que descarga la página fingiremos llamar a una función <code>peticiónHttp(url, callback)</code> que lo hará por nosotros.</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">descargar</span>(url) {
+  <span class="shj-syn-kwd">var</span> promise <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Promise</span>();
+  petició<span class="shj-syn-func">nHttp</span>(url<span class="shj-syn-oper">,</span> <span class="shj-syn-kwd">function</span> (codigoHtml) {
+    promise<span class="shj-syn-oper">.</span><span class="shj-syn-func">done</span>();
+  });
+  <span class="shj-syn-kwd">return</span> promise;
+}
+<span class="shj-syn-func">descargar</span>(<span class="shj-syn-str">'www.google.com'</span>)<span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span>(<span class="shj-syn-kwd">function</span> () {
+  <span class="shj-syn-cmnt">// Y ahora?
+</span>});</div></div>
 </code>
 <p>Sorpresa! La función ha descargado la página y obtenido el html, pero nuestro Promise no ha sido capaz de pasarlo al callback. La función del Promise en un principio era avisar cuando una tarea asíncrona termina, pero la mayoría de las tareas asíncronas devuelven un resultado y cuando avisemos al Promise que se ha cumplido también querremos que pase el resultado a todos los callbacks. Para ello modificaremos el método done y para que pase a los callbacks todos los argumentos que se le pasen a él (si no sabes lo que hace el método apply puedes mirarlo [aquí][1]):</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-class">Promise</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">done</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span> () {
+  <span class="shj-syn-cmnt">// Guardamos los argumentos que se le ha pasado a .done()
+</span>  <span class="shj-syn-kwd">var</span> args <span class="shj-syn-oper">=</span> arguments;
+  <span class="shj-syn-kwd">var</span> callback;
+  <span class="shj-syn-kwd">for</span> (<span class="shj-syn-kwd">var</span> i <span class="shj-syn-oper">=</span> <span class="shj-syn-num">0</span>; i <span class="shj-syn-oper">&lt;</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_callbacks<span class="shj-syn-oper">.</span>length; i<span class="shj-syn-oper">++</span>) {
+    callback <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_callbacks[i];
+    <span class="shj-syn-cmnt">// Y se los pasamos al callback
+</span>    callback<span class="shj-syn-oper">.</span><span class="shj-syn-func">apply</span>(<span class="shj-syn-num">null</span><span class="shj-syn-oper">,</span> args);
+  }
+};</div></div>
 </code>
 <p>Y ya está, ahora podemos pasarle argumentos a <code>.done()</code>:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">descargar</span>(url) {
+  <span class="shj-syn-kwd">var</span> promise <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Promise</span>();
+  petició<span class="shj-syn-func">nHttp</span>(url<span class="shj-syn-oper">,</span> <span class="shj-syn-kwd">function</span> (codigoHtml) {
+    promise<span class="shj-syn-oper">.</span><span class="shj-syn-func">done</span>(codigoHtml);
+  });
+  <span class="shj-syn-kwd">return</span> promise;
+}
+
+<span class="shj-syn-func">descargar</span>(<span class="shj-syn-str">'www.google.com'</span>)<span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span>(<span class="shj-syn-kwd">function</span> (codigoHtml) {
+  <span class="shj-syn-func">alert</span>(codigoHtml);
+});</div></div>
 </code>
 <p>Ya tenemos nuestra versión 0.1 de la clase Promise :D</p>
 <h3 id="segundo-gesti-n-de-errores">Segundo: Gestión de errores</h3>
@@ -203,19 +256,102 @@
 </ul>
 <p>Lo primero es que el Promise no solo reciba un callback normal sino que también reciba otro callback que será ejecutado solo si se produce un error. Una idea que me gusta es dárselo al método <code>.then()</code> como segundo argumento, ya que el primero es el callback normal. Y éste debería guardarlo, para ello debemos crear otro Array donde guardar los callbacks de errores:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Promise</span>() {
+  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_callbacks <span class="shj-syn-oper">=</span> [];
+  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_onError <span class="shj-syn-oper">=</span> [];
+}
+<span class="shj-syn-class">Promise</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span> (callback<span class="shj-syn-oper">,</span> onError) {
+  <span class="shj-syn-cmnt">// Validamos el callback normal
+</span>  <span class="shj-syn-kwd">if</span> (<span class="shj-syn-kwd">typeof</span> callback <span class="shj-syn-oper">!==</span> <span class="shj-syn-str">'function'</span>) {
+    <span class="shj-syn-kwd">throw</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Error</span>(<span class="shj-syn-str">"[Promise.then] El argumento 'callback' no es una función "</span> <span class="shj-syn-oper">+</span> <span class="shj-syn-kwd">typeof</span> callback);
+  }
+  <span class="shj-syn-cmnt">// Validamos el callback de error. Como es opcional puede ser 'undefined' o una función
+</span>  <span class="shj-syn-kwd">if</span> (onError <span class="shj-syn-oper">&#38;&#38;</span> <span class="shj-syn-kwd">typeof</span> onError <span class="shj-syn-oper">!==</span> <span class="shj-syn-str">'function'</span>) {
+    <span class="shj-syn-kwd">throw</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Error</span>(<span class="shj-syn-str">"[Promise.then] El argumento 'onError' no es una función "</span> <span class="shj-syn-oper">+</span> <span class="shj-syn-kwd">typeof</span> onError);
+  }
+
+  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_callbacks<span class="shj-syn-oper">.</span><span class="shj-syn-func">push</span>(callback);
+  <span class="shj-syn-cmnt">// Si no era undefined debe ser una función, porque ya lo validamos
+</span>  <span class="shj-syn-kwd">if</span> (onError) {
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_onError<span class="shj-syn-oper">.</span><span class="shj-syn-func">push</span>(onError);
+  }
+};</div></div>
 </code>
 <p>Como se ve es prácticamente lo mismo que para los callbacks, ya que se trata de lo mismo, un callback por si hay errores. Ahora vamos a matar los últimos dos puntos de un tiro. Añadiremos un método para avisar al Promise cuando se produzca un error y le pasaremos el objeto Error para que lo pase a todos los callbacks de error.</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-class">Promise</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">fail</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span> (error) {
+  <span class="shj-syn-kwd">var</span> callback;
+  <span class="shj-syn-kwd">for</span> (<span class="shj-syn-kwd">var</span> i <span class="shj-syn-oper">=</span> <span class="shj-syn-num">0</span>; i <span class="shj-syn-oper">&lt;</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_onError<span class="shj-syn-oper">.</span>length; i<span class="shj-syn-oper">++</span>) {
+    callback <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_onError[i];
+    <span class="shj-syn-func">callback</span>(error);
+  }
+};</div></div>
 </code>
 <p>Y ya está, ahora cuando llamemos al método <code>.fail()</code> llamará a todos los callbacks de error y les pasará el objeto Error. Ahora podemos adaptar la función <code>descargar()</code> para que también notifique cuando se produzca un error:</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">descargar</span>(url) {
+  <span class="shj-syn-kwd">var</span> promise <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Promise</span>();
+  <span class="shj-syn-kwd">try</span> {
+    petició<span class="shj-syn-func">nHttp</span>(url<span class="shj-syn-oper">,</span> <span class="shj-syn-kwd">function</span> (codigoHtml) {
+      promise<span class="shj-syn-oper">.</span><span class="shj-syn-func">done</span>(codigoHtml);
+    });
+  } <span class="shj-syn-kwd">catch</span> (error) {
+    promise<span class="shj-syn-oper">.</span><span class="shj-syn-func">fail</span>(error);
+  }
+  <span class="shj-syn-kwd">return</span> promise;
+}
+<span class="shj-syn-func">descargar</span>(<span class="shj-syn-str">'www.google.com'</span>)<span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span>(<span class="shj-syn-kwd">function</span> (codigoHtml) {
+  <span class="shj-syn-func">alert</span>(codigoHtml);
+});</div></div>
 </code>
 <p>Ahora ya podemos decir que tenemos la versión 0.2 del Promise tengo que dejar para otro post métodos más complicados como <code>.then()</code> concatenados y el <code>.and()</code> porque ya es muy tarde. Aquí dejo el código completo al que le he añadido la propiedad <code>_estado</code> para evitar que se pueda cumplir o fallar un Promise cuando ya está cumplido o fallado.</p>
 
-<code class="code-block shj-lang-js">LOADING...
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Promise</span>() {
+  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_callbacks <span class="shj-syn-oper">=</span> [];
+  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_onError <span class="shj-syn-oper">=</span> [];
+  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_estado <span class="shj-syn-oper">=</span> <span class="shj-syn-str">'esperando'</span>;
+}
+
+<span class="shj-syn-class">Promise</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span> (callback<span class="shj-syn-oper">,</span> onError) {
+  <span class="shj-syn-cmnt">// Validamos el callback normal
+</span>  <span class="shj-syn-kwd">if</span> (<span class="shj-syn-kwd">typeof</span> callback <span class="shj-syn-oper">!==</span> <span class="shj-syn-str">'function'</span>)
+    <span class="shj-syn-kwd">throw</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Error</span>(<span class="shj-syn-str">"[Promise.then] El argumento 'callback' no es una función "</span> <span class="shj-syn-oper">+</span> <span class="shj-syn-kwd">typeof</span> callback);
+
+  <span class="shj-syn-cmnt">// Validamos el callback de error. Como es opcional puede ser 'undefined' o una función
+</span>  <span class="shj-syn-kwd">if</span> (onError <span class="shj-syn-oper">&#38;&#38;</span> <span class="shj-syn-kwd">typeof</span> onError <span class="shj-syn-oper">!==</span> <span class="shj-syn-str">'function'</span>)
+    <span class="shj-syn-kwd">throw</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Error</span>(<span class="shj-syn-str">"[Promise.then] El argumento 'onError' no es una función "</span> <span class="shj-syn-oper">+</span> <span class="shj-syn-kwd">typeof</span> onError);
+
+  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_callbacks<span class="shj-syn-oper">.</span><span class="shj-syn-func">push</span>(callback);
+  <span class="shj-syn-cmnt">// Si no era undefined debe ser una función, porque ya lo validamos
+</span>  <span class="shj-syn-kwd">if</span> (onError) <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_onError<span class="shj-syn-oper">.</span><span class="shj-syn-func">push</span>(onError);
+};
+
+<span class="shj-syn-class">Promise</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">done</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span> (error) {
+  <span class="shj-syn-kwd">if</span> (<span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_estado <span class="shj-syn-oper">!==</span> <span class="shj-syn-str">'esperando'</span>) <span class="shj-syn-kwd">throw</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Error</span>(<span class="shj-syn-str">'Intentando cumplir un promise que ya ha finalizado'</span>);
+
+  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_estado <span class="shj-syn-oper">=</span> <span class="shj-syn-str">'cumplido'</span>;
+  <span class="shj-syn-cmnt">// Guardamos los argumentos que se le ha pasado a .done()
+</span>  <span class="shj-syn-kwd">var</span> args <span class="shj-syn-oper">=</span> arguments;
+  <span class="shj-syn-kwd">var</span> callback;
+
+  <span class="shj-syn-kwd">for</span> (<span class="shj-syn-kwd">var</span> i <span class="shj-syn-oper">=</span> <span class="shj-syn-num">0</span>; i <span class="shj-syn-oper">&lt;</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_callbacks<span class="shj-syn-oper">.</span>length; i<span class="shj-syn-oper">++</span>) {
+    callback <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_callbacks[i];
+    <span class="shj-syn-cmnt">// Y se los pasamos al callback
+</span>    callback<span class="shj-syn-oper">.</span><span class="shj-syn-func">apply</span>(<span class="shj-syn-num">null</span><span class="shj-syn-oper">,</span> args);
+  }
+};
+
+<span class="shj-syn-class">Promise</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">fail</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span> (error) {
+  <span class="shj-syn-kwd">if</span> (<span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_estado <span class="shj-syn-oper">!==</span> <span class="shj-syn-str">'esperando'</span>) <span class="shj-syn-kwd">throw</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Error</span>(<span class="shj-syn-str">'Intentando hacer fallar un promise que ya ha finalizado'</span>);
+
+  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_estado <span class="shj-syn-oper">=</span> <span class="shj-syn-str">'fallado'</span>;
+  <span class="shj-syn-kwd">var</span> callback;
+
+  <span class="shj-syn-kwd">for</span> (<span class="shj-syn-kwd">var</span> i <span class="shj-syn-oper">=</span> <span class="shj-syn-num">0</span>; i <span class="shj-syn-oper">&lt;</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_onError<span class="shj-syn-oper">.</span>length; i<span class="shj-syn-oper">++</span>) {
+    callback <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_onError[i];
+    <span class="shj-syn-func">callback</span>(error);
+  }
+};</div></div>
 </code>
 <p>[1]: <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/apply">https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/apply</a> &#39;appy method&#39;</p>
 </div></article></div></body></html>
