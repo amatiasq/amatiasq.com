@@ -79,6 +79,10 @@
     margin: 20px 0;
     text-align: justify;
   }
+
+  svg {
+    fill: #FDFBF8;
+  }
 </style><style></style></head><body class=""><div class="md"><p>Antes de continuar con el Patrón Promise me gustaría explicar en paralelo Conceptos Básicos de Javascript. Entendiendo que estamos hablando de Javascript como lenguaje y no vamos a hablar sobre conceptos básicos del DOM o como abrir una nueva ventana en el navegador, sino detalles de Javascript puro, tanto en cliente como en servidor.</p>
 <h3 id="de-d-nde-sale-_this_">De dónde sale <em>this</em></h3>
 <p>He pensado que sería un buen punto empezar por una curiosidad bastante desconocida para los recién llegados a Javascript: La variable <code>this</code>, también llamado el <code>scope</code> o más correctamente <code>contexto</code> de la función. En los lenguajes basados en clases más extendidos (Java, C++, C#...) encontramos que <strong>los métodos de la clase siempre disponen de la variable <code>this</code> que nos permite acceder a nuestra propia instancia</strong> sobre la que se está ejecutando el método. Es decir, si tenemos la clase</p>

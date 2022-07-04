@@ -79,6 +79,10 @@
     margin: 20px 0;
     text-align: justify;
   }
+
+  svg {
+    fill: #FDFBF8;
+  }
 </style><style></style></head><body class=""><div class="md"><p>Acabo de leer <a href="http://scottchacon.com/2011/08/31/github-flow.html">un artículo</a> creado por los trabajadores de <a href="http://www.github.com">Github</a> que han dado una vuelta de tuerca a lo que sabía de GIT y creo que será muy útil compartirlo, pero primero vamos por partes:</p>
 <h3 id="control-de-versiones">Control de Versiones</h3>
 <p>Prefiero empezar por lo más básico porque ésto es algo que los programadores damos por hecho pero para alguien empezando puede ser totalmente desconocido. Una de las herramientas más básicas de un programador junto con el editor de texto es un <strong>sistema de control de versiones</strong>. Se trata básicamente de un programa que <strong>registra los cambios que vamos haciendo en los archivos y cuando nosotros se lo ordenamos (hacemos commit) se guarda el estado actual de los archivos</strong>, si más adelante seguimos haciendo cambio en los archivos y en lugar de mejorar empeora gracias al sistema de control de versiones podemos revertir los archivos y dejarlos tal y como estaban en el último commit o cualquier commit anterior. Además permite que <strong>dos o más personas puedan archivos de un mismo proyecto y cuando ambos envíen sus cambios el sistema hará lo posible por combinarlos</strong> (hacer merge), en caso de que el merge no se pueda hacer automático el sistema notifica un conflicto de cambios y nos pide que lo hagamos a mano.</p>
