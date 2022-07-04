@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>potato</title><style>
+<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Patrón Promise: Implementación</title><style>
   /* Box sizing rules */
   *, *::before, *::after {
     box-sizing: border-box;
@@ -22,9 +22,12 @@
     line-height: 1.5;
   }
 
-  /* Remove list styles on ul, ol elements with a class attribute */
-  ul, ol {
+  ul, ol, summary {
     list-style: none;
+  }
+  .md ul, .md ol {
+    list-style: initial;
+    padding: revert;
   }
 
   /* A elements that don&#x27;t have a class get default styles */
@@ -80,10 +83,22 @@
     text-align: justify;
   }
 
+  .md pre {
+    white-space: break-spaces;
+  }
+
   svg {
     fill: #FDFBF8;
   }
-</style><style></style></head><body class=""><div class="md"><p>Lo prometido es deuda (bien lo saben las funciones) y he encontrado un momento para empezar a explicar la forma en la que he implementado el patrón Promise en mi caso, no tiene porqué ser la mejor, pero cumple con su cometido.</p>
+</style><style>.css-zi0qjt{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;}
+.css-1p4f3y5{display:grid;padding-top:20px;gap:12px;}
+.css-2nd93p{padding:20px 0;margin-bottom:20px;background-color:#1B2225;color:#FDFBF8;border-bottom:2px solid #586369;}@media (min-width: 769px){.css-2nd93p{position:-webkit-sticky;position:sticky;top:0;z-index:1;}}
+.css-17rdaxl{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}@media (min-width: 769px){.css-17rdaxl{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}
+.css-slvbys{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:12px;}.css-slvbys a{color:#EFE751;-webkit-text-decoration:none;text-decoration:none;margin-left:12px;border-bottom:1px solid transparent;}.css-slvbys a.parent{border-bottom:1px solid #586369;}.css-slvbys a:hover{border-bottom:1px solid #EFE751;}
+.css-1avicn7{font-size:24px;-webkit-text-decoration:none;text-decoration:none;color:#FDFBF8;}
+.css-2u52bv{max-width:30rem;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem;}@media (min-width: 769px){.css-2u52bv{max-width:50rem;padding-left:5rem;padding-right:5rem;}}@media (min-width: 1200px){.css-2u52bv{max-width:60rem;padding-left:5rem;padding-right:5rem;}}
+.css-187qu0u{font-family:Montserrat,sans-serif;font-weight:700;font-size:32px;}
+.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-2u52bv"><h2><a href="../../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href="../../../blog" class="">Blog</a><a href="../../../career" class="">Career</a><a href="../../../projects" class="">Projects</a><a href="../../../es/blog/2011-12-18-patron-promise-implementacion" class="">🇪🇸</a></nav></div></header><div class="css-1p4f3y5 css-2u52bv"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Patrón Promise: Implementación</h2><time class="css-bkztrs " dateTime="12/18/2011">Dec 18, 2011</time></div><div class="md"><p>Lo prometido es deuda (bien lo saben las funciones) y he encontrado un momento para empezar a explicar la forma en la que he implementado el patrón Promise en mi caso, no tiene porqué ser la mejor, pero cumple con su cometido.</p>
 <p><strong>NOTA:</strong> Me gustaría implementarla en Test Driven Development, pero ya es bastante para quien lee y para el que escribe seguir la implementación como para encima añadir TDD, pero no quisiera dejar de recomendarlo.</p>
 <h3 id="primero-funcionalidad-b-sica">Primero: Funcionalidad básica</h3>
 <p>Lo que necesitamos de un objeto Promise es:</p>
@@ -290,4 +305,4 @@ Promise.prototype.fail = function (error) {
 };
 </code></pre>
 <p>[1]: <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/apply">https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/apply</a> &#39;appy method&#39;</p>
-</div></body></html>
+</div></div></body></html>

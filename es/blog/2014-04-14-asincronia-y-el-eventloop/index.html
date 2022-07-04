@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>potato</title><style>
+<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Asincronía y el EventLoop</title><style>
   /* Box sizing rules */
   *, *::before, *::after {
     box-sizing: border-box;
@@ -22,9 +22,12 @@
     line-height: 1.5;
   }
 
-  /* Remove list styles on ul, ol elements with a class attribute */
-  ul, ol {
+  ul, ol, summary {
     list-style: none;
+  }
+  .md ul, .md ol {
+    list-style: initial;
+    padding: revert;
   }
 
   /* A elements that don&#x27;t have a class get default styles */
@@ -80,7 +83,210 @@
     text-align: justify;
   }
 
+  .md pre {
+    white-space: break-spaces;
+  }
+
   svg {
     fill: #FDFBF8;
   }
-</style><style></style></head><body class=""></body></html>
+</style><style>.css-zi0qjt{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;}
+.css-1p4f3y5{display:grid;padding-top:20px;gap:12px;}
+.css-2nd93p{padding:20px 0;margin-bottom:20px;background-color:#1B2225;color:#FDFBF8;border-bottom:2px solid #586369;}@media (min-width: 769px){.css-2nd93p{position:-webkit-sticky;position:sticky;top:0;z-index:1;}}
+.css-17rdaxl{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}@media (min-width: 769px){.css-17rdaxl{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}
+.css-slvbys{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:12px;}.css-slvbys a{color:#EFE751;-webkit-text-decoration:none;text-decoration:none;margin-left:12px;border-bottom:1px solid transparent;}.css-slvbys a.parent{border-bottom:1px solid #586369;}.css-slvbys a:hover{border-bottom:1px solid #EFE751;}
+.css-1avicn7{font-size:24px;-webkit-text-decoration:none;text-decoration:none;color:#FDFBF8;}
+.css-2u52bv{max-width:30rem;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem;}@media (min-width: 769px){.css-2u52bv{max-width:50rem;padding-left:5rem;padding-right:5rem;}}@media (min-width: 1200px){.css-2u52bv{max-width:60rem;padding-left:5rem;padding-right:5rem;}}
+.css-187qu0u{font-family:Montserrat,sans-serif;font-weight:700;font-size:32px;}
+.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-2u52bv"><h2><a href="../../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href="../../../blog" class="">Blog</a><a href="../../../career" class="">Experiencia</a><a href="../../../projects" class="">Proyectos</a><a href="../../../blog/2014-04-14-asincronia-y-el-eventloop" class="">🇬🇧</a></nav></div></header><div class="css-1p4f3y5 css-2u52bv"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Asincronía y el EventLoop</h2><time class="css-bkztrs " dateTime="14/04/2014">14 abr 2014</time></div><div class="md"><p>Me gustaría hacer un repaso al tema de la asincronía en Javascript porque me llama la atención que pese a tener casi 20 años es un tema que sigue madurando y he visto surgir buenas ideas recientemente.</p>
+<!-- extract -->
+<h3 id="el-event-loop">El event loop</h3>
+<p>Primero lo primero, de donde sale la asincronía. Javascript es un lenguaje cuya ejecución se basa en lo que se llama <strong>event loop</strong> (bucle de eventos). El <em>event loop</em> es una cola donde se van añadiendo los bloques de código que quieren ejecutarse, por ejemplo: cuando el navegador está renderizando el HTML de una página y se encuentra un tag <code>&lt;script&gt;</code> el contenido de ese elemento se añade al <em>event loop</em> para que sea ejecutado tan pronto como sea posible.</p>
+<p>Lo mismo ocurre cuando la página ya está cargada y el usuario hace click. Si tenemos una función listener (también llamado callback) escuchando los eventos click de un objeto esa función se añade a la cola del <em>event loop</em> para que el sistema lo ejecute tan pronto como sea posible.</p>
+<p>De esta forma todos los bloques de código que se ejecutan en javascript han sido bloques de código que entraron a la cola del <em>event loop</em> y cuando llegó su turno fueron ejecutados. Podemos entenderlo más fácilmente si implementamos un falso event loop en Javascript:</p>
+
+<pre><code class="lang-js">var eventLoop = {
+  _queue: [],
+
+  add: function (fn) {
+    // añadimos la función a la cola
+    this._queue.push(fn);
+
+    // si está desocupado ejecutar la función
+    if (!this.running) this.executeNext();
+  },
+
+  executeNext: function () {
+    if (this.running || this._queue.length === 0) return;
+
+    this.running = true;
+    var block = this._queue.shift();
+    block();
+    this.running = false;
+
+    this.executeNext();
+  },
+};
+</code></pre>
+<p><a target="_black" href="http://jsfiddle.net/amatiasq/k9ebk/">Pruébame</a></p>
+<p>Esto significa que mientras un bloque esté ejecutándose ningún otro bloque de código puede estar ejecutándose a la vez. Pero si un proceso tarda mucho (como leer el disco, comunicarse con el servidor, esperar una determinada cantidad de tiempo...) lo que hacemos es pasarles una función que será añadida al <em>event loop</em> cuando el proceso acabe.</p>
+<p>Cada &quot;bloque&quot; que el <em>event loop</em> ejecuta se llama &quot;un tick del event loop&quot;, de ahí el nombre de la función <code>process.nextTick</code> de NodeJS.</p>
+<p>Una forma sencilla de controlar el <em>event loop</em> es mediante <code>setTimeout</code>, <code>setInterval</code> y <code>setImmediate</code>, podemos crear funciones similares que hagan la misma funcionalidad (simplificada) pero para nuestro <code>eventLoop</code>:</p>
+
+<pre><code class="lang-js">function mySetImmediate(fn) {
+  eventLoop.add(fn);
+}
+
+function mySetTimeout(fn, milliseconds) {
+  // la unica forma de dejar pasar el tiempo
+  // es mediante el VERDADERO setTimeout ;)
+  setTimeout(function () {
+    mySetImmediate(fn);
+  }, milliseconds);
+}
+
+function mySetInterval(fn, milliseconds) {
+  function execute() {
+    fn();
+    mySetTimeout(execute, milliseconds);
+  }
+
+  mySetTimeout(execute, milliseconds);
+}
+</code></pre>
+<p>Como se puede ver tanto setTimeout como setInterval esperan la cantidad de milisegundos definida y <strong>entonces añaden</strong> el bloque al <em>event loop</em>, si el <em>event loop</em> está ocupado en ese momento puede tardar un poco más de lo esperado en ejecutarse nuestra función.</p>
+<p>Entiendiendo esto es más fácil entender porqué Javascript funciona de la forma que funciona.</p>
+
+<ul>
+<li>Solo hay un bloque de código ejecutandose en cada momento</li>
+<li>Los bloques se encolan</li>
+<li>Se considera asíncrono a una sección de código que será ejecutada en un &quot;tick&quot; distinto</li>
+</ul>
+
+<pre><code class="lang-js">var a = 1;
+setTimeout(function () {
+  // esta función es asíncrona porque el tick que llama a setTimeout
+  // tiene que acabar antes que esta función sea invocada.
+  a = 2;
+}, 100);
+</code></pre>
+<p>En el caso de javascript para el navegador además nos encontramos con que el <em>event loop</em> es compartido por Javascript y el motor de renderizado del navegador. Como el <em>event loop</em> solo puede ejecutar un bloque por vez resulta que si estamos ejecutando Javascript el navegador no puede renderizar la página y vice versa, si la página tarda mucho en renderizarse retrasará la ejecución del Javascript. Esto es así porque desde Javascript podemos modificar el DOM y si el navegador intenta renderizar la página mientras nosotros la modificamos tendríamos otro tipo de problemas peores.</p>
+<p>Pero es importante tener esto en cuenta ya que un proceso Javascript que tarde demasiado &quot;congelará&quot; la página, no funcionarán los clicks, scroll, ni siquiera los <code>:hover</code>.</p>
+<h3 id="un-poco-de-historia">Un poco de historia</h3>
+<p>Cuando Javascript fue desarrollado la comunicación asíncrona con el DOM se solucionó mediante eventos y tiene todo el sentido del mundo. Quieres saber cuando el usuario hace click en un elemento? Registra el evento y el navegador te avisará, quieres saber cuando el usuario haga scroll? registra el evento!</p>
+<p>El problema empezó cuando empezamos a usar eventos para cosas no tan claras, como eventos puntuales que solo se disparaban una vez:</p>
+
+<pre><code class="lang-js">window.addEventListener(&#39;load&#39;, function() { ... });
+someAjax().onready = function() { ... };
+</code></pre>
+<p>Incluso para controlar errores</p>
+
+<pre><code class="lang-js">xhr.onerror = function() { ... };
+document.querySelector(&quot;script&quot;).onerror = function() { ... };
+</code></pre>
+<p>Hasta para controlar un progreso (en APIs modernas incluso)</p>
+
+<pre><code class="lang-js">var reader = new FileReader();
+reader.onprogress = function() { ... };
+</code></pre>
+<p>Pero al no estar acostumbrados a trabajar con asincronía de esta forma no fuimos capaces de ver que estabamos usando una herramienta para todo, como dicen por ahí &quot;para un hombre con un martillo todo es un clavo&quot;.</p>
+<p>En node decidieron adaptar el patrón &quot;Continuous Passing Style&quot;, que consiste en pasar callbacks a funciones asíncronas</p>
+
+<pre><code class="lang-js">fs.readFile(&quot;foo&quot;, function() { ... });
+</code></pre>
+<p>Y por suerte integraron <code>EventEmitter</code>, que permitió crear APIs que usaran eventos sin más complejidad. Y lo que es mejor, incluyeron los streams, una forma de gestión de asincronía creada para que podamos acceder a un recurso por partes. Con el tiempo llegaron los promises que fue lo primero que me hizo plantearme si estábamos enfocando la asincronía de forma coherente.</p>
+<p>En total he llegado a resumir los distintos tipos de asincronía en dos, ambos con la característica de que necesitan gestionar también errores:</p>
+
+<ul>
+<li><strong>Valor asíncrono</strong>: el callback se invoca una sola vez en el futuro</li>
+<li><strong>Collección asíncrona</strong>: el callback se invoca una vez por cada elemento en la colección</li>
+</ul>
+<h3 id="valor-as-ncrono">Valor asíncrono</h3>
+<p>En el primer caso tenemos un valor asíncrono, puede ser el valor devuelto por una función asíncrona o el valor puede ser nulo en cuyo caso simplemente funcionaría para detectar cuando el proceso ha finalizado. Este caso está cubierto por los Promises.</p>
+<p>Desde mi punto de vista se trata de una especie de meta-programación, tenemos un valor (el promise) que sustituye al valor real para que podamos seguir con nuestra ejecución síncrona.</p>
+
+<pre><code class="lang-js">var contentPromise = file.readContent();
+return contentPromise;
+</code></pre>
+<h3 id="colecci-n-as-ncrona">Colección asíncrona</h3>
+<p>Podemos verlo como un array asíncrono, que a medida que se le van añadiendo elementos va invocando a su callback. En este grupo metería a todo componente asíncrono que invoque a su callback más de una vez:</p>
+
+<ul>
+<li>Flujo de datos</li>
+<li>Progreso</li>
+<li>Eventos</li>
+</ul>
+<p>Una de las funcionalidades que más me gustan de <a href="https://www.dartlang.org/">Dart</a> es que <a href="https://www.dartlang.org/articles/improving-the-dom/#events">han sustituído los eventos DOM por streams</a>, un pequeño detalle pero que es todo un cambio de concepto, los eventos DOM son una lista de tamaño indeterminado. Cada vez que el usuario hace click es como añadir ese evento al stream de eventos click de ese elemento. Al ser un stream podemos escucharlo, filtrarlo, manipularlo... de la misma forma que hacemos con una colección. Incluso hay implementaciones que tienen métodos <code>.forEach</code> y <code>.filter</code> y <code>.map</code> cumpliendo la misma interfaz que el resto de colecciones.</p>
+<p>Por otro lado los streams siguen siendo útiles para su funcionalidad primera, entregarnos un contenido que vamos recibiendo por partes, es decir; en lugar de cargar un achivo de 1Gb en memoria, un stream nos lo va entregando en bloques más pequeños así podemos trabajarlos y liberar memoria. Además en casos como medidores de progresos encajan perfectamente, siendo cada actualización del progreso un elemento del stream.</p>
+<h3 id="y-todo-junto">Y todo junto</h3>
+<blockquote>
+<p>Nota: el código a continuación es adaptado de otros lenguajes y no existe en Javascript</p>
+</blockquote>
+<p>Incluso hay implementaciones muy completas que integran perfectamente los stream y los promises, podemos hacer de forma sencilla cosas como capturar el primer click en la pagina</p>
+
+<pre><code class="lang-js">// window.onClick instanceof Stream
+var firstClick = window.onClick.first;
+firstClick.then(function() { ... });
+</code></pre>
+<p>Comprobar si las primeras diez teclas han sido &quot;flecha derecha&quot;</p>
+
+<pre><code class="lang-js">var firstTenKeys = input.onKeyDown.take(10);
+var keyRightTenTimes = firstTenKeys.every(function (event) {
+  return event.keyCode === 39;
+});
+keyRightTenTimes.then(function (value) {
+  if (value) console.log(&#39;You like left arrow! :D&#39;);
+});
+</code></pre>
+<p>Capturar solo el tercer click en la página</p>
+
+<pre><code class="lang-js">var thirdClick = input.onKeyDown.elementAt(3);
+thirdClick.then(function (event) {
+  console.log(&#39;You clicked three times :)&#39;);
+});
+</code></pre>
+<p>Obtener todo el contenido del archivo desde el stream, no hace falta un método especial</p>
+
+<pre><code class="lang-js">var stream = file.getReadStream()
+var fileContent = stream.join(&#39;&#39;);
+fileContent.then(function(content) { ... });
+</code></pre>
+<p>O detectar el primer evento <code>readystatechange</code> en que el <code>readyState</code> sea <code>4</code>, convertirlo en promise y devolver la respuesta</p>
+
+<pre><code class="lang-js">return xhr.onReadyStateChange
+  .filter(function (event) {
+    return xhr.readyState === 4;
+  })
+  .first.then(function () {
+    return xhr.responseText;
+  });
+</code></pre>
+<p>Unificar varias operaciones</p>
+
+<pre><code class="lang-js">// readFile returns promise
+var concat = new Stream([readFile(&#39;./header.html&#39;), readFile(&#39;./content.html&#39;), readFile(&#39;./footer.html&#39;)]);
+stream.listen(function (chunk) {
+  response.write(chunk);
+});
+</code></pre>
+<p>Incluso cosas más complejas como detectar la primera acción del usuario en la página</p>
+
+<pre><code class="lang-js">// Promise.race devuelve un promise que se completará
+// cuando el primer promise de la lista se complete
+Promise.race([window.onClick.first, window.onKeyDown.first, window.onMouseMove.first]).then(function (event) {
+  console.log(&#39;El usuario ha disparado el evento &#39; + event.type);
+});
+</code></pre>
+<p>Y hasta capturar el evento <code>load</code> de window aunque ya haya pasado:</p>
+
+<pre><code class="lang-js">setTimeout(function () {
+  window.onLoad.first(function () {
+    // Me van a invocar aunque el evento
+    // ya haya pasado :)
+  });
+}, 1000 * 60 * 60); // una hora
+</code></pre>
+<h3 id="resumen">Resumen</h3>
+<p>La gestión de la asincronía, que siempre ha sido un caos, se simplifica de forma radical gracias a una buena combinación de Stream/Promises. Espero poder actualizar la entrada de los promises con los nuevos promises estándard de ECMAScript 6 :)</p>
+<p>Conocen más patrones de gestión de asincronía?</p>
+</div></div></body></html>

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>potato</title><style>
+<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Conceptos Básicos Javascript: Privacidad</title><style>
   /* Box sizing rules */
   *, *::before, *::after {
     box-sizing: border-box;
@@ -22,9 +22,12 @@
     line-height: 1.5;
   }
 
-  /* Remove list styles on ul, ol elements with a class attribute */
-  ul, ol {
+  ul, ol, summary {
     list-style: none;
+  }
+  .md ul, .md ol {
+    list-style: initial;
+    padding: revert;
   }
 
   /* A elements that don&#x27;t have a class get default styles */
@@ -80,10 +83,22 @@
     text-align: justify;
   }
 
+  .md pre {
+    white-space: break-spaces;
+  }
+
   svg {
     fill: #FDFBF8;
   }
-</style><style></style></head><body class=""><div class="md"><h3 id="introducci-n">Introducción</h3>
+</style><style>.css-zi0qjt{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;}
+.css-1p4f3y5{display:grid;padding-top:20px;gap:12px;}
+.css-2nd93p{padding:20px 0;margin-bottom:20px;background-color:#1B2225;color:#FDFBF8;border-bottom:2px solid #586369;}@media (min-width: 769px){.css-2nd93p{position:-webkit-sticky;position:sticky;top:0;z-index:1;}}
+.css-17rdaxl{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}@media (min-width: 769px){.css-17rdaxl{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}
+.css-slvbys{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:12px;}.css-slvbys a{color:#EFE751;-webkit-text-decoration:none;text-decoration:none;margin-left:12px;border-bottom:1px solid transparent;}.css-slvbys a.parent{border-bottom:1px solid #586369;}.css-slvbys a:hover{border-bottom:1px solid #EFE751;}
+.css-1avicn7{font-size:24px;-webkit-text-decoration:none;text-decoration:none;color:#FDFBF8;}
+.css-2u52bv{max-width:30rem;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem;}@media (min-width: 769px){.css-2u52bv{max-width:50rem;padding-left:5rem;padding-right:5rem;}}@media (min-width: 1200px){.css-2u52bv{max-width:60rem;padding-left:5rem;padding-right:5rem;}}
+.css-187qu0u{font-family:Montserrat,sans-serif;font-weight:700;font-size:32px;}
+.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-2u52bv"><h2><a href="../../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href="../../../blog" class="">Blog</a><a href="../../../career" class="">Career</a><a href="../../../projects" class="">Projects</a><a href="../../../es/blog/2012-02-26-conceptos-basicos-privacidad" class="">🇪🇸</a></nav></div></header><div class="css-1p4f3y5 css-2u52bv"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Conceptos Básicos Javascript: Privacidad</h2><time class="css-bkztrs " dateTime="02/26/2012">Feb 26, 2012</time></div><div class="md"><h3 id="introducci-n">Introducción</h3>
 <p>Uno de los temas más frecuentes cuando uno se inicia en Javascript es la privacidad, principalmente viniendo de <strong>lenguajes como Java, C# o C++; donde publican o se ocultan propiedades de los objetos mediante modificadores. Javascript</strong> no posee dichos modificadores sino que <strong>todas las propiedades de los objetos son públicas</strong> lo que puede ser muy confuso para una persona poco diestra en ésta técnica, entre los que me incluyo.</p>
 <p>Personalmente cuando diseño un componente (objeto/clase/librería), es porque quiero que ese componente cumpla una funcionalidad, por ejemplo, si yo quiero tener una clase que represente a una impresora necesito enviarle datos y que los imprima; <strong>mi prioridad es que dicho componente sea sencillo de utilizar, lo que facilita la reutilización del componente</strong>. Por lo que primero imagino cómo me gustaría usarlo:</p>
 
@@ -251,4 +266,4 @@ exports.saludar = saludar;
 <p>No voy a opinar si la decisión de hacer todo público al crear Javascript es buena o mala porque en mi opinión <strong>no es que hacer todo público sea malo, sino que no estamos acostrumbrados a utilizarlo</strong>. Por ello, porque la mayoría de los programadores estamos acostumbrado a tener privacidad en los componentes, buscamos entre las opciones que nos da el lenguaje para simularlo.</p>
 <p>En cuanto a mi, me parece interesante las posibilidades de un lenguaje tan flexible como Javascript a nivel académico, al fin y al cabo el objetivo de la investigación es tener la mente flexible para que a la hora de la verdad podamos ver caminos alternativos que nos ofrecen una mejor solución para un problema en particular. Un ejemplo de ésto es un patrón de privacidad por instancia que descubrí recientemente, hablaré de él en el [próximo post][2].</p>
 <p>[2]: <a href="http://www.amatiasq.com/?p=208">http://www.amatiasq.com/?p=208</a> &#39;Experimento: Privacidad por instancias&#39;</p>
-</div></body></html>
+</div></div></body></html>

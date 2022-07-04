@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>potato</title><style>
+<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Conceptos Básicos Javascript: Herencia por prototipos</title><style>
   /* Box sizing rules */
   *, *::before, *::after {
     box-sizing: border-box;
@@ -22,9 +22,12 @@
     line-height: 1.5;
   }
 
-  /* Remove list styles on ul, ol elements with a class attribute */
-  ul, ol {
+  ul, ol, summary {
     list-style: none;
+  }
+  .md ul, .md ol {
+    list-style: initial;
+    padding: revert;
   }
 
   /* A elements that don&#x27;t have a class get default styles */
@@ -80,7 +83,142 @@
     text-align: justify;
   }
 
+  .md pre {
+    white-space: break-spaces;
+  }
+
   svg {
     fill: #FDFBF8;
   }
-</style><style></style></head><body class=""></body></html>
+</style><style>.css-zi0qjt{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;}
+.css-1p4f3y5{display:grid;padding-top:20px;gap:12px;}
+.css-2nd93p{padding:20px 0;margin-bottom:20px;background-color:#1B2225;color:#FDFBF8;border-bottom:2px solid #586369;}@media (min-width: 769px){.css-2nd93p{position:-webkit-sticky;position:sticky;top:0;z-index:1;}}
+.css-17rdaxl{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}@media (min-width: 769px){.css-17rdaxl{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}
+.css-slvbys{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:12px;}.css-slvbys a{color:#EFE751;-webkit-text-decoration:none;text-decoration:none;margin-left:12px;border-bottom:1px solid transparent;}.css-slvbys a.parent{border-bottom:1px solid #586369;}.css-slvbys a:hover{border-bottom:1px solid #EFE751;}
+.css-1avicn7{font-size:24px;-webkit-text-decoration:none;text-decoration:none;color:#FDFBF8;}
+.css-2u52bv{max-width:30rem;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem;}@media (min-width: 769px){.css-2u52bv{max-width:50rem;padding-left:5rem;padding-right:5rem;}}@media (min-width: 1200px){.css-2u52bv{max-width:60rem;padding-left:5rem;padding-right:5rem;}}
+.css-187qu0u{font-family:Montserrat,sans-serif;font-weight:700;font-size:32px;}
+.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-2u52bv"><h2><a href="../../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href="../../../blog" class="">Blog</a><a href="../../../career" class="">Experiencia</a><a href="../../../projects" class="">Proyectos</a><a href="../../../blog/2012-01-18-conceptos-basicos-herencia-por-prototipos" class="">🇬🇧</a></nav></div></header><div class="css-1p4f3y5 css-2u52bv"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Conceptos Básicos Javascript: Herencia por prototipos</h2><time class="css-bkztrs " dateTime="18/01/2012">18 ene 2012</time></div><div class="md"><p>Llegó la hora de entrar el en tema que realmente confunde a los recién llegados a Javascript, principalmente para quienes vienen de lenguajes que implementan la orientación a objetos mediante clases, que son la gran mayoría.</p>
+<h3 id="orientaci-n-a-objetos">Orientación a Objetos</h3>
+<p>Primero deberemos aclarar que significa Programación Orientada a Objetos (POO u OOP en ingés).</p>
+<p><a href="https://es.wikipedia.org/wiki/Programaci%C3%B3n_orientada_a_objetos">Según la Wikipedia</a>, la descripción es:</p>
+<blockquote>
+<p>es un paradigma de programación que usa objetos y sus interacciones, para diseñar aplicaciones y programas informáticos. Está basado en varias técnicas, incluyendo herencia, abstracción, polimorfismo y encapsulamiento.</p>
+</blockquote>
+<p>Como vemos un lenguaje orientado a objetos <strong>no necesariamente tiene que implementarse mediante clases</strong>, cualquier sistema que proporcione <a href="https://es.wikipedia.org/wiki/Herencia_(programaci%C3%B3n_orientada_a_objetos)">herencia</a>, <a href="https://es.wikipedia.org/wiki/Abstracci%C3%B3n_(programaci%C3%B3n_orientada_a_objetos)">abstracción</a>, <a href="https://es.wikipedia.org/wiki/Polimorfismo_(programaci%C3%B3n_orientada_a_objetos)">polimorfismo</a> y <a href="https://es.wikipedia.org/wiki/Encapsulamiento_(programaci%C3%B3n_orientada_a_objetos)">encapsulamiento</a> es una implementación de orientación a objetos válida. Como ya dijimos, el sistema de clases es el más extendido, utilizado por C++, Java, C#, PHP, Python, ActionScript3, Perl, Objective-C, Ruby, etc... <strong>Javascript no tiene clases, utiliza el sistema de herencia por prototipos</strong>, veamos la diferencia:</p>
+<!--more Seguir leyendo → -->
+<p><strong>En un lenguaje basado en clases</strong> tenemos dos tipos de conceptos, los objetos en sí, referencias que pueden ser almacenadas, modificadas y pasadas como argumentos. Y por otro lado <strong>las clases, objetos intangibles, no podemos guardarlos en variables ni pasar como argumento</strong>, no podemos manipularlos ni comprobar si existen excepto por reflexión, que consiste en herramientas del lenguaje para obtener objetos (tangibles, del tipo anterior) que <strong>representan a las clases</strong> a las que no podemos acceder. En un lenguaje de éste tipo las clases están una capa por encima de los objetos y definen la herencia, abstracción, encapsulamiento y polimorfismo de los objetos que se obtendrán a partir de ellas, tienen una función de plantillas para crear objetos definidas antes de ejecutarse el código del programa.</p>
+<p><strong>En un lenguaje orientado a prototipos</strong> no hay clases que definan la herencia, los objetos mismos heredan de otros objetos. No hay clases cuando el programa se inicia, sino que se crean objetos y se le ordena a otros objetos que hereden de ellos. Por ejemplo, si tenemos un objeto eventEmitter y queremos crear instancias creamos nuevos objetos y hacemos que hereden de eventEmitter.</p>
+<h3 id="-prototype-">[[Prototype]]</h3>
+<p>Una vez entendido el concepto podemos pasar a la práctica, sabemos que para crear instancias de clases hacemos <code>new MyClass()</code> pero cómo hacemos que objetos hereden de objetos? Aquí entran los prototipos. <strong>Todos los objetos Javascript tienen una propiedad oculta que llamaremos <code>[[Prototype]]</code></strong>, con corchetes (aunque en algunos navegadores es posible acceder a ella mediante la propiedad <code>.__proto__</code>, con dos barras bajas a cada lado, pero no es estándar) <strong>que es un puntero al objeto del cual hereda</strong>. Y que significa que hereda? Podríamos resumir la herencia en que un objeto tiene las mismas propiedades que otro.</p>
+<p>Con ésto nos ahorramos tener que poner las mismas propiedades en más de un objeto. Esto trae un nuevo concepto que puede confundir a muchos: <strong>en Javascript todo es una instancia, y cuando heredamos de un objeto también se puede decir que estamos creando una instancia de ése objeto</strong>, para evitar confunsiones <strong>suele decirse que un objeto &quot;extiende&quot; otro</strong>. Imaginemos que tenemos un objeto perro que hereda de animal. Que significa ésto? que la propiedad <code>[[Prototype]]</code> de perro es animal, o lo que es lo mismo:</p>
+
+<pre><code class="lang-js">perro.__proto__ == animal; // true
+</code></pre>
+<p>El código de ejemplo es el siguiente:</p>
+
+<pre><code class="lang-js">var animal = {};
+animal.estaVivo = function () {
+  return true;
+};
+
+var perro = {};
+perro.__proto__ = animal;
+console.log(perro.estaVivo);
+</code></pre>
+<p><a href="http://jsfiddle.net/amatiasq/tyK4u/" target="_blank">Pruébame</a></p>
+<p>Vemos que <code>perro.estaVivo</code> es la función que asignamos a <code>animal</code> cómo puede ser ésto? Por la herencia por prototipos. <strong>Javascript ha buscado la propiedad <code>estaVivo</code> en <code>perro</code> pero no la ha encontrado, entonces accede a su propiedad <code>[[Prototype]]</code> (o <code>__proto__</code>)</strong> donde nosotros guardamos <code>animal</code>. Entonces busca <code>estaVivo</code> en <code>animal</code> y lo encuentra. Por eso <code>perro.estaVivo</code> nos devuelve el método de <code>animal</code>. Podríamos representarlo así:</p>
+<p><img src="/wp-content/uploads/2012/01/prototype.png" alt="Diagrama"></p>
+<p>Y si animal no hubiese tenido la propiedad <code>estaVivo</code>? En ese caso debemos tener en cuenta que animal también es un objeto y que todos los objetos tienen prototipo, en caso de que no le asignemos ninguno su prototipo es <code>Object.prototype</code>. Es otra forma de decir que <strong>en Javascript todos los objetos extienden <code>Object.prototype</code></strong>. <code>Object.prototype</code> es el equivalente a la clase <code>Object</code> de Java o C#.</p>
+
+<pre><code class="lang-js">var animal = {};
+console.log(animal.__proto__ === Object.prototype);
+</code></pre>
+<p><a href="http://jsfiddle.net/amatiasq/29S2r/" target="_blank">Pruébame</a></p>
+<p>Y si tampoco encuentra la propiedad en <code>Object.prototype</code>? lo busca en el <code>[[Prototype]]</code> de <code>Object.prototype</code> pero sorpresa! <strong><code>Object.prototype.__proto__</code> es <code>null</code></strong>. Eso significa que <strong>es el último objeto de la jerarquía de herencia</strong>, si llegado a éste punto Javascript no encuentra la propiedad que le pedimos devuelve <code>undefined</code>.</p>
+<p>Esta jerarquía de prototipos suele llamarse <strong>cadena de prototipos</strong> del objeto. Por ejemplo, <code>Object.prototype</code> tiene la propiedad <code>.toString()</code>, entonces si volvemos a crear <code>perro</code> heredando de <code>animal</code>, su propiedad <code>.toString()</code> que será? Javascript recorrerá la jerarquía de prototipos de <code>perro</code> hasta encontrar <code>.toString()</code> que está en <code>Object.prototype</code>.</p>
+
+<pre><code class="lang-js">var animal = {};
+animal.estaVivo = function () {
+  return true;
+};
+
+var perro = {};
+perro.__proto__ = animal;
+console.log(perro.toString === Object.prototype.toString);
+</code></pre>
+<p><a href="http://jsfiddle.net/amatiasq/4rVg4/" target="_blank">Pruébame</a></p>
+<h3 id="como-modificar-una-propidad-inaccesible-">Como modificar una propidad inaccesible?</h3>
+<p>Bien, la teoría ha ido correctamente, pero como ya dijimos, <strong><code>__proto__</code> no es estándar</strong>, y por lo tanto no podemos contar con que funcione en cualquier motor de Javascript, <strong>entonces cómo se supone que vamos a implementar herencia en Javascript?</strong> Para ello Javascript provee de una funcionalidad un tanto difícil de entender así que intentaremos ir poco a poco.</p>
+<p><strong>Toda función, creada en Javascript tiene una propiedad llamada <code>.prototype</code> que no debe confundirse con <code>[[Prototype]]</code></strong>, el <code>[[Prototype]]</code> de las funciones apunta a <code>Function.prototype</code> que es un objeto que tiene funciones como <code>.call()</code>, <code>.apply()</code> y <code>.bind()</code>. No, en éste caso nos referimos a que todas las funciones tienen una propiedad llamada <code>prototype</code> que es un objeto vacío. Y porqué se llama <code>prototype</code> si no tiene nada que ver con el <code>[[Prototype]]</code> de la función? <strong>Porque los objetos que creemos llamando a ésa función con <code>new</code> tendrán su <code>[[Prototype]]</code> apuntando a la propiedad <code>prototype</code> de la función:</strong></p>
+
+<pre><code class="lang-js">function myFunct() {}
+var obj = new myFunct();
+console.log(obj.__proto__ === myFunct.prototype);
+</code></pre>
+<p><a href="http://jsfiddle.net/amatiasq/r2F8G/" target="_blank">Pruébame</a></p>
+<p>Sorpresa! <strong>Hemos modificado la propiedad oculta <code>[[Prototype]]</code> de <code>obj</code>!</strong> Quizás te preguntes porqué no se estandariza la propiedad accesible <code>__proto__</code>? Porque con el sistema de las funciones el lenguaje se asegura que <strong>sólo podemos modificar la propiedad <code>[[Prototype]]</code> de objetos nuevos</strong>, no de existentes. De ésta forma, en las implementaciones estándar donde no podemos acceder a la propiedad <code>__proto__</code> no podemos modificar el prototipo de una función o de <code>Object.prototype</code> ni podemos evitar que un objeto extienda de <code>Object.prototype</code>, poniendo su propiedad <code>__proto__</code> a <code>null</code> romperíamos ésta regla del lenguaje.</p>
+<p>Pero <strong>entonces <code>myFunct</code> es una clase? Podría decirse que si, pero no es una clase como las que estamos acostumbrados a ver, es una función, es un objeto y es tangible</strong>, el hecho de crear nuevos objetos con <code>new</code> seguido de una función es solo una sintaxis que se añadió a Javascript para parecerse a Java, lenguaje en plena expansión cuando Javascript fue diseñado. Ahora que entendemos que <code>myFunct.prototype</code> es igual al <code>[[Prototype]]</code> de los objetos que creemos con la función podemos crear objetos que extiendan del mismo objeto:</p>
+
+<pre><code class="lang-js">function myFunct() {}
+myFunct.prototype = {
+  name: &#39;Alice&#39;,
+  lastname: &#39;Smith&#39;,
+  fullname: function () {
+    return this.name + &#39; &#39; + this.lastname;
+  },
+};
+
+var instancia1 = new myFunct();
+var instancia2 = new myFunct();
+
+console.log(instancia1.fullname() + &#39;n&#39; + instancia2.fullname());
+console.log(instancia1.__proto__ == instancia2.__proto__);
+</code></pre>
+<p><a href="http://jsfiddle.net/amatiasq/F2yQy/" target="_blank">Pruébame</a></p>
+<p>E incluso podemos crear un objeto que extienda de una instancia de myFunct!</p>
+
+<pre><code class="lang-js">instancia1.name = &#39;Bob&#39;;
+function extenderInstancia1() {}
+extenderInstancia1.prototype = instancia1;
+var subInstancia = new extenderInstancia1();
+
+var texto = &#39;Fullname: &#39; + subInstancia.fullname() + &#39;n&#39;;
+texto += &#39;Es instancia de extenderInstancia1? &#39; + (subInstancia instanceof extenderInstancia1) + &#39;n&#39;;
+texto += &#39;Es instancia de myFunct? &#39; + (subInstancia instanceof myFunct) + &#39;n&#39;;
+texto += &#39;Es instancia de Object? &#39; + (subInstancia instanceof Object);
+
+alert(texto);
+</code></pre>
+<p><a href="http://jsfiddle.net/amatiasq/Ggj6T/" target="_blank">Pruébame</a></p>
+<h3 id="-extend-"><code>extend()</code></h3>
+<p>Pero éste lío de tener funciones que parecen clases pero no son clases exactamente y crean instancias y tener que crear funciones para extender es bastante confuso, por ello, los defensores de no mezclar la herencia por prototipos con éstas falsas clases proponen usar la función <code>extend</code>:</p>
+
+<pre><code class="lang-js">function extend(proto) {
+  function intermediario() {}
+  intermediario.prototype = proto;
+  return new intermediario();
+}
+</code></pre>
+<p>Y con ésta función podemos extender objetos sin necesidad de crear funciones intermedias:</p>
+
+<pre><code class="lang-js">var base = {
+  name: &#39;Alice&#39;,
+  lastname: &#39;Smith&#39;,
+  fullname: function () {
+    return this.name + &#39; &#39; + this.lastname;
+  },
+};
+
+var instancia1 = extend(base);
+var instancia2 = extend(base);
+
+instancia1.name = &#39;Bob&#39;;
+var subInstancia = extend(instancia1);
+console.log(subInstancia.fullname());
+</code></pre>
+<p><a href="http://jsfiddle.net/amatiasq/WZFAH/" target="_blank">Pruébame</a></p>
+<p>Como vemos, el código queda bastante más claro, es por ésto que en la 5ª edición de ECMAScript (el estándar en el que está basado Javascript), se decidió añadir <code>Object.create()</code> que <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/create">cumple la misma funcionalidad</a> que la función <code>extend()</code> que hemos creado.</p>
+<h3 id="resumen">Resumen</h3>
+<p>Es un camino duro pasar de un lenguaje basado en clases a uno basado en prototipos, requiere mucha práctica, una mente abierta y muchas ganas de aprender. Pero las ganancias son grandes, incluso para desarrolladores que no necesiten tocar Javascript considero que aprender éste patrón aporta ventajas porque <strong>entender ambos patrones en mente nos abre a nuevas ideas, nos ayuda a tener siempre presente que las cosas no tienen porque ser como estamos acostumbrados a que sean, y a buscar nuevas soluciones a nuevos problemas y por último pero no menos importante, nos mantiene activos</strong>. Espero que sea fácil seguir el post aunque se que ha crecido más allá de lo deseado, pido comprensión ya que escribir no es mi punto fuerte, pero para eso está la práctica, para mejorar ;)</p>
+</div></div></body></html>

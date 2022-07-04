@@ -22,9 +22,12 @@
     line-height: 1.5;
   }
 
-  /* Remove list styles on ul, ol elements with a class attribute */
-  ul, ol {
+  ul, ol, summary {
     list-style: none;
+  }
+  .md ul, .md ol {
+    list-style: initial;
+    padding: revert;
   }
 
   /* A elements that don&#x27;t have a class get default styles */
@@ -78,6 +81,10 @@
   .md p {
     margin: 20px 0;
     text-align: justify;
+  }
+
+  .md pre {
+    white-space: break-spaces;
   }
 
   svg {

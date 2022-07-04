@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>potato</title><style>
+<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Componentes HTML</title><style>
   /* Box sizing rules */
   *, *::before, *::after {
     box-sizing: border-box;
@@ -22,9 +22,12 @@
     line-height: 1.5;
   }
 
-  /* Remove list styles on ul, ol elements with a class attribute */
-  ul, ol {
+  ul, ol, summary {
     list-style: none;
+  }
+  .md ul, .md ol {
+    list-style: initial;
+    padding: revert;
   }
 
   /* A elements that don&#x27;t have a class get default styles */
@@ -80,7 +83,100 @@
     text-align: justify;
   }
 
+  .md pre {
+    white-space: break-spaces;
+  }
+
   svg {
     fill: #FDFBF8;
   }
-</style><style></style></head><body class=""></body></html>
+</style><style>.css-zi0qjt{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;}
+.css-1p4f3y5{display:grid;padding-top:20px;gap:12px;}
+.css-2nd93p{padding:20px 0;margin-bottom:20px;background-color:#1B2225;color:#FDFBF8;border-bottom:2px solid #586369;}@media (min-width: 769px){.css-2nd93p{position:-webkit-sticky;position:sticky;top:0;z-index:1;}}
+.css-17rdaxl{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}@media (min-width: 769px){.css-17rdaxl{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}
+.css-slvbys{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:12px;}.css-slvbys a{color:#EFE751;-webkit-text-decoration:none;text-decoration:none;margin-left:12px;border-bottom:1px solid transparent;}.css-slvbys a.parent{border-bottom:1px solid #586369;}.css-slvbys a:hover{border-bottom:1px solid #EFE751;}
+.css-1avicn7{font-size:24px;-webkit-text-decoration:none;text-decoration:none;color:#FDFBF8;}
+.css-2u52bv{max-width:30rem;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem;}@media (min-width: 769px){.css-2u52bv{max-width:50rem;padding-left:5rem;padding-right:5rem;}}@media (min-width: 1200px){.css-2u52bv{max-width:60rem;padding-left:5rem;padding-right:5rem;}}
+.css-187qu0u{font-family:Montserrat,sans-serif;font-weight:700;font-size:32px;}
+.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-2u52bv"><h2><a href="../../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href="../../../blog" class="">Blog</a><a href="../../../career" class="">Experiencia</a><a href="../../../projects" class="">Proyectos</a><a href="../../../blog/2013-08-23-componentes-html" class="">🇬🇧</a></nav></div></header><div class="css-1p4f3y5 css-2u52bv"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Componentes HTML</h2><time class="css-bkztrs " dateTime="23/08/2013">23 ago 2013</time></div><div class="md"><p>Acabo de caer en cuenta de porqué no me gusta angular, backbone, ember...</p>
+<h3 id="el-problema">El problema</h3>
+<p>Todos estos frameworks si bien intentan dividir la aplicación que vas a construír en módulos se hace esto por mantenibilidad, no por reutilización de los módulos.</p>
+<p>En otras tecnologías generalmente creas un componente reutilizable y basta con mover el archivo de proyecto para tenerlo listo, pero estos frameworks no se puede hacer eso, por ejemplo una simple targeta que muestre los datos de una persona:</p>
+<p>Con backbone o bien tienes un archivo enorme o tienes varios archivos, modelo, vista, plantilla, estilos... y seguramente los archivos JS y la plantilla se carguen mediante un cargador de dependencias como RequireJS con lo que para usar el módulo necesitas tenerlo o bien compilar el módulo en un solo archivo antes de utilizarlo.</p>
+<p>Con angular la separación en módulos no es tan radical al haber mucho menos código, pero una simple directiva será un archivo JS que bien puede tener el HTML en formato string o cargarlo de un archivo aparte y el CSS debería ponerse aparte ya que si se pone en la plantilla cada vez que se instancie la directiva se estaría creando un nuevo tag style ya renderizado.</p>
+<p>Además, ya a nivel de estándar, con los estilos tenemos el problema de que los estilos que creemos para nuestro componente reutilizable podría fácilmente afectar a un elemento de la página que no pretendíamos modificar, para ser realmente reutilizable es necesario que el CSS solo se aplique a los elementos del componente en cuestión. Analizado de esta forma parece ser que el tema es poder tener en un solo archivo un pequeño bloque de lógica, contenido y estilo que pueda ser importado en cualquier página sin afectar en nada a la página en cuestión. Y resulta HTML desde un principio nos permite definir en un solo archivo y de forma natural lógica, contenido y estilos.</p>
+<h3 id="la-soluci-n">La solución</h3>
+<p>Entonces me encuentro con <a href="http://www.webcomponentsshift.com/">estas diapositivas</a> que hablan de los HTML WebComponents y resulta ser justo lo que hace falta:</p>
+
+<pre><code class="lang-html">&lt;element name=&quot;x-tarjeta&quot; extends=&quot;button&quot;&gt;
+    &lt;template&gt;
+        &lt;style&gt;
+            h1 {
+                color: red;
+            }
+            img {
+                height: 32px;
+                width: 32px;
+            }
+            .separator { ... }
+        &lt;/style&gt;
+
+        &lt;header&gt;
+            Full name: &lt;content select=&quot;h1&quot;&gt;&lt;/content&gt;
+            Age: &lt;content select=&quot;.age&quot;&gt;&lt;/content&gt;
+        &lt;/header&gt;
+        &lt;div class=&quot;separator&quot;&gt;&lt;/div&gt;
+        &lt;section&gt;
+            &lt;content select=&quot;img&quot;&gt;&lt;/content&gt;
+        &lt;/section&gt;
+    &lt;template&gt;
+
+    &lt;script&gt;
+        var template = this.querySelector(&#39;template&#39;);
+        this.register({ // this == &lt;element&gt;
+            prototype: {
+                readyCallback: function() {
+                    var dom = template.content.cloneNode(true);
+                    var shadow = this.createShadowRoot()
+                    shadow.appendChild(dom);
+                }
+            }
+        });
+    &lt;/script&gt;
+&lt;/element&gt;
+</code></pre>
+<p>Al estar los estilos dentro del template se vuelven a añadir al dom cada vez que creamos un <code>x-tarjeta</code> (como con angular) pero en este caso gracias al <code>ShadowDOM</code> los estilos solo se aplican al template y a su contenido.</p>
+<p>Además el estándard de html templates nos permite mezclar el template con los elementos que inserten dentro de <code>x-tarjeta</code></p>
+
+<pre><code class="lang-html">&lt;!-- Uso --&gt;
+&lt;x-tarjeta&gt;
+  &lt;h1&gt;A. Matías Q.&lt;/h1&gt;
+  &lt;div class=&quot;age&quot;&gt;24&lt;/div&gt;
+  &lt;img src=&quot;/.../foto.png&quot; /&gt;
+&lt;/x-tarjeta&gt;
+</code></pre>
+<p>Y por último el estándard html imports nos permite tener este componente en un archivo html independiente y transportable e importarlo en donde lo necesitemos, incluyendo otros compoentes.</p>
+
+<pre><code class="lang-html">&lt;link rel=&quot;import&quot; href=&quot;x-tarjeta.html&quot; /&gt;
+</code></pre>
+<h3 id="conclusi-n">Conclusión</h3>
+<p>Ahora mismo estoy dividido entre angular y los web components:</p>
+<h4 id="angular">Angular</h4>
+
+<ul>
+<li>+El parseador de angular provee doble binding</li>
+<li>+Los templates están directamente integrados con el framework por lo que podemos manipular la lógica desde la vista, suena a mala idea pero en componentes pequeños es mantenible.</li>
+<li>-Un componente requiere un archivo independiente para el HTML, un JS importado desde el HTML y un CSS importado desde el HTML o desde otro CSS. (dos imports para un componente)</li>
+</ul>
+<h5 id="web-components">Web components</h5>
+
+<ul>
+<li>+Compactos, tienen todo lo necesario en el mismo archivo sin que éste sea demasiado grande</li>
+<li>+Futuro estándar</li>
+<li>+Alcance del CSS limitado al componente</li>
+<li>-Soportado en gran parte por Chrome, pero generalmente hay que usar polyfills que no pueden reproducir toda la funcionalidad (en particular limitar el CSS)</li>
+<li>-Si bien es excelente para crear componentes me es difícil imaginar una web completa hecha con componentes. Desde Polymer recomiendan crear elementos hasta para componentes no visuales como AJAX o Keyboard, pero no lo vo claro.</li>
+</ul>
+<p>Tal como lo veo ahora una web se compone de la parte aplicación que es todo el código único de la app que difícilmente sirva para otro proyecto y una serie de componentes, lo ideal para mi sería poder hacer la parte de aplicación con angular ya que me permite crear módulos mantenibles y utilizar los WebComponents como componentes reutilizables pero desconozco como se relaciones ambas tecnologías.</p>
+<p>Espero poder hacer un prototipo mezclándolas y escribir más adelante...</p>
+</div></div></body></html>

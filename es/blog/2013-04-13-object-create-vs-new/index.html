@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>potato</title><style>
+<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Object.create vs new</title><style>
   /* Box sizing rules */
   *, *::before, *::after {
     box-sizing: border-box;
@@ -22,9 +22,12 @@
     line-height: 1.5;
   }
 
-  /* Remove list styles on ul, ol elements with a class attribute */
-  ul, ol {
+  ul, ol, summary {
     list-style: none;
+  }
+  .md ul, .md ol {
+    list-style: initial;
+    padding: revert;
   }
 
   /* A elements that don&#x27;t have a class get default styles */
@@ -80,7 +83,75 @@
     text-align: justify;
   }
 
+  .md pre {
+    white-space: break-spaces;
+  }
+
   svg {
     fill: #FDFBF8;
   }
-</style><style></style></head><body class=""></body></html>
+</style><style>.css-zi0qjt{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;}
+.css-1p4f3y5{display:grid;padding-top:20px;gap:12px;}
+.css-2nd93p{padding:20px 0;margin-bottom:20px;background-color:#1B2225;color:#FDFBF8;border-bottom:2px solid #586369;}@media (min-width: 769px){.css-2nd93p{position:-webkit-sticky;position:sticky;top:0;z-index:1;}}
+.css-17rdaxl{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}@media (min-width: 769px){.css-17rdaxl{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}
+.css-slvbys{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:12px;}.css-slvbys a{color:#EFE751;-webkit-text-decoration:none;text-decoration:none;margin-left:12px;border-bottom:1px solid transparent;}.css-slvbys a.parent{border-bottom:1px solid #586369;}.css-slvbys a:hover{border-bottom:1px solid #EFE751;}
+.css-1avicn7{font-size:24px;-webkit-text-decoration:none;text-decoration:none;color:#FDFBF8;}
+.css-2u52bv{max-width:30rem;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem;}@media (min-width: 769px){.css-2u52bv{max-width:50rem;padding-left:5rem;padding-right:5rem;}}@media (min-width: 1200px){.css-2u52bv{max-width:60rem;padding-left:5rem;padding-right:5rem;}}
+.css-187qu0u{font-family:Montserrat,sans-serif;font-weight:700;font-size:32px;}
+.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-2u52bv"><h2><a href="../../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href="../../../blog" class="">Blog</a><a href="../../../career" class="">Experiencia</a><a href="../../../projects" class="">Proyectos</a><a href="../../../blog/2013-04-13-object-create-vs-new" class="">🇬🇧</a></nav></div></header><div class="css-1p4f3y5 css-2u52bv"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Object.create vs new</h2><time class="css-bkztrs " dateTime="13/04/2013">13 abr 2013</time></div><div class="md"><blockquote>
+<p>Actualización 19/3/2014: Finalmente he entendido la utilidad de reemplazar <code>new</code>, se puede ver <a href="http://blog.amatiasq.com/2014/03/type-new/">aquí</a></p>
+</blockquote>
+<p>JotaEseros! Tengo un dilema existencial que me impide dormir.</p>
+<p>Hasta donde sé los constructores hacen más o menos esto</p>
+
+<pre><code class="lang-js">function fakeNew(Ctor) {
+  var instance = Object.create(Ctor.prototype);
+  instance.constructor();
+  return instance;
+}
+</code></pre>
+<p>Todo empezó cuando quise hacer polyfill de Object.create(), así podría crear objectos sin usar <code>new</code>, decidí usar la versión sencilla</p>
+
+<pre><code class="lang-js">Object.create = function (proto) {
+  function F() {}
+  F.prototype = proto;
+  return new F();
+};
+</code></pre>
+<p>Y empecé a crear un montón de objetos y a prototiparlos, pero como los objetos muchas veces necesitaban inicializar sus propiedades les hice el método <code>.init()</code></p>
+
+<pre><code class="lang-js">var base = {
+  init: function () {
+    EmitterMixin.call(this);
+    return this;
+  },
+};
+
+var obj = Object.create(base).init();
+</code></pre>
+<p>Pero claro, tengo que acordarme de devolver <code>this</code> siempre al acabar <code>.init()</code> y muchas veces lo olvidaba o me olvidaba de invocar <code>.init()</code> que es peor. Así que intentando como simplificar la inicialización de un objeto pensé crear una funcioń global que se encargara de invocar a <code>Object.create</code>, llamar a la función inicializadora y devolver this:</p>
+
+<pre><code class="lang-js">function create(proto) {
+  var child = Object.create(proto);
+  child.init();
+  return child;
+}
+</code></pre>
+<p>Y me empezaron a dar ganas de reventarme la cabeza contra la pared al darme cuenta que <strong>lo que estaba haciendo es prácticamente lo mismo que hace el operador nativo <code>new</code></strong> pero mucho más lento y, en caso de usar el polyfill the <code>Object.create</code> incluso usando <code>new</code> por debajo.</p>
+<p>Entonces me pregunto, que beneficios aporta abandonar <code>new</code>? es <a href="http://jsperf.com/object-create-vs-constructor-vs-object-literal/49">notablemente más rápido</a> en la mayoría de navegadores y por la naturaleza de javascript solemos necesitar crear una función inicializadora que en el caso de <code>new</code> es el constructor.</p>
+<p>Y lo que es más grave aún, he notado que <strong>usaba dos tipos diferentes de objetos</strong>, unos &quot;<em>abstractos</em>&quot; y otros &quot;<em>instancias</em>&quot; la mayor diferencia es que en las instancias tenía que invocar <code>.init()</code> siempre mientras que los abstractos no era necesario porque solo serían usados para crear otros objetos que los prototiparan. Y es un patrón que he visto mientras usaba <code>new</code>:</p>
+
+<pre><code class="lang-js">function Foo() { }
+Foo.prototype.method = function() { ... };
+
+function Bar() { }
+// Objeto &quot;abstracto&quot;, no se invoca inicializador
+Bar.prototype = Object.create(Foo.prototype);
+Bar.prototype.other = function() { ... };
+
+// Objeto &quot;instancia&quot;
+// se invoca el constructor como inicializador
+var obj = new Bar();
+</code></pre>
+<p>Realmente hay es una ventaja abandonar <code>new</code>? estamos seguros que no se trata de una herramienta de alto nivel que simplifica algo que igualmente tendremos que hacer nosotros a mano? Que pros y contras tienen <code>new</code> y <code>Object.create</code>?</p>
+</div></div></body></html>
