@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>A. Matías Quezada</title><style>
+<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Blog | A. Matías Quezada</title><style>
   *, *::before, *::after {
     box-sizing: border-box;
   }
@@ -18,7 +18,7 @@
     line-height: 1.5;
   }
 
-  ul, ol, summary {
+  ul, ol {
     list-style: none;
   }
   .md ul, .md ol {
@@ -52,7 +52,7 @@
     }
   }
 
-  @import url(&#x27;https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,400;1,700&amp;family=Montserrat:wght@400;700&amp;display=swap&#x27;);
+  @import url(&#x27;https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&amp;family=Lato:ital,wght@1,400;1,700&amp;family=Montserrat:wght@400;700&amp;display=swap&#x27;);
 
   :root {
     background-color: #263238;
@@ -74,8 +74,13 @@
     text-align: justify;
   }
 
+  code {
+    font-family: Fira Code, monospace;
+  }
+
   .md .code-block {
     display: block;
+    font-family: Fira Code, monospace;
     width: var(--available-width);
     padding-bottom: 10px;
   }
@@ -83,7 +88,54 @@
   svg {
     fill: #FDFBF8;
   }
-</style><style>.css-dxvijy{margin:3rem 0;}
+</style><style>
+    [class*=shj-lang-]{white-space:pre;margin:10px 0;border-radius:10px;padding:30px 20px;background:white;color:#112;box-shadow:0 0 5px #0001;text-shadow:none;font: 18px Consolas,Courier New,Monaco,Andale Mono,Ubuntu Mono,monospace;line-height:24px;box-sizing:border-box;max-width:min(100%,100vw)}
+    .shj-inline{margin:0;padding:2px 5px;display:inline-block;border-radius:5px}
+    [class*=shj-lang-]::selection,
+    [class*=shj-lang-] ::selection{background:#bdf5}
+    [class*=shj-lang-]>div{display:flex;overflow:auto}
+    [class*=shj-lang-]>div :last-child{flex:1;outline:none}
+    .shj-numbers{padding-left:5px;counter-reset:line}
+    .shj-numbers div{padding-right:5px}
+    .shj-numbers div:before{color:#999;display:block;content:counter(line);opacity:.5;text-align:right;margin-right:5px;counter-increment:line}
+    .shj-syn-cmnt{font-style:italic}
+    .shj-syn-err,
+    .shj-syn-kwd{color:#e16}
+    .shj-syn-num,
+    .shj-syn-class{color:#f60}
+    .shj-numbers,
+    .shj-syn-cmnt{color:#999}
+    .shj-syn-insert,
+    .shj-syn-str{color:#7d8}
+    .shj-syn-bool{color:#3bf}
+    .shj-syn-type,
+    .shj-syn-oper{color:#5af}
+    .shj-syn-section,
+    .shj-syn-func{color:#84f}
+    .shj-syn-deleted,
+    .shj-syn-var{color:#f44}
+    .shj-oneline{padding:12px 10px}
+    .shj-lang-http.shj-oneline .shj-syn-kwd{background:#25f;color:#fff;padding:5px 7px;border-radius:5px}
+    .shj-multiline.shj-mode-header{padding:20px}
+    .shj-multiline.shj-mode-header:before{content:attr(data-lang);color:#58f;display:block;padding:10px 20px;background:#58f3;border-radius:5px;margin-bottom:20px}
+    [class*=shj-lang-]{color:#abb2bf;background:#161b22}
+    [class*=shj-lang-]:before{color:#6f9aff}
+    .shj-syn-deleted,
+    .shj-syn-err,
+    .shj-syn-var{color:#e06c75}
+    .shj-syn-section,
+    .shj-syn-oper,
+    .shj-syn-kwd{color:#c678dd}
+    .shj-syn-class{color:#e5c07b}
+    .shj-numbers,
+    .shj-syn-cmnt{color:#76839a}
+    .shj-syn-insert{color:#98c379}
+    .shj-syn-type{color:#56b6c2}
+    .shj-syn-num,
+    .shj-syn-bool{color:#d19a66}
+    .shj-syn-str,
+    .shj-syn-func{color:#61afef}
+    </style><style>.css-1mcy390{padding:3rem 0;}.css-1mcy390+.css-1mcy390{border-top:1px solid #586369;}
 .css-zi0qjt{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;}
 .css-blivtv{font-size:0.8em;}
 .css-2nd93p{padding:20px 0;margin-bottom:20px;background-color:#1B2225;color:#FDFBF8;border-bottom:2px solid #586369;}@media (min-width: 769px){.css-2nd93p{position:-webkit-sticky;position:sticky;top:0;z-index:1;}}
@@ -94,49 +146,96 @@
       calc(100vw - var(--container-sides-gap)),
       calc(var(--container-width) - var(--container-sides-gap))
     );max-width:var(--container-width);padding-left:var(--container-side-gap);padding-right:var(--container-side-gap);margin-left:auto;margin-right:auto;}@media (min-width: 769px){.css-4hnq5z{--container-width:50rem;--container-side-gap:5rem;}}@media (min-width: 1200px){.css-4hnq5z{--container-width:60rem;}}
-.css-1xi37yr{position:relative;}.css-1xi37yr details summary::after{content:'View all';display:block;white-space:nowrap;position:absolute;list-style:none;font-size:14px;top:12px;right:0;cursor:pointer;}.css-1xi37yr details[open] summary::after{content:'View less';}
+.css-10eoc2y{position:relative;}.css-10eoc2y details summary{list-style:none;}.css-10eoc2y details summary::after{content:'View all';display:block;white-space:nowrap;position:absolute;list-style:none;font-size:14px;top:12px;right:0;cursor:pointer;}.css-10eoc2y details[open] summary::after{content:'View less';}
 .css-ssce0b{margin-bottom:20px;}
 .css-erizh2{font-family:Montserrat,sans-serif;font-weight:700;font-size:24px;line-height:24px;}
-.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-4hnq5z"><h2><a href=".." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href="" class="">Blog</a><a href="../career" class="">Career</a><a href="../projects" class="">Projects</a><a href="../es/blog" class="">🇪🇸</a></nav></div></header><div class=" css-4hnq5z"><div class="css-1xi37yr "><ol><li class="css-dxvijy"><h3 class="css-zi0qjt css-erizh2"><a href="2014-04-14-asincronia-y-el-eventloop" class="">Asincronía y el EventLoop</a><time class="css-bkztrs css-blivtv" dateTime="04/14/2014">Apr 14, 2014</time></h3><div class="md"><p>Me gustaría hacer un repaso al tema de la asincronía en Javascript porque me llama la atención que pese a tener casi 20 años es un tema que sigue madurando y he visto surgir buenas ideas recientemente.</p>
-</div></li><li class="css-dxvijy"><h3 class="css-zi0qjt css-erizh2"><a href="2014-03-18-type-new" class="">Type.new()</a><time class="css-bkztrs css-blivtv" dateTime="03/18/2014">Mar 18, 2014</time></h3><div class="md"><blockquote>
-<p>NOTA: Este artículo está centrado en un tema que ya comenté en [el post anterior][1], pero de una forma más organizada y centrada, algunos fragmentos están extraídos del post anterior para mayor claridad.</p>
+.css-a9renj{opacity:0.8;font-family:Fira Code,monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-4hnq5z"><h2><a href=".." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href="" class="">Blog</a><a href="../career" class="">Career</a><a href="../projects" class="">Projects</a><a href="../es/blog" class="">🇪🇸</a></nav></div></header><div class=" css-4hnq5z"><div class="css-10eoc2y "><ol><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">Asincronía y el EventLoop<time class="css-a9renj css-blivtv" dateTime="04/14/2014">Apr 14, 2014</time></h3><div class="md"><p>Me gustaría hacer un repaso al tema de la asincronía en Javascript porque me llama la atención que pese a tener casi 20 años es un tema que sigue madurando y he visto surgir buenas ideas recientemente.</p>
+<h3 id="el-event-loop">El event loop</h3>
+<p>Primero lo primero, de donde sale la asincronía. Javascript es un lenguaje cuya ejecución se basa en lo que se llama <strong>event loop</strong> (bucle de eventos). El <em>event loop</em> es una cola donde se van añadiendo los bloques de código que quieren ejecutarse, por ejemplo: cuando el navegador está renderizando el HTML de una página y se encuentra un tag <code>&lt;script&gt;</code> el contenido de ese elemento se añade al <em>event loop</em> para que sea ejecutado tan pronto como sea posible.</p>
+</div><a href="2014-04-14-asincronia-y-el-eventloop" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">Type.new()<time class="css-a9renj css-blivtv" dateTime="03/18/2014">Mar 18, 2014</time></h3><div class="md"><blockquote>
+<p>NOTA: Este artículo está centrado en un tema que ya comenté en <a href="http://blog.amatiasq.com/2014/03/construccion-de-objetos/">el post anterior</a>, pero de una forma más organizada y centrada, algunos fragmentos están extraídos del post anterior para mayor claridad.</p>
 </blockquote>
-</div></li><li class="css-dxvijy"><h3 class="css-zi0qjt css-erizh2"><a href="2014-03-12-construccion-de-objetos" class="">Construcción de objetos</a><time class="css-bkztrs css-blivtv" dateTime="03/12/2014">Mar 12, 2014</time></h3><div class="md"><blockquote>
+<h2 id="constructores-en-javascript">Constructores en Javascript</h2>
+<p>He hablado antes de la limitación de los constructores javascript y sobre todo de la complejidad de extenderlos</p>
+</div><a href="2014-03-18-type-new" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">Construcción de objetos<time class="css-a9renj css-blivtv" dateTime="03/12/2014">Mar 12, 2014</time></h3><div class="md"><blockquote>
 <p>Este artículo quedó muy complejo y caótico, por eso voy a intentar dividirlo en partes, recomiendo leer los nuevos post en lugar de este.</p>
-<p><em>Parte 1</em>: [Type.new()][1]</p>
+<p><em>Parte 1</em>: <a href="http://blog.amatiasq.com/2014/03/type-new/">Type.new()</a></p>
 </blockquote>
-</div></li><li class="css-dxvijy"><h3 class="css-zi0qjt css-erizh2"><a href="2013-08-23-componentes-html" class="">Componentes HTML</a><time class="css-bkztrs css-blivtv" dateTime="08/23/2013">Aug 23, 2013</time></h3><div class="md"><p>Acabo de caer en cuenta de porqué no me gusta angular, backbone, ember...</p>
+<h2 id="tl-dr">TL;DR</h2>
+<p>Buscando optimizaciones para un juego en javascript encontré <a href="http://blog.amatiasq.com/2014/03/construccion-de-objetos#paradigma">un paradigma de definición de tipos y creación de objetos</a> que cambió mi forma de ver el lenguaje.</p>
+<p>He hablado antes de la limitación de los constructores javascript:</p>
+
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Person</span>(name) {
+  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>name <span class="shj-syn-oper">=</span> name;
+}
+<span class="shj-syn-class">Person</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">methodA</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span>() { <span class="shj-syn-oper">...</span> }</div></div>
+</code>
+<p>En este caso quiero referirme a las limitaciones en cuanto a memoria pero hará falta un poco de introducción</p>
+</div><a href="2014-03-12-construccion-de-objetos" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">Componentes HTML<time class="css-a9renj css-blivtv" dateTime="08/23/2013">Aug 23, 2013</time></h3><div class="md"><p>Acabo de caer en cuenta de porqué no me gusta angular, backbone, ember...</p>
 <h3 id="el-problema">El problema</h3>
 <p>Todos estos frameworks si bien intentan dividir la aplicación que vas a construír en módulos se hace esto por mantenibilidad, no por reutilización de los módulos.</p>
-</div></li><li class="css-dxvijy"><h3 class="css-zi0qjt css-erizh2"><a href="2013-04-30-ecmascript5-extend" class="">ECMAScript 5 _.extend</a><time class="css-bkztrs css-blivtv" dateTime="04/30/2013">Apr 30, 2013</time></h3><div class="md"><p>A algunos ya os he comentado los problemas que [NC Zakas comenta][1] con el <code>_.extend</code> de underscore y los getters:</p>
-<p>```js
-var a = {
-  init: function () {</p>
-</div></li><li class="css-dxvijy"><h3 class="css-zi0qjt css-erizh2"><a href="2013-04-13-object-create-vs-new" class="">Object.create vs new</a><time class="css-bkztrs css-blivtv" dateTime="04/13/2013">Apr 13, 2013</time></h3><div class="md"><blockquote>
-<p>Actualización 19/3/2014: Finalmente he entendido la utilidad de reemplazar <code>new</code>, se puede ver [aquí][1]</p>
+<p>En otras tecnologías generalmente creas un componente reutilizable y basta con mover el archivo de proyecto para tenerlo listo, pero estos frameworks no se puede hacer eso, por ejemplo una simple targeta que muestre los datos de una persona:</p>
+</div><a href="2013-08-23-componentes-html" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">ECMAScript 5 _.extend<time class="css-a9renj css-blivtv" dateTime="04/30/2013">Apr 30, 2013</time></h3><div class="md"><p>A algunos ya os he comentado los problemas que <a href="http://www.nczonline.net/blog/2012/12/11/are-your-mixins-ecmascript-5-compatible/">NC Zakas comenta</a> con el <code>_.extend</code> de underscore y los getters:</p>
+
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> a <span class="shj-syn-oper">=</span> {
+  init<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>list <span class="shj-syn-oper">=</span> [];
+  }<span class="shj-syn-oper">,</span>
+
+  <span class="shj-syn-kwd">get</span> <span class="shj-syn-func">first</span>() {
+    <span class="shj-syn-kwd">return</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>list[<span class="shj-syn-num">0</span>];
+  }<span class="shj-syn-oper">,</span>
+};</div></div>
+</code>
+</div><a href="2013-04-30-ecmascript5-extend" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">Object.create vs new<time class="css-a9renj css-blivtv" dateTime="04/13/2013">Apr 13, 2013</time></h3><div class="md"><blockquote>
+<p>Actualización 19/3/2014: Finalmente he entendido la utilidad de reemplazar <code>new</code>, se puede ver <a href="http://blog.amatiasq.com/2014/03/type-new/">aquí</a></p>
 </blockquote>
 <p>JotaEseros! Tengo un dilema existencial que me impide dormir.</p>
-</div></li><li class="css-dxvijy"><h3 class="css-zi0qjt css-erizh2"><a href="2012-12-04-git-workflow-parte-2" class="">GIT Workflow (Parte 2)</a><time class="css-bkztrs css-blivtv" dateTime="12/04/2012">Dec 4, 2012</time></h3><div class="md"><p>Continuando con [mi último artículo][1], llegó la hora de hablar del gran <em>Github Flow</em>:</p>
+<p>Hasta donde sé los constructores hacen más o menos esto</p>
+
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">fakeNew</span>(<span class="shj-syn-class">Ctor</span>) {
+  <span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-class">Ctor</span><span class="shj-syn-oper">.</span>prototype);
+  instance<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span>();
+  <span class="shj-syn-kwd">return</span> instance;
+}</div></div>
+</code>
+</div><a href="2013-04-13-object-create-vs-new" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">GIT Workflow (Parte 2)<time class="css-a9renj css-blivtv" dateTime="12/04/2012">Dec 4, 2012</time></h3><div class="md"><p>Continuando con [mi último artículo][1], llegó la hora de hablar del gran <em>Github Flow</em>:</p>
 <h3 id="github-flow">Github Flow</h3>
-<p>Y finalmente [el artículo][2] que ha inspirado éste. Después de probar el Git Flow (el modelo, no la herramienta) en productos profesionales y a modo de prueba en [pequeñas librerías][3] propias y <strong>aunque para proyectos grandes donde una release se planea durante semanas va bien, en pequeños proyectos, y en proyectos SaaS no acaba de encajar</strong>.</p>
-</div></li><li class="css-dxvijy"><h3 class="css-zi0qjt css-erizh2"><a href="2012-12-04-git-workflow-parte-1" class="">GIT Workflow (Parte 1)</a><time class="css-bkztrs css-blivtv" dateTime="12/04/2012">Dec 4, 2012</time></h3><div class="md"><p>Acabo de leer [un artículo][1] creado por los trabajadores de [Github][2] que han dado una vuelta de tuerca a lo que sabía de GIT y creo que será muy útil compartirlo, pero primero vamos por partes:</p>
-</div></li><li class="css-dxvijy"><h3 class="css-zi0qjt css-erizh2"><a href="2012-03-03-experimento-privacidad-por-instancias" class="">Experimento: Privacidad por instancias</a><time class="css-bkztrs css-blivtv" dateTime="03/03/2012">Mar 3, 2012</time></h3><div class="md"><blockquote>
+<p>Y finalmente <a href="http://scottchacon.com/2011/08/31/github-flow.html">el artículo</a> que ha inspirado éste. Después de probar el Git Flow (el modelo, no la herramienta) en productos profesionales y a modo de prueba en <a href="https://github.com/amatiasq/jsbase">pequeñas librerías</a> propias y <strong>aunque para proyectos grandes donde una release se planea durante semanas va bien, en pequeños proyectos, y en proyectos SaaS no acaba de encajar</strong>.</p>
+<p>[1]: <a href="http://www.amatiasq.com/2012/12/git-workflow-flujo-de-trabajo-parte-1/">http://www.amatiasq.com/2012/12/git-workflow-flujo-de-trabajo-parte-1/</a> &#39;GIT Workflow (Flujo de trabajo) (Parte 1)&#39;</p>
+</div><a href="2012-12-04-git-workflow-parte-2" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">GIT Workflow (Parte 1)<time class="css-a9renj css-blivtv" dateTime="12/04/2012">Dec 4, 2012</time></h3><div class="md"><p>Acabo de leer <a href="http://scottchacon.com/2011/08/31/github-flow.html">un artículo</a> creado por los trabajadores de <a href="http://www.github.com">Github</a> que han dado una vuelta de tuerca a lo que sabía de GIT y creo que será muy útil compartirlo, pero primero vamos por partes:</p>
+<p>[7]: <a href="http://www.amatiasq.com/2012/12/git-workflow-flujo-de-trabajo-parte-2/">http://www.amatiasq.com/2012/12/git-workflow-flujo-de-trabajo-parte-2/</a> &#39;GIT Workflow (Flujo de trabajo) (Parte 2)&#39;</p>
+</div><a href="2012-12-04-git-workflow-parte-1" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">Experimento: Privacidad por instancias<time class="css-a9renj css-blivtv" dateTime="03/03/2012">Mar 3, 2012</time></h3><div class="md"><blockquote>
 <p>Actualización 19/3/2014: Sorprendentemente parece que una propuesta del ECMAScript 6 sigue mismo el patrón descrito en este post, y yo que pensaba que era demasiado rebuscado...</p>
+<p><a href="http://wiki.ecmascript.org/doku.php?id=harmony:classes">http://wiki.ecmascript.org/doku.php?id=harmony:classes</a></p>
 </blockquote>
-</div></li><li class="css-dxvijy"><h3 class="css-zi0qjt css-erizh2"><a href="2012-02-26-conceptos-basicos-privacidad" class="">Conceptos Básicos Javascript: Privacidad</a><time class="css-bkztrs css-blivtv" dateTime="02/26/2012">Feb 26, 2012</time></h3><div class="md"><h3 id="introducci-n">Introducción</h3>
+<p>Como ya comenté, la privacidad en Javascript es un tema peliagudo, <strong>el lenguaje no nos ofrece ninguna herramienta para gestionar la privacidad</strong> automáticamente, tenemos que aprovechar el scope de <strong>los closures para ocultar información</strong> que el usuario de nuestra librería no necesita saber, <strong>pero ocultar propiedades de una instancia es mucho más complicado</strong>. Hace algunos años me empeñé en buscar una forma de conseguir privacidad por instancias que no fuera mediante el constructor, como ya expliqué en el [post anterior][1].</p>
+<p>[1]: <a href="http://www.amatiasq.com/2012/02/conceptos-basicos-javascript-privacidad/">http://www.amatiasq.com/2012/02/conceptos-basicos-javascript-privacidad/</a> &#39;Conceptos Básicos Javascript: Privacidad&#39;
+[2]: <a href="http://www.amatiasq.com/?p=174">http://www.amatiasq.com/?p=174</a> &#39;Conceptos Básicos Javascript: Privacidad&#39;
+[3]: <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/WeakMap">https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/WeakMap</a> &#39;WeakMap&#39;</p>
+</div><a href="2012-03-03-experimento-privacidad-por-instancias" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">Conceptos Básicos Javascript: Privacidad<time class="css-a9renj css-blivtv" dateTime="02/26/2012">Feb 26, 2012</time></h3><div class="md"><h3 id="introducci-n">Introducción</h3>
 <p>Uno de los temas más frecuentes cuando uno se inicia en Javascript es la privacidad, principalmente viniendo de <strong>lenguajes como Java, C# o C++; donde publican o se ocultan propiedades de los objetos mediante modificadores. Javascript</strong> no posee dichos modificadores sino que <strong>todas las propiedades de los objetos son públicas</strong> lo que puede ser muy confuso para una persona poco diestra en ésta técnica, entre los que me incluyo.</p>
-</div></li><li class="css-dxvijy"><h3 class="css-zi0qjt css-erizh2"><a href="2012-01-18-conceptos-basicos-herencia-por-prototipos" class="">Conceptos Básicos Javascript: Herencia por prototipos</a><time class="css-bkztrs css-blivtv" dateTime="01/18/2012">Jan 18, 2012</time></h3><div class="md"><p>Llegó la hora de entrar el en tema que realmente confunde a los recién llegados a Javascript, principalmente para quienes vienen de lenguajes que implementan la orientación a objetos mediante clases, que son la gran mayoría.</p>
-</div></li><li class="css-dxvijy"><h3 class="css-zi0qjt css-erizh2"><a href="2012-01-08-conceptos-basicos-this-call-apply" class="">Conceptos Básicos Javascript: this, .call() y .apply()</a><time class="css-bkztrs css-blivtv" dateTime="01/08/2012">Jan 8, 2012</time></h3><div class="md"><p>Antes de continuar con el Patrón Promise me gustaría explicar en paralelo Conceptos Básicos de Javascript. Entendiendo que estamos hablando de Javascript como lenguaje y no vamos a hablar sobre conceptos básicos del DOM o como abrir una nueva ventana en el navegador, sino detalles de Javascript puro, tanto en cliente como en servidor.</p>
-</div></li><li class="css-dxvijy"><h3 class="css-zi0qjt css-erizh2"><a href="2011-12-18-patron-promise-implementacion" class="">Patrón Promise: Implementación</a><time class="css-bkztrs css-blivtv" dateTime="12/18/2011">Dec 18, 2011</time></h3><div class="md"><p>Lo prometido es deuda (bien lo saben las funciones) y he encontrado un momento para empezar a explicar la forma en la que he implementado el patrón Promise en mi caso, no tiene porqué ser la mejor, pero cumple con su cometido.</p>
-</div></li><li class="css-dxvijy"><h3 class="css-zi0qjt css-erizh2"><a href="2011-12-09-el-patron-promise" class="">El patrón Promise</a><time class="css-bkztrs css-blivtv" dateTime="12/09/2011">Dec 9, 2011</time></h3><div class="md"><blockquote>
-<p>Actualización 19/3/2014: Finalmente los promises se han confirmado [para el estándar ECMAScript 6][1], dentro de poco serán nativos en Javascript :D</p>
+<p>Personalmente cuando diseño un componente (objeto/clase/librería), es porque quiero que ese componente cumpla una funcionalidad, por ejemplo, si yo quiero tener una clase que represente a una impresora necesito enviarle datos y que los imprima; <strong>mi prioridad es que dicho componente sea sencillo de utilizar, lo que facilita la reutilización del componente</strong>. Por lo que primero imagino cómo me gustaría usarlo:</p>
+<p>[2]: <a href="http://www.amatiasq.com/?p=208">http://www.amatiasq.com/?p=208</a> &#39;Experimento: Privacidad por instancias&#39;</p>
+</div><a href="2012-02-26-conceptos-basicos-privacidad" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">Conceptos Básicos Javascript: Herencia por prototipos<time class="css-a9renj css-blivtv" dateTime="01/18/2012">Jan 18, 2012</time></h3><div class="md"><p>Llegó la hora de entrar el en tema que realmente confunde a los recién llegados a Javascript, principalmente para quienes vienen de lenguajes que implementan la orientación a objetos mediante clases, que son la gran mayoría.</p>
+</div><a href="2012-01-18-conceptos-basicos-herencia-por-prototipos" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">Conceptos Básicos Javascript: this, .call() y .apply()<time class="css-a9renj css-blivtv" dateTime="01/08/2012">Jan 8, 2012</time></h3><div class="md"><p>Antes de continuar con el Patrón Promise me gustaría explicar en paralelo Conceptos Básicos de Javascript. Entendiendo que estamos hablando de Javascript como lenguaje y no vamos a hablar sobre conceptos básicos del DOM o como abrir una nueva ventana en el navegador, sino detalles de Javascript puro, tanto en cliente como en servidor.</p>
+<h3 id="de-d-nde-sale-_this_">De dónde sale <em>this</em></h3>
+<p>He pensado que sería un buen punto empezar por una curiosidad bastante desconocida para los recién llegados a Javascript: La variable <code>this</code>, también llamado el <code>scope</code> o más correctamente <code>contexto</code> de la función. En los lenguajes basados en clases más extendidos (Java, C++, C#...) encontramos que <strong>los métodos de la clase siempre disponen de la variable <code>this</code> que nos permite acceder a nuestra propia instancia</strong> sobre la que se está ejecutando el método. Es decir, si tenemos la clase...</p>
+</div><a href="2012-01-08-conceptos-basicos-this-call-apply" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">Patrón Promise: Implementación<time class="css-a9renj css-blivtv" dateTime="12/18/2011">Dec 18, 2011</time></h3><div class="md"><p>Lo prometido es deuda (bien lo saben las funciones) y he encontrado un momento para empezar a explicar la forma en la que he implementado el patrón Promise en mi caso, no tiene porqué ser la mejor, pero cumple con su cometido.</p>
+<p><strong>NOTA:</strong> Me gustaría implementarla en Test Driven Development, pero ya es bastante para quien lee y para el que escribe seguir la implementación como para encima añadir TDD, pero no quisiera dejar de recomendarlo.</p>
+<p>[1]: <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/apply">https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/apply</a> &#39;appy method&#39;</p>
+</div><a href="2011-12-18-patron-promise-implementacion" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">El patrón Promise<time class="css-a9renj css-blivtv" dateTime="12/09/2011">Dec 9, 2011</time></h3><div class="md"><blockquote>
+<p>Actualización 19/3/2014: Finalmente los promises se han confirmado <a href="https://github.com/lukehoban/es6features#promises">para el estándar ECMAScript 6</a>, dentro de poco serán nativos en Javascript :D</p>
+<p>Actualización 7/10/2016: Los promises <a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Referencia/Objetos_globales/Promesa">ya son estándar</a> y están implementados <a href="http://caniuse.com/#search=promises">en los navegadores</a>!!!</p>
 </blockquote>
-</div></li><li class="css-dxvijy"><h3 class="css-zi0qjt css-erizh2"><a href="2011-12-07-lets-get-it-started" class="">Let's get it started!</a><time class="css-bkztrs css-blivtv" dateTime="12/07/2011">Dec 7, 2011</time></h3><div class="md"><p>Bueno, ha llegado la hora de dar el siguiente paso como programador: comenzar un blog para que todos puedan criticarme por poner las llaves <code>{</code> a la derecha :D</p>
-</div></li><li class="css-dxvijy"><h3 class="css-zi0qjt css-erizh2"><a href="2011-12-07-hello-world" class="">Hello World!</a><time class="css-bkztrs css-blivtv" dateTime="12/07/2011">Dec 7, 2011</time></h3><div class="md">
+<h2 id="problema">PROBLEMA</h2>
+<p>Recientemente he tenido que implementar un sistema MVC en Javascript para simplificar el desarrollo sobre una plataforma y me he encontrado con el problema de que las llamadas asíncronas a servidor rompían la simpleza del código, tras un análisis identifiqué cuatro problemas:</p>
+</div><a href="2011-12-09-el-patron-promise" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">Let's get it started!<time class="css-a9renj css-blivtv" dateTime="12/07/2011">Dec 7, 2011</time></h3><div class="md"><p>Bueno, ha llegado la hora de dar el siguiente paso como programador: comenzar un blog para que todos puedan criticarme por poner las llaves <code>{</code> a la derecha :D</p>
+</div><a href="2011-12-07-lets-get-it-started" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">Hello World!<time class="css-a9renj css-blivtv" dateTime="12/07/2011">Dec 7, 2011</time></h3><div class="md">
 <code class="code-block shj-lang-cpp"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div></div><div>int main(char** args) {
     print("Hello World!");
     return 0;
 }</div></div>
 </code>
 <p>Y así es como un blog de programación debe empezar.</p>
-</div></li></ol></div></div></body></html>
+</div><a href="2011-12-07-hello-world" class="">Read more</a></li></ol></div></div></body></html>

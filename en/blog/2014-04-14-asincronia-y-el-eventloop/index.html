@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Asincronía y el EventLoop</title><style>
+<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Asincronía y el EventLoop | A. Matías Quezada</title><style>
   *, *::before, *::after {
     box-sizing: border-box;
   }
@@ -18,7 +18,7 @@
     line-height: 1.5;
   }
 
-  ul, ol, summary {
+  ul, ol {
     list-style: none;
   }
   .md ul, .md ol {
@@ -52,7 +52,7 @@
     }
   }
 
-  @import url(&#x27;https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,400;1,700&amp;family=Montserrat:wght@400;700&amp;display=swap&#x27;);
+  @import url(&#x27;https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&amp;family=Lato:ital,wght@1,400;1,700&amp;family=Montserrat:wght@400;700&amp;display=swap&#x27;);
 
   :root {
     background-color: #263238;
@@ -74,8 +74,13 @@
     text-align: justify;
   }
 
+  code {
+    font-family: Fira Code, monospace;
+  }
+
   .md .code-block {
     display: block;
+    font-family: Fira Code, monospace;
     width: var(--available-width);
     padding-bottom: 10px;
   }
@@ -141,61 +146,21 @@
       calc(var(--container-width) - var(--container-sides-gap))
     );max-width:var(--container-width);padding-left:var(--container-side-gap);padding-right:var(--container-side-gap);margin-left:auto;margin-right:auto;}@media (min-width: 769px){.css-4hnq5z{--container-width:50rem;--container-side-gap:5rem;}}@media (min-width: 1200px){.css-4hnq5z{--container-width:60rem;}}
 .css-187qu0u{font-family:Montserrat,sans-serif;font-weight:700;font-size:32px;}
-.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-4hnq5z"><h2><a href="../../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href="../../../blog" class="">Blog</a><a href="../../../career" class="">Career</a><a href="../../../projects" class="">Projects</a><a href="../../../es/blog/2014-04-14-asincronia-y-el-eventloop" class="">🇪🇸</a></nav></div></header><div class="css-1p4f3y5 css-4hnq5z"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Asincronía y el EventLoop</h2><time class="css-bkztrs " dateTime="04/14/2014">Apr 14, 2014</time></div><div class="md"><p>Me gustaría hacer un repaso al tema de la asincronía en Javascript porque me llama la atención que pese a tener casi 20 años es un tema que sigue madurando y he visto surgir buenas ideas recientemente.</p>
-<!-- extract -->
+.css-a9renj{opacity:0.8;font-family:Fira Code,monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-4hnq5z"><h2><a href="../../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href="../../../blog" class="">Blog</a><a href="../../../career" class="">Career</a><a href="../../../projects" class="">Projects</a><a href="../../../es/blog/2014-04-14-asincronia-y-el-eventloop" class="">🇪🇸</a></nav></div></header><div class="css-1p4f3y5 css-4hnq5z"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Asincronía y el EventLoop</h2><time class="css-a9renj " dateTime="04/14/2014">Apr 14, 2014</time></div><article><div class="md"><p>Me gustaría hacer un repaso al tema de la asincronía en Javascript porque me llama la atención que pese a tener casi 20 años es un tema que sigue madurando y he visto surgir buenas ideas recientemente.</p>
 <h3 id="el-event-loop">El event loop</h3>
 <p>Primero lo primero, de donde sale la asincronía. Javascript es un lenguaje cuya ejecución se basa en lo que se llama <strong>event loop</strong> (bucle de eventos). El <em>event loop</em> es una cola donde se van añadiendo los bloques de código que quieren ejecutarse, por ejemplo: cuando el navegador está renderizando el HTML de una página y se encuentra un tag <code>&lt;script&gt;</code> el contenido de ese elemento se añade al <em>event loop</em> para que sea ejecutado tan pronto como sea posible.</p>
+<!-- end extract -->
 <p>Lo mismo ocurre cuando la página ya está cargada y el usuario hace click. Si tenemos una función listener (también llamado callback) escuchando los eventos click de un objeto esa función se añade a la cola del <em>event loop</em> para que el sistema lo ejecute tan pronto como sea posible.</p>
 <p>De esta forma todos los bloques de código que se ejecutan en javascript han sido bloques de código que entraron a la cola del <em>event loop</em> y cuando llegó su turno fueron ejecutados. Podemos entenderlo más fácilmente si implementamos un falso event loop en Javascript:</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> eventLoop <span class="shj-syn-oper">=</span> {
-  _queue<span class="shj-syn-oper">:</span> []<span class="shj-syn-oper">,</span>
-
-  add<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (fn) {
-    <span class="shj-syn-cmnt">// añadimos la función a la cola
-</span>    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_queue<span class="shj-syn-oper">.</span><span class="shj-syn-func">push</span>(fn);
-
-    <span class="shj-syn-cmnt">// si está desocupado ejecutar la función
-</span>    <span class="shj-syn-kwd">if</span> (<span class="shj-syn-oper">!</span><span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>running) <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">executeNext</span>();
-  }<span class="shj-syn-oper">,</span>
-
-  executeNext<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
-    <span class="shj-syn-kwd">if</span> (<span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>running <span class="shj-syn-oper">||</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_queue<span class="shj-syn-oper">.</span>length <span class="shj-syn-oper">===</span> <span class="shj-syn-num">0</span>) <span class="shj-syn-kwd">return</span>;
-
-    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>running <span class="shj-syn-oper">=</span> <span class="shj-syn-bool">true</span>;
-    <span class="shj-syn-kwd">var</span> block <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_queue<span class="shj-syn-oper">.</span><span class="shj-syn-func">shift</span>();
-    <span class="shj-syn-func">block</span>();
-    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>running <span class="shj-syn-oper">=</span> <span class="shj-syn-bool">false</span>;
-
-    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">executeNext</span>();
-  }<span class="shj-syn-oper">,</span>
-};</div></div>
+<code class="code-block shj-lang-js">LOADING...
 </code>
 <p><a target="_black" href="http://jsfiddle.net/amatiasq/k9ebk/">Pruébame</a></p>
 <p>Esto significa que mientras un bloque esté ejecutándose ningún otro bloque de código puede estar ejecutándose a la vez. Pero si un proceso tarda mucho (como leer el disco, comunicarse con el servidor, esperar una determinada cantidad de tiempo...) lo que hacemos es pasarles una función que será añadida al <em>event loop</em> cuando el proceso acabe.</p>
 <p>Cada &quot;bloque&quot; que el <em>event loop</em> ejecuta se llama &quot;un tick del event loop&quot;, de ahí el nombre de la función <code>process.nextTick</code> de NodeJS.</p>
 <p>Una forma sencilla de controlar el <em>event loop</em> es mediante <code>setTimeout</code>, <code>setInterval</code> y <code>setImmediate</code>, podemos crear funciones similares que hagan la misma funcionalidad (simplificada) pero para nuestro <code>eventLoop</code>:</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">mySetImmediate</span>(fn) {
-  eventLoop<span class="shj-syn-oper">.</span><span class="shj-syn-func">add</span>(fn);
-}
-
-<span class="shj-syn-kwd">function</span> <span class="shj-syn-func">mySetTimeout</span>(fn<span class="shj-syn-oper">,</span> milliseconds) {
-  <span class="shj-syn-cmnt">// la unica forma de dejar pasar el tiempo
-</span>  <span class="shj-syn-cmnt">// es mediante el VERDADERO setTimeout ;)
-</span>  <span class="shj-syn-func">setTimeout</span>(<span class="shj-syn-kwd">function</span> () {
-    <span class="shj-syn-func">mySetImmediate</span>(fn);
-  }<span class="shj-syn-oper">,</span> milliseconds);
-}
-
-<span class="shj-syn-kwd">function</span> <span class="shj-syn-func">mySetInterval</span>(fn<span class="shj-syn-oper">,</span> milliseconds) {
-  <span class="shj-syn-kwd">function</span> <span class="shj-syn-func">execute</span>() {
-    <span class="shj-syn-func">fn</span>();
-    <span class="shj-syn-func">mySetTimeout</span>(execute<span class="shj-syn-oper">,</span> milliseconds);
-  }
-
-  <span class="shj-syn-func">mySetTimeout</span>(execute<span class="shj-syn-oper">,</span> milliseconds);
-}</div></div>
+<code class="code-block shj-lang-js">LOADING...
 </code>
 <p>Como se puede ver tanto setTimeout como setInterval esperan la cantidad de milisegundos definida y <strong>entonces añaden</strong> el bloque al <em>event loop</em>, si el <em>event loop</em> está ocupado en ese momento puede tardar un poco más de lo esperado en ejecutarse nuestra función.</p>
 <p>Entiendiendo esto es más fácil entender porqué Javascript funciona de la forma que funciona.</p>
@@ -206,12 +171,7 @@
 <li>Se considera asíncrono a una sección de código que será ejecutada en un &quot;tick&quot; distinto</li>
 </ul>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> a <span class="shj-syn-oper">=</span> <span class="shj-syn-num">1</span>;
-<span class="shj-syn-func">setTimeout</span>(<span class="shj-syn-kwd">function</span> () {
-  <span class="shj-syn-cmnt">// esta función es asíncrona porque el tick que llama a setTimeout
-</span>  <span class="shj-syn-cmnt">// tiene que acabar antes que esta función sea invocada.
-</span>  a <span class="shj-syn-oper">=</span> <span class="shj-syn-num">2</span>;
-}<span class="shj-syn-oper">,</span> <span class="shj-syn-num">100</span>);</div></div>
+<code class="code-block shj-lang-js">LOADING...
 </code>
 <p>En el caso de javascript para el navegador además nos encontramos con que el <em>event loop</em> es compartido por Javascript y el motor de renderizado del navegador. Como el <em>event loop</em> solo puede ejecutar un bloque por vez resulta que si estamos ejecutando Javascript el navegador no puede renderizar la página y vice versa, si la página tarda mucho en renderizarse retrasará la ejecución del Javascript. Esto es así porque desde Javascript podemos modificar el DOM y si el navegador intenta renderizar la página mientras nosotros la modificamos tendríamos otro tipo de problemas peores.</p>
 <p>Pero es importante tener esto en cuenta ya que un proceso Javascript que tarde demasiado &quot;congelará&quot; la página, no funcionarán los clicks, scroll, ni siquiera los <code>:hover</code>.</p>
@@ -267,9 +227,7 @@ reader<span class="shj-syn-oper">.</span><span class="shj-syn-func">onprogress</
 </blockquote>
 <p>Incluso hay implementaciones muy completas que integran perfectamente los stream y los promises, podemos hacer de forma sencilla cosas como capturar el primer click en la pagina</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">// window.onClick instanceof Stream
-</span><span class="shj-syn-kwd">var</span> firstClick <span class="shj-syn-oper">=</span> window<span class="shj-syn-oper">.</span>onClick<span class="shj-syn-oper">.</span>first;
-firstClick<span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span>(<span class="shj-syn-kwd">function</span>() { <span class="shj-syn-oper">...</span> });</div></div>
+<code class="code-block shj-lang-js">LOADING...
 </code>
 <p>Comprobar si las primeras diez teclas han sido &quot;flecha derecha&quot;</p>
 
@@ -306,30 +264,17 @@ fileContent<span class="shj-syn-oper">.</span><span class="shj-syn-func">then</s
 </code>
 <p>Unificar varias operaciones</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">// readFile returns promise
-</span><span class="shj-syn-kwd">var</span> concat <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Stream</span>([<span class="shj-syn-func">readFile</span>(<span class="shj-syn-str">'./header.html'</span>)<span class="shj-syn-oper">,</span> <span class="shj-syn-func">readFile</span>(<span class="shj-syn-str">'./content.html'</span>)<span class="shj-syn-oper">,</span> <span class="shj-syn-func">readFile</span>(<span class="shj-syn-str">'./footer.html'</span>)]);
-stream<span class="shj-syn-oper">.</span><span class="shj-syn-func">listen</span>(<span class="shj-syn-kwd">function</span> (chunk) {
-  response<span class="shj-syn-oper">.</span><span class="shj-syn-func">write</span>(chunk);
-});</div></div>
+<code class="code-block shj-lang-js">LOADING...
 </code>
 <p>Incluso cosas más complejas como detectar la primera acción del usuario en la página</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">// Promise.race devuelve un promise que se completará
-</span><span class="shj-syn-cmnt">// cuando el primer promise de la lista se complete
-</span><span class="shj-syn-class">Promise</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">race</span>([window<span class="shj-syn-oper">.</span>onClick<span class="shj-syn-oper">.</span>first<span class="shj-syn-oper">,</span> window<span class="shj-syn-oper">.</span>onKeyDown<span class="shj-syn-oper">.</span>first<span class="shj-syn-oper">,</span> window<span class="shj-syn-oper">.</span>onMouseMove<span class="shj-syn-oper">.</span>first])<span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span>(<span class="shj-syn-kwd">function</span> (event) {
-  console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-str">'El usuario ha disparado el evento '</span> <span class="shj-syn-oper">+</span> event<span class="shj-syn-oper">.</span>type);
-});</div></div>
+<code class="code-block shj-lang-js">LOADING...
 </code>
 <p>Y hasta capturar el evento <code>load</code> de window aunque ya haya pasado:</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-func">setTimeout</span>(<span class="shj-syn-kwd">function</span> () {
-  window<span class="shj-syn-oper">.</span>onLoad<span class="shj-syn-oper">.</span><span class="shj-syn-func">first</span>(<span class="shj-syn-kwd">function</span> () {
-    <span class="shj-syn-cmnt">// Me van a invocar aunque el evento
-</span>    <span class="shj-syn-cmnt">// ya haya pasado :)
-</span>  });
-}<span class="shj-syn-oper">,</span> <span class="shj-syn-num">1000</span> <span class="shj-syn-oper">*</span> <span class="shj-syn-num">60</span> <span class="shj-syn-oper">*</span> <span class="shj-syn-num">60</span>); <span class="shj-syn-cmnt">// una hora</span></div></div>
+<code class="code-block shj-lang-js">LOADING...
 </code>
 <h3 id="resumen">Resumen</h3>
 <p>La gestión de la asincronía, que siempre ha sido un caos, se simplifica de forma radical gracias a una buena combinación de Stream/Promises. Espero poder actualizar la entrada de los promises con los nuevos promises estándard de ECMAScript 6 :)</p>
 <p>Conocen más patrones de gestión de asincronía?</p>
-</div></div></body></html>
+</div></article></div></body></html>

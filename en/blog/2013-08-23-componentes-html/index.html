@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Componentes HTML</title><style>
+<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Componentes HTML | A. Matías Quezada</title><style>
   *, *::before, *::after {
     box-sizing: border-box;
   }
@@ -18,7 +18,7 @@
     line-height: 1.5;
   }
 
-  ul, ol, summary {
+  ul, ol {
     list-style: none;
   }
   .md ul, .md ol {
@@ -52,7 +52,7 @@
     }
   }
 
-  @import url(&#x27;https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,400;1,700&amp;family=Montserrat:wght@400;700&amp;display=swap&#x27;);
+  @import url(&#x27;https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&amp;family=Lato:ital,wght@1,400;1,700&amp;family=Montserrat:wght@400;700&amp;display=swap&#x27;);
 
   :root {
     background-color: #263238;
@@ -74,8 +74,13 @@
     text-align: justify;
   }
 
+  code {
+    font-family: Fira Code, monospace;
+  }
+
   .md .code-block {
     display: block;
+    font-family: Fira Code, monospace;
     width: var(--available-width);
     padding-bottom: 10px;
   }
@@ -141,10 +146,11 @@
       calc(var(--container-width) - var(--container-sides-gap))
     );max-width:var(--container-width);padding-left:var(--container-side-gap);padding-right:var(--container-side-gap);margin-left:auto;margin-right:auto;}@media (min-width: 769px){.css-4hnq5z{--container-width:50rem;--container-side-gap:5rem;}}@media (min-width: 1200px){.css-4hnq5z{--container-width:60rem;}}
 .css-187qu0u{font-family:Montserrat,sans-serif;font-weight:700;font-size:32px;}
-.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-4hnq5z"><h2><a href="../../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href="../../../blog" class="">Blog</a><a href="../../../career" class="">Career</a><a href="../../../projects" class="">Projects</a><a href="../../../es/blog/2013-08-23-componentes-html" class="">🇪🇸</a></nav></div></header><div class="css-1p4f3y5 css-4hnq5z"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Componentes HTML</h2><time class="css-bkztrs " dateTime="08/23/2013">Aug 23, 2013</time></div><div class="md"><p>Acabo de caer en cuenta de porqué no me gusta angular, backbone, ember...</p>
+.css-a9renj{opacity:0.8;font-family:Fira Code,monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-4hnq5z"><h2><a href="../../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href="../../../blog" class="">Blog</a><a href="../../../career" class="">Career</a><a href="../../../projects" class="">Projects</a><a href="../../../es/blog/2013-08-23-componentes-html" class="">🇪🇸</a></nav></div></header><div class="css-1p4f3y5 css-4hnq5z"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Componentes HTML</h2><time class="css-a9renj " dateTime="08/23/2013">Aug 23, 2013</time></div><article><div class="md"><p>Acabo de caer en cuenta de porqué no me gusta angular, backbone, ember...</p>
 <h3 id="el-problema">El problema</h3>
 <p>Todos estos frameworks si bien intentan dividir la aplicación que vas a construír en módulos se hace esto por mantenibilidad, no por reutilización de los módulos.</p>
 <p>En otras tecnologías generalmente creas un componente reutilizable y basta con mover el archivo de proyecto para tenerlo listo, pero estos frameworks no se puede hacer eso, por ejemplo una simple targeta que muestre los datos de una persona:</p>
+<!-- end extract -->
 <p>Con backbone o bien tienes un archivo enorme o tienes varios archivos, modelo, vista, plantilla, estilos... y seguramente los archivos JS y la plantilla se carguen mediante un cargador de dependencias como RequireJS con lo que para usar el módulo necesitas tenerlo o bien compilar el módulo en un solo archivo antes de utilizarlo.</p>
 <p>Con angular la separación en módulos no es tan radical al haber mucho menos código, pero una simple directiva será un archivo JS que bien puede tener el HTML en formato string o cargarlo de un archivo aparte y el CSS debería ponerse aparte ya que si se pone en la plantilla cada vez que se instancie la directiva se estaría creando un nuevo tag style ya renderizado.</p>
 <p>Además, ya a nivel de estándar, con los estilos tenemos el problema de que los estilos que creemos para nuestro componente reutilizable podría fácilmente afectar a un elemento de la página que no pretendíamos modificar, para ser realmente reutilizable es necesario que el CSS solo se aplique a los elementos del componente en cuestión. Analizado de esta forma parece ser que el tema es poder tener en un solo archivo un pequeño bloque de lógica, contenido y estilo que pueda ser importado en cualquier página sin afectar en nada a la página en cuestión. Y resulta HTML desde un principio nos permite definir en un solo archivo y de forma natural lógica, contenido y estilos.</p>
@@ -156,16 +162,11 @@
 <p>Al estar los estilos dentro del template se vuelven a añadir al dom cada vez que creamos un <code>x-tarjeta</code> (como con angular) pero en este caso gracias al <code>ShadowDOM</code> los estilos solo se aplican al template y a su contenido.</p>
 <p>Además el estándard de html templates nos permite mezclar el template con los elementos que inserten dentro de <code>x-tarjeta</code></p>
 
-<code class="code-block shj-lang-html"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">&lt;!-- Uso --&gt;</span>
-<span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">x-tarjeta</span><span class="shj-syn-oper">&gt;</span>
-  &lt;h1&gt;A. Matías Q.&lt;/h1&gt;
-  <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">div</span> <span class="shj-syn-class">class</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"age"</span><span class="shj-syn-oper">&gt;</span>24<span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">div</span><span class="shj-syn-oper">&gt;</span>
-  <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">img</span> <span class="shj-syn-class">src</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"/.../foto.png"</span> <span class="shj-syn-oper">/&gt;</span>
-<span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">x-tarjeta</span><span class="shj-syn-oper">&gt;</span></div></div>
+<code class="code-block shj-lang-html">LOADING...
 </code>
 <p>Y por último el estándard html imports nos permite tener este componente en un archivo html independiente y transportable e importarlo en donde lo necesitemos, incluyendo otros compoentes.</p>
 
-<code class="code-block shj-lang-html"><div><div class="shj-numbers"><div></div></div><div><span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">link</span> <span class="shj-syn-class">rel</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"import"</span> <span class="shj-syn-class">href</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"x-tarjeta.html"</span> <span class="shj-syn-oper">/&gt;</span></div></div>
+<code class="code-block shj-lang-html">LOADING...
 </code>
 <h3 id="conclusi-n">Conclusión</h3>
 <p>Ahora mismo estoy dividido entre angular y los web components:</p>
@@ -187,4 +188,4 @@
 </ul>
 <p>Tal como lo veo ahora una web se compone de la parte aplicación que es todo el código único de la app que difícilmente sirva para otro proyecto y una serie de componentes, lo ideal para mi sería poder hacer la parte de aplicación con angular ya que me permite crear módulos mantenibles y utilizar los WebComponents como componentes reutilizables pero desconozco como se relaciones ambas tecnologías.</p>
 <p>Espero poder hacer un prototipo mezclándolas y escribir más adelante...</p>
-</div></div></body></html>
+</div></article></div></body></html>

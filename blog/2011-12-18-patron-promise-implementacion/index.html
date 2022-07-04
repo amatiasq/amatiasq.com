@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Patrón Promise: Implementación</title><style>
+<!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Patrón Promise: Implementación | A. Matías Quezada</title><style>
   *, *::before, *::after {
     box-sizing: border-box;
   }
@@ -18,7 +18,7 @@
     line-height: 1.5;
   }
 
-  ul, ol, summary {
+  ul, ol {
     list-style: none;
   }
   .md ul, .md ol {
@@ -52,7 +52,7 @@
     }
   }
 
-  @import url(&#x27;https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,400;1,700&amp;family=Montserrat:wght@400;700&amp;display=swap&#x27;);
+  @import url(&#x27;https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&amp;family=Lato:ital,wght@1,400;1,700&amp;family=Montserrat:wght@400;700&amp;display=swap&#x27;);
 
   :root {
     background-color: #263238;
@@ -74,8 +74,13 @@
     text-align: justify;
   }
 
+  code {
+    font-family: Fira Code, monospace;
+  }
+
   .md .code-block {
     display: block;
+    font-family: Fira Code, monospace;
     width: var(--available-width);
     padding-bottom: 10px;
   }
@@ -141,8 +146,9 @@
       calc(var(--container-width) - var(--container-sides-gap))
     );max-width:var(--container-width);padding-left:var(--container-side-gap);padding-right:var(--container-side-gap);margin-left:auto;margin-right:auto;}@media (min-width: 769px){.css-4hnq5z{--container-width:50rem;--container-side-gap:5rem;}}@media (min-width: 1200px){.css-4hnq5z{--container-width:60rem;}}
 .css-187qu0u{font-family:Montserrat,sans-serif;font-weight:700;font-size:32px;}
-.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-4hnq5z"><h2><a href="../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href=".." class="">Blog</a><a href="../../career" class="">Career</a><a href="../../projects" class="">Projects</a><a href="../../es/blog/2011-12-18-patron-promise-implementacion" class="">🇪🇸</a></nav></div></header><div class="css-1p4f3y5 css-4hnq5z"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Patrón Promise: Implementación</h2><time class="css-bkztrs " dateTime="12/18/2011">Dec 18, 2011</time></div><div class="md"><p>Lo prometido es deuda (bien lo saben las funciones) y he encontrado un momento para empezar a explicar la forma en la que he implementado el patrón Promise en mi caso, no tiene porqué ser la mejor, pero cumple con su cometido.</p>
+.css-a9renj{opacity:0.8;font-family:Fira Code,monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-4hnq5z"><h2><a href="../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href=".." class="">Blog</a><a href="../../career" class="">Career</a><a href="../../projects" class="">Projects</a><a href="../../es/blog/2011-12-18-patron-promise-implementacion" class="">🇪🇸</a></nav></div></header><div class="css-1p4f3y5 css-4hnq5z"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Patrón Promise: Implementación</h2><time class="css-a9renj " dateTime="12/18/2011">Dec 18, 2011</time></div><article><div class="md"><p>Lo prometido es deuda (bien lo saben las funciones) y he encontrado un momento para empezar a explicar la forma en la que he implementado el patrón Promise en mi caso, no tiene porqué ser la mejor, pero cumple con su cometido.</p>
 <p><strong>NOTA:</strong> Me gustaría implementarla en Test Driven Development, pero ya es bastante para quien lee y para el que escribe seguir la implementación como para encima añadir TDD, pero no quisiera dejar de recomendarlo.</p>
+<!-- end extract -->
 <h3 id="primero-funcionalidad-b-sica">Primero: Funcionalidad básica</h3>
 <p>Lo que necesitamos de un objeto Promise es:</p>
 
@@ -154,33 +160,19 @@
 <!--more Seguir leyendo → -->
 <p>Con los objetivos en la mano es más sencillo ver que hacer, lo primero necesitamos una clase, a la hora de crear clases en Javascript yo me decanto por el patrón de constructor con prototipos que espero explicar algún día.</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Promise</span>() {}</div></div>
+<code class="code-block shj-lang-js">LOADING...
 </code>
 <p><strong>Segundo punto:</strong> poder añadirle callbacks, ésto consiste en el método <code>.then()</code> al que deberemos poder llamar pasándole las funciones que queremos que se ejecuten cuando la promesa se cumpla. Puesto de debe poderse añadir más de un callback para cada promise lo más lógico sería crear un Array donde almacenarlos</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Promise</span>() {
-  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_callbacks <span class="shj-syn-oper">=</span> [];
-}</div></div>
+<code class="code-block shj-lang-js">LOADING...
 </code>
 <p>Y el método <code>.then()</code> que vaya añadiendo al Array los callbacks que se le pasen, puesto que es mejor que los errores se detecten cuanto antes también podemos asegurarnos que el callback es una función:</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-class">Promise</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span> (callback) {
-  <span class="shj-syn-kwd">if</span> (<span class="shj-syn-kwd">typeof</span> callback <span class="shj-syn-oper">!==</span> <span class="shj-syn-str">'function'</span>) {
-    <span class="shj-syn-kwd">throw</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Error</span>(<span class="shj-syn-str">"[Promise.then] El argumento 'callback' no es una función "</span> <span class="shj-syn-oper">+</span> <span class="shj-syn-kwd">typeof</span> callback);
-  }
-
-  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_callbacks<span class="shj-syn-oper">.</span><span class="shj-syn-func">push</span>(callback);
-};</div></div>
+<code class="code-block shj-lang-js">LOADING...
 </code>
 <p>Y ahora que ya tenemos todos los callbacks en un Array necesitamos algún sistema para avisarle al Promise que ya tiene los datos que necesita y que se los pase a los callbacks. Sobre ésto no he visto ninguna implementación, pero a mi me parece bastante razonable crear un método <code>Promise.done()</code> que notifica al Promise que ya está cumplido y ejecuta los callbacks.</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-class">Promise</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">done</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span> () {
-  <span class="shj-syn-kwd">var</span> callback;
-  <span class="shj-syn-kwd">for</span> (<span class="shj-syn-kwd">var</span> i <span class="shj-syn-oper">=</span> <span class="shj-syn-num">0</span>; i <span class="shj-syn-oper">&lt;</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_callbacks<span class="shj-syn-oper">.</span>length; i<span class="shj-syn-oper">++</span>) {
-    callback <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_callbacks[i];
-    <span class="shj-syn-func">callback</span>();
-  }
-};</div></div>
+<code class="code-block shj-lang-js">LOADING...
 </code>
 <p>Y ya lo tenemos hecho, hemos creado un Promise básico, vamos a probarlo. Imaginemos cualquier función asíncrona, por ejemplo vamos a crear una función que nos avise cuando pase un segundo:</p>
 
@@ -198,17 +190,7 @@
 </code>
 <p>Y ya está, ahora podemos pasarle argumentos a <code>.done()</code>:</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">descargar</span>(url) {
-  <span class="shj-syn-kwd">var</span> promise <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Promise</span>();
-  petició<span class="shj-syn-func">nHttp</span>(url<span class="shj-syn-oper">,</span> <span class="shj-syn-kwd">function</span> (codigoHtml) {
-    promise<span class="shj-syn-oper">.</span><span class="shj-syn-func">done</span>(codigoHtml);
-  });
-  <span class="shj-syn-kwd">return</span> promise;
-}
-
-<span class="shj-syn-func">descargar</span>(<span class="shj-syn-str">'www.google.com'</span>)<span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span>(<span class="shj-syn-kwd">function</span> (codigoHtml) {
-  <span class="shj-syn-func">alert</span>(codigoHtml);
-});</div></div>
+<code class="code-block shj-lang-js">LOADING...
 </code>
 <p>Ya tenemos nuestra versión 0.1 de la clase Promise :D</p>
 <h3 id="segundo-gesti-n-de-errores">Segundo: Gestión de errores</h3>
@@ -225,34 +207,15 @@
 </code>
 <p>Como se ve es prácticamente lo mismo que para los callbacks, ya que se trata de lo mismo, un callback por si hay errores. Ahora vamos a matar los últimos dos puntos de un tiro. Añadiremos un método para avisar al Promise cuando se produzca un error y le pasaremos el objeto Error para que lo pase a todos los callbacks de error.</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-class">Promise</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">fail</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span> (error) {
-  <span class="shj-syn-kwd">var</span> callback;
-  <span class="shj-syn-kwd">for</span> (<span class="shj-syn-kwd">var</span> i <span class="shj-syn-oper">=</span> <span class="shj-syn-num">0</span>; i <span class="shj-syn-oper">&lt;</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_onError<span class="shj-syn-oper">.</span>length; i<span class="shj-syn-oper">++</span>) {
-    callback <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_onError[i];
-    <span class="shj-syn-func">callback</span>(error);
-  }
-};</div></div>
+<code class="code-block shj-lang-js">LOADING...
 </code>
 <p>Y ya está, ahora cuando llamemos al método <code>.fail()</code> llamará a todos los callbacks de error y les pasará el objeto Error. Ahora podemos adaptar la función <code>descargar()</code> para que también notifique cuando se produzca un error:</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">descargar</span>(url) {
-  <span class="shj-syn-kwd">var</span> promise <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Promise</span>();
-  <span class="shj-syn-kwd">try</span> {
-    petició<span class="shj-syn-func">nHttp</span>(url<span class="shj-syn-oper">,</span> <span class="shj-syn-kwd">function</span> (codigoHtml) {
-      promise<span class="shj-syn-oper">.</span><span class="shj-syn-func">done</span>(codigoHtml);
-    });
-  } <span class="shj-syn-kwd">catch</span> (error) {
-    promise<span class="shj-syn-oper">.</span><span class="shj-syn-func">fail</span>(error);
-  }
-  <span class="shj-syn-kwd">return</span> promise;
-}
-<span class="shj-syn-func">descargar</span>(<span class="shj-syn-str">'www.google.com'</span>)<span class="shj-syn-oper">.</span><span class="shj-syn-func">then</span>(<span class="shj-syn-kwd">function</span> (codigoHtml) {
-  <span class="shj-syn-func">alert</span>(codigoHtml);
-});</div></div>
+<code class="code-block shj-lang-js">LOADING...
 </code>
 <p>Ahora ya podemos decir que tenemos la versión 0.2 del Promise tengo que dejar para otro post métodos más complicados como <code>.then()</code> concatenados y el <code>.and()</code> porque ya es muy tarde. Aquí dejo el código completo al que le he añadido la propiedad <code>_estado</code> para evitar que se pueda cumplir o fallar un Promise cuando ya está cumplido o fallado.</p>
 
 <code class="code-block shj-lang-js">LOADING...
 </code>
 <p>[1]: <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/apply">https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/apply</a> &#39;appy method&#39;</p>
-</div></div></body></html>
+</div></article></div></body></html>
