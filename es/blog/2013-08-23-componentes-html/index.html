@@ -1,20 +1,16 @@
 <!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Componentes HTML</title><style>
-  /* Box sizing rules */
   *, *::before, *::after {
     box-sizing: border-box;
   }
 
-  /* Remove default padding */
   ul, ol {
     padding: 0;
   }
 
-  /* Remove default margin */
   body, h1, h2, h3, h4, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
     margin: 0;
   }
 
-  /* Set core body defaults */
   body {
     min-height: 100vh;
     scroll-behavior: smooth;
@@ -30,28 +26,23 @@
     padding: revert;
   }
 
-  /* A elements that don&#x27;t have a class get default styles */
   a:not([class]) {
     text-decoration-skip-ink: auto;
   }
 
-  /* Make images easier to work with */
   img {
     max-width: 100%;
     display: block;
   }
 
-  /* Natural flow and rhythm in articles by default */
   article &gt; * + * {
     margin-top: 1em;
   }
 
-  /* Inherit fonts for inputs and buttons */
   input, button, textarea, select {
     font: inherit;
   }
 
-  /* Remove all animations and transitions for people that prefer not to see them */
   @media (prefers-reduced-motion: reduce) {
     * {
       animation-duration: 0.01ms !important;
@@ -83,22 +74,74 @@
     text-align: justify;
   }
 
-  .md pre {
-    white-space: break-spaces;
+  .md .code-block {
+    display: block;
+    width: var(--available-width);
+    padding-bottom: 10px;
   }
 
   svg {
     fill: #FDFBF8;
   }
-</style><style>.css-zi0qjt{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;}
+</style><style>
+    [class*=shj-lang-]{white-space:pre;margin:10px 0;border-radius:10px;padding:30px 20px;background:white;color:#112;box-shadow:0 0 5px #0001;text-shadow:none;font: 18px Consolas,Courier New,Monaco,Andale Mono,Ubuntu Mono,monospace;line-height:24px;box-sizing:border-box;max-width:min(100%,100vw)}
+    .shj-inline{margin:0;padding:2px 5px;display:inline-block;border-radius:5px}
+    [class*=shj-lang-]::selection,
+    [class*=shj-lang-] ::selection{background:#bdf5}
+    [class*=shj-lang-]>div{display:flex;overflow:auto}
+    [class*=shj-lang-]>div :last-child{flex:1;outline:none}
+    .shj-numbers{padding-left:5px;counter-reset:line}
+    .shj-numbers div{padding-right:5px}
+    .shj-numbers div:before{color:#999;display:block;content:counter(line);opacity:.5;text-align:right;margin-right:5px;counter-increment:line}
+    .shj-syn-cmnt{font-style:italic}
+    .shj-syn-err,
+    .shj-syn-kwd{color:#e16}
+    .shj-syn-num,
+    .shj-syn-class{color:#f60}
+    .shj-numbers,
+    .shj-syn-cmnt{color:#999}
+    .shj-syn-insert,
+    .shj-syn-str{color:#7d8}
+    .shj-syn-bool{color:#3bf}
+    .shj-syn-type,
+    .shj-syn-oper{color:#5af}
+    .shj-syn-section,
+    .shj-syn-func{color:#84f}
+    .shj-syn-deleted,
+    .shj-syn-var{color:#f44}
+    .shj-oneline{padding:12px 10px}
+    .shj-lang-http.shj-oneline .shj-syn-kwd{background:#25f;color:#fff;padding:5px 7px;border-radius:5px}
+    .shj-multiline.shj-mode-header{padding:20px}
+    .shj-multiline.shj-mode-header:before{content:attr(data-lang);color:#58f;display:block;padding:10px 20px;background:#58f3;border-radius:5px;margin-bottom:20px}
+    [class*=shj-lang-]{color:#abb2bf;background:#161b22}
+    [class*=shj-lang-]:before{color:#6f9aff}
+    .shj-syn-deleted,
+    .shj-syn-err,
+    .shj-syn-var{color:#e06c75}
+    .shj-syn-section,
+    .shj-syn-oper,
+    .shj-syn-kwd{color:#c678dd}
+    .shj-syn-class{color:#e5c07b}
+    .shj-numbers,
+    .shj-syn-cmnt{color:#76839a}
+    .shj-syn-insert{color:#98c379}
+    .shj-syn-type{color:#56b6c2}
+    .shj-syn-num,
+    .shj-syn-bool{color:#d19a66}
+    .shj-syn-str,
+    .shj-syn-func{color:#61afef}
+    </style><style>.css-zi0qjt{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;}
 .css-1p4f3y5{display:grid;padding-top:20px;gap:12px;}
 .css-2nd93p{padding:20px 0;margin-bottom:20px;background-color:#1B2225;color:#FDFBF8;border-bottom:2px solid #586369;}@media (min-width: 769px){.css-2nd93p{position:-webkit-sticky;position:sticky;top:0;z-index:1;}}
 .css-17rdaxl{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}@media (min-width: 769px){.css-17rdaxl{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}
 .css-slvbys{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:12px;}.css-slvbys a{color:#EFE751;-webkit-text-decoration:none;text-decoration:none;margin-left:12px;border-bottom:1px solid transparent;}.css-slvbys a.parent{border-bottom:1px solid #586369;}.css-slvbys a:hover{border-bottom:1px solid #EFE751;}
 .css-1avicn7{font-size:24px;-webkit-text-decoration:none;text-decoration:none;color:#FDFBF8;}
-.css-2u52bv{max-width:30rem;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem;}@media (min-width: 769px){.css-2u52bv{max-width:50rem;padding-left:5rem;padding-right:5rem;}}@media (min-width: 1200px){.css-2u52bv{max-width:60rem;padding-left:5rem;padding-right:5rem;}}
+.css-4hnq5z{--container-side-gap:1rem;--container-width:40rem;--container-sides-gap:calc(var(--container-side-gap) * 2);--available-width:min(
+      calc(100vw - var(--container-sides-gap)),
+      calc(var(--container-width) - var(--container-sides-gap))
+    );max-width:var(--container-width);padding-left:var(--container-side-gap);padding-right:var(--container-side-gap);margin-left:auto;margin-right:auto;}@media (min-width: 769px){.css-4hnq5z{--container-width:50rem;--container-side-gap:5rem;}}@media (min-width: 1200px){.css-4hnq5z{--container-width:60rem;}}
 .css-187qu0u{font-family:Montserrat,sans-serif;font-weight:700;font-size:32px;}
-.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-2u52bv"><h2><a href="../../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href="../../../blog" class="">Blog</a><a href="../../../career" class="">Experiencia</a><a href="../../../projects" class="">Proyectos</a><a href="../../../blog/2013-08-23-componentes-html" class="">🇬🇧</a></nav></div></header><div class="css-1p4f3y5 css-2u52bv"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Componentes HTML</h2><time class="css-bkztrs " dateTime="23/08/2013">23 ago 2013</time></div><div class="md"><p>Acabo de caer en cuenta de porqué no me gusta angular, backbone, ember...</p>
+.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-4hnq5z"><h2><a href="../../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href="../../../blog" class="">Blog</a><a href="../../../career" class="">Experiencia</a><a href="../../../projects" class="">Proyectos</a><a href="../../../blog/2013-08-23-componentes-html" class="">🇬🇧</a></nav></div></header><div class="css-1p4f3y5 css-4hnq5z"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Componentes HTML</h2><time class="css-bkztrs " dateTime="23/08/2013">23 ago 2013</time></div><div class="md"><p>Acabo de caer en cuenta de porqué no me gusta angular, backbone, ember...</p>
 <h3 id="el-problema">El problema</h3>
 <p>Todos estos frameworks si bien intentan dividir la aplicación que vas a construír en módulos se hace esto por mantenibilidad, no por reutilización de los módulos.</p>
 <p>En otras tecnologías generalmente creas un componente reutilizable y basta con mover el archivo de proyecto para tenerlo listo, pero estos frameworks no se puede hacer eso, por ejemplo una simple targeta que muestre los datos de una persona:</p>
@@ -108,57 +151,22 @@
 <h3 id="la-soluci-n">La solución</h3>
 <p>Entonces me encuentro con <a href="http://www.webcomponentsshift.com/">estas diapositivas</a> que hablan de los HTML WebComponents y resulta ser justo lo que hace falta:</p>
 
-<pre><code class="lang-html">&lt;element name=&quot;x-tarjeta&quot; extends=&quot;button&quot;&gt;
-    &lt;template&gt;
-        &lt;style&gt;
-            h1 {
-                color: red;
-            }
-            img {
-                height: 32px;
-                width: 32px;
-            }
-            .separator { ... }
-        &lt;/style&gt;
-
-        &lt;header&gt;
-            Full name: &lt;content select=&quot;h1&quot;&gt;&lt;/content&gt;
-            Age: &lt;content select=&quot;.age&quot;&gt;&lt;/content&gt;
-        &lt;/header&gt;
-        &lt;div class=&quot;separator&quot;&gt;&lt;/div&gt;
-        &lt;section&gt;
-            &lt;content select=&quot;img&quot;&gt;&lt;/content&gt;
-        &lt;/section&gt;
-    &lt;template&gt;
-
-    &lt;script&gt;
-        var template = this.querySelector(&#39;template&#39;);
-        this.register({ // this == &lt;element&gt;
-            prototype: {
-                readyCallback: function() {
-                    var dom = template.content.cloneNode(true);
-                    var shadow = this.createShadowRoot()
-                    shadow.appendChild(dom);
-                }
-            }
-        });
-    &lt;/script&gt;
-&lt;/element&gt;
-</code></pre>
+<code class="code-block shj-lang-html">LOADING...
+</code>
 <p>Al estar los estilos dentro del template se vuelven a añadir al dom cada vez que creamos un <code>x-tarjeta</code> (como con angular) pero en este caso gracias al <code>ShadowDOM</code> los estilos solo se aplican al template y a su contenido.</p>
 <p>Además el estándard de html templates nos permite mezclar el template con los elementos que inserten dentro de <code>x-tarjeta</code></p>
 
-<pre><code class="lang-html">&lt;!-- Uso --&gt;
-&lt;x-tarjeta&gt;
+<code class="code-block shj-lang-html"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">&lt;!-- Uso --&gt;</span>
+<span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">x-tarjeta</span><span class="shj-syn-oper">&gt;</span>
   &lt;h1&gt;A. Matías Q.&lt;/h1&gt;
-  &lt;div class=&quot;age&quot;&gt;24&lt;/div&gt;
-  &lt;img src=&quot;/.../foto.png&quot; /&gt;
-&lt;/x-tarjeta&gt;
-</code></pre>
+  <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">div</span> <span class="shj-syn-class">class</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"age"</span><span class="shj-syn-oper">&gt;</span>24<span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">div</span><span class="shj-syn-oper">&gt;</span>
+  <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">img</span> <span class="shj-syn-class">src</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"/.../foto.png"</span> <span class="shj-syn-oper">/&gt;</span>
+<span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">x-tarjeta</span><span class="shj-syn-oper">&gt;</span></div></div>
+</code>
 <p>Y por último el estándard html imports nos permite tener este componente en un archivo html independiente y transportable e importarlo en donde lo necesitemos, incluyendo otros compoentes.</p>
 
-<pre><code class="lang-html">&lt;link rel=&quot;import&quot; href=&quot;x-tarjeta.html&quot; /&gt;
-</code></pre>
+<code class="code-block shj-lang-html"><div><div class="shj-numbers"><div></div></div><div><span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">link</span> <span class="shj-syn-class">rel</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"import"</span> <span class="shj-syn-class">href</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"x-tarjeta.html"</span> <span class="shj-syn-oper">/&gt;</span></div></div>
+</code>
 <h3 id="conclusi-n">Conclusión</h3>
 <p>Ahora mismo estoy dividido entre angular y los web components:</p>
 <h4 id="angular">Angular</h4>

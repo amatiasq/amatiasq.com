@@ -1,20 +1,16 @@
 <!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Conceptos Básicos Javascript: Privacidad</title><style>
-  /* Box sizing rules */
   *, *::before, *::after {
     box-sizing: border-box;
   }
 
-  /* Remove default padding */
   ul, ol {
     padding: 0;
   }
 
-  /* Remove default margin */
   body, h1, h2, h3, h4, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
     margin: 0;
   }
 
-  /* Set core body defaults */
   body {
     min-height: 100vh;
     scroll-behavior: smooth;
@@ -30,28 +26,23 @@
     padding: revert;
   }
 
-  /* A elements that don&#x27;t have a class get default styles */
   a:not([class]) {
     text-decoration-skip-ink: auto;
   }
 
-  /* Make images easier to work with */
   img {
     max-width: 100%;
     display: block;
   }
 
-  /* Natural flow and rhythm in articles by default */
   article &gt; * + * {
     margin-top: 1em;
   }
 
-  /* Inherit fonts for inputs and buttons */
   input, button, textarea, select {
     font: inherit;
   }
 
-  /* Remove all animations and transitions for people that prefer not to see them */
   @media (prefers-reduced-motion: reduce) {
     * {
       animation-duration: 0.01ms !important;
@@ -83,30 +74,82 @@
     text-align: justify;
   }
 
-  .md pre {
-    white-space: break-spaces;
+  .md .code-block {
+    display: block;
+    width: var(--available-width);
+    padding-bottom: 10px;
   }
 
   svg {
     fill: #FDFBF8;
   }
-</style><style>.css-zi0qjt{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;}
+</style><style>
+    [class*=shj-lang-]{white-space:pre;margin:10px 0;border-radius:10px;padding:30px 20px;background:white;color:#112;box-shadow:0 0 5px #0001;text-shadow:none;font: 18px Consolas,Courier New,Monaco,Andale Mono,Ubuntu Mono,monospace;line-height:24px;box-sizing:border-box;max-width:min(100%,100vw)}
+    .shj-inline{margin:0;padding:2px 5px;display:inline-block;border-radius:5px}
+    [class*=shj-lang-]::selection,
+    [class*=shj-lang-] ::selection{background:#bdf5}
+    [class*=shj-lang-]>div{display:flex;overflow:auto}
+    [class*=shj-lang-]>div :last-child{flex:1;outline:none}
+    .shj-numbers{padding-left:5px;counter-reset:line}
+    .shj-numbers div{padding-right:5px}
+    .shj-numbers div:before{color:#999;display:block;content:counter(line);opacity:.5;text-align:right;margin-right:5px;counter-increment:line}
+    .shj-syn-cmnt{font-style:italic}
+    .shj-syn-err,
+    .shj-syn-kwd{color:#e16}
+    .shj-syn-num,
+    .shj-syn-class{color:#f60}
+    .shj-numbers,
+    .shj-syn-cmnt{color:#999}
+    .shj-syn-insert,
+    .shj-syn-str{color:#7d8}
+    .shj-syn-bool{color:#3bf}
+    .shj-syn-type,
+    .shj-syn-oper{color:#5af}
+    .shj-syn-section,
+    .shj-syn-func{color:#84f}
+    .shj-syn-deleted,
+    .shj-syn-var{color:#f44}
+    .shj-oneline{padding:12px 10px}
+    .shj-lang-http.shj-oneline .shj-syn-kwd{background:#25f;color:#fff;padding:5px 7px;border-radius:5px}
+    .shj-multiline.shj-mode-header{padding:20px}
+    .shj-multiline.shj-mode-header:before{content:attr(data-lang);color:#58f;display:block;padding:10px 20px;background:#58f3;border-radius:5px;margin-bottom:20px}
+    [class*=shj-lang-]{color:#abb2bf;background:#161b22}
+    [class*=shj-lang-]:before{color:#6f9aff}
+    .shj-syn-deleted,
+    .shj-syn-err,
+    .shj-syn-var{color:#e06c75}
+    .shj-syn-section,
+    .shj-syn-oper,
+    .shj-syn-kwd{color:#c678dd}
+    .shj-syn-class{color:#e5c07b}
+    .shj-numbers,
+    .shj-syn-cmnt{color:#76839a}
+    .shj-syn-insert{color:#98c379}
+    .shj-syn-type{color:#56b6c2}
+    .shj-syn-num,
+    .shj-syn-bool{color:#d19a66}
+    .shj-syn-str,
+    .shj-syn-func{color:#61afef}
+    </style><style>.css-zi0qjt{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;}
 .css-1p4f3y5{display:grid;padding-top:20px;gap:12px;}
 .css-2nd93p{padding:20px 0;margin-bottom:20px;background-color:#1B2225;color:#FDFBF8;border-bottom:2px solid #586369;}@media (min-width: 769px){.css-2nd93p{position:-webkit-sticky;position:sticky;top:0;z-index:1;}}
 .css-17rdaxl{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}@media (min-width: 769px){.css-17rdaxl{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}
 .css-slvbys{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:12px;}.css-slvbys a{color:#EFE751;-webkit-text-decoration:none;text-decoration:none;margin-left:12px;border-bottom:1px solid transparent;}.css-slvbys a.parent{border-bottom:1px solid #586369;}.css-slvbys a:hover{border-bottom:1px solid #EFE751;}
 .css-1avicn7{font-size:24px;-webkit-text-decoration:none;text-decoration:none;color:#FDFBF8;}
-.css-2u52bv{max-width:30rem;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem;}@media (min-width: 769px){.css-2u52bv{max-width:50rem;padding-left:5rem;padding-right:5rem;}}@media (min-width: 1200px){.css-2u52bv{max-width:60rem;padding-left:5rem;padding-right:5rem;}}
+.css-4hnq5z{--container-side-gap:1rem;--container-width:40rem;--container-sides-gap:calc(var(--container-side-gap) * 2);--available-width:min(
+      calc(100vw - var(--container-sides-gap)),
+      calc(var(--container-width) - var(--container-sides-gap))
+    );max-width:var(--container-width);padding-left:var(--container-side-gap);padding-right:var(--container-side-gap);margin-left:auto;margin-right:auto;}@media (min-width: 769px){.css-4hnq5z{--container-width:50rem;--container-side-gap:5rem;}}@media (min-width: 1200px){.css-4hnq5z{--container-width:60rem;}}
 .css-187qu0u{font-family:Montserrat,sans-serif;font-weight:700;font-size:32px;}
-.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-2u52bv"><h2><a href="../../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href="../../../blog" class="">Blog</a><a href="../../../career" class="">Career</a><a href="../../../projects" class="">Projects</a><a href="../../../es/blog/2012-02-26-conceptos-basicos-privacidad" class="">🇪🇸</a></nav></div></header><div class="css-1p4f3y5 css-2u52bv"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Conceptos Básicos Javascript: Privacidad</h2><time class="css-bkztrs " dateTime="02/26/2012">Feb 26, 2012</time></div><div class="md"><h3 id="introducci-n">Introducción</h3>
+.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-4hnq5z"><h2><a href="../../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href="../../../blog" class="">Blog</a><a href="../../../career" class="">Career</a><a href="../../../projects" class="">Projects</a><a href="../../../es/blog/2012-02-26-conceptos-basicos-privacidad" class="">🇪🇸</a></nav></div></header><div class="css-1p4f3y5 css-4hnq5z"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Conceptos Básicos Javascript: Privacidad</h2><time class="css-bkztrs " dateTime="02/26/2012">Feb 26, 2012</time></div><div class="md"><h3 id="introducci-n">Introducción</h3>
 <p>Uno de los temas más frecuentes cuando uno se inicia en Javascript es la privacidad, principalmente viniendo de <strong>lenguajes como Java, C# o C++; donde publican o se ocultan propiedades de los objetos mediante modificadores. Javascript</strong> no posee dichos modificadores sino que <strong>todas las propiedades de los objetos son públicas</strong> lo que puede ser muy confuso para una persona poco diestra en ésta técnica, entre los que me incluyo.</p>
 <p>Personalmente cuando diseño un componente (objeto/clase/librería), es porque quiero que ese componente cumpla una funcionalidad, por ejemplo, si yo quiero tener una clase que represente a una impresora necesito enviarle datos y que los imprima; <strong>mi prioridad es que dicho componente sea sencillo de utilizar, lo que facilita la reutilización del componente</strong>. Por lo que primero imagino cómo me gustaría usarlo:</p>
 
-<pre><code class="lang-js">var impresora = new Impresora();
-impresora.encender();
-impresora.imprimir(datos);
-impresora.apagar();
-</code></pre>
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> impresora <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Impresora</span>();
+impresora<span class="shj-syn-oper">.</span><span class="shj-syn-func">encender</span>();
+impresora<span class="shj-syn-oper">.</span><span class="shj-syn-func">imprimir</span>(datos);
+impresora<span class="shj-syn-oper">.</span><span class="shj-syn-func">apagar</span>();</div></div>
+</code>
 <p>Como se ve, para cumplir la funcionalidad me basta con tres métodos, pero si yo escribo mi clase impresora con solo tres métodos probablemente duplicaría mucho código, por ejemplo, que <code>.imprimir()</code> y <code>.apagar()</code> deban comprobar si hay papel en la impresora.</p>
 <!--more Seguir leyendo → -->
 <h3 id="soluciones">Soluciones</h3>
@@ -115,152 +158,56 @@ impresora.apagar();
 <h4 id="usar-la-convenci-n-de-barra-baja-underscore-_-">Usar la convención de Barra Baja (Underscore, &#39;<code>_</code>&#39;)</h4>
 <p>Una práctica muy común en Javascript es añadir al principio o al final del nombre de la propiedad el símbolo barra baja con lo que la propiedad es pública, pero <strong>por convención las propiedades que empiezan o finalizan con barra baja no deben ser llamadas desde fuera del componente</strong>:</p>
 
-<pre><code class="lang-js">function Impresora() { }
-Impresora.prototype = {
-    encender: function() { ... },
-    apagar: function() { ... },
-    imprimir: function(datos) { ... },
-    _hayPapel: function() { ... }
-};
-</code></pre>
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Impresora</span>() { }
+<span class="shj-syn-class">Impresora</span><span class="shj-syn-oper">.</span>prototype <span class="shj-syn-oper">=</span> {
+    encender<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span>() { <span class="shj-syn-oper">...</span> }<span class="shj-syn-oper">,</span>
+    apagar<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span>() { <span class="shj-syn-oper">...</span> }<span class="shj-syn-oper">,</span>
+    imprimir<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span>(datos) { <span class="shj-syn-oper">...</span> }<span class="shj-syn-oper">,</span>
+    _hayPapel<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span>() { <span class="shj-syn-oper">...</span> }
+};</div></div>
+</code>
 <p>Este es el método más extendido que he visto en Javascript, porque es una solución que <strong>no afecta al tiempo de ejecución del programa</strong>. Javascript simplemente accede a una propiedad pública sin pérdida de rendimiento. Es una buena solución siempre que se respete la convención, de lo contrario estaríamos acoplando componentes. Eso quiere decir que si quiero hacer pública una propiedad tengo que cambiarle el nombre en todos los puntos en que la utilizo? Desgraciadamente si, pero siempre tienes el consuelo de que será dentro de tu propia librería, ya que si cambias una variable de privada a pública no debería haber ningún punto fuera de tu código que accediera a ésa propiedad, y si lo que estás haciendo es cambiarla de pública a privada... bueno, evidentemente hay que refactorizar el código que utilizara tu librería de cualquier forma.</p>
 <h4 id="privacidad-por-constructor">Privacidad por constructor</h4>
 <p>Los closures son un curioso método de privacidad, cuando creamos una función dentro de otra, <strong>la función hija puede acceder a las variables de la función padre, pero no al revés</strong>:</p>
 
-<pre><code class="lang-js">var a = 5;
-
-function() {
-    var b = 6;
-
-    function() {
-        var c = 7;
-        // Desde aquí puedo acceder a &#39;a&#39;, &#39;b&#39; y &#39;c&#39;
-    }
-
-    // Desde aquí puedo acceder a &#39;a&#39; y &#39;b&#39;.
-    // &#39;c&#39; no existe
-}
-
-// Desde aquí solo puedo acceder a &#39;a&#39;.
-// &#39;b&#39; y &#39;c&#39; no existen
-</code></pre>
+<code class="code-block shj-lang-js">LOADING...
+</code>
 <p>Con ésto podemos buscar la privacidad, si analizamos el constructor de la clase <code>Impresora</code> veremos que es una función, igual que las del ejemplo. De alguna forma <strong>podemos crear variables privadas ahí</strong>.</p>
 
-<pre><code class="lang-js">function Impresora() {
-  var a = &#39;Privada!&#39;;
-  console.log(&#39;Accediendo desde dentro:&#39; + a);
-}
-
-var temp = new Impresora();
-console.log(&quot;Intentando acceder desde fuera usando &#39;temp.a&#39;: &quot; + temp.a);
-
-// Esta línea no se ejecuta porque &#39;a&#39; no existe aquí y falla.
-console.log(&quot;Intentando acceder desde fuera usando &#39;a&#39;: &quot; + a);
-</code></pre>
+<code class="code-block shj-lang-js">LOADING...
+</code>
 <p><a href="http://jsfiddle.net/amatiasq/qJnvS/" target="_blank">Pruébame</a></p>
 <p>Funciona! Ahora añadamos los métodos:</p>
 
-<pre><code class="lang-js">function Impresora() {
-  var a = &#39;Privada!&#39;;
-}
-
-Impresora.prototype = {
-  probando: function () {
-    console.log(&quot;Intentando acceder desde un método usando &#39;this.a&#39;: &quot; + this.a);
-
-    // Esta línea no se ejecuta porque &#39;a&#39; no existe aquí y falla.
-    console.log(&quot;Intentando acceder desde un método usando &#39;a&#39;: &quot; + a);
-  },
-};
-
-var temp = new Impresora();
-temp.probando();
-</code></pre>
+<code class="code-block shj-lang-js">LOADING...
+</code>
 <p><a href="http://jsfiddle.net/amatiasq/jQLQf/" target="_blank">Pruébame</a></p>
 <p>Pero no podemos acceder desde los métodos! <strong>Porque no están dentro del closure</strong>, de que nos sirve una variable privada si no podemos acceder a ella desde los métodos públicos? Hay una solución: el closure en el que hemos guardado la variable privada es el constructor del objeto, por lo que podríamos aprovechar el dinamismo de Javascript e injectar los métodos en el objeto dentro del constructor, así los métodos podrían acceder a las variables privadas:</p>
 
-<pre><code class="lang-js">function Impresora() {
-  var a = &#39;Privada!&#39;;
-
-  // This es el objeto que éste constructor está creando
-  this.probando = function () {
-    console.log(&quot;Intentando acceder desde un método usando &#39;this.a&#39;: &quot; + this.a);
-    console.log(&quot;Intentando acceder desde un método usando &#39;a&#39;: &quot; + a);
-  };
-}
-
-var temp = new Impresora();
-temp.probando();
-</code></pre>
+<code class="code-block shj-lang-js">LOADING...
+</code>
 <p><a href="http://jsfiddle.net/amatiasq/gRVqv/" target="_blank">Pruébame</a></p>
 <p>Bien! éste sistema funciona, verdad? No tiene ningún inconveniente? Bueno, tiene uno, pero no es visible a simple vista porque nuestro cerebro y el intérprete de Javascript funcionan de forma distinta. <strong>Para nosotros <code>this.probando = function() { ... }</code> es crear una función y añadirla a todos las instancias de <code>Impresora</code></strong> pero el intérprete no lo ve así, para la máquina Javascript <strong>estamos creando una función por cada método para cada instancia</strong> y tiene sentido, si la primera función <code>probando</code> que creamos accede a la variable privada <code>a</code> de la primera instancia que creamos necesitaremos una función distinta para acceder a la variable privada de la segunda instancia que creemos.</p>
 <p>Eso quiere decir que <strong>si creamos 10.000 instancias de <code>Impresora</code> tendremos 10.000 funciones que hacen casi lo mismo en la memoria? Si.</strong> Con las computadoras actuales es casi despreciable, pero si estamos manejando un proyecto en Javascript que puede estar creando y borrando instancias de la clase durante días (por ejemplo un programa de servidor o una RIA), tendremos un problema a medio plazo.</p>
 <h3 id="privacidad-de-librer-a">Privacidad de librería</h3>
 <p>Ahora tengo que confesar que he hecho trampas, todos los patrones descritos son para hacer privacidad a nivel de clase, pero <strong>hay una forma más sencilla de hacer privada una clase entera, los closures</strong>. Ahora pensarás &quot;pero me acabas de decir que los closures volvían a crear los métodos por cada instancia!&quot; si, cuando el closure es el constructor. <strong>Pero si englobamos toda la clase en un closure podemos tener privacidad a nivel de librería:</strong></p>
 
-<pre><code class="lang-js">// función de ejecución inmediata, se crea, se ejecuta y no se vuelve a utilizar
-// es el closure que guardará la privacidad
-(function (global) {
-  var contador = 0;
-
-  function Impresora() {
-    contador++;
-  }
-
-  // Creamos un método estático
-  Impresora.cantidadDeInstancias = function () {
-    return contador;
-  };
-
-  global.Impresora = Impresora;
-})(this);
-
-var temp = new Impresora();
-var temp2 = new Impresora();
-console.log(Impresora.cantidadDeInstancias());
-</code></pre>
+<code class="code-block shj-lang-js">LOADING...
+</code>
 <p><a href="http://jsfiddle.net/amatiasq/HJzAB/" target="_blank">Pruébame</a></p>
 <p>La variable <code>contador</code> es <strong>privada a nivel de librería</strong>, significa que <strong>todo lo que esté dentro del closure accede a ella</strong> y como podemos ver todo el código dentro del closure accede a la misma variable, lo que significa que todas las instancias de <code>Impresora</code> comparten la misma variable. También podemos usar éste patrón para ocultar clases y funciones, <strong>lo único que será publicado de dentro del closure será lo que guardemos en la variable <code>global</code>.</strong></p>
 
-<pre><code class="lang-js">// función de ejecución inmediata, se crea, se ejecuta y no se vuelve a utilizar
-// es el closure que guardará la privacidad
-(function (global) {
-  function Papel() {}
-  Papel.prototype = {
-    hayPapelEn: function (impresora) {
-      // no hay papel
-      return false;
-    },
-    pedirAlUsuario: function () {
-      console.log(&#39;Oye tu! ponme papel!&#39;);
-    },
-  };
-
-  var papel = new Papel();
-
-  function Impresora() {}
-  Impresora.prototype = {
-    imprimir: function (datos) {
-      if (!papel.hayPapelEn(this)) papel.pedirAlUsuario();
-      // imprimir
-    },
-  };
-
-  global.Impresora = Impresora;
-})(this);
-
-var temp = new Impresora();
-temp.imprimir();
-</code></pre>
+<code class="code-block shj-lang-js">LOADING...
+</code>
 <p><a href="http://jsfiddle.net/amatiasq/vc2ke/" target="_blank">Pruébame</a></p>
 <p>Este es un patrón muy recomendable, ya que mediante una función autoejecutable ocultamos todo lo que el usuario de nuestra librería no necesita conocer. Por poner un ejemplo, <a href="http://nodejs.org/">node.js</a> utiliza un patrón similar para generar librerías, en las que todas las variables que creamos en el archivo .js quedan ocultas y solo se exponen las propiedades que añadimos al objeto global <code>exports</code>. Ejemplo de saludo.js:</p>
 
-<pre><code class="lang-js">var saludo = &#39;Hola!&#39;;
-function saludar() {
-  console.log(saludo);
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> saludo <span class="shj-syn-oper">=</span> <span class="shj-syn-str">'Hola!'</span>;
+<span class="shj-syn-kwd">function</span> <span class="shj-syn-func">saludar</span>() {
+  console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(saludo);
 }
-exports.saludar = saludar;
-</code></pre>
+exports<span class="shj-syn-oper">.</span>saludar <span class="shj-syn-oper">=</span> saludar;</div></div>
+</code>
 <p>Si tuviera que decir un defecto de éste patrón, es que <strong>todo lo que queramos englobar dentro del closure deberá estar en el mismo archivo</strong>, ya que el código debe estar dentro del closure y éste no puede estar repartido entre archivos. Ésto es un problema si queremos que dos clases con mucha lógica se comuniquen y no queremos acabar con un archivo de 1.000 líneas de código.</p>
 <h3 id="resumen">Resumen</h3>
 <p>No voy a opinar si la decisión de hacer todo público al crear Javascript es buena o mala porque en mi opinión <strong>no es que hacer todo público sea malo, sino que no estamos acostrumbrados a utilizarlo</strong>. Por ello, porque la mayoría de los programadores estamos acostumbrado a tener privacidad en los componentes, buscamos entre las opciones que nos da el lenguaje para simularlo.</p>

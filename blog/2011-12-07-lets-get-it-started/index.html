@@ -1,20 +1,16 @@
 <!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Let's get it started!</title><style>
-  /* Box sizing rules */
   *, *::before, *::after {
     box-sizing: border-box;
   }
 
-  /* Remove default padding */
   ul, ol {
     padding: 0;
   }
 
-  /* Remove default margin */
   body, h1, h2, h3, h4, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
     margin: 0;
   }
 
-  /* Set core body defaults */
   body {
     min-height: 100vh;
     scroll-behavior: smooth;
@@ -30,28 +26,23 @@
     padding: revert;
   }
 
-  /* A elements that don&#x27;t have a class get default styles */
   a:not([class]) {
     text-decoration-skip-ink: auto;
   }
 
-  /* Make images easier to work with */
   img {
     max-width: 100%;
     display: block;
   }
 
-  /* Natural flow and rhythm in articles by default */
   article &gt; * + * {
     margin-top: 1em;
   }
 
-  /* Inherit fonts for inputs and buttons */
   input, button, textarea, select {
     font: inherit;
   }
 
-  /* Remove all animations and transitions for people that prefer not to see them */
   @media (prefers-reduced-motion: reduce) {
     * {
       animation-duration: 0.01ms !important;
@@ -83,8 +74,10 @@
     text-align: justify;
   }
 
-  .md pre {
-    white-space: break-spaces;
+  .md .code-block {
+    display: block;
+    width: var(--available-width);
+    padding-bottom: 10px;
   }
 
   svg {
@@ -96,9 +89,12 @@
 .css-17rdaxl{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}@media (min-width: 769px){.css-17rdaxl{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}
 .css-slvbys{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:12px;}.css-slvbys a{color:#EFE751;-webkit-text-decoration:none;text-decoration:none;margin-left:12px;border-bottom:1px solid transparent;}.css-slvbys a.parent{border-bottom:1px solid #586369;}.css-slvbys a:hover{border-bottom:1px solid #EFE751;}
 .css-1avicn7{font-size:24px;-webkit-text-decoration:none;text-decoration:none;color:#FDFBF8;}
-.css-2u52bv{max-width:30rem;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem;}@media (min-width: 769px){.css-2u52bv{max-width:50rem;padding-left:5rem;padding-right:5rem;}}@media (min-width: 1200px){.css-2u52bv{max-width:60rem;padding-left:5rem;padding-right:5rem;}}
+.css-4hnq5z{--container-side-gap:1rem;--container-width:40rem;--container-sides-gap:calc(var(--container-side-gap) * 2);--available-width:min(
+      calc(100vw - var(--container-sides-gap)),
+      calc(var(--container-width) - var(--container-sides-gap))
+    );max-width:var(--container-width);padding-left:var(--container-side-gap);padding-right:var(--container-side-gap);margin-left:auto;margin-right:auto;}@media (min-width: 769px){.css-4hnq5z{--container-width:50rem;--container-side-gap:5rem;}}@media (min-width: 1200px){.css-4hnq5z{--container-width:60rem;}}
 .css-187qu0u{font-family:Montserrat,sans-serif;font-weight:700;font-size:32px;}
-.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-2u52bv"><h2><a href="../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href=".." class="">Blog</a><a href="../../career" class="">Career</a><a href="../../projects" class="">Projects</a><a href="../../es/blog/2011-12-07-lets-get-it-started" class="">🇪🇸</a></nav></div></header><div class="css-1p4f3y5 css-2u52bv"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Let's get it started!</h2><time class="css-bkztrs " dateTime="12/07/2011">Dec 7, 2011</time></div><div class="md"><p>Bueno, ha llegado la hora de dar el siguiente paso como programador: comenzar un blog para que todos puedan criticarme por poner las llaves <code>{</code> a la derecha :D</p>
+.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-4hnq5z"><h2><a href="../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href=".." class="">Blog</a><a href="../../career" class="">Career</a><a href="../../projects" class="">Projects</a><a href="../../es/blog/2011-12-07-lets-get-it-started" class="">🇪🇸</a></nav></div></header><div class="css-1p4f3y5 css-4hnq5z"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Let's get it started!</h2><time class="css-bkztrs " dateTime="12/07/2011">Dec 7, 2011</time></div><div class="md"><p>Bueno, ha llegado la hora de dar el siguiente paso como programador: comenzar un blog para que todos puedan criticarme por poner las llaves <code>{</code> a la derecha :D</p>
 <h3 id="y-este-de-donde-sale-">Y ESTE DE DONDE SALE?</h3>
 <p>Primero lo primero. Mi nombre es Adrián Matías Quezada pero lo de Adrián está de adorno, tengo 22 años hasta la fecha de los cuales los últimos 5 los he pasado trabajando de programador, a nivel aficionado he estado metido en informática desde que tengo memoria para desgracia de mis padres y para beneficio del la tienda de informática local a la cual acudían cada mes para que arreglara mis desastres con la computadora. Por aquellos tiempos Flash era la última tecnología y gracias al código ActionScript embebido en los frames descubrí que podía controlar el flujo de una película .swf. Desde entonces he me ha ido interesando cada vez más la programación hasta que finalmente aprendí superficialmente C++. Pasaron los años y empecé a trabajar por lo que pude empezar en aplicaciones serias con C#.NET, Java, Python, etc... Finalmente me hice freelance y conseguí un puesto en una RIA bastante compleja gracias a la cual descubrí Javascript y sus good parts con el cual llevo dos años trabajando y disfrutando de sus secretos.</p>
 <h3 id="de-que-trata-ste-blog-">DE QUE TRATA ÉSTE BLOG?</h3>

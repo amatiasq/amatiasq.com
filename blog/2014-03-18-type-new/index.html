@@ -1,20 +1,16 @@
 <!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Type.new()</title><style>
-  /* Box sizing rules */
   *, *::before, *::after {
     box-sizing: border-box;
   }
 
-  /* Remove default padding */
   ul, ol {
     padding: 0;
   }
 
-  /* Remove default margin */
   body, h1, h2, h3, h4, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
     margin: 0;
   }
 
-  /* Set core body defaults */
   body {
     min-height: 100vh;
     scroll-behavior: smooth;
@@ -30,28 +26,23 @@
     padding: revert;
   }
 
-  /* A elements that don&#x27;t have a class get default styles */
   a:not([class]) {
     text-decoration-skip-ink: auto;
   }
 
-  /* Make images easier to work with */
   img {
     max-width: 100%;
     display: block;
   }
 
-  /* Natural flow and rhythm in articles by default */
   article &gt; * + * {
     margin-top: 1em;
   }
 
-  /* Inherit fonts for inputs and buttons */
   input, button, textarea, select {
     font: inherit;
   }
 
-  /* Remove all animations and transitions for people that prefer not to see them */
   @media (prefers-reduced-motion: reduce) {
     * {
       animation-duration: 0.01ms !important;
@@ -83,56 +74,108 @@
     text-align: justify;
   }
 
-  .md pre {
-    white-space: break-spaces;
+  .md .code-block {
+    display: block;
+    width: var(--available-width);
+    padding-bottom: 10px;
   }
 
   svg {
     fill: #FDFBF8;
   }
-</style><style>.css-zi0qjt{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;}
+</style><style>
+    [class*=shj-lang-]{white-space:pre;margin:10px 0;border-radius:10px;padding:30px 20px;background:white;color:#112;box-shadow:0 0 5px #0001;text-shadow:none;font: 18px Consolas,Courier New,Monaco,Andale Mono,Ubuntu Mono,monospace;line-height:24px;box-sizing:border-box;max-width:min(100%,100vw)}
+    .shj-inline{margin:0;padding:2px 5px;display:inline-block;border-radius:5px}
+    [class*=shj-lang-]::selection,
+    [class*=shj-lang-] ::selection{background:#bdf5}
+    [class*=shj-lang-]>div{display:flex;overflow:auto}
+    [class*=shj-lang-]>div :last-child{flex:1;outline:none}
+    .shj-numbers{padding-left:5px;counter-reset:line}
+    .shj-numbers div{padding-right:5px}
+    .shj-numbers div:before{color:#999;display:block;content:counter(line);opacity:.5;text-align:right;margin-right:5px;counter-increment:line}
+    .shj-syn-cmnt{font-style:italic}
+    .shj-syn-err,
+    .shj-syn-kwd{color:#e16}
+    .shj-syn-num,
+    .shj-syn-class{color:#f60}
+    .shj-numbers,
+    .shj-syn-cmnt{color:#999}
+    .shj-syn-insert,
+    .shj-syn-str{color:#7d8}
+    .shj-syn-bool{color:#3bf}
+    .shj-syn-type,
+    .shj-syn-oper{color:#5af}
+    .shj-syn-section,
+    .shj-syn-func{color:#84f}
+    .shj-syn-deleted,
+    .shj-syn-var{color:#f44}
+    .shj-oneline{padding:12px 10px}
+    .shj-lang-http.shj-oneline .shj-syn-kwd{background:#25f;color:#fff;padding:5px 7px;border-radius:5px}
+    .shj-multiline.shj-mode-header{padding:20px}
+    .shj-multiline.shj-mode-header:before{content:attr(data-lang);color:#58f;display:block;padding:10px 20px;background:#58f3;border-radius:5px;margin-bottom:20px}
+    [class*=shj-lang-]{color:#abb2bf;background:#161b22}
+    [class*=shj-lang-]:before{color:#6f9aff}
+    .shj-syn-deleted,
+    .shj-syn-err,
+    .shj-syn-var{color:#e06c75}
+    .shj-syn-section,
+    .shj-syn-oper,
+    .shj-syn-kwd{color:#c678dd}
+    .shj-syn-class{color:#e5c07b}
+    .shj-numbers,
+    .shj-syn-cmnt{color:#76839a}
+    .shj-syn-insert{color:#98c379}
+    .shj-syn-type{color:#56b6c2}
+    .shj-syn-num,
+    .shj-syn-bool{color:#d19a66}
+    .shj-syn-str,
+    .shj-syn-func{color:#61afef}
+    </style><style>.css-zi0qjt{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;}
 .css-1p4f3y5{display:grid;padding-top:20px;gap:12px;}
 .css-2nd93p{padding:20px 0;margin-bottom:20px;background-color:#1B2225;color:#FDFBF8;border-bottom:2px solid #586369;}@media (min-width: 769px){.css-2nd93p{position:-webkit-sticky;position:sticky;top:0;z-index:1;}}
 .css-17rdaxl{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}@media (min-width: 769px){.css-17rdaxl{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}
 .css-slvbys{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:12px;}.css-slvbys a{color:#EFE751;-webkit-text-decoration:none;text-decoration:none;margin-left:12px;border-bottom:1px solid transparent;}.css-slvbys a.parent{border-bottom:1px solid #586369;}.css-slvbys a:hover{border-bottom:1px solid #EFE751;}
 .css-1avicn7{font-size:24px;-webkit-text-decoration:none;text-decoration:none;color:#FDFBF8;}
-.css-2u52bv{max-width:30rem;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem;}@media (min-width: 769px){.css-2u52bv{max-width:50rem;padding-left:5rem;padding-right:5rem;}}@media (min-width: 1200px){.css-2u52bv{max-width:60rem;padding-left:5rem;padding-right:5rem;}}
+.css-4hnq5z{--container-side-gap:1rem;--container-width:40rem;--container-sides-gap:calc(var(--container-side-gap) * 2);--available-width:min(
+      calc(100vw - var(--container-sides-gap)),
+      calc(var(--container-width) - var(--container-sides-gap))
+    );max-width:var(--container-width);padding-left:var(--container-side-gap);padding-right:var(--container-side-gap);margin-left:auto;margin-right:auto;}@media (min-width: 769px){.css-4hnq5z{--container-width:50rem;--container-side-gap:5rem;}}@media (min-width: 1200px){.css-4hnq5z{--container-width:60rem;}}
 .css-187qu0u{font-family:Montserrat,sans-serif;font-weight:700;font-size:32px;}
-.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-2u52bv"><h2><a href="../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href=".." class="">Blog</a><a href="../../career" class="">Career</a><a href="../../projects" class="">Projects</a><a href="../../es/blog/2014-03-18-type-new" class="">🇪🇸</a></nav></div></header><div class="css-1p4f3y5 css-2u52bv"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Type.new()</h2><time class="css-bkztrs " dateTime="03/18/2014">Mar 18, 2014</time></div><div class="md"><blockquote>
+.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-4hnq5z"><h2><a href="../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href=".." class="">Blog</a><a href="../../career" class="">Career</a><a href="../../projects" class="">Projects</a><a href="../../es/blog/2014-03-18-type-new" class="">🇪🇸</a></nav></div></header><div class="css-1p4f3y5 css-4hnq5z"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Type.new()</h2><time class="css-bkztrs " dateTime="03/18/2014">Mar 18, 2014</time></div><div class="md"><blockquote>
 <p>NOTA: Este artículo está centrado en un tema que ya comenté en <a href="http://blog.amatiasq.com/2014/03/construccion-de-objetos/">el post anterior</a>, pero de una forma más organizada y centrada, algunos fragmentos están extraídos del post anterior para mayor claridad.</p>
 </blockquote>
 <h2 id="constructores-en-javascript">Constructores en Javascript</h2>
 <p>He hablado antes de la limitación de los constructores javascript y sobre todo de la complejidad de extenderlos</p>
 
-<pre><code class="lang-js">function Person(name) {
-  this.name = name;
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Person</span>(name) {
+  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>name <span class="shj-syn-oper">=</span> name;
 }
-Person.prototype.methodA = function() { ... };
+<span class="shj-syn-class">Person</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">methodA</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span>() { <span class="shj-syn-oper">...</span> };
 
-function Employee(name, position) {
-  Person.call(this, name);
-  this.position = position;
+<span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Employee</span>(name<span class="shj-syn-oper">,</span> position) {
+  <span class="shj-syn-class">Person</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">call</span>(<span class="shj-syn-kwd">this</span><span class="shj-syn-oper">,</span> name);
+  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>position <span class="shj-syn-oper">=</span> position;
 }
-Employee.prototype = Object.create(Person.prototype);
-Employee.prototype.methodB = function() { ... };
-</code></pre>
+<span class="shj-syn-class">Employee</span><span class="shj-syn-oper">.</span>prototype <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-class">Person</span><span class="shj-syn-oper">.</span>prototype);
+<span class="shj-syn-class">Employee</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">methodB</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span>() { <span class="shj-syn-oper">...</span> };</div></div>
+</code>
 <p>Esto es un asunto que trae de cabeza a la mayoría de la gente que programa javascript, la dificiltad que conlleva crear una simple &quot;clase&quot; hasta el punto que en la siguiente versión del ECMAScript (el estándar en el que está basado Javascript) han incluído una forma más sencilla de hacer lo mismo: la palabra clave <code>class</code></p>
 
-<pre><code class="lang-js">class Person {
-  constructor(name) {
-    this.name = name;
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">class</span> <span class="shj-syn-class">Person</span> {
+  <span class="shj-syn-kwd">constructor</span>(name) {
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>name <span class="shj-syn-oper">=</span> name;
   }
-  methodA() {}
+  <span class="shj-syn-func">methodA</span>() {}
 }
 
-class Employee extends Person {
-  constructor(name, position) {
-    super(name);
-    this.position = position;
+<span class="shj-syn-kwd">class</span> <span class="shj-syn-class">Employee</span> <span class="shj-syn-kwd">extends</span> <span class="shj-syn-class">Person</span> {
+  <span class="shj-syn-kwd">constructor</span>(name<span class="shj-syn-oper">,</span> position) {
+    <span class="shj-syn-kwd">super</span>(name);
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>position <span class="shj-syn-oper">=</span> position;
   }
-  methodB() {}
-}
-</code></pre>
+  <span class="shj-syn-func">methodB</span>() {}
+}</div></div>
+</code>
 <p><a target="_blank" href="http://www.es6fiddle.net/hsq7hzw6/">Pruébame</a></p>
 <p>Aunque he visto a mucha gente emocionada pensando que ECMAScript 6 traerá clases reales tengo que decir que este código no hace ni más ni menos que lo que hace el primer código. Y es muy importante saberlo porque aunque prezcan classes como las de Java o C++, en este caso siguen siendo objetos usando <a href="http://blog.amatiasq.com/2012/01/javascript-conceptos-basicos-herencia-por-prototipos/">herencia por prototipos</a> y esconderlo solo servirá para no saber porqué el código no funciona como esperamos.</p>
 <p>En cualquier caso vemos que definir tipos en javascript es complicado y la solución propuesta por el equipo de ECMA no es, en mi opinión, la más adecuada.</p>
@@ -149,83 +192,83 @@ class Employee extends Person {
 <p>Javascript en sus inicios se llamó LiveScript, cuenta la leyenda que por aquella época Java estaba teniendo mucho éxito y por marketing se decidió llamar al nuevo lenguaje JavaScript. También cuenta que por el mismo motivo a última hora se decidió modificar el lenguaje para parecerse más a Java añadiendo, entre otras funcionalidades, el operador <code>new</code> para que pareciera tener clases.</p>
 <p>Hay algo muy curioso en los constructores Javascript, que en el fondo son simples funciones, y es que todas las funciones javascript tienen la propiedad <code>prototype</code> que por defecto trae un objeto que solo tiene una propiedad, la propiedad <code>constructor</code> que es el propio constructor.</p>
 
-<pre><code class="lang-js">function Testing() {}
-console.log(Testing.prototype.constructor === Testing);
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Testing</span>() {}
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-class">Testing</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span> <span class="shj-syn-oper">===</span> <span class="shj-syn-class">Testing</span>);
 
-var proto = Testing.prototype;
-console.log(proto.constructor.prototype === proto);
-</code></pre>
+<span class="shj-syn-kwd">var</span> proto <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Testing</span><span class="shj-syn-oper">.</span>prototype;
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(proto<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">.</span>prototype <span class="shj-syn-oper">===</span> proto);</div></div>
+</code>
 <h2 id="constructores-vs-objetos-prototipo">Constructores vs objetos prototipo</h2>
 <p>Esto me hace pensar que quizás la intención original de los objetos en javascript no era tener constructores que contienen prototipos sino tener prototipos que contienen constructores. Es decir: en lugar de...</p>
 
-<pre><code class="lang-js">function MyType() {
-  this.id = 1;
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">MyType</span>() {
+  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>id <span class="shj-syn-oper">=</span> <span class="shj-syn-num">1</span>;
 }
-MyType.prototype.methodA = function() { ... }
-</code></pre>
+<span class="shj-syn-class">MyType</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">methodA</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span>() { <span class="shj-syn-oper">...</span> }</div></div>
+</code>
 <p>Hacer esto...</p>
 
-<pre><code class="lang-js">var MyType = {
-  constructor: function() {
-    this.id = 1;
-  },
-  methodA: function() { ... },
-};
-</code></pre>
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">MyType</span> <span class="shj-syn-oper">=</span> {
+  <span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span>() {
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>id <span class="shj-syn-oper">=</span> <span class="shj-syn-num">1</span>;
+  }<span class="shj-syn-oper">,</span>
+  methodA<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span>() { <span class="shj-syn-oper">...</span> }<span class="shj-syn-oper">,</span>
+};</div></div>
+</code>
 <p>Vaya! No parece una forma mucho más sencilla de declarar tipos? [Aquí][5] podemos comparar el mismo tipo escrito con constructores y con este paradigma y juzguen ustedes mismos. Y que pasa cuando intentamos invocar al constructor? hay que usar <code>.call()</code> o <code>.apply()</code> para pasarle this?</p>
 
-<pre><code class="lang-js">var instancia = Object.create(MyType);
-instancia.constructor();
-</code></pre>
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> instancia <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-class">MyType</span>);
+instancia<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span>();</div></div>
+</code>
 <p>BOOM! Constructor ya recibe this porque es invocado directamente en la instancia! No es exageradamente sencillo y lógico desde éste punto de vista?</p>
 <p>Además por accidente hemos quitado de en medio la función constructora y lo que tenemos es un simple objeto, el elemento más básico de la programación orientada a objetos. Es decir, para declarar un tipo solo tenemos que crear un objeto, para prototipar un objeto solo necesitamos un paso</p>
 
-<pre><code class="lang-js">var SubType = Object.create(MyType);
-</code></pre>
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div></div><div><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">SubType</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-class">MyType</span>);</div></div>
+</code>
 <p>No estamos obligados, a diferenia del primer caso, a crear un nuevo constructor para crear un subtipo, por la herencia por prototipos tenemos el mismo constructor que <code>MyType</code></p>
 
-<pre><code class="lang-js">console.log(SubType.constructor === MyType.constructor);
-// true
-</code></pre>
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div></div><div>console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-class">SubType</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span> <span class="shj-syn-oper">===</span> <span class="shj-syn-class">MyType</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span>);
+<span class="shj-syn-cmnt">// true</span></div></div>
+</code>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/VRKYv/">Pruébame</a></p>
 <p>Y la mejor parte, que pasa si queremos crear un tipo sin constructor? No hay problema.</p>
 
-<pre><code class="lang-js">var MyType = {};
-console.log(MyType.constructor); // Object
-</code></pre>
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">MyType</span> <span class="shj-syn-oper">=</span> {};
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-class">MyType</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span>); <span class="shj-syn-cmnt">// Object</span></div></div>
+</code>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/yGJLL/">Pruébame</a></p>
 <h2 id="ecmascript-6">ECMAScript 6</h2>
 <p>Este paradigma se parece bastante a la forma de crear clases en ECMAScript 6</p>
 
-<pre><code class="lang-js">class MyType {
-  constructor() {
-    this.id = 1;
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">class</span> <span class="shj-syn-class">MyType</span> {
+  <span class="shj-syn-kwd">constructor</span>() {
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>id <span class="shj-syn-oper">=</span> <span class="shj-syn-num">1</span>;
   }
-  methodA() { ... }
-}
-</code></pre>
+  <span class="shj-syn-func">methodA</span>() { <span class="shj-syn-oper">...</span> }
+}</div></div>
+</code>
 <p>Que alguno dirá, si, pero con las clases de ECMAScript 6 podemos extender clases, llamar al método padre con <code>super</code> y nos ahorramos poner <code>function</code>... Pero esas no son funcionalidades de las clases de ECMAScript 6, esas son funcionalidades <a href="https://github.com/lukehoban/es6features#enhanced-object-literals">de todos los objetos</a> en ECMAScript 6.</p>
 
-<pre><code class="lang-js">// Clase ECMAScript 6
-class Employee extends Person {
-  constructor(name, postition) {
-    super(name);
-    this.position = postition;
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">// Clase ECMAScript 6
+</span><span class="shj-syn-kwd">class</span> <span class="shj-syn-class">Employee</span> <span class="shj-syn-kwd">extends</span> <span class="shj-syn-class">Person</span> {
+  <span class="shj-syn-kwd">constructor</span>(name<span class="shj-syn-oper">,</span> postition) {
+    <span class="shj-syn-kwd">super</span>(name);
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>position <span class="shj-syn-oper">=</span> postition;
   }
-  methodA() { ... }
+  <span class="shj-syn-func">methodA</span>() { <span class="shj-syn-oper">...</span> }
 }
 
-// Objeto en ECMAScript 6 estándar
-var Employee = {
-  __proto__: Person,
+<span class="shj-syn-cmnt">// Objeto en ECMAScript 6 estándar
+</span><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">Employee</span> <span class="shj-syn-oper">=</span> {
+  __proto__<span class="shj-syn-oper">:</span> <span class="shj-syn-class">Person</span><span class="shj-syn-oper">,</span>
 
-  constructor() {
-    super(name)
-    this.id = 1;
-  },
-  methodA() { ... }
-};
-</code></pre>
+  <span class="shj-syn-kwd">constructor</span>() {
+    <span class="shj-syn-kwd">super</span>(name)
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>id <span class="shj-syn-oper">=</span> <span class="shj-syn-num">1</span>;
+  }<span class="shj-syn-oper">,</span>
+  <span class="shj-syn-func">methodA</span>() { <span class="shj-syn-oper">...</span> }
+};</div></div>
+</code>
 <p>Las diferencias entre una clase ECMAScript 6 y un objeto en ECMAScript 6 son mínimas, pero mientras que una clase nos hace pensar que <code>Employee</code> se comportará como una clase Java cuando no es así, un objeto es simplemente eso, un objeto y todos somos capaces de entender como se comporta un objeto, no? (si no que haces leyendo esto? o.o)</p>
 <p>Pero dejemos ECMAScript 6 de lado por ahora, que aún tiene que transcurrir tiempo antes de que podamos usarlo en serio.</p>
 <h2 id="instanciaci-n">Instanciación</h2>
@@ -235,82 +278,82 @@ var Employee = {
 </blockquote>
 <p>Pero, al menos a mi, no importa mucho la palabra; el tema es que nosotros creamos objetos para que hagan de prototipos y queremos crear &quot;instancias&quot; de estos prototipos. La forma de prototipar un objeto es usando <code>Object.create()</code></p>
 
-<pre><code class="lang-js">var instance = Object.create(MyType);
-</code></pre>
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div></div><div><span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-class">MyType</span>);</div></div>
+</code>
 <p>Pero, un momento... Esto es exactamente lo mismo que hicimos para crear un subtipo, no? Si. Entonces en que se diferencia una instancia de un subtipo? En general, nada. <strong>Una instancia ES un subtipo</strong>. Pero en la mayoría de los casos las &quot;instancias&quot; tienen una necesidad que los subtipos no tienen: en una instancia se invoca al constructor, en un subtipo no.</p>
 
-<pre><code class="lang-js">var MyType = {
-  constructor: function () {
-    this.id = 1;
-  },
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">MyType</span> <span class="shj-syn-oper">=</span> {
+  <span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>id <span class="shj-syn-oper">=</span> <span class="shj-syn-num">1</span>;
+  }<span class="shj-syn-oper">,</span>
 };
 
-// Crear sub-tipo
-var SubType = Object.create(MyType);
+<span class="shj-syn-cmnt">// Crear sub-tipo
+</span><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">SubType</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-class">MyType</span>);
 
-// Crear instancia
-var instance = Object.create(MyType);
-instance.constructor();
-</code></pre>
+<span class="shj-syn-cmnt">// Crear instancia
+</span><span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-class">MyType</span>);
+instance<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span>();</div></div>
+</code>
 <p>Esta similitud entre una instancia y un SubTipo nos ayuda a entender hasta que punto en el fondo Javascript es muy, muy sencillo: todo son objetos; no hay diferencia entre un tipo y una instancia porque la diferencia es conceptual.</p>
 <p>Esto es muy útil para entender la sencillez y el corazón de Javascript, pero es un poco tedioso tener que hacer dos pasos para instanciar, podríamos simplificarlo?</p>
 <h2 id="-type-new-es-el-nuevo-new-"><code>Type.new()</code> es el nuevo <code>new</code></h2>
 <p>Lo cierto es que podríamos, podemos hacer una función que haga este proceso:</p>
 
-<pre><code class="lang-js">function createInstance(Type) {
-  var instance = Object.create(Type);
-  instance.constructor();
-  return instance;
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">createInstance</span>(<span class="shj-syn-class">Type</span>) {
+  <span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-class">Type</span>);
+  instance<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span>();
+  <span class="shj-syn-kwd">return</span> instance;
 }
 
-var Type = {
-  constructor: function () {
-    this.id = 1;
-  },
+<span class="shj-syn-kwd">var</span> <span class="shj-syn-class">Type</span> <span class="shj-syn-oper">=</span> {
+  <span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>id <span class="shj-syn-oper">=</span> <span class="shj-syn-num">1</span>;
+  }<span class="shj-syn-oper">,</span>
 };
 
-var instance1 = createInstance(Type);
+<span class="shj-syn-kwd">var</span> instance1 <span class="shj-syn-oper">=</span> <span class="shj-syn-func">createInstance</span>(<span class="shj-syn-class">Type</span>);
 
-var TypeWithoutConstructor = {};
-var instance2 = createInstance(TypeWithoutConstructor);
-</code></pre>
+<span class="shj-syn-kwd">var</span> <span class="shj-syn-class">TypeWithoutConstructor</span> <span class="shj-syn-oper">=</span> {};
+<span class="shj-syn-kwd">var</span> instance2 <span class="shj-syn-oper">=</span> <span class="shj-syn-func">createInstance</span>(<span class="shj-syn-class">TypeWithoutConstructor</span>);</div></div>
+</code>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/Jry2Z/">Pruébame</a></p>
 <p>Y que pasa si en lugar de llamarla <code>createInstance</code> la llamamos <code>$new</code> por ejemplo?</p>
 
-<pre><code class="lang-js">var instance = $new(MyType);
-</code></pre>
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div></div><div><span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> <span class="shj-syn-func">$new</span>(<span class="shj-syn-class">MyType</span>);</div></div>
+</code>
 <p>Empieza a parecer similar, solo nos faltaría cambiar la funcion <code>$new</code> para pasarle parámetros al constructor</p>
 
-<pre><code class="lang-js">function $new(Type, params) {
-  var instance = Object.create(Type);
-  instance.constructor.apply(instance, params);
-  return instance;
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">$new</span>(<span class="shj-syn-class">Type</span><span class="shj-syn-oper">,</span> params) {
+  <span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-class">Type</span>);
+  instance<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">apply</span>(instance<span class="shj-syn-oper">,</span> params);
+  <span class="shj-syn-kwd">return</span> instance;
 }
 
-var Type = {
-  constructor: function (name) {
-    this.name = name;
-  },
+<span class="shj-syn-kwd">var</span> <span class="shj-syn-class">Type</span> <span class="shj-syn-oper">=</span> {
+  <span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (name) {
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>name <span class="shj-syn-oper">=</span> name;
+  }<span class="shj-syn-oper">,</span>
 };
 
-var instance = $new(Type, [&#39;bob&#39;]);
-</code></pre>
+<span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> <span class="shj-syn-func">$new</span>(<span class="shj-syn-class">Type</span><span class="shj-syn-oper">,</span> [<span class="shj-syn-str">'bob'</span>]);</div></div>
+</code>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/t8QCk/">Pruébame</a></p>
 <p>Parece funcionar, pero solo para acabar de pulirlo, porqué no ponemos $new como método de Type? así podríamos pasarle los argumentos sin el array y como ECMAScript 5 nos permite usar palabras clave como propiedades de objeto podemos llamarlo simplemente <code>new</code>.</p>
 
-<pre><code class="lang-js">var Type = {
-  new: function () {
-    var instance = Object.create(this);
-    instance.constructor.apply(instance, arguments);
-    return instance;
-  },
-  constructor: function (name) {
-    this.name = name;
-  },
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">Type</span> <span class="shj-syn-oper">=</span> {
+  <span class="shj-syn-kwd">new</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+    <span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-kwd">this</span>);
+    instance<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">apply</span>(instance<span class="shj-syn-oper">,</span> arguments);
+    <span class="shj-syn-kwd">return</span> instance;
+  }<span class="shj-syn-oper">,</span>
+  <span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (name) {
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>name <span class="shj-syn-oper">=</span> name;
+  }<span class="shj-syn-oper">,</span>
 };
 
-var instance = Type.new(&#39;bob&#39;);
-</code></pre>
+<span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Type</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>(<span class="shj-syn-str">'bob'</span>);</div></div>
+</code>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/x3qM4/">Pruébame</a></p>
 <p>Y tenemos una forma que podemos usar con ECMAScript 5 para crear tipos e instancias de forma sencilla. Pero que diferencia hay entre esto y hacer un <code>new</code>? A parte de la ya mencionada simplicidad para crear y extender tipos, tiene más ventajas, principalmente porque nos permite controlar más exactamente <strong>cómo</strong> se crea un objeto que en algunos casos es conveniente cambiarlo (en la mayoría no), pero excede el alcance de éste post.</p>
 <h2 id="conclusi-n">Conclusión</h2>
@@ -318,51 +361,51 @@ var instance = Type.new(&#39;bob&#39;);
 <p>Aún está por verse pero creo que este sistema incluso puede competir cara a cara con las &quot;clases&quot; de ECMAScript 6, pero en cualquier caso la conversión entre un tipo creado por constructor y uno creado con este sistema es muy sencilla</p>
 <p>Por ejemplo, convertir un tipo creado con este sistema a constructor para usarlo con <code>new</code>:</p>
 
-<pre><code class="lang-js">var MyType = {
-  myMethod: function() { ... },
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">MyType</span> <span class="shj-syn-oper">=</span> {
+  myMethod<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span>() { <span class="shj-syn-oper">...</span> }<span class="shj-syn-oper">,</span>
 };
 
-function MyConstructor() {
-  MyType.constructor.apply(this, arguments);
+<span class="shj-syn-kwd">function</span> <span class="shj-syn-class">MyConstructor</span>() {
+  <span class="shj-syn-class">MyType</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">apply</span>(<span class="shj-syn-kwd">this</span><span class="shj-syn-oper">,</span> arguments);
 }
-MyConstructor.prototype = MyType;
-</code></pre>
+<span class="shj-syn-class">MyConstructor</span><span class="shj-syn-oper">.</span>prototype <span class="shj-syn-oper">=</span> <span class="shj-syn-class">MyType</span>;</div></div>
+</code>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/tGD7G/">Pruébame</a></p>
 <p>O convertir un constructor a este paradigma:</p>
 
-<pre><code class="lang-js">function MyConstructor() {
-  this.value = 1;
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">MyConstructor</span>() {
+  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>value <span class="shj-syn-oper">=</span> <span class="shj-syn-num">1</span>;
 }
-MyConstructor.prototype.myMethod = function() { ... };
+<span class="shj-syn-class">MyConstructor</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">myMethod</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span>() { <span class="shj-syn-oper">...</span> };
 
-var MyType = MyConstructor.prototype;
-// y si queres añadir new...
-MyType.new = $new;
-</code></pre>
+<span class="shj-syn-kwd">var</span> <span class="shj-syn-class">MyType</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-class">MyConstructor</span><span class="shj-syn-oper">.</span>prototype;
+<span class="shj-syn-cmnt">// y si queres añadir new...
+</span><span class="shj-syn-class">MyType</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span> <span class="shj-syn-oper">=</span> $<span class="shj-syn-kwd">new</span>;</div></div>
+</code>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/5R4z2/">Pruébame</a></p>
 <h2 id="inicializador">Inicializador</h2>
 <p>Para finalizar un bonus, después de toda esta travesía me he dado cuenta que el constructor, que para javascript parece tan importante, no lo es tanto. Si nos paramos a mirar el constructor vemos que es una simple función</p>
 
-<pre><code class="lang-js">function MyType() { ... }
-</code></pre>
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">MyType</span>() { <span class="shj-syn-oper">...</span> }</div></div>
+</code>
 <p>No tiene nada de especial, incluso podemos invocarla como una función y no construye nada. Entonces quién construye? <code>new</code>. Es el operador <code>new</code> el que crea el nuevo objeto y luego invoca el método llamado &quot;constructor&quot;, que no se diferencia en nada de cualquier otro método que podría tener el objeto.</p>
 <p>Por como yo lo veo, la función del constructor es más inicializar que construir, debe encargarse de inicializar las propiedades del objeto, no construir. Visto así es evidente que el nombre &quot;constructor&quot; no es apropiado, en mi caso prefiero la denominación &quot;initializer&quot; o simplemente &quot;init&quot;, como Backbone ya hace en sus objetos.</p>
 <p>Por eso en mis proyectos cuando utilizo este paradigma, prefiero que mi función <code>$new</code> invoque el método <code>init</code> en lugar de llamar al método <code>constructor</code>.</p>
 
-<pre><code class="lang-js">function $new() {
-  var obj = Object.create(this);
-  obj.init.apply(obj, arguments);
-  return obj;
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">$new</span>() {
+  <span class="shj-syn-kwd">var</span> obj <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-kwd">this</span>);
+  obj<span class="shj-syn-oper">.</span>init<span class="shj-syn-oper">.</span><span class="shj-syn-func">apply</span>(obj<span class="shj-syn-oper">,</span> arguments);
+  <span class="shj-syn-kwd">return</span> obj;
 }
 
-var MyType = {
-  new: $new,
-  init: function () {
-    this.value = 1;
-  },
+<span class="shj-syn-kwd">var</span> <span class="shj-syn-class">MyType</span> <span class="shj-syn-oper">=</span> {
+  <span class="shj-syn-kwd">new</span><span class="shj-syn-oper">:</span> $<span class="shj-syn-kwd">new</span><span class="shj-syn-oper">,</span>
+  init<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>value <span class="shj-syn-oper">=</span> <span class="shj-syn-num">1</span>;
+  }<span class="shj-syn-oper">,</span>
 };
 
-var instance = MyType.new();
-</code></pre>
+<span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> <span class="shj-syn-class">MyType</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>();</div></div>
+</code>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/7h7Te/">Pruébame</a></p>
 </div></div></body></html>

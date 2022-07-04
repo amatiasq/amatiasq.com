@@ -1,20 +1,16 @@
 <!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Conceptos Básicos Javascript: this, .call() y .apply()</title><style>
-  /* Box sizing rules */
   *, *::before, *::after {
     box-sizing: border-box;
   }
 
-  /* Remove default padding */
   ul, ol {
     padding: 0;
   }
 
-  /* Remove default margin */
   body, h1, h2, h3, h4, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
     margin: 0;
   }
 
-  /* Set core body defaults */
   body {
     min-height: 100vh;
     scroll-behavior: smooth;
@@ -30,28 +26,23 @@
     padding: revert;
   }
 
-  /* A elements that don&#x27;t have a class get default styles */
   a:not([class]) {
     text-decoration-skip-ink: auto;
   }
 
-  /* Make images easier to work with */
   img {
     max-width: 100%;
     display: block;
   }
 
-  /* Natural flow and rhythm in articles by default */
   article &gt; * + * {
     margin-top: 1em;
   }
 
-  /* Inherit fonts for inputs and buttons */
   input, button, textarea, select {
     font: inherit;
   }
 
-  /* Remove all animations and transitions for people that prefer not to see them */
   @media (prefers-reduced-motion: reduce) {
     * {
       animation-duration: 0.01ms !important;
@@ -83,56 +74,104 @@
     text-align: justify;
   }
 
-  .md pre {
-    white-space: break-spaces;
+  .md .code-block {
+    display: block;
+    width: var(--available-width);
+    padding-bottom: 10px;
   }
 
   svg {
     fill: #FDFBF8;
   }
-</style><style>.css-zi0qjt{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;}
+</style><style>
+    [class*=shj-lang-]{white-space:pre;margin:10px 0;border-radius:10px;padding:30px 20px;background:white;color:#112;box-shadow:0 0 5px #0001;text-shadow:none;font: 18px Consolas,Courier New,Monaco,Andale Mono,Ubuntu Mono,monospace;line-height:24px;box-sizing:border-box;max-width:min(100%,100vw)}
+    .shj-inline{margin:0;padding:2px 5px;display:inline-block;border-radius:5px}
+    [class*=shj-lang-]::selection,
+    [class*=shj-lang-] ::selection{background:#bdf5}
+    [class*=shj-lang-]>div{display:flex;overflow:auto}
+    [class*=shj-lang-]>div :last-child{flex:1;outline:none}
+    .shj-numbers{padding-left:5px;counter-reset:line}
+    .shj-numbers div{padding-right:5px}
+    .shj-numbers div:before{color:#999;display:block;content:counter(line);opacity:.5;text-align:right;margin-right:5px;counter-increment:line}
+    .shj-syn-cmnt{font-style:italic}
+    .shj-syn-err,
+    .shj-syn-kwd{color:#e16}
+    .shj-syn-num,
+    .shj-syn-class{color:#f60}
+    .shj-numbers,
+    .shj-syn-cmnt{color:#999}
+    .shj-syn-insert,
+    .shj-syn-str{color:#7d8}
+    .shj-syn-bool{color:#3bf}
+    .shj-syn-type,
+    .shj-syn-oper{color:#5af}
+    .shj-syn-section,
+    .shj-syn-func{color:#84f}
+    .shj-syn-deleted,
+    .shj-syn-var{color:#f44}
+    .shj-oneline{padding:12px 10px}
+    .shj-lang-http.shj-oneline .shj-syn-kwd{background:#25f;color:#fff;padding:5px 7px;border-radius:5px}
+    .shj-multiline.shj-mode-header{padding:20px}
+    .shj-multiline.shj-mode-header:before{content:attr(data-lang);color:#58f;display:block;padding:10px 20px;background:#58f3;border-radius:5px;margin-bottom:20px}
+    [class*=shj-lang-]{color:#abb2bf;background:#161b22}
+    [class*=shj-lang-]:before{color:#6f9aff}
+    .shj-syn-deleted,
+    .shj-syn-err,
+    .shj-syn-var{color:#e06c75}
+    .shj-syn-section,
+    .shj-syn-oper,
+    .shj-syn-kwd{color:#c678dd}
+    .shj-syn-class{color:#e5c07b}
+    .shj-numbers,
+    .shj-syn-cmnt{color:#76839a}
+    .shj-syn-insert{color:#98c379}
+    .shj-syn-type{color:#56b6c2}
+    .shj-syn-num,
+    .shj-syn-bool{color:#d19a66}
+    .shj-syn-str,
+    .shj-syn-func{color:#61afef}
+    </style><style>.css-zi0qjt{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;}
 .css-1p4f3y5{display:grid;padding-top:20px;gap:12px;}
 .css-2nd93p{padding:20px 0;margin-bottom:20px;background-color:#1B2225;color:#FDFBF8;border-bottom:2px solid #586369;}@media (min-width: 769px){.css-2nd93p{position:-webkit-sticky;position:sticky;top:0;z-index:1;}}
 .css-17rdaxl{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}@media (min-width: 769px){.css-17rdaxl{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}
 .css-slvbys{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:12px;}.css-slvbys a{color:#EFE751;-webkit-text-decoration:none;text-decoration:none;margin-left:12px;border-bottom:1px solid transparent;}.css-slvbys a.parent{border-bottom:1px solid #586369;}.css-slvbys a:hover{border-bottom:1px solid #EFE751;}
 .css-1avicn7{font-size:24px;-webkit-text-decoration:none;text-decoration:none;color:#FDFBF8;}
-.css-2u52bv{max-width:30rem;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem;}@media (min-width: 769px){.css-2u52bv{max-width:50rem;padding-left:5rem;padding-right:5rem;}}@media (min-width: 1200px){.css-2u52bv{max-width:60rem;padding-left:5rem;padding-right:5rem;}}
+.css-4hnq5z{--container-side-gap:1rem;--container-width:40rem;--container-sides-gap:calc(var(--container-side-gap) * 2);--available-width:min(
+      calc(100vw - var(--container-sides-gap)),
+      calc(var(--container-width) - var(--container-sides-gap))
+    );max-width:var(--container-width);padding-left:var(--container-side-gap);padding-right:var(--container-side-gap);margin-left:auto;margin-right:auto;}@media (min-width: 769px){.css-4hnq5z{--container-width:50rem;--container-side-gap:5rem;}}@media (min-width: 1200px){.css-4hnq5z{--container-width:60rem;}}
 .css-187qu0u{font-family:Montserrat,sans-serif;font-weight:700;font-size:32px;}
-.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-2u52bv"><h2><a href="../../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href="../../../blog" class="">Blog</a><a href="../../../career" class="">Experiencia</a><a href="../../../projects" class="">Proyectos</a><a href="../../../blog/2012-01-08-conceptos-basicos-this-call-apply" class="">🇬🇧</a></nav></div></header><div class="css-1p4f3y5 css-2u52bv"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Conceptos Básicos Javascript: this, .call() y .apply()</h2><time class="css-bkztrs " dateTime="08/01/2012">8 ene 2012</time></div><div class="md"><p>Antes de continuar con el Patrón Promise me gustaría explicar en paralelo Conceptos Básicos de Javascript. Entendiendo que estamos hablando de Javascript como lenguaje y no vamos a hablar sobre conceptos básicos del DOM o como abrir una nueva ventana en el navegador, sino detalles de Javascript puro, tanto en cliente como en servidor.</p>
+.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-4hnq5z"><h2><a href="../../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href="../../../blog" class="">Blog</a><a href="../../../career" class="">Experiencia</a><a href="../../../projects" class="">Proyectos</a><a href="../../../blog/2012-01-08-conceptos-basicos-this-call-apply" class="">🇬🇧</a></nav></div></header><div class="css-1p4f3y5 css-4hnq5z"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Conceptos Básicos Javascript: this, .call() y .apply()</h2><time class="css-bkztrs " dateTime="08/01/2012">8 ene 2012</time></div><div class="md"><p>Antes de continuar con el Patrón Promise me gustaría explicar en paralelo Conceptos Básicos de Javascript. Entendiendo que estamos hablando de Javascript como lenguaje y no vamos a hablar sobre conceptos básicos del DOM o como abrir una nueva ventana en el navegador, sino detalles de Javascript puro, tanto en cliente como en servidor.</p>
 <h3 id="de-d-nde-sale-_this_">De dónde sale <em>this</em></h3>
 <p>He pensado que sería un buen punto empezar por una curiosidad bastante desconocida para los recién llegados a Javascript: La variable <code>this</code>, también llamado el <code>scope</code> o más correctamente <code>contexto</code> de la función. En los lenguajes basados en clases más extendidos (Java, C++, C#...) encontramos que <strong>los métodos de la clase siempre disponen de la variable <code>this</code> que nos permite acceder a nuestra propia instancia</strong> sobre la que se está ejecutando el método. Es decir, si tenemos la clase</p>
 
-<pre><code class="lang-js">class MyClass {
-  String myField;
-  void myMethod() {
-    this.myField;
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">class</span> <span class="shj-syn-class">MyClass</span> {
+  <span class="shj-syn-class">String</span> myField;
+  <span class="shj-syn-kwd">void</span> <span class="shj-syn-func">myMethod</span>() {
+    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>myField;
   }
-}
-</code></pre>
+}</div></div>
+</code>
 <p>Veremos que en myMethod siempre tendremos <code>this</code> apuntando a una variable del tipo <code>MyClass</code> que contendrá un campo <code>myField</code>. En Javascript ésto no es así, <strong>en Javascript todo son objetos</strong>, incluidas las funciones y métodos, ambos <strong>son instancias de <code>Function</code></strong>, y como tales no están ligadas a un objeto en particular. Miremos el código:</p>
 
-<pre><code class="lang-js">function myFunction() {
-  console.log(this.name);
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">myFunction</span>() {
+  console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>name);
 }
 
-var objectA = {
-  name: &#39;Alice&#39;,
-  myMethod: myFunction,
+<span class="shj-syn-kwd">var</span> objectA <span class="shj-syn-oper">=</span> {
+  name<span class="shj-syn-oper">:</span> <span class="shj-syn-str">'Alice'</span><span class="shj-syn-oper">,</span>
+  myMethod<span class="shj-syn-oper">:</span> myFunction<span class="shj-syn-oper">,</span>
 };
 
-var objectB = {
-  name: &#39;Bob&#39;,
-  myMethod: myFunction,
-};
-</code></pre>
+<span class="shj-syn-kwd">var</span> objectB <span class="shj-syn-oper">=</span> {
+  name<span class="shj-syn-oper">:</span> <span class="shj-syn-str">'Bob'</span><span class="shj-syn-oper">,</span>
+  myMethod<span class="shj-syn-oper">:</span> myFunction<span class="shj-syn-oper">,</span>
+};</div></div>
+</code>
 <p>Aquí tenemos dos objetos totalmente independientes y ambos tienen la propiedad <code>myMethod</code> apuntado a <code>myFunction</code> a pesar de que no tienen una clase en común más que <code>Object</code>. Entonces cuál es <strong>el valor de this</strong> en <code>myFunction</code>? No es fijo, <strong>cambia según como lo llamemos</strong>.</p>
 
-<pre><code class="lang-js">objectA.myMethod();
-// Imprime &quot;Alice&quot;
-
-objectB.myMethod();
-// Imprime &quot;Bob&quot;
-</code></pre>
+<code class="code-block shj-lang-js">LOADING...
+</code>
 <p><a href="http://jsfiddle.net/amatiasq/YUX5B/" target="_blank">Pruébame</a></p>
 <!--more Seguir leyendo → -->
 <p>Como vemos el valor de <code>this</code> cambia según sobre que objeto lo llamemos. Bien, Javascript sabe que valor tiene que poner a <code>this</code> antes de llamar a una función, pero nosotros necesitamos entenderlo para no encontrarnos con bugs imposibles de corregir. Para ésto hay una regla de oro: <strong>el objeto <code>this</code> pasado a una función es el objeto que está antes del punto que precede los paréntesis que invocan a la función</strong>. Es decir, la llamada <code>objectA.myMethod()</code> la podríamos dividir en cuatro partes: <em> <strong>objectA</strong>: El objeto que contiene la función </em> <strong>. (punto)</strong>: Separa el objeto de su propiedad (la función) <em> <strong>myMethod</strong>: Nombre de la función </em> <strong>() (paréntesis)</strong>: Ejecutan la función En éste caso vemos que</p>
@@ -141,8 +180,8 @@ objectB.myMethod();
 <h4 id="m-s-de-un-punto">Más de un punto</h4>
 <p>Ahora vamos a ver casos en los que tenemos más o menos de un punto, es menos difícil de lo que parece. Para empezar, que pasa si usamos namespaces:</p>
 
-<pre><code class="lang-js">amq.test.StringHelper.firstToUpperCase(&#39;myname&#39;);
-</code></pre>
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div></div><div>amq<span class="shj-syn-oper">.</span>test<span class="shj-syn-oper">.</span><span class="shj-syn-class">StringHelper</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">firstToUpperCase</span>(<span class="shj-syn-str">'myname'</span>);</div></div>
+</code>
 <p>Aquí cuál es el valor de <code>this</code>? Si miramos la regla de oro veremos que solo el punto que precede a los paréntesis debe importarnos, por lo que tenemos:</p>
 
 <ul>
@@ -155,133 +194,133 @@ objectB.myMethod();
 <h4 id="sin-puntos">Sin puntos</h4>
 <p>Pero que pasa si no hay ningún punto? si la función no está en ningún objeto?</p>
 
-<pre><code class="lang-js">function testScope() {
-  console.log(this);
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">testScope</span>() {
+  console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-kwd">this</span>);
 }
-testScope();
-</code></pre>
+<span class="shj-syn-func">testScope</span>();</div></div>
+</code>
 <p>Aquí podríamos pensar que <code>this</code> es <code>null</code> y tendría sentido pero no, Javascript define que una función invocada sin contexto, el contexto debe ser el Objeto Global, que en el caso de un navegador sería <code>window</code>. Por lo que en <strong>una función que no esté contenida en ningún objeto recibirá el objeto global</strong> como <code>this</code>.</p>
 <h3 id="callbacks">Callbacks</h3>
 <p>Ya con toda ésta base podemos abordar el problema de los callbacks, supongamos que tenemos una función que hace un proceso asíncrono y necesitamos pasarle un callback para que se ejecute cuando el proceso asíncrono termine. Para el ejemplo pondremos que la tarea asíncrona sea esperar un segundo</p>
 
-<pre><code class="lang-js">function esperarUnSegundo(callback) {
-  setTimeout(function () {
-    callback();
-  }, 1000);
-}
-</code></pre>
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">esperarUnSegundo</span>(callback) {
+  <span class="shj-syn-func">setTimeout</span>(<span class="shj-syn-kwd">function</span> () {
+    <span class="shj-syn-func">callback</span>();
+  }<span class="shj-syn-oper">,</span> <span class="shj-syn-num">1000</span>);
+}</div></div>
+</code>
 <p>Perfecto, ya tenemos una función que espera que pase un segundo y llama al callback, pero que pasa si la usamos de ésta forma?</p>
 
-<pre><code class="lang-js">var alice = {
-  nombre: &#39;Alice&#39;,
-  cansarse: function () {
-    alert(this.nombre + &#39; se ha cansado de esperar&#39;);
-  },
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> alice <span class="shj-syn-oper">=</span> {
+  nombre<span class="shj-syn-oper">:</span> <span class="shj-syn-str">'Alice'</span><span class="shj-syn-oper">,</span>
+  cansarse<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+    <span class="shj-syn-func">alert</span>(<span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>nombre <span class="shj-syn-oper">+</span> <span class="shj-syn-str">' se ha cansado de esperar'</span>);
+  }<span class="shj-syn-oper">,</span>
 };
-esperarUnSegundo(alice.cansarse);
-</code></pre>
+<span class="shj-syn-func">esperarUnSegundo</span>(alice<span class="shj-syn-oper">.</span>cansarse);</div></div>
+</code>
 <p><a href="http://jsfiddle.net/amatiasq/erfJF/" target="_blank">Pruébame</a></p>
 <p>Aquí tenemos un problema, al parecer <code>this.nombre</code> no es &quot;Alice&quot;. Porqué? Repasemos la regla de oro, <code>this</code> será el objeto que está antes del punto que precede a los paréntesis que ejecutan la función. Busquemos los paréntesis que ejecutan la función:</p>
 
-<pre><code class="lang-js">callback();
-</code></pre>
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div></div><div><span class="shj-syn-func">callback</span>();</div></div>
+</code>
 <p>Y vemos que no hay ningún punto delante. <strong>La función la hemos extraído del objeto</strong> <code>alice</code>, pero al extraerla la hemos desvinculado de él y al llamarlo ya no se le pasa <code>alice</code> porque ya no se la llama con <code>alice.&lt;nombre del método&gt;</code> Entonces cómo hacemos para que callback no pierda su contexto? para que mantenga el valor de <code>this</code> a <code>alice</code>?</p>
 <h3 id="los-m-todos-de-function-">Los métodos de <code>Function</code></h3>
 <p>Para ésto vienen en nuestra ayuda los métodos de <code>Function</code>, como ya dijimos, <strong>las funciones son instancias de la clase <code>Function</code> y como tal tienen también métodos propios</strong>. Los más utilizados son <code>.call()</code> y <code>.apply()</code></p>
 <h4 id="-call-imaginemos-que-tenemos-otra-vez-el-objeto-alice-y-que-guardamos-su-m-todo-en-una-variable-"><code>.call()</code> Imaginemos que tenemos otra vez el objeto <code>alice</code> y que guardamos su método en una variable.</h4>
 
-<pre><code class="lang-js">var alice = {
-  nombre: &#39;Alice&#39;,
-  cansarse: function () {
-    console.log(this.nombre);
-  },
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> alice <span class="shj-syn-oper">=</span> {
+  nombre<span class="shj-syn-oper">:</span> <span class="shj-syn-str">'Alice'</span><span class="shj-syn-oper">,</span>
+  cansarse<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+    console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>nombre);
+  }<span class="shj-syn-oper">,</span>
 };
 
-var myFunction = alice.cansarse;
-</code></pre>
+<span class="shj-syn-kwd">var</span> myFunction <span class="shj-syn-oper">=</span> alice<span class="shj-syn-oper">.</span>cansarse;</div></div>
+</code>
 <p>Si llamamos a <code>myFunction</code> directamente lo estaríamos llamando sin contexto por lo el la variable <code>this</code> tendría el objeto global dentro de <code>myFunction</code>, como podemos hacer que ejecute <code>myFunction</code> pero pasándole <code>alice</code> como <code>this</code>? Para ésto tenemos las funciones <code>.call()</code> y <code>.apply()</code>, empecemos por la función <code>.call()</code>.</p>
 <p><strong>La función <code>.call()</code> recibe los mismos argumentos que la función mas uno, el valor que tendrá <code>this</code> que se pasa antes que los demás argumentos</strong>. Es decir, nuestra función <code>myFunction</code> no recibe ningún argumento así que si llamamos a su método <code>.call()</code> y le pasamos lo que queremos que sea <code>this</code> es decir, <code>alice</code> conseguiremos que el método funcione igual que si lo hubiésemos llamado con <code>alice.cansarse</code></p>
 
-<pre><code class="lang-js">myFunction.call(alice);
-</code></pre>
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div></div><div>myFunction<span class="shj-syn-oper">.</span><span class="shj-syn-func">call</span>(alice);</div></div>
+</code>
 <p><a href="http://jsfiddle.net/amatiasq/kbr5t/" target="_blank">Pruébame</a></p>
 <p>Ahora vamos a probar lo mismo con una función que reciba argumentos:</p>
 
-<pre><code class="lang-js">var alice = {
-  nombre: &#39;Alice&#39;,
-  saludar: function (amigo1, amigo2) {
-    alert(&#39;Hola &#39; + amigo1 + &#39; y &#39; + amigo2 + &#39;, yo soy &#39; + this.nombre);
-  },
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> alice <span class="shj-syn-oper">=</span> {
+  nombre<span class="shj-syn-oper">:</span> <span class="shj-syn-str">'Alice'</span><span class="shj-syn-oper">,</span>
+  saludar<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (amigo1<span class="shj-syn-oper">,</span> amigo2) {
+    <span class="shj-syn-func">alert</span>(<span class="shj-syn-str">'Hola '</span> <span class="shj-syn-oper">+</span> amigo1 <span class="shj-syn-oper">+</span> <span class="shj-syn-str">' y '</span> <span class="shj-syn-oper">+</span> amigo2 <span class="shj-syn-oper">+</span> <span class="shj-syn-str">', yo soy '</span> <span class="shj-syn-oper">+</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>nombre);
+  }<span class="shj-syn-oper">,</span>
 };
 
-var myFunction = alice.saludar;
-myFunction.call(alice, &#39;Bob&#39;, &#39;Rob&#39;);
-</code></pre>
+<span class="shj-syn-kwd">var</span> myFunction <span class="shj-syn-oper">=</span> alice<span class="shj-syn-oper">.</span>saludar;
+myFunction<span class="shj-syn-oper">.</span><span class="shj-syn-func">call</span>(alice<span class="shj-syn-oper">,</span> <span class="shj-syn-str">'Bob'</span><span class="shj-syn-oper">,</span> <span class="shj-syn-str">'Rob'</span>);</div></div>
+</code>
 <p><a href="http://jsfiddle.net/amatiasq/HZuPL/" target="_blank">Pruébame</a></p>
 <p>Como se ve, hemos conseguido modificar el valor que tiene <code>this</code> cuando se ejecuta la función, es decir el contexto.</p>
 <h4 id="-apply-">.apply()</h4>
 <p>El método <code>.apply()</code> actúa de forma bastante similar a <code>.call()</code>, pero con una variación, solo <strong>recibe dos argumentos, el primero es el contexto de la función</strong>, el valor de <code>this</code> <strong>y el segundo será un array que contendrá los argumentos que se le pasarán a la función</strong>, veamos su uso en el ejemplo anterior:</p>
 
-<pre><code class="lang-js">myFunction.apply(alice, [&#39;Bob&#39;, &#39;Rob&#39;]);
-</code></pre>
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div></div><div>myFunction<span class="shj-syn-oper">.</span><span class="shj-syn-func">apply</span>(alice<span class="shj-syn-oper">,</span> [<span class="shj-syn-str">'Bob'</span><span class="shj-syn-oper">,</span> <span class="shj-syn-str">'Rob'</span>]);</div></div>
+</code>
 <p><a href="http://jsfiddle.net/amatiasq/bSmeR/" target="_blank">Pruébame</a></p>
 <p>Esto aunque en un principio parezca bastante inútil nos servirá cuando, queriendo o no cambiar el contexto de una función, <strong>querramos llamarla y no sepamos ni nos interese saber cuántos argumentos tiene</strong>, supongamos que tenemos la función <code>callWithAlice()</code> que llama a la función <code>.saludar()</code> de <code>alice</code> y le pasa todos los argumentos que recibe.</p>
 <p><strong>Nota 1:</strong> Para ésto hace falta aclarar que el objeto <code>arguments</code> es una especie de array con los argumentos pasados a la función, más adelante profundizaremos en ello.</p>
 <p><strong>Nota 2:</strong> En éste caso no queremos cambiar el contexto, pero como estamos llamando a <code>.apply()</code> tenemos que darle uno, por lo que le damos <code>alice</code> que es el contexto que ya tenía.</p>
 
-<pre><code class="lang-js">function callWithAlice() {
-  alice.saludar.apply(alice, arguments);
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">callWithAlice</span>() {
+  alice<span class="shj-syn-oper">.</span>saludar<span class="shj-syn-oper">.</span><span class="shj-syn-func">apply</span>(alice<span class="shj-syn-oper">,</span> arguments);
 }
-callWithAlice(&#39;Rob&#39;, &#39;Bob&#39;);
-</code></pre>
+<span class="shj-syn-func">callWithAlice</span>(<span class="shj-syn-str">'Rob'</span><span class="shj-syn-oper">,</span> <span class="shj-syn-str">'Bob'</span>);</div></div>
+</code>
 <p><a href="http://jsfiddle.net/amatiasq/VrESt/" target="_blank">Pruébame</a></p>
 <h4 id="bonus-bind-">Bonus: .bind()</h4>
 <p>Ahora que ya entendemos el contexto, <code>.call()</code> y <code>.apply()</code> sabremos que cuando pasemos una función como callback si no queremos perder el contexto de la función deberemos hacer:</p>
 
-<pre><code class="lang-js">function esperarUnSegundo(callback) {
-  setTimeout(function() {
-    callback();
-  }, 1000);
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">esperarUnSegundo</span>(callback) {
+  <span class="shj-syn-func">setTimeout</span>(<span class="shj-syn-kwd">function</span>() {
+    <span class="shj-syn-func">callback</span>();
+  }<span class="shj-syn-oper">,</span> <span class="shj-syn-num">1000</span>);
 });
 
-esperarUnSegundo(function() {
-  alice.myMethod();
-});
-</code></pre>
+<span class="shj-syn-func">esperarUnSegundo</span>(<span class="shj-syn-kwd">function</span>() {
+  alice<span class="shj-syn-oper">.</span><span class="shj-syn-func">myMethod</span>();
+});</div></div>
+</code>
 <p>O bien:</p>
 
-<pre><code class="lang-js">function esperarUnSegundo(callback, context) {
-  setTimeout(function() {
-    callback.call(context);
-  }, 1000);
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">esperarUnSegundo</span>(callback<span class="shj-syn-oper">,</span> context) {
+  <span class="shj-syn-func">setTimeout</span>(<span class="shj-syn-kwd">function</span>() {
+    callback<span class="shj-syn-oper">.</span><span class="shj-syn-func">call</span>(context);
+  }<span class="shj-syn-oper">,</span> <span class="shj-syn-num">1000</span>);
 });
 
-esperarUnSegundo(alice.myMethod, alice);
-</code></pre>
+<span class="shj-syn-func">esperarUnSegundo</span>(alice<span class="shj-syn-oper">.</span>myMethod<span class="shj-syn-oper">,</span> alice);</div></div>
+</code>
 <p>Pero ésto puede ser un poco tedioso cuando manejas muchos callbacks de éste tipo, para ello se ha creado el método <code>.bind()</code>. Es un método de <code>Function</code> que devuelve otra función. Confuso, verdad?</p>
 <p><strong><code>.bind()</code> recibe un argumento, el contexto que se le podrá a la función sobre la que se aplica el <code>.bind()</code> y devolverá una función</strong> que cuando sea llamada ejecutará la función original con el contexto que se le pasó a <code>.bind()</code>. Lo veremos mejor con un ejemplo:</p>
 
-<pre><code class="lang-js">var alice = {
-  nombre: &#39;Alice&#39;,
-  saludar: function () {
-    console.log(&#39;Hola! Soy &#39; + this.nombre);
-  },
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> alice <span class="shj-syn-oper">=</span> {
+  nombre<span class="shj-syn-oper">:</span> <span class="shj-syn-str">'Alice'</span><span class="shj-syn-oper">,</span>
+  saludar<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+    console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-str">'Hola! Soy '</span> <span class="shj-syn-oper">+</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>nombre);
+  }<span class="shj-syn-oper">,</span>
 };
 
-var myFunction = alice.saludar.bind(alice);
-myFunction();
-</code></pre>
+<span class="shj-syn-kwd">var</span> myFunction <span class="shj-syn-oper">=</span> alice<span class="shj-syn-oper">.</span>saludar<span class="shj-syn-oper">.</span><span class="shj-syn-func">bind</span>(alice);
+<span class="shj-syn-func">myFunction</span>();</div></div>
+</code>
 <p><a href="http://jsfiddle.net/amatiasq/NUWCy/" target="_blank">Pruébame</a></p>
 <p>Lo que hemos hecho en la línea 8 es crear una función que cuando sea invocada llamará a <code>saludar</code> y le pasará <code>alice</code> como contexto.</p>
 <h3 id="y-ya-est-">Y ya está!</h3>
 <p>Con éste repaso ya deberíamos ser capaces de entender la parte más complicada para un recién llegado a Javascript, la modificación del contexto. Es una técnica que requiere mucha práctica, pero detrás de la cual se esconde la mitad del potencial de Javascript y como tal, también nos abre los ojos a muchos bugs que de otra forma serían imposibles de entender.</p>
 <p>De hecho, para los que les gusta romperse la cabeza como yo, les dejo un caramelo: Todas las funciones tienen los métodos <code>.call()</code>, <code>.apply()</code> y <code>.bind()</code>, es cierto. Pero éstos métodos también son funciones, eso significa que podemos hacer ésto? Que resultado tendría? Se los dejo a ustedes ;)</p>
 
-<pre><code class="lang-js">alice.saludar.call.call.call.call.apply.bind();
-</code></pre>
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div></div><div>alice<span class="shj-syn-oper">.</span>saludar<span class="shj-syn-oper">.</span>call<span class="shj-syn-oper">.</span>call<span class="shj-syn-oper">.</span>call<span class="shj-syn-oper">.</span>call<span class="shj-syn-oper">.</span>apply<span class="shj-syn-oper">.</span><span class="shj-syn-func">bind</span>();</div></div>
+</code>
 <p>Y que pasa si llamo a uno de éstos métodos y no le paso scope?</p>
 
-<pre><code class="lang-js">alice.saludar.call(null);
-</code></pre>
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div></div><div>alice<span class="shj-syn-oper">.</span>saludar<span class="shj-syn-oper">.</span><span class="shj-syn-func">call</span>(<span class="shj-syn-num">null</span>);</div></div>
+</code>
 <p>Espero que haya sido claro y conciso, pero me temo que ha sido más de lo primero que de lo segundo. Pronto tendré otro artículo sobre Conceptos Básicos de Javascript. Saludos.</p>
 </div></div></body></html>

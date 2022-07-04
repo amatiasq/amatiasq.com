@@ -1,20 +1,16 @@
 <!DOCTYPE html><html lang="en"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Experimento: Privacidad por instancias</title><style>
-  /* Box sizing rules */
   *, *::before, *::after {
     box-sizing: border-box;
   }
 
-  /* Remove default padding */
   ul, ol {
     padding: 0;
   }
 
-  /* Remove default margin */
   body, h1, h2, h3, h4, p, ul, ol, li, figure, figcaption, blockquote, dl, dd {
     margin: 0;
   }
 
-  /* Set core body defaults */
   body {
     min-height: 100vh;
     scroll-behavior: smooth;
@@ -30,28 +26,23 @@
     padding: revert;
   }
 
-  /* A elements that don&#x27;t have a class get default styles */
   a:not([class]) {
     text-decoration-skip-ink: auto;
   }
 
-  /* Make images easier to work with */
   img {
     max-width: 100%;
     display: block;
   }
 
-  /* Natural flow and rhythm in articles by default */
   article &gt; * + * {
     margin-top: 1em;
   }
 
-  /* Inherit fonts for inputs and buttons */
   input, button, textarea, select {
     font: inherit;
   }
 
-  /* Remove all animations and transitions for people that prefer not to see them */
   @media (prefers-reduced-motion: reduce) {
     * {
       animation-duration: 0.01ms !important;
@@ -83,22 +74,74 @@
     text-align: justify;
   }
 
-  .md pre {
-    white-space: break-spaces;
+  .md .code-block {
+    display: block;
+    width: var(--available-width);
+    padding-bottom: 10px;
   }
 
   svg {
     fill: #FDFBF8;
   }
-</style><style>.css-zi0qjt{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;}
+</style><style>
+    [class*=shj-lang-]{white-space:pre;margin:10px 0;border-radius:10px;padding:30px 20px;background:white;color:#112;box-shadow:0 0 5px #0001;text-shadow:none;font: 18px Consolas,Courier New,Monaco,Andale Mono,Ubuntu Mono,monospace;line-height:24px;box-sizing:border-box;max-width:min(100%,100vw)}
+    .shj-inline{margin:0;padding:2px 5px;display:inline-block;border-radius:5px}
+    [class*=shj-lang-]::selection,
+    [class*=shj-lang-] ::selection{background:#bdf5}
+    [class*=shj-lang-]>div{display:flex;overflow:auto}
+    [class*=shj-lang-]>div :last-child{flex:1;outline:none}
+    .shj-numbers{padding-left:5px;counter-reset:line}
+    .shj-numbers div{padding-right:5px}
+    .shj-numbers div:before{color:#999;display:block;content:counter(line);opacity:.5;text-align:right;margin-right:5px;counter-increment:line}
+    .shj-syn-cmnt{font-style:italic}
+    .shj-syn-err,
+    .shj-syn-kwd{color:#e16}
+    .shj-syn-num,
+    .shj-syn-class{color:#f60}
+    .shj-numbers,
+    .shj-syn-cmnt{color:#999}
+    .shj-syn-insert,
+    .shj-syn-str{color:#7d8}
+    .shj-syn-bool{color:#3bf}
+    .shj-syn-type,
+    .shj-syn-oper{color:#5af}
+    .shj-syn-section,
+    .shj-syn-func{color:#84f}
+    .shj-syn-deleted,
+    .shj-syn-var{color:#f44}
+    .shj-oneline{padding:12px 10px}
+    .shj-lang-http.shj-oneline .shj-syn-kwd{background:#25f;color:#fff;padding:5px 7px;border-radius:5px}
+    .shj-multiline.shj-mode-header{padding:20px}
+    .shj-multiline.shj-mode-header:before{content:attr(data-lang);color:#58f;display:block;padding:10px 20px;background:#58f3;border-radius:5px;margin-bottom:20px}
+    [class*=shj-lang-]{color:#abb2bf;background:#161b22}
+    [class*=shj-lang-]:before{color:#6f9aff}
+    .shj-syn-deleted,
+    .shj-syn-err,
+    .shj-syn-var{color:#e06c75}
+    .shj-syn-section,
+    .shj-syn-oper,
+    .shj-syn-kwd{color:#c678dd}
+    .shj-syn-class{color:#e5c07b}
+    .shj-numbers,
+    .shj-syn-cmnt{color:#76839a}
+    .shj-syn-insert{color:#98c379}
+    .shj-syn-type{color:#56b6c2}
+    .shj-syn-num,
+    .shj-syn-bool{color:#d19a66}
+    .shj-syn-str,
+    .shj-syn-func{color:#61afef}
+    </style><style>.css-zi0qjt{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;}
 .css-1p4f3y5{display:grid;padding-top:20px;gap:12px;}
 .css-2nd93p{padding:20px 0;margin-bottom:20px;background-color:#1B2225;color:#FDFBF8;border-bottom:2px solid #586369;}@media (min-width: 769px){.css-2nd93p{position:-webkit-sticky;position:sticky;top:0;z-index:1;}}
 .css-17rdaxl{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}@media (min-width: 769px){.css-17rdaxl{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}
 .css-slvbys{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:12px;}.css-slvbys a{color:#EFE751;-webkit-text-decoration:none;text-decoration:none;margin-left:12px;border-bottom:1px solid transparent;}.css-slvbys a.parent{border-bottom:1px solid #586369;}.css-slvbys a:hover{border-bottom:1px solid #EFE751;}
 .css-1avicn7{font-size:24px;-webkit-text-decoration:none;text-decoration:none;color:#FDFBF8;}
-.css-2u52bv{max-width:30rem;margin-left:auto;margin-right:auto;padding-left:1rem;padding-right:1rem;}@media (min-width: 769px){.css-2u52bv{max-width:50rem;padding-left:5rem;padding-right:5rem;}}@media (min-width: 1200px){.css-2u52bv{max-width:60rem;padding-left:5rem;padding-right:5rem;}}
+.css-4hnq5z{--container-side-gap:1rem;--container-width:40rem;--container-sides-gap:calc(var(--container-side-gap) * 2);--available-width:min(
+      calc(100vw - var(--container-sides-gap)),
+      calc(var(--container-width) - var(--container-sides-gap))
+    );max-width:var(--container-width);padding-left:var(--container-side-gap);padding-right:var(--container-side-gap);margin-left:auto;margin-right:auto;}@media (min-width: 769px){.css-4hnq5z{--container-width:50rem;--container-side-gap:5rem;}}@media (min-width: 1200px){.css-4hnq5z{--container-width:60rem;}}
 .css-187qu0u{font-family:Montserrat,sans-serif;font-weight:700;font-size:32px;}
-.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-2u52bv"><h2><a href="../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href=".." class="">Blog</a><a href="../../career" class="">Career</a><a href="../../projects" class="">Projects</a><a href="../../es/blog/2012-03-03-experimento-privacidad-por-instancias" class="">🇪🇸</a></nav></div></header><div class="css-1p4f3y5 css-2u52bv"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Experimento: Privacidad por instancias</h2><time class="css-bkztrs " dateTime="03/03/2012">Mar 3, 2012</time></div><div class="md"><blockquote>
+.css-bkztrs{opacity:0.8;font-family:monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-4hnq5z"><h2><a href="../.." class="css-1avicn7">A. Matías Quezada</a></h2><nav class="css-slvbys"><a href=".." class="">Blog</a><a href="../../career" class="">Career</a><a href="../../projects" class="">Projects</a><a href="../../es/blog/2012-03-03-experimento-privacidad-por-instancias" class="">🇪🇸</a></nav></div></header><div class="css-1p4f3y5 css-4hnq5z"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Experimento: Privacidad por instancias</h2><time class="css-bkztrs " dateTime="03/03/2012">Mar 3, 2012</time></div><div class="md"><blockquote>
 <p>Actualización 19/3/2014: Sorprendentemente parece que una propuesta del ECMAScript 6 sigue mismo el patrón descrito en este post, y yo que pensaba que era demasiado rebuscado...</p>
 <p><a href="http://wiki.ecmascript.org/doku.php?id=harmony:classes">http://wiki.ecmascript.org/doku.php?id=harmony:classes</a></p>
 </blockquote>
@@ -106,209 +149,158 @@
 <!--more Seguir leyendo → -->
 <p>Para empezar está claro que es necesario tener un closure, para ocultar las variables desde fuera:</p>
 
-<pre><code class="lang-js">// función de ejecución inmediata
-(function (global) {
-  // Contenido oculto
-})(this);
-</code></pre>
+<code class="code-block shj-lang-js">LOADING...
+</code>
 <p>Dentro de éste closure definiría la clase:</p>
 
-<pre><code class="lang-js">(function (global) {
-  function Persona() {
-    var secreto;
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div>(<span class="shj-syn-kwd">function</span> (global) {
+  <span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Persona</span>() {
+    <span class="shj-syn-kwd">var</span> secreto;
   }
 
-  Persona.prototype = {
-    guardarSecreto: function (susurro) {
-      secreto = susurro;
-    },
-    revelarSecreto: function () {
-      return secreto;
-    },
+  <span class="shj-syn-class">Persona</span><span class="shj-syn-oper">.</span>prototype <span class="shj-syn-oper">=</span> {
+    guardarSecreto<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (susurro) {
+      secreto <span class="shj-syn-oper">=</span> susurro;
+    }<span class="shj-syn-oper">,</span>
+    revelarSecreto<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+      <span class="shj-syn-kwd">return</span> secreto;
+    }<span class="shj-syn-oper">,</span>
   };
 
-  global.Persona = Persona;
-})(this);
-</code></pre>
+  global<span class="shj-syn-oper">.</span><span class="shj-syn-class">Persona</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Persona</span>;
+})(<span class="shj-syn-kwd">this</span>);</div></div>
+</code>
 <p>Evidentemente es imposible acceder a la variable <code>secreto</code> desde los métodos porque <code>secreto</code> <strong>está encerrada en el constructor y no se puede acceder ella desde fuera</strong> del constructor. Así que si quiero privacidad sin meter los métodos en el constructor por los métodos que [ya expliqué][2] la solución pasa por sacar la variable del constructor:</p>
 
-<pre><code class="lang-js">(function (global) {
-  var secreto;
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div>(<span class="shj-syn-kwd">function</span> (global) {
+  <span class="shj-syn-kwd">var</span> secreto;
 
-  function Persona() {}
-  Persona.prototype = {
-    guardarSecreto: function (susurro) {
-      secreto = susurro;
-    },
-    revelarSecreto: function () {
-      return secreto;
-    },
+  <span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Persona</span>() {}
+  <span class="shj-syn-class">Persona</span><span class="shj-syn-oper">.</span>prototype <span class="shj-syn-oper">=</span> {
+    guardarSecreto<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (susurro) {
+      secreto <span class="shj-syn-oper">=</span> susurro;
+    }<span class="shj-syn-oper">,</span>
+    revelarSecreto<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+      <span class="shj-syn-kwd">return</span> secreto;
+    }<span class="shj-syn-oper">,</span>
   };
 
-  global.Persona = Persona;
-})(this);
+  global<span class="shj-syn-oper">.</span><span class="shj-syn-class">Persona</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Persona</span>;
+})(<span class="shj-syn-kwd">this</span>);
 
-var pepe = new Persona();
-var maria = new Persona();
-pepe.guardarSecreto(&#39;estás en matrix&#39;);
-console.log(maria.revelarSecreto());
-</code></pre>
+<span class="shj-syn-kwd">var</span> pepe <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Persona</span>();
+<span class="shj-syn-kwd">var</span> maria <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Persona</span>();
+pepe<span class="shj-syn-oper">.</span><span class="shj-syn-func">guardarSecreto</span>(<span class="shj-syn-str">'estás en matrix'</span>);
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(maria<span class="shj-syn-oper">.</span><span class="shj-syn-func">revelarSecreto</span>());</div></div>
+</code>
 <p><a href="http://jsfiddle.net/amatiasq/eXfkL/" target="_blank">Pruébame</a></p>
 <p>Bien, ahora <code>secreto</code> está fuera del constructor, pero tenemos otro problema, <strong>todas las instancias de <code>Persona</code> comparten la misma variable!</strong> Hay que buscar la forma de contar un secreto a <code>pepe</code> sin que <code>maria</code> se entere, dicho de otra forma, de guardar un valor en una instancia sin modificar la otra. En Javascript es muy sencillo trabajar con mappings así que porqué no guardamos en un mapping la relación instancia-valor? Así cada instancia podrá tener su valor guardado en la variable secreto sin interferir con el valor de otra instancia.</p>
 
-<pre><code class="lang-js">(function (global) {
-  var secreto = {};
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div>(<span class="shj-syn-kwd">function</span> (global) {
+  <span class="shj-syn-kwd">var</span> secreto <span class="shj-syn-oper">=</span> {};
 
-  function Persona() {}
-  Persona.prototype = {
-    guardarSecreto: function (susurro) {
-      secreto[this] = susurro;
-    },
-    revelarSecreto: function () {
-      return secreto[this];
-    },
+  <span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Persona</span>() {}
+  <span class="shj-syn-class">Persona</span><span class="shj-syn-oper">.</span>prototype <span class="shj-syn-oper">=</span> {
+    guardarSecreto<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (susurro) {
+      secreto[<span class="shj-syn-kwd">this</span>] <span class="shj-syn-oper">=</span> susurro;
+    }<span class="shj-syn-oper">,</span>
+    revelarSecreto<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+      <span class="shj-syn-kwd">return</span> secreto[<span class="shj-syn-kwd">this</span>];
+    }<span class="shj-syn-oper">,</span>
   };
 
-  global.Persona = Persona;
-})(this);
+  global<span class="shj-syn-oper">.</span><span class="shj-syn-class">Persona</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Persona</span>;
+})(<span class="shj-syn-kwd">this</span>);
 
-var pepe = new Persona();
-var maria = new Persona();
-pepe.guardarSecreto(&#39;estás en matrix&#39;);
-console.log(maria.revelarSecreto());
-</code></pre>
+<span class="shj-syn-kwd">var</span> pepe <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Persona</span>();
+<span class="shj-syn-kwd">var</span> maria <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Persona</span>();
+pepe<span class="shj-syn-oper">.</span><span class="shj-syn-func">guardarSecreto</span>(<span class="shj-syn-str">'estás en matrix'</span>);
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(maria<span class="shj-syn-oper">.</span><span class="shj-syn-func">revelarSecreto</span>());</div></div>
+</code>
 <p><a href="http://jsfiddle.net/amatiasq/NaphB/" target="_blank">Pruébame</a></p>
 <p>Esto tampoco funciona, porqué? Para entender ésto hay que investigar un poco, <strong>los índices de los arrays y los mappings en Javascript son <code>strings</code></strong>, y si intentas poner un índice de otro tipo lo convierte a <code>string</code> con el método <code>.toString()</code></p>
 
-<pre><code class="lang-js">var array = [];
-array[0] = &#39;Hola!&#39;;
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> array <span class="shj-syn-oper">=</span> [];
+array[<span class="shj-syn-num">0</span>] <span class="shj-syn-oper">=</span> <span class="shj-syn-str">'Hola!'</span>;
 
-for (var i in array) {
-  if (array.hasOwnProperty(i)) {
-    console.log(
-      &#39;Array tiene la propiedad --[&#39; + i + &#39;]-- del tipo --[&#39; + typeof i + &#39;]-- con el valor --[&#39; + array[i] + &#39;]--&#39;,
+<span class="shj-syn-kwd">for</span> (<span class="shj-syn-kwd">var</span> i <span class="shj-syn-kwd">in</span> array) {
+  <span class="shj-syn-kwd">if</span> (array<span class="shj-syn-oper">.</span><span class="shj-syn-func">hasOwnProperty</span>(i)) {
+    console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(
+      <span class="shj-syn-str">'Array tiene la propiedad --['</span> <span class="shj-syn-oper">+</span> i <span class="shj-syn-oper">+</span> <span class="shj-syn-str">']-- del tipo --['</span> <span class="shj-syn-oper">+</span> <span class="shj-syn-kwd">typeof</span> i <span class="shj-syn-oper">+</span> <span class="shj-syn-str">']-- con el valor --['</span> <span class="shj-syn-oper">+</span> array[i] <span class="shj-syn-oper">+</span> <span class="shj-syn-str">']--'</span><span class="shj-syn-oper">,</span>
     );
   }
 }
 
-var mapping = {};
-var indice = {};
-mapping[indice] = &#39;Mundo!&#39;;
+<span class="shj-syn-kwd">var</span> mapping <span class="shj-syn-oper">=</span> {};
+<span class="shj-syn-kwd">var</span> indice <span class="shj-syn-oper">=</span> {};
+mapping[indice] <span class="shj-syn-oper">=</span> <span class="shj-syn-str">'Mundo!'</span>;
 
-for (var i in mapping) {
-  if (mapping.hasOwnProperty(i)) {
-    console.log(
-      &#39;Mapping tiene la propiedad --[&#39; +
-        i +
-        &#39;]-- del tipo --[&#39; +
-        typeof i +
-        &#39;]-- con el valor --[&#39; +
-        mapping[i] +
-        &#39;]--&#39;,
+<span class="shj-syn-kwd">for</span> (<span class="shj-syn-kwd">var</span> i <span class="shj-syn-kwd">in</span> mapping) {
+  <span class="shj-syn-kwd">if</span> (mapping<span class="shj-syn-oper">.</span><span class="shj-syn-func">hasOwnProperty</span>(i)) {
+    console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(
+      <span class="shj-syn-str">'Mapping tiene la propiedad --['</span> <span class="shj-syn-oper">+</span>
+        i <span class="shj-syn-oper">+</span>
+        <span class="shj-syn-str">']-- del tipo --['</span> <span class="shj-syn-oper">+</span>
+        <span class="shj-syn-kwd">typeof</span> i <span class="shj-syn-oper">+</span>
+        <span class="shj-syn-str">']-- con el valor --['</span> <span class="shj-syn-oper">+</span>
+        mapping[i] <span class="shj-syn-oper">+</span>
+        <span class="shj-syn-str">']--'</span><span class="shj-syn-oper">,</span>
     );
   }
-}
-</code></pre>
+}</div></div>
+</code>
 <p><a href="http://jsfiddle.net/amatiasq/cQZmS/" target="_blank">Pruébame</a></p>
 <p>Entonces <strong>tanto <code>pepe</code> como <code>maria</code> se convierten a <code>[object Object]</code> cuando los utilizo como índices</strong> del mapping. Y hasta aquí había llegado hasta que descubrí los [<code>WeakMap</code> de Firefox][3]. Consiste básicamente en una clase con métodos <code>.set(id, valor);</code> y <code>.get(id);</code> por lo que cumple la misma funcionalidad que un mapping, con la diferencia de que si el único punto del programa en el que se usa una referencia es un <code>WeakMap</code>, <strong>el recolector de basura la puede borrar</strong>. Es una funcionalidad que es necesaria en Javascript por motivos que no voy a enumerar ahora, pero para mi trae un éxtra: &quot;WeakMaps are key/value maps in which <strong>keys are objects</strong>&quot; (Los WeakMaps son mappings clave/valor donde <strong>las claves son objetos</strong>). Sorpresa! Los <code>WeakMap</code> a diferencia de los mappings comunes no usan strings como claves, sino objetos. Esto haría viable la implementación anterior:</p>
 
-<pre><code class="lang-js">(function (global) {
-  var secreto = new WeakMap();
-
-  function Persona() {}
-  Persona.prototype = {
-    guardarSecreto: function (susurro) {
-      secreto.set(this, susurro);
-    },
-    revelarSecreto: function () {
-      // Si no tenemos ningún secreto
-      if (!secreto.has(this)) return &#39;Nada&#39;;
-      else return secreto.get(this);
-    },
-  };
-
-  global.Persona = Persona;
-})(this);
-
-var pepe = new Persona();
-var maria = new Persona();
-
-pepe.guardarSecreto(&#39;estás en matrix&#39;);
-console.log(&#39;Secreto de María: &#39; + maria.revelarSecreto());
-console.log(&#39;Secreto de Pepe: &#39; + pepe.revelarSecreto());
-</code></pre>
+<code class="code-block shj-lang-js">LOADING...
+</code>
 <p><a href="http://jsfiddle.net/amatiasq/dAzjx/" target="_blank">Pruébame</a></p>
 <p><strong>Nota</strong>: Aunque los WeakMap solo están en Firefox, ésto funcionará en todos los navegadores porque he creado una clase que se comporta de forma similar, pero que no permite al recolector de basura eliminar los objetos, la implementación puede verse al final del artículo.</p>
 <p>Funciona! Hemos conseguido guardar una variable privada por instancia con un closure por clase. Ahora llémoslo un poco más allá, que pasa si <strong>en lugar de guardar una variable guardamos un objeto donde podremos tener todas las variables que queramos</strong> para ésa instancia?</p>
 
-<pre><code class="lang-js">(function (global) {
-  var privadas = new WeakMap();
-
-  function Persona() {
-    // Inicializamos el objeto
-    privadas.set(this, {});
-    privadas.get(this).otraPrivada = &#39;Variable inaccesible desde fuera&#39;;
-  }
-
-  Persona.prototype = {
-    guardarSecreto: function (susurro) {
-      privadas.get(this).secreto = susurro;
-    },
-    revelarSecreto: function () {
-      return privadas.get(this).secreto;
-    },
-  };
-
-  global.Persona = Persona;
-})(this);
-
-var pepe = new Persona();
-var maria = new Persona();
-
-pepe.guardarSecreto(&#39;estás en matrix&#39;);
-console.log(&#39;Secreto de María: &#39; + maria.revelarSecreto());
-</code></pre>
+<code class="code-block shj-lang-js">LOADING...
+</code>
 <p><a href="http://jsfiddle.net/amatiasq/RzDAE/" target="_blank">Pruébame</a></p>
 <!-- TODO: This causes error `Expected "=>" but found end of file` -->
 <!-- Perfecto, pero es un poco raro y repetitivo tener que hacer `privadas.set(this, {});` en el constructor y `privadas.get(this)` pra acceder a las privadas, podríamos encapsular ésto en una función: -->
 
-<pre><code class="lang-js">function privadas() {
-  var map = new WeakMap();
-  return function (clave) {
-    if (!map.has(clave)) map.set(clave, {});
-    return map.get(clave);
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">privadas</span>() {
+  <span class="shj-syn-kwd">var</span> map <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">WeakMap</span>();
+  <span class="shj-syn-kwd">return</span> <span class="shj-syn-kwd">function</span> (clave) {
+    <span class="shj-syn-kwd">if</span> (<span class="shj-syn-oper">!</span>map<span class="shj-syn-oper">.</span><span class="shj-syn-func">has</span>(clave)) map<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">set</span>(clave<span class="shj-syn-oper">,</span> {});
+    <span class="shj-syn-kwd">return</span> map<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">get</span>(clave);
   };
-}
-</code></pre>
+}</div></div>
+</code>
 <p>Y ahora ésta funcion nos devuelve otra función que podremos llamar cuando queramos con la instancia para obtener las privadas. Nuestra clase queda:</p>
 
-<pre><code class="lang-js">(function (global) {
-  var p = privadas();
+<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div>(<span class="shj-syn-kwd">function</span> (global) {
+  <span class="shj-syn-kwd">var</span> p <span class="shj-syn-oper">=</span> <span class="shj-syn-func">privadas</span>();
 
-  function Persona() {
-    p(this).secreto = &#39;Nada&#39;;
-    p(this).otraPrivada = &#39;Variable inaccesible desde fuera&#39;;
+  <span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Persona</span>() {
+    <span class="shj-syn-func">p</span>(<span class="shj-syn-kwd">this</span>)<span class="shj-syn-oper">.</span>secreto <span class="shj-syn-oper">=</span> <span class="shj-syn-str">'Nada'</span>;
+    <span class="shj-syn-func">p</span>(<span class="shj-syn-kwd">this</span>)<span class="shj-syn-oper">.</span>otraPrivada <span class="shj-syn-oper">=</span> <span class="shj-syn-str">'Variable inaccesible desde fuera'</span>;
   }
 
-  Persona.prototype = {
-    guardarSecreto: function (susurro) {
-      p(this).secreto = susurro;
-    },
-    revelarSecreto: function () {
-      return p(this).secreto;
-    },
+  <span class="shj-syn-class">Persona</span><span class="shj-syn-oper">.</span>prototype <span class="shj-syn-oper">=</span> {
+    guardarSecreto<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (susurro) {
+      <span class="shj-syn-func">p</span>(<span class="shj-syn-kwd">this</span>)<span class="shj-syn-oper">.</span>secreto <span class="shj-syn-oper">=</span> susurro;
+    }<span class="shj-syn-oper">,</span>
+    revelarSecreto<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
+      <span class="shj-syn-kwd">return</span> <span class="shj-syn-func">p</span>(<span class="shj-syn-kwd">this</span>)<span class="shj-syn-oper">.</span>secreto;
+    }<span class="shj-syn-oper">,</span>
   };
 
-  global.Persona = Persona;
-})(this);
+  global<span class="shj-syn-oper">.</span><span class="shj-syn-class">Persona</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Persona</span>;
+})(<span class="shj-syn-kwd">this</span>);
 
-var pepe = new Persona();
-var maria = new Persona();
+<span class="shj-syn-kwd">var</span> pepe <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Persona</span>();
+<span class="shj-syn-kwd">var</span> maria <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Persona</span>();
 
-pepe.guardarSecreto(&#39;estás en matrix&#39;);
-console.log(&#39;Secreto de María: &#39; + maria.revelarSecreto());
-console.log(&#39;Secreto de Pepe: &#39; + pepe.revelarSecreto());
-</code></pre>
+pepe<span class="shj-syn-oper">.</span><span class="shj-syn-func">guardarSecreto</span>(<span class="shj-syn-str">'estás en matrix'</span>);
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-str">'Secreto de María: '</span> <span class="shj-syn-oper">+</span> maria<span class="shj-syn-oper">.</span><span class="shj-syn-func">revelarSecreto</span>());
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-str">'Secreto de Pepe: '</span> <span class="shj-syn-oper">+</span> pepe<span class="shj-syn-oper">.</span><span class="shj-syn-func">revelarSecreto</span>());</div></div>
+</code>
 <p><a href="http://jsfiddle.net/amatiasq/XmKCH/" target="_blank">Pruébame</a></p>
 <p>Y voilá! Tenemos privadas por clases sin crear más de un closure. :D</p>
 <h3 id="resumen">Resumen</h3>
@@ -316,42 +308,8 @@ console.log(&#39;Secreto de Pepe: &#39; + pepe.revelarSecreto());
 <p>Como ya he dicho muchas veces, la gracia de <strong>esto no es forzar Javascript a su límite, sino forzar la mente</strong>, si hoy forzamos la imaginación hasta sus límites mañana podremos sobrepasarlos. La idea es ejercitar y mejorar la capacidad de buscar soluciones creativas y funcionales por extrañas o imposibles que parezcan.</p>
 <p>Finalmente, como expliqué en la nota, aquí está la implementación que usé para que los ejemplos funcionen en navegadores que no sean Firefox, guarda en los objetos la propiedad <em>$$ID</em> para no tener que buscar en todo el array de claves el índice del objeto:</p>
 
-<pre><code class="lang-js">if (typeof WeakMap === &#39;undefined&#39;) {
-  window.WeakMap = function WeakMap() {
-    this.keys = [];
-    this.values = [];
-  };
-  WeakMap.prototype = {
-    constructor: WeakMap,
-
-    set: function (key, value) {
-      var id = (key.$$ID = this.keys.length);
-      this.keys[id] = key;
-      this.values[id] = value;
-    },
-
-    get: function (key) {
-      var id = key.$$ID;
-
-      // Si el índice del objeto no se corresponde
-      // con su posición en la lista de claves
-      // Es que ha sido modificado, debemos corregirlo.
-      if (this.keys[id] !== key) id = this._fixIndex(key);
-
-      return this.values[id];
-    },
-
-    has: function (key) {
-      return this._fixIndex(key) !== null;
-    },
-
-    _fixIndex: function (key) {
-      for (var i = this.keys.length; i--; ) if (this.keys[i] === key) return (key.$$ID = i);
-      return null;
-    },
-  };
-}
-</code></pre>
+<code class="code-block shj-lang-js">LOADING...
+</code>
 <p>[1]: <a href="http://www.amatiasq.com/2012/02/conceptos-basicos-javascript-privacidad/">http://www.amatiasq.com/2012/02/conceptos-basicos-javascript-privacidad/</a> &#39;Conceptos Básicos Javascript: Privacidad&#39;
 [2]: <a href="http://www.amatiasq.com/?p=174">http://www.amatiasq.com/?p=174</a> &#39;Conceptos Básicos Javascript: Privacidad&#39;
 [3]: <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/WeakMap">https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/WeakMap</a> &#39;WeakMap&#39;</p>
