@@ -28,10 +28,7 @@
 <p>Buscando optimizaciones para un juego en javascript encontré <a href="http://blog.amatiasq.com/2014/03/construccion-de-objetos#paradigma">un paradigma de definición de tipos y creación de objetos</a> que cambió mi forma de ver el lenguaje.</p>
 <p>He hablado antes de la limitación de los constructores javascript:</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Person</span>(name) {
-  <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>name <span class="shj-syn-oper">=</span> name;
-}
-<span class="shj-syn-class">Person</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">methodA</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span>() { <span class="shj-syn-oper">...</span> }</div></div>
+<code class="code-block shj-lang-js">LOADING...
 </code>
 <p>En este caso quiero referirme a las limitaciones en cuanto a memoria pero hará falta un poco de introducción</p>
 </div><a href="../../blog/2014-03-12-construccion-de-objetos" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">Componentes HTML (🇪🇸 only)<time class="css-a9renj css-blivtv" dateTime="08/23/2013">Aug 23, 2013</time></h3><div class="md"><p>Acabo de caer en cuenta de porqué no me gusta angular, backbone, ember...</p>
@@ -40,15 +37,7 @@
 <p>En otras tecnologías generalmente creas un componente reutilizable y basta con mover el archivo de proyecto para tenerlo listo, pero estos frameworks no se puede hacer eso, por ejemplo una simple targeta que muestre los datos de una persona:</p>
 </div><a href="../../blog/2013-08-23-componentes-html" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">ECMAScript 5 _.extend (🇪🇸 only)<time class="css-a9renj css-blivtv" dateTime="04/30/2013">Apr 30, 2013</time></h3><div class="md"><p>A algunos ya os he comentado los problemas que <a href="http://www.nczonline.net/blog/2012/12/11/are-your-mixins-ecmascript-5-compatible/">NC Zakas comenta</a> con el <code>_.extend</code> de underscore y los getters:</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> a <span class="shj-syn-oper">=</span> {
-  init<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
-    <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>list <span class="shj-syn-oper">=</span> [];
-  }<span class="shj-syn-oper">,</span>
-
-  <span class="shj-syn-kwd">get</span> <span class="shj-syn-func">first</span>() {
-    <span class="shj-syn-kwd">return</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>list[<span class="shj-syn-num">0</span>];
-  }<span class="shj-syn-oper">,</span>
-};</div></div>
+<code class="code-block shj-lang-js">LOADING...
 </code>
 </div><a href="../../blog/2013-04-30-ecmascript5-extend" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">Object.create vs new (🇪🇸 only)<time class="css-a9renj css-blivtv" dateTime="04/13/2013">Apr 13, 2013</time></h3><div class="md"><blockquote>
 <p>Actualización 19/3/2014: Finalmente he entendido la utilidad de reemplazar <code>new</code>, se puede ver <a href="http://blog.amatiasq.com/2014/03/type-new/">aquí</a></p>
@@ -56,11 +45,7 @@
 <p>JotaEseros! Tengo un dilema existencial que me impide dormir.</p>
 <p>Hasta donde sé los constructores hacen más o menos esto</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">fakeNew</span>(<span class="shj-syn-class">Ctor</span>) {
-  <span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-class">Ctor</span><span class="shj-syn-oper">.</span>prototype);
-  instance<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span>();
-  <span class="shj-syn-kwd">return</span> instance;
-}</div></div>
+<code class="code-block shj-lang-js">LOADING...
 </code>
 </div><a href="../../blog/2013-04-13-object-create-vs-new" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">GIT Workflow (Parte 2) (🇪🇸 only)<time class="css-a9renj css-blivtv" dateTime="12/04/2012">Dec 4, 2012</time></h3><div class="md"><p>Continuando con [mi último artículo][1], llegó la hora de hablar del gran <em>Github Flow</em>:</p>
 <h3 id="github-flow">Github Flow</h3>
@@ -95,10 +80,7 @@
 <p>Recientemente he tenido que implementar un sistema MVC en Javascript para simplificar el desarrollo sobre una plataforma y me he encontrado con el problema de que las llamadas asíncronas a servidor rompían la simpleza del código, tras un análisis identifiqué cuatro problemas:</p>
 </div><a href="../../blog/2011-12-09-el-patron-promise" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">Let's get it started! (🇪🇸 only)<time class="css-a9renj css-blivtv" dateTime="12/07/2011">Dec 7, 2011</time></h3><div class="md"><p>Bueno, ha llegado la hora de dar el siguiente paso como programador: comenzar un blog para que todos puedan criticarme por poner las llaves <code>{</code> a la derecha :D</p>
 </div><a href="../../blog/2011-12-07-lets-get-it-started" class="">Read more</a></li><li class="css-1mcy390"><h3 class="css-zi0qjt css-erizh2">Hello World!<time class="css-a9renj css-blivtv" dateTime="12/07/2011">Dec 7, 2011</time></h3><div class="md">
-<code class="code-block shj-lang-cpp"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div></div><div>int main(char** args) {
-    print("Hello World!");
-    return 0;
-}</div></div>
+<code class="code-block shj-lang-cpp">LOADING...
 </code>
 <p>Y así es como un blog de programación debe empezar.</p>
 </div><a href="../../blog/2011-12-07-hello-world" class="">Read more</a></li></ol></div></div></body></html>
