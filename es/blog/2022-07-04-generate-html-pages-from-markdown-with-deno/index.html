@@ -1,0 +1,222 @@
+<!DOCTYPE html><html lang="es"><head><meta charSet="UTF-8"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Generar páginas HTML desde Markdown con Deno | A. Matías Quezada</title><style> *, *::before, *::after { box-sizing: border-box; } ul, ol { padding: 0; } body, h1, h2, h3, h4, p, ul, ol, li, figure, figcaption, blockquote, dl, dd { margin: 0; } body { min-height: 100vh; scroll-behavior: smooth; text-rendering: optimizeSpeed; line-height: 1.5; } ul, ol { list-style: none; } .md ul, .md ol { list-style: initial; padding: revert; } a:not([class]) { text-decoration-skip-ink: auto; } img { max-width: 100%; display: block; } article > * + * { margin-top: 1em; } input, button, textarea, select { font: inherit; } @media (prefers-reduced-motion: reduce) { * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; } } </style><style> @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&family=Lato:ital,wght@1,400;1,700&family=Montserrat:wght@400;700&display=swap'); :root { background-color: #263238; color: #FDFBF8; font-family: Lato, sans-serif; font-size: 18px; --border-color: #586369; } header, h1, h2, h3, h4, h5, h6 { font-family: Montserrat, sans-serif; } a { color: #EFE751; } .md p { margin: 20px 0; text-align: justify; } code { font-family: Fira Code, monospace; } .md .code-block { display: block; font-family: Fira Code, monospace; width: var(--available-width); padding-bottom: 10px; } .md h3 { margin-top: 20px; margin-bottom: 20px; } svg { fill: #FDFBF8; } </style><style> [class*=shj-lang-]{white-space:pre;margin:10px 0;border-radius:10px;padding:30px 20px;background:white;color:#112;box-shadow:0 0 5px #0001;text-shadow:none;font: 18px Consolas,Courier New,Monaco,Andale Mono,Ubuntu Mono,monospace;line-height:24px;box-sizing:border-box;max-width:min(100%,100vw)} .shj-inline{margin:0;padding:2px 5px;display:inline-block;border-radius:5px} [class*=shj-lang-]::selection, [class*=shj-lang-] ::selection{background:#bdf5} [class*=shj-lang-]>div{display:flex;overflow:auto} [class*=shj-lang-]>div :last-child{flex:1;outline:none} .shj-numbers{padding-left:5px;counter-reset:line} .shj-numbers div{padding-right:5px} .shj-numbers div:before{color:#999;display:block;content:counter(line);opacity:.5;text-align:right;margin-right:5px;counter-increment:line} .shj-syn-cmnt{font-style:italic} .shj-syn-err, .shj-syn-kwd{color:#e16} .shj-syn-num, .shj-syn-class{color:#f60} .shj-numbers, .shj-syn-cmnt{color:#999} .shj-syn-insert, .shj-syn-str{color:#7d8} .shj-syn-bool{color:#3bf} .shj-syn-type, .shj-syn-oper{color:#5af} .shj-syn-section, .shj-syn-func{color:#84f} .shj-syn-deleted, .shj-syn-var{color:#f44} .shj-oneline{padding:12px 10px} .shj-lang-http.shj-oneline .shj-syn-kwd{background:#25f;color:#fff;padding:5px 7px;border-radius:5px} .shj-multiline.shj-mode-header{padding:20px} .shj-multiline.shj-mode-header:before{content:attr(data-lang);color:#58f;display:block;padding:10px 20px;background:#58f3;border-radius:5px;margin-bottom:20px} [class*=shj-lang-]{color:#abb2bf;background:#161b22} [class*=shj-lang-]:before{color:#6f9aff} .shj-syn-deleted, .shj-syn-err, .shj-syn-var{color:#e06c75} .shj-syn-section, .shj-syn-oper, .shj-syn-kwd{color:#c678dd} .shj-syn-class{color:#e5c07b} .shj-numbers, .shj-syn-cmnt{color:#76839a} .shj-syn-insert{color:#98c379} .shj-syn-type{color:#56b6c2} .shj-syn-num, .shj-syn-bool{color:#d19a66} .shj-syn-str, .shj-syn-func{color:#61afef} </style><style>.css-zi0qjt{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;}
+.css-1p4f3y5{display:grid;padding-top:20px;gap:12px;}
+.css-2nd93p{padding:20px 0;margin-bottom:20px;background-color:#1B2225;color:#FDFBF8;border-bottom:2px solid #586369;}@media (min-width: 769px){.css-2nd93p{position:-webkit-sticky;position:sticky;top:0;z-index:1;}}
+.css-17rdaxl{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}@media (min-width: 769px){.css-17rdaxl{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}
+.css-eexrvx{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:12px;}.css-eexrvx a{color:#EFE751;-webkit-text-decoration:none;text-decoration:none;margin-left:12px;border-bottom:1px solid transparent;-webkit-transform:translate(0px, 0px);-moz-transform:translate(0px, 0px);-ms-transform:translate(0px, 0px);transform:translate(0px, 0px);}.css-eexrvx a.parent{border-bottom:1px solid #586369;}.css-eexrvx a:hover{border-bottom:1px solid #EFE751;-webkit-transition:-webkit-transform 1s ease;transition:transform 1s ease;-webkit-transform:translate(0px, -3px);-moz-transform:translate(0px, -3px);-ms-transform:translate(0px, -3px);transform:translate(0px, -3px);}
+.css-18wymod{--container-side-gap:1rem;--container-width:40rem;--container-sides-gap:calc(var(--container-side-gap) * 2);--available-width:min(
+      calc(100vw - var(--container-sides-gap)),
+      calc(var(--container-width) - var(--container-sides-gap))
+    );max-width:var(--container-width);padding-left:var(--container-side-gap);padding-right:var(--container-side-gap);margin-left:auto;margin-right:auto;}@media (min-width: 769px){.css-18wymod{--container-width:50rem;--container-side-gap:3rem;}}@media (min-width: 1200px){.css-18wymod{--container-width:60rem;}}
+.css-hlqr5i{font-size:24px;-webkit-text-decoration:none;text-decoration:none;color:#FFFFFF;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:baseline;-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline;letter-spacing:1px;}.css-hlqr5i abbr{display:inline-block;width:0.8em;margin-right:0.35em;overflow:hidden;-webkit-transition:width 0.3s ease;transition:width 0.3s ease;}.css-hlqr5i:hover abbr{width:3.75em;}
+.css-187qu0u{font-family:Montserrat,sans-serif;font-weight:700;font-size:32px;}
+.css-a9renj{opacity:0.8;font-family:Fira Code,monospace;color:#FDFBF8;}</style></head><body class=""><header class="css-2nd93p "><div class="css-17rdaxl css-18wymod"><h2><a href="../../.." class="css-hlqr5i"><abbr>Adrian</abbr> Matías Quezada</a></h2><nav class="css-eexrvx"><a href="../../../blog" class="">Blog</a><a href="../../../career" class="">Experiencia</a><a href="../../../projects" class="">Proyectos</a><a href="../../../blog/2022-07-04-generate-html-pages-from-markdown-with-deno" class="">🇬🇧</a></nav></div></header><div class="css-1p4f3y5 css-18wymod"><div class="css-zi0qjt"><h2 class="undefined css-187qu0u">Generar páginas HTML desde Markdown con Deno</h2><time class="css-a9renj " dateTime="04/07/2022">4 jul 2022</time></div><article><div class="md"><p>He estado trabajando en una versión nueva de este sitio con una idea clara:</p>
+
+<ul>
+<li>Quiero escribir el contenido en Markdown</li>
+<li>Quiero que sea el sitio más rápido que ha habido (negociable)</li>
+<li>Bilingüe (N-lingüe de hecho)</li>
+</ul>
+<p>Después de unos meses de trabajo me encontré tomando la misma presunción no escrita que recientemente comenté a mi amiga @Shakira, quién me ayudó con este hermoso diseño 🙌</p>
+<blockquote>
+<p>Voy a animar la cabecera de alguna forma sólo con CSS, no hay lugar para Javascript en el sitio del tipo del Javascript. Ese es el mensaje 🤣</p>
+</blockquote>
+<p>Eso es todo.</p>
+<p>El post puede terminar aquí.</p>
+<p>Pero tengo más que escribir:</p>
+<p>Eso significa...</p>
+
+<ul>
+<li>Páginas con HTML / CSS plano</li>
+<li>CSS / JS embebido directamente en el HTML</li>
+<li>solo el CSS / JS necesario se incluye</li>
+</ul>
+<p>Y... necesito probar [Deno], parece genial, suena genial y sabes que encontrarás problemas cuando empieces a usarlo pero cuáles podrán ser?</p>
+<p>Aquí está el camino para generar páginas HTML desde TSX con Deno:</p>
+
+<ul>
+<li>Tienes [Deno] instalado</li>
+<li>Crea un archivo <code>.tsx</code></li>
+<li>importar <code>React</code> de <code>https://esm.sh/react</code></li>
+<li>importar <code>{ renderToStaticMarkup }</code> de <code>https://esm.sh/react-dom/server</code>;</li>
+<li>esto:</li>
+</ul>
+
+<code class="code-block shj-lang-ts"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">// Las versiones se incluyen por importantes razones! 🥲
+</span><span class="shj-syn-kwd">import</span> <span class="shj-syn-class">React</span> <span class="shj-syn-kwd">from</span> <span class="shj-syn-str">'https://esm.sh/react@18.2.0'</span>
+<span class="shj-syn-kwd">import</span> { renderToStaticMarkup } <span class="shj-syn-kwd">from</span> <span class="shj-syn-str">'https://esm.sh/react-dom@18.2.0/'</span>;
+
+<span class="shj-syn-cmnt">// Este es nuestro único componente
+</span><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">MyComponent</span>() {
+  <span class="shj-syn-kwd">return</span> <span class="shj-syn-oper">&lt;</span>p<span class="shj-syn-oper">&gt;</span>Ésta es mi página<span class="shj-syn-oper">!&lt;</span>p<span class="shj-syn-oper">&gt;</span>
+}
+
+<span class="shj-syn-cmnt">// renderToStaticMarkup hace la magia
+</span><span class="shj-syn-kwd">const</span> html <span class="shj-syn-oper">=</span> <span class="shj-syn-func">renderToStaticMarkup</span>(<span class="shj-syn-oper">&lt;</span><span class="shj-syn-class">MyComponent</span> <span class="shj-syn-oper">/&gt;</span>);
+
+<span class="shj-syn-cmnt">// enviar el HTML resultante a la salida del programa
+</span>console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(html);</div></div>
+</code>
+<p>&quot;Pero Matías! quiero que esto se pueda leer de / escribir a disco! no desde el mismo código!&quot;</p>
+
+<code class="code-block shj-lang-ts"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">// main.tsx
+</span><span class="shj-syn-kwd">import</span> <span class="shj-syn-class">React</span> <span class="shj-syn-kwd">from</span> <span class="shj-syn-str">'https://esm.sh/react@18.2.0'</span>
+<span class="shj-syn-kwd">import</span> { renderToStaticMarkup } <span class="shj-syn-kwd">from</span> <span class="shj-syn-str">'https://esm.sh/react-dom@18.2.0/'</span>;
+
+<span class="shj-syn-cmnt">// leemos los argumentos
+</span><span class="shj-syn-kwd">const</span> [input<span class="shj-syn-oper">,</span> output] <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Deno</span><span class="shj-syn-oper">.</span>args;
+
+<span class="shj-syn-cmnt">// input/output pueden ser relativos al directorio de trabajo del usuario
+</span><span class="shj-syn-kwd">const</span> cwd <span class="shj-syn-oper">=</span> <span class="shj-syn-str">`file://</span><span class="shj-syn-kwd">${</span><span class="shj-syn-class">Deno</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">cwd</span>()<span class="shj-syn-kwd">}</span><span class="shj-syn-str">/`</span>;
+
+<span class="shj-syn-kwd">const</span> input_fullpath <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-num">URL</span>(input<span class="shj-syn-oper">,</span> cwd)<span class="shj-syn-oper">.</span>pathname
+<span class="shj-syn-kwd">const</span> output_fullpath <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-num">URL</span>(output<span class="shj-syn-oper">,</span> cwd)<span class="shj-syn-oper">.</span>pathname
+
+<span class="shj-syn-cmnt">// Importar el archivo .tsx que contiene la página
+</span><span class="shj-syn-kwd">const</span> inputModule <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">await</span> <span class="shj-syn-kwd">import</span>(input_fullpath);
+<span class="shj-syn-kwd">const</span> <span class="shj-syn-class">Page</span> <span class="shj-syn-oper">=</span> inputModule<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">default</span>;
+
+<span class="shj-syn-kwd">const</span> html <span class="shj-syn-oper">=</span> <span class="shj-syn-func">renderToStaticMarkup</span>(<span class="shj-syn-oper">&lt;</span><span class="shj-syn-class">Page</span> randomProp<span class="shj-syn-oper">=</span><span class="shj-syn-str">"yay"</span> <span class="shj-syn-oper">/&gt;</span>);
+
+<span class="shj-syn-kwd">await</span> <span class="shj-syn-class">Deno</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">writeTextFile</span>(output_fullpath<span class="shj-syn-oper">,</span> html);</div></div>
+</code>
+
+<code class="code-block shj-lang-ts"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">// MyPage.tsx
+</span><span class="shj-syn-kwd">import</span> <span class="shj-syn-class">React</span> <span class="shj-syn-kwd">from</span> <span class="shj-syn-str">'https://esm.sh/react@18.2.0'</span>
+
+<span class="shj-syn-kwd">export</span> <span class="shj-syn-kwd">default</span> () <span class="shj-syn-kwd">=&gt;</span> <span class="shj-syn-oper">&lt;</span>p<span class="shj-syn-oper">&gt;</span>Ésta es mi página<span class="shj-syn-oper">!&lt;</span>p<span class="shj-syn-oper">&gt;</span></div></div>
+</code>
+
+<code class="code-block shj-lang-shell"><div><div class="shj-numbers"><div></div></div><div>$ deno run --allow-read=. --allow-write=. --allow-net=https://esm.sh ./main.tsx ./MyPage.tsx ./MyPage.html</div></div>
+</code>
+<p>Permisos explicados:</p>
+
+<ul>
+<li><code>--allow-read=.</code> permite que el script lea la carpeta en la que estamos: <code>.</code></li>
+<li><code>--allow-write=.</code> lo mismo que arriba, solo se necesita acceso a <code>input</code>/<code>output</code> pero <code>.</code> es suficiente la mayoría de las veces</li>
+<li><code>--allow-net=https://esm.sh</code> requiere acceso a esm.sh para descargar las dependencias: <code>react</code> and <code>react-dom</code></li>
+<li><code>./main.tsx</code> esto no es un permiso, es el nombre del archivo que creamos allá arriba!</li>
+<li><code>./MyPage.tsx ./MyPage.html</code> estos son los argumentos que se pasarán como <code>input</code> y <code>ouput</code>, es que no estabas prestando atención!?</li>
+</ul>
+<p>Ok pero podemos hacerlo mejor, no queremos pasar archivo por archivo, queremos darle una carpeta y que genere la misma estructura, si tan solo tuvieramos un...</p>
+
+<code class="code-block shj-lang-ts"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">// Leer archivos recursivamente
+</span><span class="shj-syn-kwd">export</span> <span class="shj-syn-kwd">async</span> <span class="shj-syn-kwd">function</span> <span class="shj-syn-func">getFilesRecursively</span>(currentPath<span class="shj-syn-type">: string</span>) {
+  <span class="shj-syn-kwd">const</span> names<span class="shj-syn-type">: string</span>[] <span class="shj-syn-oper">=</span> [];
+
+  <span class="shj-syn-kwd">for</span> <span class="shj-syn-kwd">await</span> (<span class="shj-syn-kwd">const</span> dirEntry <span class="shj-syn-kwd">of</span> <span class="shj-syn-class">Deno</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">readDir</span>(currentPath)) {
+    <span class="shj-syn-kwd">const</span> entryPath <span class="shj-syn-oper">=</span> <span class="shj-syn-str">`</span><span class="shj-syn-kwd">${</span>root<span class="shj-syn-kwd">}</span><span class="shj-syn-str">/</span><span class="shj-syn-kwd">${</span>dirEntry<span class="shj-syn-oper">.</span>name<span class="shj-syn-kwd">}</span><span class="shj-syn-str">`</span>;
+
+    <span class="shj-syn-kwd">if</span> (dirEntry<span class="shj-syn-oper">.</span>isDirectory) {
+      names<span class="shj-syn-oper">.</span><span class="shj-syn-func">push</span>(<span class="shj-syn-oper">...</span>(<span class="shj-syn-kwd">await</span> <span class="shj-syn-func">getFilesRecursively</span>(entryPath))<span class="shj-syn-oper">.</span><span class="shj-syn-func">sort</span>());
+    } <span class="shj-syn-kwd">else</span> {
+      names<span class="shj-syn-oper">.</span><span class="shj-syn-func">push</span>(entryPath);
+    }
+  }
+
+  <span class="shj-syn-kwd">return</span> names;
+}</div></div>
+</code>
+<p>Estoy seguro que algo así es parte de <code>esm.sh/std</code> por algún lado. Ahora vamos a actualizar el <code>main.tsx</code> que creamos arriba:</p>
+
+<code class="code-block shj-lang-ts"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">// main.tsx
+</span><span class="shj-syn-kwd">import</span> <span class="shj-syn-class">React</span> <span class="shj-syn-kwd">from</span> <span class="shj-syn-str">'https://esm.sh/react@18.2.0'</span>
+<span class="shj-syn-kwd">import</span> { renderToStaticMarkup } <span class="shj-syn-kwd">from</span> <span class="shj-syn-str">'https://esm.sh/react-dom@18.2.0/'</span>;
+
+<span class="shj-syn-cmnt">// Importamos una función para obtener el nombre del directorio de un archivo
+</span><span class="shj-syn-kwd">import</span> { dirname } <span class="shj-syn-kwd">from</span> <span class="shj-syn-str">'https://deno.land/std@0.143.0/path/mod.ts'</span>;
+
+<span class="shj-syn-kwd">const</span> [input<span class="shj-syn-oper">,</span> output] <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Deno</span><span class="shj-syn-oper">.</span>args;
+
+<span class="shj-syn-cmnt">// función auxiliar, hay algo en deno.land/std como esto?
+</span><span class="shj-syn-kwd">const</span> relativeToCwd <span class="shj-syn-oper">=</span> (target<span class="shj-syn-type">: string</span>) <span class="shj-syn-kwd">=&gt;</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-num">URL</span>(target<span class="shj-syn-oper">,</span> <span class="shj-syn-str">`file://</span><span class="shj-syn-kwd">${</span><span class="shj-syn-class">Deno</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">cwd</span>()<span class="shj-syn-kwd">}</span><span class="shj-syn-str">/`</span>);
+
+<span class="shj-syn-kwd">const</span> input_dir <span class="shj-syn-oper">=</span> <span class="shj-syn-func">relativeToCwd</span>(<span class="shj-syn-class">Deno</span><span class="shj-syn-oper">.</span>args[<span class="shj-syn-num">0</span>]);
+<span class="shj-syn-kwd">const</span> output_dir <span class="shj-syn-oper">=</span> <span class="shj-syn-func">relativeToCwd</span>(<span class="shj-syn-class">Deno</span><span class="shj-syn-oper">.</span>args[<span class="shj-syn-num">1</span>]);
+
+<span class="shj-syn-kwd">for</span> (<span class="shj-syn-kwd">const</span> file <span class="shj-syn-kwd">of</span> <span class="shj-syn-kwd">await</span> <span class="shj-syn-func">getFilesRecursively</span>(input_dir)) {
+  <span class="shj-syn-cmnt">// Importar el archivo .tsx que contiene la página
+</span>  <span class="shj-syn-kwd">const</span> inputModule <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">await</span> <span class="shj-syn-kwd">import</span>(input_fullpath);
+  <span class="shj-syn-kwd">const</span> <span class="shj-syn-class">Page</span> <span class="shj-syn-oper">=</span> inputModule<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">default</span>;
+
+  <span class="shj-syn-kwd">const</span> html <span class="shj-syn-oper">=</span> <span class="shj-syn-func">renderToStaticMarkup</span>(<span class="shj-syn-oper">&lt;</span><span class="shj-syn-class">Page</span> randomProp<span class="shj-syn-oper">=</span><span class="shj-syn-str">"yay"</span> <span class="shj-syn-oper">/&gt;</span>);
+
+  <span class="shj-syn-cmnt">// ./input/mydir/myfile.tsx
+</span>  <span class="shj-syn-cmnt">// se convierte en
+</span>  <span class="shj-syn-cmnt">// ./output/mydir/myfile.html
+</span>  <span class="shj-syn-kwd">const</span> destination <span class="shj-syn-oper">=</span> file
+    <span class="shj-syn-oper">.</span><span class="shj-syn-func">replace</span>(input_dir<span class="shj-syn-oper">,</span> output_dir)
+    <span class="shj-syn-oper">.</span><span class="shj-syn-func">replace</span>(<span class="shj-syn-oper">/.tsx</span><span class="shj-syn-kwd">$</span><span class="shj-syn-oper">/</span><span class="shj-syn-oper">,</span> <span class="shj-syn-str">'.html'</span>);
+
+  <span class="shj-syn-cmnt">// Esto crea todas las carpetas necesarias
+</span>  <span class="shj-syn-cmnt">// Además si la carpeta ya existe no lanza error :)
+</span>  <span class="shj-syn-kwd">await</span> <span class="shj-syn-class">Deno</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">mkdir</span>(<span class="shj-syn-func">dirname</span>(destination)<span class="shj-syn-oper">,</span> { recursive<span class="shj-syn-oper">:</span> <span class="shj-syn-bool">true</span> });
+
+  <span class="shj-syn-cmnt">// Escribir el HTML generado a disco
+</span>  <span class="shj-syn-kwd">await</span> <span class="shj-syn-class">Deno</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">writeTextFile</span>(destination<span class="shj-syn-oper">,</span> html);
+}</div></div>
+</code>
+<p>A veces encontrás necesario borrar la carpeta de salida antes de empezar a escribir en ella... hice esto que no es hermoso pero hace el trabajo 🤷‍♀️</p>
+
+<code class="code-block shj-lang-ts"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">try</span> {
+  <span class="shj-syn-cmnt">// Eesta función tira un error incluso con `{ recursive: true }` lo cuál tiene sentido
+</span>  <span class="shj-syn-kwd">await</span> <span class="shj-syn-class">Deno</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">remove</span>(output<span class="shj-syn-oper">,</span> { recursive<span class="shj-syn-oper">:</span> <span class="shj-syn-bool">true</span> });
+} <span class="shj-syn-kwd">catch</span> {}</div></div>
+</code>
+<p>From this you can start creating your site with JS knowing no JS will be rendered in the browser.</p>
+
+<code class="code-block shj-lang-ts"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">// input/index.tsx
+</span><span class="shj-syn-kwd">import</span> <span class="shj-syn-class">React</span> <span class="shj-syn-kwd">from</span> <span class="shj-syn-str">'https://esm.sh/react@18.2.0'</span>
+
+<span class="shj-syn-cmnt">// CSS puesto en una variable porque las llaves { } confundirían al JSX de React
+</span><span class="shj-syn-kwd">const</span> styles <span class="shj-syn-oper">=</span> <span class="shj-syn-str">`
+  .body { margin: 0 }
+`</span>
+
+<span class="shj-syn-kwd">export</span> <span class="shj-syn-kwd">default</span> () <span class="shj-syn-kwd">=&gt;</span> (
+  <span class="shj-syn-oper">&lt;</span>html lang<span class="shj-syn-oper">=</span><span class="shj-syn-str">"en"</span><span class="shj-syn-oper">&gt;</span>
+    <span class="shj-syn-oper">&lt;</span>head<span class="shj-syn-oper">&gt;</span>
+      <span class="shj-syn-oper">&lt;</span>meta charSet<span class="shj-syn-oper">=</span><span class="shj-syn-str">"UTF-8"</span> <span class="shj-syn-oper">/&gt;</span>
+      <span class="shj-syn-oper">&lt;</span>meta http<span class="shj-syn-oper">-</span>equiv<span class="shj-syn-oper">=</span><span class="shj-syn-str">"X-UA-Compatible"</span> content<span class="shj-syn-oper">=</span><span class="shj-syn-str">"IE=edge"</span> <span class="shj-syn-oper">/&gt;</span>
+      <span class="shj-syn-oper">&lt;</span>meta name<span class="shj-syn-oper">=</span><span class="shj-syn-str">"viewport"</span> content<span class="shj-syn-oper">=</span><span class="shj-syn-str">"width=device-width, initial-scale=1.0"</span> <span class="shj-syn-oper">/&gt;</span>
+      <span class="shj-syn-oper">&lt;</span>title<span class="shj-syn-oper">&gt;</span><span class="shj-syn-class">Mi</span> sitio web<span class="shj-syn-oper">!&lt;/</span>title<span class="shj-syn-oper">&gt;</span>
+      <span class="shj-syn-oper">&lt;</span>style<span class="shj-syn-oper">&gt;</span>{styles}<span class="shj-syn-oper">&lt;/</span>style<span class="shj-syn-oper">&gt;</span>
+    <span class="shj-syn-oper">&lt;/</span>head<span class="shj-syn-oper">&gt;</span>
+    <span class="shj-syn-oper">&lt;</span>body<span class="shj-syn-oper">&gt;</span>
+      <span class="shj-syn-oper">&lt;</span>p<span class="shj-syn-oper">&gt;</span><span class="shj-syn-class">Este</span> es mi índice<span class="shj-syn-oper">!&lt;</span>p<span class="shj-syn-oper">&gt;</span>
+    <span class="shj-syn-oper">&lt;/</span>body<span class="shj-syn-oper">&gt;</span>
+  <span class="shj-syn-oper">&lt;/</span>html<span class="shj-syn-oper">&gt;</span>
+)</div></div>
+</code>
+
+<code class="code-block shj-lang-shell"><div><div class="shj-numbers"><div></div></div><div>$ deno run --allow-read=. --allow-write=. --allow-net=https://esm.sh ./main.tsx ./input ./output</div></div>
+</code>
+<p>Y generaría un archivo como este:</p>
+
+<code class="code-block shj-lang-html"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">html</span> <span class="shj-syn-class">lang</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"en"</span><span class="shj-syn-oper">&gt;</span>
+  <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">head</span><span class="shj-syn-oper">&gt;</span>
+    <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">meta</span> <span class="shj-syn-class">charset</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"UTF-8"</span> <span class="shj-syn-oper">/&gt;</span>
+    <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">meta</span> <span class="shj-syn-class">http-equiv</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"X-UA-Compatible"</span> <span class="shj-syn-class">content</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"IE=edge"</span> <span class="shj-syn-oper">/&gt;</span>
+    <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">meta</span> <span class="shj-syn-class">name</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"viewport"</span> <span class="shj-syn-class">content</span><span class="shj-syn-str"></span><span class="shj-syn-oper">=</span><span class="shj-syn-str">"width=device-width, initial-scale=1.0"</span> <span class="shj-syn-oper">/&gt;</span>
+    <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">title</span><span class="shj-syn-oper">&gt;</span>Mi sitio web!<span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">title</span><span class="shj-syn-oper">&gt;</span>
+    <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">style</span><span class="shj-syn-oper">&gt;</span>
+      <span class="shj-syn-var">.body</span> { <span class="shj-syn-var">margin</span>: <span class="shj-syn-num">0</span> }
+    <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">style</span><span class="shj-syn-oper">&gt;</span>
+  <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">head</span><span class="shj-syn-oper">&gt;</span>
+  <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">body</span><span class="shj-syn-oper">&gt;</span>
+    <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">p</span><span class="shj-syn-oper">&gt;</span>Este es mi índice!<span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-var">p</span><span class="shj-syn-oper">&gt;</span>
+  <span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">body</span><span class="shj-syn-oper">&gt;</span>
+<span class="shj-syn-var"></span><span class="shj-syn-oper">&lt;/</span><span class="shj-syn-var">html</span><span class="shj-syn-oper">&gt;</span></div></div>
+</code>
+<p>&quot;Pero Matías, has dado tantas vueltas para tener una forma ligeramente más compleja de escribir HTML?&quot;</p>
+<p>Si, exacto, gracias por darte cuenta. Ahora tenemos componentes y podemos crear componentes como la mirda y ya que importamos los archivos con <code>import()</code> todas las dependencias serán manejadas apropiadamente por Deno! No solo eso, un entorno Javascript signifca que podemos hacer todo tipo de lógica como procesado de Markdown antes de generar la página pero eso es otra historia.</p>
+<p>Otras cosas que aprendí sobre la marcha y me encantaría escribir al respecto:</p>
+
+<ul>
+<li>Import maps (con o sin barra? AMBOS! y verión completa!)
+<ul>
+<li><code>/deps/some-dependency.ts</code> porqué aún lo encuentro útil</li>
+<li>El infierno del archivo <code>lock.json</code> de Deno (y porqué existe)</li>
+</ul>
+</li>
+</ul>
+</div></article></div></body></html>
