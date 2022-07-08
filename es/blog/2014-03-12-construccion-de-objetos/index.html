@@ -1,18 +1,20 @@
-<!DOCTYPE html><html lang="es"><head><meta charSet="UTF-8"/><meta name="description" content="A. Matías Quezada&#x27;s personal website"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Construcción de objetos | A. Matías Quezada</title><style> *, ::before, ::after { box-sizing: border-box; } html { line-sizing: normal; } body { margin: 0; } [hidden] { display: none; } h1 { font-size: 2rem; } h2 { font-size: 1.5rem; } h3 { font-size: 1.17rem; } h4 { font-size: 1.00rem; } h5 { font-size: 0.83rem; } h6 { font-size: 0.67rem; } h1 { margin: 0.67em 0; } pre { white-space: pre-wrap; } hr { border-style: solid; border-width: 1px 0 0; color: inherit; height: 0; overflow: visible; } img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; max-width: 100%; } audio:not([controls]) { display:none; } picture { display: contents; } source { display: none; } img, svg, video, canvas { height: auto; } audio { width: 100%; } img { border-style: none; } svg { overflow: hidden; } article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section { display: block; } [type='checkbox'], [type='radio'] { box-sizing: border-box; padding: 0; } </style><style>@font-face { font-family: 'Inconsolata'; font-style: normal; font-weight: 400; font-stretch: normal; font-display: swap; src: url(https://fonts.gstatic.com/s/inconsolata/v30/QldgNThLqRwH-OJ1UHjlKENVzkWGVkL3GZQmAwLYxYWI2qfdm7Lpp4U8aRo.ttf) format('truetype'); } @font-face { font-family: 'Inconsolata'; font-style: normal; font-weight: 700; font-stretch: normal; font-display: swap; src: url(https://fonts.gstatic.com/s/inconsolata/v30/QldgNThLqRwH-OJ1UHjlKENVzkWGVkL3GZQmAwLYxYWI2qfdm7Lpp2I7aRo.ttf) format('truetype'); } @font-face { font-family: 'Nunito'; font-style: normal; font-weight: 400; font-display: swap; src: url(https://fonts.gstatic.com/s/nunito/v24/XRXI3I6Li01BKofiOc5wtlZ2di8HDLshRTM.ttf) format('truetype'); } @font-face { font-family: 'Nunito'; font-style: normal; font-weight: 700; font-display: swap; src: url(https://fonts.gstatic.com/s/nunito/v24/XRXI3I6Li01BKofiOc5wtlZ2di8HDFwmRTM.ttf) format('truetype'); } @font-face { font-family: 'Nunito Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url(https://fonts.gstatic.com/s/nunitosans/v12/pe0qMImSLYBIv1o4X1M8cfe6.ttf) format('truetype'); } @font-face { font-family: 'Nunito Sans'; font-style: normal; font-weight: 700; font-display: swap; src: url(https://fonts.gstatic.com/s/nunitosans/v12/pe03MImSLYBIv1o4X1M8cc8GBv5q.ttf) format('truetype'); } </style><style> :root { background-color: #263238; color: #FDFBF8; font-family: Nunito Sans, sans-serif; font-size: 18px; --border-color: #586369; --color-primary: #8BB9F8; /* azul */ --color-primary: #8BA9FF; /* French Sky Blue */ --color-primary: #70ACFF; /* French Sky Blue 2 */ --color-primary: #FC9173; /* Dark Salmom */ --color-primary: #EFE751; } header, h1, h2, h3, h4, h5, h6 { font-family: Nunito, sans-serif; } a { color: var(--color-primary); } ol { padding: 0; } .md p { margin: 20px 0; text-align: justify; } code { font-family: Inconsolata, monospace; } code:not(.code-block) { background-color: #161b22; padding: 4px; border-radius: 4px; } .md .code-block { display: block; font-family: Inconsolata, monospace; width: var(--available-width); padding-bottom: 10px; } .md h3 { margin-top: 20px; margin-bottom: 20px; } svg { fill: #FDFBF8; } </style><style> [class*=shj-lang-]{white-space:pre;margin:10px 0;border-radius:10px;padding:30px 20px;background:white;color:#112;box-shadow:0 0 5px #0001;text-shadow:none;font: 18px Consolas,Courier New,Monaco,Andale Mono,Ubuntu Mono,monospace;line-height:24px;box-sizing:border-box;max-width:min(100%,100vw)} .shj-inline{margin:0;padding:2px 5px;display:inline-block;border-radius:5px} [class*=shj-lang-]::selection, [class*=shj-lang-] ::selection{background:#bdf5} [class*=shj-lang-]>div{display:flex;overflow:auto} [class*=shj-lang-]>div :last-child{flex:1;outline:none} .shj-numbers{padding-left:5px;counter-reset:line} .shj-numbers div{padding-right:5px} .shj-numbers div:before{color:#999;display:block;content:counter(line);opacity:.5;text-align:right;margin-right:5px;counter-increment:line} .shj-syn-cmnt{font-style:italic} .shj-syn-err, .shj-syn-kwd{color:#e16} .shj-syn-num, .shj-syn-class{color:#f60} .shj-numbers, .shj-syn-cmnt{color:#999} .shj-syn-insert, .shj-syn-str{color:#7d8} .shj-syn-bool{color:#3bf} .shj-syn-type, .shj-syn-oper{color:#5af} .shj-syn-section, .shj-syn-func{color:#84f} .shj-syn-deleted, .shj-syn-var{color:#f44} .shj-oneline{padding:12px 10px} .shj-lang-http.shj-oneline .shj-syn-kwd{background:#25f;color:#fff;padding:5px 7px;border-radius:5px} .shj-multiline.shj-mode-header{padding:20px} .shj-multiline.shj-mode-header:before{content:attr(data-lang);color:#58f;display:block;padding:10px 20px;background:#58f3;border-radius:5px;margin-bottom:20px} [class*=shj-lang-]{color:#abb2bf;background:#161b22} [class*=shj-lang-]:before{color:#6f9aff} .shj-syn-deleted, .shj-syn-err, .shj-syn-var{color:#e06c75} .shj-syn-section, .shj-syn-oper, .shj-syn-kwd{color:#c678dd} .shj-syn-class{color:#e5c07b} .shj-numbers, .shj-syn-cmnt{color:#76839a} .shj-syn-insert{color:#98c379} .shj-syn-type{color:#56b6c2} .shj-syn-num, .shj-syn-bool{color:#d19a66} .shj-syn-str, .shj-syn-func{color:#61afef} </style><style>.css-relzm4{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}@media (min-width: 769px){.css-relzm4{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}}
-.css-1p4f3y5{display:grid;padding-top:20px;gap:12px;}
-.css-1e8d7s{padding-bottom:4rem;}
-.css-1witpq9{padding:20px 0;background-color:#161b22;color:#FDFBF8;border-bottom:2px solid #586369;}@media (min-width: 769px){.css-1witpq9{position:-webkit-sticky;position:sticky;top:0;z-index:1;}}
-.css-17rdaxl{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}@media (min-width: 769px){.css-17rdaxl{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}
-.css-1dp27ce{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:12px;}.css-1dp27ce a{color:var(--color-primary);-webkit-text-decoration:none;text-decoration:none;margin-left:12px;border-bottom:1px solid transparent;-webkit-transform:translate(0px, 0px);-moz-transform:translate(0px, 0px);-ms-transform:translate(0px, 0px);transform:translate(0px, 0px);}.css-1dp27ce a.parent{border-bottom:1px solid #586369;}.css-1dp27ce a:hover{border-bottom:1px solid var(--color-primary);-webkit-transition:-webkit-transform 1s ease;transition:transform 1s ease;-webkit-transform:translate(0px, -3px);-moz-transform:translate(0px, -3px);-ms-transform:translate(0px, -3px);transform:translate(0px, -3px);}
+<!DOCTYPE html><html lang="es"><head><meta charSet="UTF-8"/><meta name="description" content="A. Matías Quezada&#x27;s personal website"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Construcción de objetos | A. Matías Quezada</title><style> *, ::before, ::after { box-sizing: border-box; } html { line-sizing: normal; } body { margin: 0; } [hidden] { display: none; } h1 { font-size: 2rem; } h2 { font-size: 1.5rem; } h3 { font-size: 1.17rem; } h4 { font-size: 1.00rem; } h5 { font-size: 0.83rem; } h6 { font-size: 0.67rem; } h1 { margin: 0.67em 0; } pre { white-space: pre-wrap; } hr { border-style: solid; border-width: 1px 0 0; color: inherit; height: 0; overflow: visible; } img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; max-width: 100%; } audio:not([controls]) { display:none; } picture { display: contents; } source { display: none; } img, svg, video, canvas { height: auto; } audio { width: 100%; } img { border-style: none; } svg { overflow: hidden; } article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section { display: block; } [type='checkbox'], [type='radio'] { box-sizing: border-box; padding: 0; } @media (prefers-reduced-motion: reduce) { *, ::before, ::after { animation-name: none !important; transition: none !important; } } </style><style>@font-face { font-family: 'Inconsolata'; font-style: normal; font-weight: 400; font-stretch: normal; font-display: swap; src: url(https://fonts.gstatic.com/s/inconsolata/v30/QldgNThLqRwH-OJ1UHjlKENVzkWGVkL3GZQmAwLYxYWI2qfdm7Lpp4U8aRo.ttf) format('truetype'); } @font-face { font-family: 'Inconsolata'; font-style: normal; font-weight: 700; font-stretch: normal; font-display: swap; src: url(https://fonts.gstatic.com/s/inconsolata/v30/QldgNThLqRwH-OJ1UHjlKENVzkWGVkL3GZQmAwLYxYWI2qfdm7Lpp2I7aRo.ttf) format('truetype'); } @font-face { font-family: 'Nunito'; font-style: normal; font-weight: 400; font-display: swap; src: url(https://fonts.gstatic.com/s/nunito/v24/XRXI3I6Li01BKofiOc5wtlZ2di8HDLshRTM.ttf) format('truetype'); } @font-face { font-family: 'Nunito'; font-style: normal; font-weight: 700; font-display: swap; src: url(https://fonts.gstatic.com/s/nunito/v24/XRXI3I6Li01BKofiOc5wtlZ2di8HDFwmRTM.ttf) format('truetype'); } @font-face { font-family: 'Nunito Sans'; font-style: normal; font-weight: 400; font-display: swap; src: url(https://fonts.gstatic.com/s/nunitosans/v12/pe0qMImSLYBIv1o4X1M8cfe6.ttf) format('truetype'); } @font-face { font-family: 'Nunito Sans'; font-style: normal; font-weight: 700; font-display: swap; src: url(https://fonts.gstatic.com/s/nunitosans/v12/pe03MImSLYBIv1o4X1M8cc8GBv5q.ttf) format('truetype'); } </style><style> :root { background-color: #263238; color: #FDFBF8; font-family: Nunito Sans, sans-serif; font-size: 18px; line-height: 1.5; letter-spacing: 0.5px; --color-primary: #8BB9F8; /* azul */ --color-primary: #8BA9FF; /* French Sky Blue */ --color-primary: #70ACFF; /* French Sky Blue 2 */ --color-primary: #FC9173; /* Dark Salmom */ --color-primary: #00ff01; /* Verde familia */ --color-primary: #00ffe1; /* Cyan Romi */ --color-primary: #EFE751; --color-primary-soft: var(--color-primary)88; } header, h1, h2, h3, h4, h5, h6 { font-family: Nunito, sans-serif; } a { color: var(--color-primary); text-decoration: none; } a[href^="http"]:not(.no-external)::after { content: ''; margin-left: 0.5em; width: 0.8em; height: 0.8em; display: inline-block; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='%23EFE751' stroke='%23EFE751'%3E%3Cpath d='M6 17c2.269-9.881 11-11.667 11-11.667v-3.333l7 6.637-7 6.696v-3.333s-6.17-.171-11 5zm12 .145v2.855h-16v-12h6.598c.768-.787 1.561-1.449 2.339-2h-10.937v16h20v-6.769l-2 1.914z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: center; background-size: contain; } :where(.bouncy-box, article a) { position: relative; display: inline-block; --underline-width: 1px; --padding: 8; transform: scale(1) rotate(0); transition: transform 0.3s cubic-bezier(0.25, 0.1, 0, 2.05); } :where(.bouncy-box, article a):hover { transform: scale(1.1) rotate(0); } :where(.bouncy-box, article a):before { content: ''; position: absolute; z-index: -1; border-radius: 8px; opacity: 1; background: var(--color-primary); inset: calc(100% - var(--underline-width)) 0 0 0; height: var(--underline-width); transition-property: inset, opacity, height, background; transition-duration: 0.3s; transition-timing-function: cubic-bezier(0,.5,0,1); } :where(.bouncy-box, article a):hover:before { inset: calc(var(--padding) * -1px) calc(var(--padding) * -2px); background: black; opacity: 0.8; height: calc(100% + calc(var(--padding) * 2px)); } ol { padding: 0; } li { list-style: none; } code { font-family: Inconsolata, monospace; } svg { fill: #FDFBF8; } </style><style>.css-1ljukny{position:fixed;bottom:1rem;right:1rem;background-color:black;}.css-1ljukny input{border:none;width:3rem;height:3rem;}
+.css-5a8vm2 .shj-inline{margin:0;padding:2px 5px;display:inline-block;border-radius:5px;}.css-5a8vm2 [class*=shj-lang-]::selection,.css-5a8vm2 [class*=shj-lang-] ::selection{background:#bdf5;}.css-5a8vm2 [class*=shj-lang-]>div{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;overflow:auto;}.css-5a8vm2 [class*=shj-lang-]>div :last-child{-webkit-flex:1;-ms-flex:1;flex:1;outline:none;}.css-5a8vm2 .shj-syn-cmnt{font-style:italic;}.css-5a8vm2 .shj-syn-err,.css-5a8vm2 .shj-syn-kwd{color:#e16;}.css-5a8vm2 .shj-syn-num,.css-5a8vm2 .shj-syn-class{color:#f60;}.css-5a8vm2 .shj-numbers,.css-5a8vm2 .shj-syn-cmnt{color:#999;}.css-5a8vm2 .shj-syn-insert,.css-5a8vm2 .shj-syn-str{color:#7d8;}.css-5a8vm2 .shj-syn-bool{color:#3bf;}.css-5a8vm2 .shj-syn-type,.css-5a8vm2 .shj-syn-oper{color:#5af;}.css-5a8vm2 .shj-syn-section,.css-5a8vm2 .shj-syn-func{color:#84f;}.css-5a8vm2 .shj-syn-deleted,.css-5a8vm2 .shj-syn-var{color:#f44;}.css-5a8vm2 .shj-oneline{padding:12px 10px;}.css-5a8vm2 .shj-lang-http.shj-oneline .shj-syn-kwd{background:#25f;color:#fff;padding:5px 7px;border-radius:5px;}.css-5a8vm2 .shj-multiline.shj-mode-header{padding:20px;}.css-5a8vm2 .shj-multiline.shj-mode-header:before{content:attr(data-lang);color:#58f;display:block;padding:10px 20px;background:#58f3;border-radius:5px;margin-bottom:20px;}.css-5a8vm2 [class*=shj-lang-]:before{color:#6f9aff;}.css-5a8vm2 .shj-syn-deleted,.css-5a8vm2 .shj-syn-err,.css-5a8vm2 .shj-syn-var{color:#e06c75;}.css-5a8vm2 .shj-syn-section,.css-5a8vm2 .shj-syn-oper,.css-5a8vm2 .shj-syn-kwd{color:#c678dd;}.css-5a8vm2 .shj-syn-class{color:#e5c07b;}.css-5a8vm2 .shj-numbers,.css-5a8vm2 .shj-syn-cmnt{color:#76839a;}.css-5a8vm2 .shj-syn-insert{color:#98c379;}.css-5a8vm2 .shj-syn-type{color:#56b6c2;}.css-5a8vm2 .shj-syn-num,.css-5a8vm2 .shj-syn-bool{color:#d19a66;}.css-5a8vm2 .shj-syn-str,.css-5a8vm2 .shj-syn-func{color:#61afef;}
+.css-2bthvy{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji';}.css-2bthvy li{list-style:initial;}.css-2bthvy ul,.css-2bthvy ol{margin:20px 0;padding:reset;}.css-2bthvy p{margin:20px 0;text-align:justify;}.css-2bthvy blockquote{border-left:5px solid #586369;margin-left:0;padding-left:1em;}.css-2bthvy code:not(.code-block){background-color:#161b22;padding:4px;border-radius:4px;}.css-2bthvy pre{--code-block-margin:3em;--code-block-padding:1em;--code-inline-padding:min(3em, var(--container-side-gap));margin:var(--code-block-margin) 0;padding:var(--code-block-padding) 0;position:relative;white-space:pre;}.css-2bthvy pre .code-block{display:block;width:var(--available-width);white-space:pre;text-shadow:none;font-size:18px;line-height:24px;box-sizing:border-box;max-width:var(--available-width);overflow-x:auto;color:#abb2bf;}.css-2bthvy pre::before{content:'';inset:calc(var(--code-block-padding) * -1) calc(var(--code-inline-padding) * -1);background:#161b22;border-radius:10px;box-shadow:0 0 5px #0001;position:absolute;z-index:-1;max-width:100vw;}
+.css-84fmch{opacity:0.8;font-size:0.8em;font-family:Inconsolata,monospace;color:#FDFBF8;white-space:nowrap;}
+.css-v6zv8e{font-family:Nunito,sans-serif;font-weight:700;font-size:32px;}
+.css-relzm4{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}@media (min-width: 769px){.css-relzm4{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}}
+.css-18junyj{font-size:24px;color:white;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:baseline;-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline;gap:12px;letter-spacing:1px;}.css-18junyj abbr{display:inline-block;width:0.8em;overflow:hidden;-webkit-transition:width 0.3s ease;transition:width 0.3s ease;}.css-18junyj:hover abbr{width:3.3em;}
+.css-1y1oy5{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:12px;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}
 .css-18wymod{--container-side-gap:1rem;--container-width:40rem;--container-sides-gap:calc(var(--container-side-gap) * 2);--available-width:min(
       calc(100vw - var(--container-sides-gap)),
       calc(var(--container-width) - var(--container-sides-gap))
     );max-width:var(--container-width);padding-left:var(--container-side-gap);padding-right:var(--container-side-gap);margin-left:auto;margin-right:auto;}@media (min-width: 769px){.css-18wymod{--container-width:50rem;--container-side-gap:3rem;}}@media (min-width: 1200px){.css-18wymod{--container-width:60rem;}}
-.css-1y1oy5{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:12px;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}
-.css-86jxhf{font-size:24px;-webkit-text-decoration:none;text-decoration:none;color:white;display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:baseline;-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline;gap:12px;letter-spacing:1px;}.css-86jxhf abbr{display:inline-block;width:0.8em;overflow:hidden;-webkit-transition:width 0.3s ease;transition:width 0.3s ease;}.css-86jxhf:hover abbr{width:3.75em;}
-.css-v6zv8e{font-family:Nunito,sans-serif;font-weight:700;font-size:32px;}
-.css-w6vjnw{opacity:0.8;font-family:Inconsolata,monospace;color:#FDFBF8;white-space:nowrap;}
-.css-1ljukny{position:fixed;bottom:1rem;right:1rem;background-color:black;}.css-1ljukny input{border:none;width:3rem;height:3rem;}</style></head><body class=" css-1e8d7s"><header class="css-1witpq9 "><div class="css-17rdaxl css-18wymod"><h2 class="css-1y1oy5"><a href="../.." class="css-86jxhf">{ <abbr>Adrian</abbr> Matías Quezada }</a></h2><nav class="css-1dp27ce"><a href=".." class="parent">Blog</a><a href="../../career" class="">Experiencia</a><a href="../../projects" class="">Proyectos</a><a href="../../../blog/2014-03-12-construccion-de-objetos" class="">🇬🇧</a></nav></div></header><div class="css-1p4f3y5 css-18wymod"><div class="css-relzm4"><h2 class="undefined css-v6zv8e">Construcción de objetos</h2><time class="css-w6vjnw " dateTime="12/03/2014">12 mar 2014</time></div><article><div class="md"><blockquote>
+.css-x7nza2{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:12px;}.css-x7nza2 a{color:var(--color-primary);margin-left:12px;border-bottom:1px solid transparent;-webkit-transform:translate(0px, 0px);-moz-transform:translate(0px, 0px);-ms-transform:translate(0px, 0px);transform:translate(0px, 0px);}.css-x7nza2 a.parent{border-bottom:1px solid #586369;}.css-x7nza2 a:hover{border-bottom:1px solid var(--color-primary);-webkit-transition:-webkit-transform 1s ease;transition:transform 1s ease;-webkit-transform:translate(0px, -3px);-moz-transform:translate(0px, -3px);-ms-transform:translate(0px, -3px);transform:translate(0px, -3px);}
+.css-17rdaxl{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}@media (min-width: 769px){.css-17rdaxl{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}
+.css-1witpq9{padding:20px 0;background-color:#161b22;color:#FDFBF8;border-bottom:2px solid #586369;}@media (min-width: 769px){.css-1witpq9{position:-webkit-sticky;position:sticky;top:0;z-index:1;}}
+.css-1e8d7s{padding-bottom:4rem;}
+.css-1p4f3y5{display:grid;padding-top:20px;gap:12px;}</style></head><body class=" css-1e8d7s"><header class="css-1witpq9 "><div class="css-17rdaxl css-18wymod"><h2 class="css-1y1oy5"><a href="../.." class="css-18junyj inactive">{ <abbr>Adrian</abbr> Matías Quezada }</a></h2><nav class="css-x7nza2"><a href=".." class="parent">Blog</a><a href="../../projects" class="">Proyectos</a><a href="../../career" class="">CV</a><a href="../../../blog/2014-03-12-construccion-de-objetos" class="">🇬🇧</a></nav></div></header><div class="css-1p4f3y5 css-18wymod"><h2 class="css-relzm4  css-v6zv8e">Construcción de objetos<time class="css-84fmch " dateTime="12/03/2014">12 mar 2014</time></h2><article class="md css-2bthvy css-5a8vm2 "><blockquote>
 <p>Este artículo quedó muy complejo y caótico, por eso voy a intentar dividirlo en partes, recomiendo leer los nuevos post en lugar de este.</p>
 <p><em>Parte 1</em>: <a href="http://blog.amatiasq.com/2014/03/type-new/">Type.new()</a></p>
 </blockquote>
@@ -20,66 +22,66 @@
 <p>Buscando optimizaciones para un juego en javascript encontré <a href="http://blog.amatiasq.com/2014/03/construccion-de-objetos#paradigma">un paradigma de definición de tipos y creación de objetos</a> que cambió mi forma de ver el lenguaje.</p>
 <p>He hablado antes de la limitación de los constructores javascript:</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Person</span>(name) {
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Person</span>(name) {
   <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>name <span class="shj-syn-oper">=</span> name;
 }
-<span class="shj-syn-class">Person</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">methodA</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span>() { <span class="shj-syn-oper">...</span> }</div></div>
-</code>
+<span class="shj-syn-class">Person</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-func">methodA</span> <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">function</span>() { <span class="shj-syn-oper">...</span> }
+</code></pre>
 <p>En este caso quiero referirme a las limitaciones en cuanto a memoria pero hará falta un poco de introducción</p>
 <!-- end extract -->
 <h2 id="recolector-de-basura">Recolector de Basura</h2>
 <p>Javascript cuenta con un recolector de basura (Garbage collector) que periódicamente busca y elimina los objetos que nuestro código ya no utiliza, en los sistemas javascript modernos están lo bastante optimizados para detectar los objetos a los que ya no podemos utilizar porque no lo tenemos en ninguna variable:</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> a <span class="shj-syn-oper">=</span> {};
-a <span class="shj-syn-oper">=</span> <span class="shj-syn-num">null</span>;</div></div>
-</code>
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">var</span> a <span class="shj-syn-oper">=</span> {};
+a <span class="shj-syn-oper">=</span> <span class="shj-syn-num">null</span>;
+</code></pre>
 <p>En la próxima pasada del recolector de basura el objeto que teníamos en la variable <code>a</code> será eliminado de la memoria.</p>
 <p>Esto es muy cómodo porque no necesitamos limpiar la memoria manualmente, pero como javascript solo tiene un hilo el recolector de basura impide que ningún código se ejecute mientras está recolectando objetos y en aplicaciones que hacen un uso intenso del procesador, como los juegos en los que debemos generar 60 fotogramas por segundo, una pasada del recolector de basura puede congelar la imagen una fracción de segundo reduciendo la jugabilidad.</p>
 <p>Podemos reducir esto intentando ahorrarle trabajo al recolector de basura, es decir, intentando no crear y abandonar demasiados objetos en memoria. Para esto podemos cambiar el código para no crear un objeto que solo usaremos en una función o podemos intentar reutilizar los objetos que ya no nos sirvan. Esto es un punto clave para conseguir un buen rendimiento</p>
 <h2 id="constructores-javascript">Constructores Javascript</h2>
 <p>Y aquí entran los constructores, la forma más común de crear objetos en Javascript</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Vector</span>(x<span class="shj-syn-oper">,</span> y) {
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Vector</span>(x<span class="shj-syn-oper">,</span> y) {
   <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>x <span class="shj-syn-oper">=</span> x;
   <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>y <span class="shj-syn-oper">=</span> y;
 }
-<span class="shj-syn-kwd">var</span> v <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Vector</span>(<span class="shj-syn-num">0</span><span class="shj-syn-oper">,</span> <span class="shj-syn-num">0</span>);</div></div>
-</code>
+<span class="shj-syn-kwd">var</span> v <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">Vector</span>(<span class="shj-syn-num">0</span><span class="shj-syn-oper">,</span> <span class="shj-syn-num">0</span>);
+</code></pre>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/tHMB2/">Pruébame</a></p>
 <p>Cuando invocamos un constructor con <code>new</code> el operador hace algo similar a esto</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">fakeNew</span>(<span class="shj-syn-class">Constructor</span><span class="shj-syn-oper">,</span> params) {
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">fakeNew</span>(<span class="shj-syn-class">Constructor</span><span class="shj-syn-oper">,</span> params) {
   <span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-class">Constructor</span><span class="shj-syn-oper">.</span>prototype);
   <span class="shj-syn-class">Constructor</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">apply</span>(instance<span class="shj-syn-oper">,</span> params);
   <span class="shj-syn-kwd">return</span> instance;
 }
-<span class="shj-syn-kwd">var</span> v <span class="shj-syn-oper">=</span> <span class="shj-syn-func">fakeNew</span>(<span class="shj-syn-class">Vector</span><span class="shj-syn-oper">,</span> [<span class="shj-syn-num">0</span><span class="shj-syn-oper">,</span> <span class="shj-syn-num">0</span>]);</div></div>
-</code>
+<span class="shj-syn-kwd">var</span> v <span class="shj-syn-oper">=</span> <span class="shj-syn-func">fakeNew</span>(<span class="shj-syn-class">Vector</span><span class="shj-syn-oper">,</span> [<span class="shj-syn-num">0</span><span class="shj-syn-oper">,</span> <span class="shj-syn-num">0</span>]);
+</code></pre>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/wgeZP/">Pruébame</a></p>
 <p>Vemos el el constructor en sí es una función normal y corriente solo que se usa su propiedad <code>prototype</code> como prototipo del nuevo objeto y se le pasa el nuevo objeto como <code>this</code> (si no sabes lo que hace <code>apply</code> lo encontrarás <a href="http://blog.amatiasq.com/2012/01/javascript-conceptos-basicos-this-call-y-apply/">aquí</a>).</p>
 <p>Un secreto poco conocido de los constructores es que como funciones que son pueden devolver un valor. Pero <a href="http://jsfiddle.net/amatiasq/p8Red/">haciendo pruebas</a> he encontrado que cierto tipo de valores son ignorados por new. En resumen parece ser que si el constructor devuelve un valor nativo (<code>null</code>, <code>Boolean</code>, <code>Number</code> y <code>String</code>) <code>new</code> lo ignora y devuelve la instancia recién creada, pero si es un objeto (<code>{}</code>, <code>[]</code>, <code>new Date()</code>...) devuelve ese objeto con lo que para que la función <code>fakeNew</code> funcione de forma idéntica al operador new debería ser así:</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">fakeNew</span>(<span class="shj-syn-class">Constructor</span><span class="shj-syn-oper">,</span> params) {
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">fakeNew</span>(<span class="shj-syn-class">Constructor</span><span class="shj-syn-oper">,</span> params) {
   <span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-class">Constructor</span><span class="shj-syn-oper">.</span>prototype);
   <span class="shj-syn-kwd">var</span> value <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Constructor</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">apply</span>(instance<span class="shj-syn-oper">,</span> params);
 
   <span class="shj-syn-kwd">if</span> (<span class="shj-syn-kwd">typeof</span> value <span class="shj-syn-oper">===</span> <span class="shj-syn-str">'object'</span> <span class="shj-syn-oper">&#38;&#38;</span> value <span class="shj-syn-oper">!==</span> <span class="shj-syn-num">null</span>) <span class="shj-syn-kwd">return</span> value;
 
   <span class="shj-syn-kwd">return</span> instance;
-}</div></div>
-</code>
+}
+</code></pre>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/3D9es/">Pruébame</a></p>
 <h2 id="devolviendo-valores-desde-el-constructor">Devolviendo valores desde el constructor</h2>
 <p>Entonces sabiendo que podemos devolver un objeto desde un constructor quizás podamos usar esto para ahorrar trabajo al recolector de basura si en lugar de devolver un objeto nuevo cada vez reutilizamos antiguos, lo que en cualquier lenguaje se llama una <a href="https://en.wikipedia.org/wiki/Factory_object"><code>factory</code></a>, así que supongamos que tenemos el siguiente constructor:</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">MyNumber</span>(value) {
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">MyNumber</span>(value) {
   <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>value <span class="shj-syn-oper">=</span> value;
 }
-<span class="shj-syn-kwd">var</span> num <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">MyNumber</span>(<span class="shj-syn-num">3</span>);</div></div>
-</code>
+<span class="shj-syn-kwd">var</span> num <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">MyNumber</span>(<span class="shj-syn-num">3</span>);
+</code></pre>
 <p>Y queremos que si ya existe un objeto con ese número nos lo devuelva en lugar de crear otro pero no queremos cambiar todo el código así que la función tiene que seguir funcionando con el operador <code>new</code>.</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">MyNumber</span>(value) {
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">MyNumber</span>(value) {
   <span class="shj-syn-kwd">if</span> (<span class="shj-syn-class">MyNumber</span><span class="shj-syn-oper">.</span>cache[value]) <span class="shj-syn-kwd">return</span> <span class="shj-syn-class">MyNumber</span><span class="shj-syn-oper">.</span>cache[value];
 
   <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>value <span class="shj-syn-oper">=</span> value;
@@ -89,42 +91,42 @@ a <span class="shj-syn-oper">=</span> <span class="shj-syn-num">null</span>;</di
 <span class="shj-syn-class">MyNumber</span><span class="shj-syn-oper">.</span>cache <span class="shj-syn-oper">=</span> {};
 
 <span class="shj-syn-kwd">var</span> num1 <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">MyNumber</span>(<span class="shj-syn-num">3</span>);
-<span class="shj-syn-kwd">var</span> num2 <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">MyNumber</span>(<span class="shj-syn-num">3</span>);</div></div>
-</code>
+<span class="shj-syn-kwd">var</span> num2 <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">MyNumber</span>(<span class="shj-syn-num">3</span>);
+</code></pre>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/pn2Qf/">Pruébame</a></p>
 <p>Y parece que hemos conseguido ahorrar trabajo al recolector de basura, en lugar de tener dos objetos iguales tenemos uno reutilizado. Pero solo en apariencia, si echamos un vistazo a la función <code>fakeNew</code> veremos que la segunda llamada a <code>MyNumber</code> si que ha creado un objeto, solo que nos ha devuelto otro, pero el objeto existe y se reservó espacio en memoria y el recolector de basura va a tener que eliminarlo.</p>
 <p>Entonces parece ser que que el operador <code>new</code> <strong>siempre</strong> crea un objeto con en consiguiente trabajo para el recolector de basura.</p>
 <h2 id="alternativas">Alternativas</h2>
 <p>Llegado a este punto probé me di cuenta que para estas operaciones como los juegos, que hacen un uso intenso del procesador y la memoria lo más recomendable era evitar el operador <code>new</code>. Decidí probar varias alternativas, la primera y más sencilla, que cada &quot;constructor&quot; (ahora una simple función) creara directamente los objetos que necesita:</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Vector</span>(x<span class="shj-syn-oper">,</span> y) {
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Vector</span>(x<span class="shj-syn-oper">,</span> y) {
   <span class="shj-syn-kwd">return</span> { x<span class="shj-syn-oper">:</span> x<span class="shj-syn-oper">,</span> y<span class="shj-syn-oper">:</span> y };
 }
-<span class="shj-syn-kwd">var</span> v <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Vector</span>();</div></div>
-</code>
+<span class="shj-syn-kwd">var</span> v <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Vector</span>();
+</code></pre>
 <p>Pero esto tiene la desventaja que ese objeto no prototipa <code>Vector.prototype</code> así que si queremos métodos prototipados habría que probar más algo como:</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Vector</span>(x<span class="shj-syn-oper">,</span> y) {
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Vector</span>(x<span class="shj-syn-oper">,</span> y) {
   <span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-class">Vector</span><span class="shj-syn-oper">.</span>prototype);
   instance<span class="shj-syn-oper">.</span>x <span class="shj-syn-oper">=</span> x;
   instance<span class="shj-syn-oper">.</span>y <span class="shj-syn-oper">=</span> y;
 }
-<span class="shj-syn-kwd">var</span> v <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Vector</span>(x<span class="shj-syn-oper">,</span> y);</div></div>
-</code>
+<span class="shj-syn-kwd">var</span> v <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Vector</span>(x<span class="shj-syn-oper">,</span> y);
+</code></pre>
 <p>Pero esto era mucho código repetido en cada constructor además el hecho de repetir el nombre del constructor complicaba aún más el código.</p>
 <h2 id="-constructor-protototype-prototype-constructor-"><code>Constructor.protototype</code> =&gt; <code>prototype.constructor</code></h2>
 <p>En este punto me di cuenta de un factor muy curioso, todas las funciones javascript tienen la propiedad <code>prototype</code> que a su vez tiene (por defecto) la propiedad <code>constructor</code> que es el propio constructor:</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Testing</span>() {}
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Testing</span>() {}
 console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(<span class="shj-syn-class">Testing</span><span class="shj-syn-oper">.</span>prototype<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span> <span class="shj-syn-oper">===</span> <span class="shj-syn-class">Testing</span>);
 
 <span class="shj-syn-kwd">var</span> proto <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Testing</span><span class="shj-syn-oper">.</span>prototype;
-console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(proto<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">.</span>prototype <span class="shj-syn-oper">===</span> proto);</div></div>
-</code>
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(proto<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">.</span>prototype <span class="shj-syn-oper">===</span> proto);
+</code></pre>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/f9rZp/">Pruébame</a></p>
 <p>Esto me hizo pensar que quizás la intención original de los objetos en javascript no era tener constructores que contienen prototipos sino tener prototipos que contienen constructores:</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">Vector</span> <span class="shj-syn-oper">=</span> {
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">Vector</span> <span class="shj-syn-oper">=</span> {
   <span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (x<span class="shj-syn-oper">,</span> y) {
     <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>x <span class="shj-syn-oper">=</span> x;
     <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>y <span class="shj-syn-oper">=</span> y;
@@ -135,34 +137,34 @@ console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(
 };
 
 <span class="shj-syn-kwd">var</span> v <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-class">Vector</span>);
-v<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span>(<span class="shj-syn-num">0</span><span class="shj-syn-oper">,</span> <span class="shj-syn-num">0</span>);</div></div>
-</code>
+v<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span>(<span class="shj-syn-num">0</span><span class="shj-syn-oper">,</span> <span class="shj-syn-num">0</span>);
+</code></pre>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/LVMnC/">Pruébame</a></p>
 <p>Vaya! No parece una forma mucho más sencilla de declarar tipos? <a href="http://jsfiddle.net/amatiasq/D6cJY/">Aquí</a> podemos comparar el mismo tipo escrito con constructores y con este paradigma y juzguen ustedes mismos.</p>
 <p>Desde luego no es tan bonito instanciarlos pero si declararlos, mucho más sencillo, tan sencillo que me hace preguntarme si quizás la intención inicial al diseñar el lenguaje no sería la de crear objetos de una forma similar a ésta:</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">// NOT valid javascript
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-cmnt">// NOT valid javascript
 </span><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">Vector</span> <span class="shj-syn-oper">=</span> {
   <span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span>(x<span class="shj-syn-oper">,</span> y) { <span class="shj-syn-oper">...</span> }
 };
-<span class="shj-syn-kwd">var</span> v <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">instanciate</span>(<span class="shj-syn-class">Vector</span><span class="shj-syn-oper">,</span> [ <span class="shj-syn-num">0</span><span class="shj-syn-oper">,</span> <span class="shj-syn-num">0</span> ]);</div></div>
-</code>
+<span class="shj-syn-kwd">var</span> v <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">instanciate</span>(<span class="shj-syn-class">Vector</span><span class="shj-syn-oper">,</span> [ <span class="shj-syn-num">0</span><span class="shj-syn-oper">,</span> <span class="shj-syn-num">0</span> ]);
+</code></pre>
 <p>Incluso se parece bastante a la forma de escribir clases en ECMAScript6</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">class</span> <span class="shj-syn-class">Vector</span> {
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">class</span> <span class="shj-syn-class">Vector</span> {
   <span class="shj-syn-kwd">constructor</span>(x<span class="shj-syn-oper">,</span> y) {
     <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>x <span class="shj-syn-oper">=</span> x;
     <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>y <span class="shj-syn-oper">=</span> y;
   }<span class="shj-syn-oper">,</span>
   <span class="shj-syn-func">toString</span>() { <span class="shj-syn-oper">...</span> }
-}</div></div>
-</code>
+}
+</code></pre>
 <h2 id="-a-name-paradigma-code-type-new-code-es-el-nuevo-code-new-code-a-"><a name="paradigma"><code>Type.new()</code> es el nuevo <code>new</code>!</a></h2>
 <p>Entonces con esto en mente decidí invertir el proceso, en lugar de crear un constructor y añadir métodos a su prototipo decidí crear un prototipo que contenga el constructor.</p>
 <p>Y ya que instanciarlo requiere cierta complejidad decidí crear también un método para instanciar, como ECMAScript5 nos permite usar palabras reservadas como propiedades de objeto la llamé <code>new</code></p>
 <p>NOTA: dentro del método <code>new</code> <code>this</code> es <code>Vector</code>, si no conoces como funcionan los contextos en javascript te recomiendo leer <a href="http://blog.amatiasq.com/2012/01/javascript-conceptos-basicos-this-call-y-apply/">esto</a>;</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">Vector</span> <span class="shj-syn-oper">=</span> {
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">Vector</span> <span class="shj-syn-oper">=</span> {
   <span class="shj-syn-kwd">new</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
     <span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-kwd">this</span>);
     instance<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">apply</span>(instance<span class="shj-syn-oper">,</span> arguments);
@@ -179,12 +181,12 @@ v<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span>
   }<span class="shj-syn-oper">,</span>
 };
 
-<span class="shj-syn-kwd">var</span> v <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Vector</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>(<span class="shj-syn-num">0</span><span class="shj-syn-oper">,</span> <span class="shj-syn-num">0</span>);</div></div>
-</code>
+<span class="shj-syn-kwd">var</span> v <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Vector</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>(<span class="shj-syn-num">0</span><span class="shj-syn-oper">,</span> <span class="shj-syn-num">0</span>);
+</code></pre>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/wtQ8S/">Pruébame</a></p>
 <p>Resultó muy sencillo y agradable, lo que lo hace más fácil de mantener. Un último detalle es que todos mis tipos usaban un método <code>new</code> idéntico así que decidí hacerlo global para que cada uno de mis tipos pudiera referenciarlo</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">$new</span>() {
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">$new</span>() {
   <span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-kwd">this</span>);
   instance<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">apply</span>(instance<span class="shj-syn-oper">,</span> arguments);
   <span class="shj-syn-kwd">return</span> instance;
@@ -204,24 +206,24 @@ v<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span>
   <span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span>(row<span class="shj-syn-oper">,</span> col) {
     <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>position <span class="shj-syn-oper">=</span> row <span class="shj-syn-oper">+</span> <span class="shj-syn-str">'-'</span> <span class="shj-syn-oper">+</span> col;
   }
-};</div></div>
-</code>
+};
+</code></pre>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/46TaS/">Pruébame</a></p>
 <p>Me encontré muy a gusto con este nuevo paradigma de definir tipos y crear objetos, incluso tiene bonus inesperados como que todos los subtipos tienen el método <code>new</code> para crear subinstancias</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> vector3D <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Vector</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>(<span class="shj-syn-num">0</span><span class="shj-syn-oper">,</span> <span class="shj-syn-num">0</span>);
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">var</span> vector3D <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Vector</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>(<span class="shj-syn-num">0</span><span class="shj-syn-oper">,</span> <span class="shj-syn-num">0</span>);
 vector3D<span class="shj-syn-oper">.</span>z <span class="shj-syn-oper">=</span> <span class="shj-syn-num">10</span>;
 
 <span class="shj-syn-kwd">var</span> other <span class="shj-syn-oper">=</span> vector3D<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>(<span class="shj-syn-num">3</span><span class="shj-syn-oper">,</span> <span class="shj-syn-num">4</span>);
-console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(other<span class="shj-syn-oper">.</span>z); <span class="shj-syn-cmnt">// 10</span></div></div>
-</code>
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(other<span class="shj-syn-oper">.</span>z); <span class="shj-syn-cmnt">// 10</span>
+</code></pre>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/LPAu7/">Pruébame</a></p>
 <p>Me parece un paradigma mucho más natural en javascript, más orientado a objetos (y menos a clases) a objetos que extienden de objetos. Es el paradigma que he seguido en <a href="https://github.com/amatiasq/mq/tree/master/src">mis últimas implementaciones</a> y es muy sencillo y cómodo aunque en este caso preferí usar <code>init</code> en lugar de <code>constructor</code> por ser más compacto y específico ya que no se trata de construir sino de inicializar.</p>
 <p>Personalmente recomiendo a todo javascripter probar al menos en proyectos personales este paradigma ya que es una forma de ignorar las parafernalias de los constructores y ver la naturaleza pura y sencilla de javascript que está ahí aunque hayan mil capas puestas encima.</p>
 <h2 id="todo-junto">Todo junto</h2>
 <p>Volviendo a los inicios, el recolector de basura, utilizando éste paradigma la operación de crear objetos (el operador <code>new</code> y el método <code>.new()</code>) está en nuestro control ya que podemos modificar el método <code>.new()</code> e impedir que se cree ningún objeto cuando nos haga falta sin cambiar el resto del código, si yo tengo este código</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">MyNumber</span> <span class="shj-syn-oper">=</span> {
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">MyNumber</span> <span class="shj-syn-oper">=</span> {
   <span class="shj-syn-kwd">new</span><span class="shj-syn-oper">:</span> $<span class="shj-syn-kwd">new</span><span class="shj-syn-oper">,</span>
 
   <span class="shj-syn-kwd">constructor</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (value) {
@@ -232,12 +234,12 @@ console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(
 <span class="shj-syn-kwd">var</span> num1 <span class="shj-syn-oper">=</span> <span class="shj-syn-class">MyNumber</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>(<span class="shj-syn-num">3</span>);
 <span class="shj-syn-kwd">var</span> num2 <span class="shj-syn-oper">=</span> <span class="shj-syn-class">MyNumber</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>(<span class="shj-syn-num">3</span>);
 
-console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(num1 <span class="shj-syn-oper">===</span> num2); <span class="shj-syn-cmnt">// false</span></div></div>
-</code>
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(num1 <span class="shj-syn-oper">===</span> num2); <span class="shj-syn-cmnt">// false</span>
+</code></pre>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/j54Gx/">Pruébame</a></p>
 <p>Podemos cambiarlo para que deje de crear objetos duplicados sin que el código ajeno tenga que cambiarse, lo que demuestra una buena encapsulación</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">MyNumber</span> <span class="shj-syn-oper">=</span> {
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">MyNumber</span> <span class="shj-syn-oper">=</span> {
   _cache<span class="shj-syn-oper">:</span> {}<span class="shj-syn-oper">,</span>
   <span class="shj-syn-kwd">new</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> (value) {
     <span class="shj-syn-kwd">if</span> (<span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_cache[value]) <span class="shj-syn-kwd">return</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_cache[value];
@@ -256,22 +258,22 @@ console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(
 <span class="shj-syn-kwd">var</span> num1 <span class="shj-syn-oper">=</span> <span class="shj-syn-class">MyNumber</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>(<span class="shj-syn-num">3</span>);
 <span class="shj-syn-kwd">var</span> num2 <span class="shj-syn-oper">=</span> <span class="shj-syn-class">MyNumber</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>(<span class="shj-syn-num">3</span>);
 
-console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(num1 <span class="shj-syn-oper">===</span> num2); <span class="shj-syn-cmnt">// true</span></div></div>
-</code>
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(num1 <span class="shj-syn-oper">===</span> num2); <span class="shj-syn-cmnt">// true</span>
+</code></pre>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/Xhqb5/">Pruébame</a></p>
 <p>Y ahora si hemos conseguido evitar que ningún objeto se cree en la segunda llamada a <code>MyNumber.new(3)</code> reduciendo el trabajo del recolector de basura. Esta es una forma muy sencilla de evitar crear objetos duplicados que por el otro lado requiere que los objetos sean inmutables, es decir que no se puedan modificar, esto está hecho en el ejemplo mediante Object.freeze. De lo contrario si cambiamos la propiedad <code>value</code> de <code>num1</code> también cambiaríamos la pripiedad <code>value</code> de <code>num2</code> ya que son el mismo objeto. Si necesitamos otro tipo de valor podemos crear otro objeto</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">Vector</span> <span class="shj-syn-oper">=</span> {
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">Vector</span> <span class="shj-syn-oper">=</span> {
   <span class="shj-syn-oper">...</span>
 
   merge<span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span>(vector) {
     <span class="shj-syn-kwd">return</span> <span class="shj-syn-class">Vector</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>(<span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>x <span class="shj-syn-oper">+</span> vector<span class="shj-syn-oper">.</span>x<span class="shj-syn-oper">,</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>y <span class="shj-syn-oper">+</span> vector<span class="shj-syn-oper">.</span>y);
   }<span class="shj-syn-oper">,</span>
-};</div></div>
-</code>
+};
+</code></pre>
 <p>Por otro lado tenemos otro tipo de objetos que no son tan fáciles de reciclar, por ejemplo las entidades de un juego (enemigos, objetos interactuables...) que se crean y se destruyen constantemente y no hay dos iguales. Para estos casos decidí añadir el método <code>.dispose()</code> que lo que hace es pedirle al objeto que vuelva al estado de un objeto recién creado para que pueda ser reciclado la próxima vez que necesitemos otra instancia, en pocas palabras debe deshacer el trabajo del constructor.</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">Enemy</span> <span class="shj-syn-oper">=</span> {
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">Enemy</span> <span class="shj-syn-oper">=</span> {
   _pool<span class="shj-syn-oper">:</span> []<span class="shj-syn-oper">,</span>
   <span class="shj-syn-kwd">new</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
     <span class="shj-syn-kwd">var</span> instance <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_pool<span class="shj-syn-oper">.</span>length <span class="shj-syn-oper">?</span> <span class="shj-syn-kwd">this</span><span class="shj-syn-oper">.</span>_pool<span class="shj-syn-oper">.</span><span class="shj-syn-func">pop</span>() <span class="shj-syn-oper">:</span> <span class="shj-syn-class">Object</span><span class="shj-syn-oper">.</span><span class="shj-syn-func">create</span>(<span class="shj-syn-kwd">this</span>);
@@ -302,14 +304,14 @@ enemy1<span class="shj-syn-oper">.</span><span class="shj-syn-func">dispose</spa
 </span><span class="shj-syn-cmnt">//enemy1 = null;
 </span>
 <span class="shj-syn-kwd">var</span> enemy2 <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Enemy</span><span class="shj-syn-oper">.</span><span class="shj-syn-kwd">new</span>();
-console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(enemy1 <span class="shj-syn-oper">===</span> enemy2); <span class="shj-syn-cmnt">// true</span></div></div>
-</code>
+console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(enemy1 <span class="shj-syn-oper">===</span> enemy2); <span class="shj-syn-cmnt">// true</span>
+</code></pre>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/YyLwZ/">Pruébame</a></p>
 <p>Los que hayan usado C++ notarán que parece que estemos volviendo a la gestión de memoria manual pero son los extremos que hay que llegar cuando necesitamos eficiencia.</p>
 <p>Et voilà! Cambiando solo el método <code>new</code> hemos conseguido optimizar nuestro programa para reducir el trabajo del recolector de basura y conseguir más eficiencia en el código. En mi opinión las posibilidades de mejorar el comportamiento de todo el código cambiando solo una pequeña parte tiene un potencial enorme que no debe ser subestimado. Por supuesto estos son conceptos, como todas las optimizaciones, que solo deben aplicarse allí cuando y donde se encuentre un cuello de botella y no antes.</p>
 <p>De momento seguiré con mi juego usando estos patrones, en cuanto al futuro parece ser que ECMAScript6 ha puesto la mira sobre este problema, entre las nuevas funcionalidades encontramos el símbolo <code>@@create</code> que <a href="https://github.com/lukehoban/es6features">si no lo he entendido mal</a> nos permitirá re-definir la creación de objetos mediante el operador <code>new</code>, es decir, reescribiendo el método estático <code>@@create</code> podremos evitar que <code>new</code> cree un objeto</p>
 
-<code class="code-block shj-lang-js"><div><div class="shj-numbers"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div><div><span class="shj-syn-cmnt">// Source: https://github.com/lukehoban/es6features
+<pre><code class="code-block shj-lang-js"><span class="shj-syn-cmnt">// Source: https://github.com/lukehoban/es6features
 </span>
 <span class="shj-syn-cmnt">// Pseudo-code of Array
 </span><span class="shj-syn-kwd">class</span> <span class="shj-syn-class">Array</span> {
@@ -334,10 +336,10 @@ console<span class="shj-syn-oper">.</span><span class="shj-syn-func">log</span>(
 </span><span class="shj-syn-cmnt">// 2) Invoke constructor on new instance
 </span><span class="shj-syn-kwd">var</span> arr <span class="shj-syn-oper">=</span> <span class="shj-syn-kwd">new</span> <span class="shj-syn-class">MyArray</span>();
 arr[<span class="shj-syn-num">1</span>] <span class="shj-syn-oper">=</span> <span class="shj-syn-num">12</span>;
-arr<span class="shj-syn-oper">.</span>length <span class="shj-syn-oper">==</span> <span class="shj-syn-num">2</span>;</div></div>
-</code>
+arr<span class="shj-syn-oper">.</span>length <span class="shj-syn-oper">==</span> <span class="shj-syn-num">2</span>;
+</code></pre>
 <p>Por otro lado el paradigma de crear objetos con un método <code>.new()</code> es un sistema muy agradable que facilita muchas cosas, me ha dado buenas experiencias y permite tener un código más legible (no más <code>Constructor.prototype.method</code> por todos lados) más conciso y más controlable. Creo que es algo muy recomendable.</p>
-</div></article></div><div class="css-1ljukny"><input type="color" id="color-picker" value="#EFE751"/>
+</article></div><div class="css-1ljukny"><input type="color" id="color-picker" value="#EFE751"/>
           <script>
             document.querySelector('#color-picker').addEventListener('input', (e) => {
               document.body.style.setProperty('--color-primary', e.target.value);
