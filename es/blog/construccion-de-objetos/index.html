@@ -167,10 +167,10 @@ if (pendingScrollers.size) {
 }
 })();</script><header class="css-el2kyp " data-scrollclass="scrolled" data-scrolloffset="50" data-scrolltolerance="50"><div class="css-1qscrim css-147lofe"><h2 class="css-1x2qc6k"><a href="../.." class="css-1mi0geu inactive"><span>{ </span><abbr>Adrian</abbr><span class="dot">.</span><span>Matías Quezada</span><span> }</span></a></h2><nav class="css-1nl2wzu"><a href=".." class="css-syhxvc parent">Blog</a><a href="../../projects" class="css-syhxvc not-priority">Proyectos</a><a href="../../career" class="css-syhxvc">CV</a><a href="../../../blog/construccion-de-objetos" class="css-qam5gc">🇬🇧</a><button class="css-1wcd5po css-1134qic" data-togglecolorscheme="true"><span>🌒</span><span>☀️</span></button></nav></div></header><div class="css-1p4f3y5  css-147lofe"><h2 class="css-relzm4  css-v6zv8e">Construcción de objetos<time class="css-18paweh " dateTime="12/03/2014">12 mar 2014</time></h2><article class="md css-4iaasf css-5a8vm2 "><blockquote>
 <p>Este artículo quedó muy complejo y caótico, por eso voy a intentar dividirlo en partes, recomiendo leer los nuevos post en lugar de este.</p>
-<p><em>Parte 1</em>: <a href="http://blog.amatiasq.com/2014/03/type-new/">Type.new()</a></p>
+<p><em>Parte 1</em>: <a href="../type-new/">Type.new()</a></p>
 </blockquote>
 <h2 id="tl-dr">TL;DR</h2>
-<p>Buscando optimizaciones para un juego en javascript encontré <a href="http://blog.amatiasq.com/2014/03/construccion-de-objetos#paradigma">un paradigma de definición de tipos y creación de objetos</a> que cambió mi forma de ver el lenguaje.</p>
+<p>Buscando optimizaciones para un juego en javascript encontré <a href="../construccion-de-objetos#paradigma">un paradigma de definición de tipos y creación de objetos</a> que cambió mi forma de ver el lenguaje.</p>
 <p>He hablado antes de la limitación de los constructores javascript:</p>
 
 <pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">function</span> <span class="shj-syn-class">Person</span>(name) {
@@ -209,7 +209,7 @@ a <span class="shj-syn-oper">=</span> <span class="shj-syn-num">null</span>;
 <span class="shj-syn-kwd">var</span> v <span class="shj-syn-oper">=</span> <span class="shj-syn-func">fakeNew</span>(<span class="shj-syn-class">Vector</span><span class="shj-syn-oper">,</span> [<span class="shj-syn-num">0</span><span class="shj-syn-oper">,</span> <span class="shj-syn-num">0</span>]);
 </code></pre>
 <p><a target="_blank" href="http://jsfiddle.net/amatiasq/wgeZP/">Pruébame</a></p>
-<p>Vemos el el constructor en sí es una función normal y corriente solo que se usa su propiedad <code>prototype</code> como prototipo del nuevo objeto y se le pasa el nuevo objeto como <code>this</code> (si no sabes lo que hace <code>apply</code> lo encontrarás <a href="http://blog.amatiasq.com/2012/01/javascript-conceptos-basicos-this-call-y-apply/">aquí</a>).</p>
+<p>Vemos el el constructor en sí es una función normal y corriente solo que se usa su propiedad <code>prototype</code> como prototipo del nuevo objeto y se le pasa el nuevo objeto como <code>this</code> (si no sabes lo que hace <code>apply</code> lo encontrarás <a href="../conceptos-basicos-this-call-apply/">aquí</a>).</p>
 <p>Un secreto poco conocido de los constructores es que como funciones que son pueden devolver un valor. Pero <a href="http://jsfiddle.net/amatiasq/p8Red/">haciendo pruebas</a> he encontrado que cierto tipo de valores son ignorados por new. En resumen parece ser que si el constructor devuelve un valor nativo (<code>null</code>, <code>Boolean</code>, <code>Number</code> y <code>String</code>) <code>new</code> lo ignora y devuelve la instancia recién creada, pero si es un objeto (<code>{}</code>, <code>[]</code>, <code>new Date()</code>...) devuelve ese objeto con lo que para que la función <code>fakeNew</code> funcione de forma idéntica al operador new debería ser así:</p>
 
 <pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">function</span> <span class="shj-syn-func">fakeNew</span>(<span class="shj-syn-class">Constructor</span><span class="shj-syn-oper">,</span> params) {
@@ -313,7 +313,7 @@ v<span class="shj-syn-oper">.</span><span class="shj-syn-kwd">constructor</span>
 <h2 id="-a-name-paradigma-code-type-new-code-es-el-nuevo-code-new-code-a-"><a name="paradigma"><code>Type.new()</code> es el nuevo <code>new</code>!</a></h2>
 <p>Entonces con esto en mente decidí invertir el proceso, en lugar de crear un constructor y añadir métodos a su prototipo decidí crear un prototipo que contenga el constructor.</p>
 <p>Y ya que instanciarlo requiere cierta complejidad decidí crear también un método para instanciar, como ECMAScript5 nos permite usar palabras reservadas como propiedades de objeto la llamé <code>new</code></p>
-<p>NOTA: dentro del método <code>new</code> <code>this</code> es <code>Vector</code>, si no conoces como funcionan los contextos en javascript te recomiendo leer <a href="http://blog.amatiasq.com/2012/01/javascript-conceptos-basicos-this-call-y-apply/">esto</a>;</p>
+<p>NOTA: dentro del método <code>new</code> <code>this</code> es <code>Vector</code>, si no conoces como funcionan los contextos en javascript te recomiendo leer <a href="../conceptos-basicos-this-call-apply/">esto</a>;</p>
 
 <pre><code class="code-block shj-lang-js"><span class="shj-syn-kwd">var</span> <span class="shj-syn-class">Vector</span> <span class="shj-syn-oper">=</span> {
   <span class="shj-syn-kwd">new</span><span class="shj-syn-oper">:</span> <span class="shj-syn-kwd">function</span> () {
