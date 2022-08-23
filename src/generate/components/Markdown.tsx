@@ -5,7 +5,7 @@ import { cssColor, cssSpace } from '../../theme.ts';
 import { SitePage } from '../types/SitePage.ts';
 import { getMarkdownExtract } from '../util/getMarkdownExtract.ts';
 import { highlightTheme } from '../util/highlightTheme.ts';
-import { getImgRoot } from './Img.tsx';
+import { Img, renderImage } from './Img.tsx';
 import { Lang, tr, Translatable, useLang } from './Lang.tsx';
 import { usePageUtils } from './PageUtils.tsx';
 import { RawHtml } from './RawHtml.tsx';
@@ -37,10 +37,7 @@ export function Markdown({
   const processed = applyBlockRules(toProcess);
   const { content } = parseMarkdown(processed);
   const contentWithFixes = clearMarkdownResult(content);
-  const contentWithAssets = contentWithFixes.replace(
-    /<img src="([^"]+)"/,
-    (_, path) => `<img src="${asset(`${getImgRoot()}/${path}`)}"`
-  );
+  const contentWithAssets = fixImgPaths(contentWithFixes, asset);
 
   const styles = css`
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
@@ -141,4 +138,10 @@ function applyBlockRules(markdown: string) {
 function clearMarkdownResult(content: string) {
   return content.replace(/<p>\[\d+\]: (.|\n)*<\/p>/g, '');
   // .replace(/<\/?pre>/g, '');
+}
+
+function fixImgPaths(content: string, asset: (path: string) => string) {
+  return content.replace(/<img src="([^"]+)"/, (_, path) =>
+    renderImage(path, asset)
+  );
 }

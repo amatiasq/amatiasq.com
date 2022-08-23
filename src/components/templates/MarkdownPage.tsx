@@ -49,15 +49,9 @@ export function MarkdownPage({
 function renderImgIfNeeded(data: ImageData) {
   if (!data) return null;
 
-  const className = css`
-    border: 3px solid ${cssColor.border};
-    border-radius: 3px;
-  `;
+  if (typeof data === 'string') {
+    return <Img src={data} alt="" />;
+  }
 
-  const props =
-    typeof data === 'string'
-      ? { src: data, alt: '', className }
-      : { ...data, className };
-
-  return <Img {...props} />;
+  return <Img {...data} />;
 }
