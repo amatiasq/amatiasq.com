@@ -17,7 +17,7 @@ build: copy-assets
 	deno run \
 		--import-map=import-map.json \
 		--allow-read \
-		--allow-write=./dist \
+		--allow-write=./dist,./cache \
 		--lock=lock.json \
 		--allow-net=$(NET_ACCESS) \
 		src/main.ts
@@ -38,7 +38,7 @@ lock:
 	deno run \
 		--import-map=import-map.json \
 		--allow-read \
-		--allow-write=./dist \
+		--allow-write=./dist,./cache \
 		--lock=lock.json \
 		--allow-net=$(NET_ACCESS) \
 		--reload \

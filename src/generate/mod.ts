@@ -8,7 +8,7 @@ export type { PageUtils } from './components/PageUtils.tsx';
 export { RawHtml } from './components/RawHtml.tsx';
 export { Script } from './components/Script.tsx';
 export type { ScriptProps } from './components/Script.tsx';
-export { assetsDir, pagesDir } from './config.ts';
+export { assetsDir, cacheDir, pagesDir } from './config.ts';
 export { css } from './deps/emotion.ts';
 export { generate } from './generate.ts';
 export type { MarkdownPageMetadata } from './types/MarkdownPageMetadata.ts';
