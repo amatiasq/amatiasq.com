@@ -1,5 +1,5 @@
 TEMP_FILE := $(shell mktemp)
-NET_ACCESS := esm.sh,cdn.esm.sh,deno.land,fonts.googleapis.com
+NET_ACCESS := esm.sh,cdn.esm.sh,deno.land,fonts.googleapis.com,unpkg.com
 
 
 all: build

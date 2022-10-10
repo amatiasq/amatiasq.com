@@ -81,6 +81,7 @@ export const cssFontFamily = {
 };
 
 export const cssDeps = [
+  'https://unpkg.com/open-props@1.4.16/open-props.min.css',
   `https://fonts.googleapis.com/css2?display=swap&${fonts
     .map((x) => `family=${x.replace(/\s/g, '+')}:wght@400;700`)
     .join('&')}`,
