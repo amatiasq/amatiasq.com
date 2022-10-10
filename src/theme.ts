@@ -6,10 +6,10 @@ const primaryColor = '#00FBFF';
 
 const dark = `
   --brand: ${primaryColor};
-  --text1: #FDFBF8;
-  --text2: ${primaryColor};
-  // --text3: var(--);
-  --text4: #FFFFFF;
+  --text: #FDFBF8;
+  --text-links: ${primaryColor};
+  --text-code: var(--);
+  --text-headers: #FFFFFF;
   --surface1: #263238;
   --surface2: #161b22;
   --surface3: ${primaryColor};
@@ -18,10 +18,10 @@ const dark = `
 
 const light = `
   --brand: #0006B0;
-  --text1: #3a3a3a;
-  --text2: #0006B0;
-  // --text3: var(--);
-  --text4: #000000;
+  --text: #3a3a3a;
+  --text-links: #0006B0;
+  --text-code: var(--);
+  --text-headers: #000000;
   --surface1: #dae2e7;
   --surface2: #e3e7ed;
   --surface3: #0006B0;
@@ -30,10 +30,10 @@ const light = `
 
 export const cssColor = {
   brand: 'var(--brand)',
-  text1: 'var(--text1)',
-  text2: 'var(--text2)',
-  text3: 'var(--text3)',
-  text4: 'var(--text4)',
+  text: 'var(--text)',
+  textLinks: 'var(--text-links)',
+  textCode: 'var(--text-code)',
+  textHeaders: 'var(--text-headers)',
   surface1: 'var(--surface1)',
   surface2: 'var(--surface2)',
   surface3: 'var(--surface3)',
@@ -101,7 +101,7 @@ export const cssGlobal = `
 
   body {
     background-color: ${cssColor.surface1};
-    color: ${cssColor.text1};
+    color: ${cssColor.text};
     font-family: ${cssFontFamily.default};
     font-size: 18px;
     line-height: 1.5;
@@ -128,7 +128,7 @@ export const cssGlobal = `
 
   svg {
     // TODO: currentColor
-    fill: ${cssColor.text1};
+    fill: ${cssColor.text};
   }
 
   iframe {

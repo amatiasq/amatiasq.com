@@ -24,7 +24,7 @@ export function Time({ className = '', value, omitDay = false }: TimeProps) {
     opacity: 0.8;
     font-size: 0.8em;
     font-family: ${cssFontFamily.code};
-    color: ${cssColor.text1};
+    color: ${cssColor.text};
     white-space: nowrap;
   `;
 
