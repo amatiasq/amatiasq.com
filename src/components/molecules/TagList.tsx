@@ -16,10 +16,10 @@ export function TagList({ className = '', list }: TagListProps) {
   `;
 
   const tagStyles = css`
-    border: 2px solid ${cssColor.primary};
+    border: 2px solid ${cssColor.brand};
     border-radius: 8px;
     padding: 3px 10px;
-    color: ${cssColor.backgroundStrong};
+    color: ${cssColor.surface2};
     display: inline-block;
     font-family: ${cssFontFamily.code} !important;
     position: relative;
@@ -29,7 +29,7 @@ export function TagList({ className = '', list }: TagListProps) {
       content: '';
       position: absolute;
       inset: 0;
-      background: ${cssColor.primary};
+      background: ${cssColor.brand};
       z-index: -1;
       opacity: 0.75;
     }

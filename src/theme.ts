@@ -5,31 +5,39 @@ import { externalLinkStyles } from './util/externalLinkStyles.ts';
 const primaryColor = '#00FBFF';
 
 const dark = `
-  --color-primary: ${primaryColor};
-  --color-foreground: #FDFBF8;
-  --color-foregroundStrong: #FFFFFF;
-  --color-background: #263238;
-  --color-backgroundStrong: #161b22;
-  --color-border: #586369;
+  --brand: ${primaryColor};
+  --text1: #FDFBF8;
+  --text2: ${primaryColor};
+  // --text3: var(--);
+  --text4: #FFFFFF;
+  --surface1: #263238;
+  --surface2: #161b22;
+  --surface3: ${primaryColor};
+  --border: #586369;
 `;
 
 const light = `
-  --color-primary: #0006B0;
-  --color-foreground: #3a3a3a;
-  --color-foregroundStrong: #000000;
-  --color-background: #dae2e7;
-  --color-backgroundStrong: #e3e7ed;
-  --color-border: gray;
+  --brand: #0006B0;
+  --text1: #3a3a3a;
+  --text2: #0006B0;
+  // --text3: var(--);
+  --text4: #000000;
+  --surface1: #dae2e7;
+  --surface2: #e3e7ed;
+  --surface3: #0006B0;
+  --border: gray;
 `;
 
 export const cssColor = {
-  link: 'var(--color-primary)',
-  primary: 'var(--color-primary)',
-  foreground: 'var(--color-foreground)',
-  foregroundStrong: 'var(--color-foregroundStrong)',
-  background: 'var(--color-background)',
-  backgroundStrong: 'var(--color-backgroundStrong)',
-  border: 'var(--color-border)',
+  brand: 'var(--brand)',
+  text1: 'var(--text1)',
+  text2: 'var(--text2)',
+  text3: 'var(--text3)',
+  text4: 'var(--text4)',
+  surface1: 'var(--surface1)',
+  surface2: 'var(--surface2)',
+  surface3: 'var(--surface3)',
+  border: 'var(--border)',
 };
 
 export const cssFontSize = {
@@ -81,7 +89,7 @@ export const cssFontFamily = {
 };
 
 export const cssDeps = [
-  // 'https://unpkg.com/open-props@1.4.16/open-props.min.css',
+  'https://unpkg.com/open-props@1.4.16/open-props.min.css',
   // 'https://unpkg.com/open-props@1.4.16/normalize.min.css',
   `https://fonts.googleapis.com/css2?display=swap&${fonts
     .map((x) => `family=${x.replace(/\s/g, '+')}:wght@400;700`)
@@ -92,8 +100,8 @@ export const cssGlobal = `
   ${colorScheme(':root', dark, light)}
 
   body {
-    background-color: ${cssColor.background};
-    color: ${cssColor.foreground};
+    background-color: ${cssColor.surface1};
+    color: ${cssColor.text1};
     font-family: ${cssFontFamily.default};
     font-size: 18px;
     line-height: 1.5;
@@ -105,7 +113,7 @@ export const cssGlobal = `
   }
 
   a {
-    color: ${cssColor.link};
+    color: ${cssColor.brand};
     text-decoration: none;
   }
   ${externalLinkStyles(primaryColor)}
@@ -119,7 +127,8 @@ export const cssGlobal = `
   }
 
   svg {
-    fill: ${cssColor.foreground};
+    // TODO: currentColor
+    fill: ${cssColor.text1};
   }
 
   iframe {

@@ -24,8 +24,8 @@ export function AmqHeader({
   const styles = css`
     --emoji-size: 1.5rem;
 
-    background-color: ${cssColor.backgroundStrong};
-    color: ${cssColor.foreground};
+    background-color: ${cssColor.surface2};
+    color: ${cssColor.text1};
     border-bottom: 2px solid ${cssColor.border};
     padding: ${cssSpace.xl} 0;
     font-size: 1.2em;
@@ -78,7 +78,7 @@ export function AmqHeader({
   `;
 
   const pageLinkStyles = css`
-    color: ${cssColor.link};
+    color: ${cssColor.text2};
     margin-right: ${cssSpace.md};
     border-bottom: 1px solid transparent;
     transform: translate(0px, 0px);
@@ -88,7 +88,7 @@ export function AmqHeader({
     }
 
     &:hover {
-      border-bottom: 1px solid ${cssColor.link};
+      border-bottom: 1px solid ${cssColor.text2};
       transition: transform ${cssAnimationSpeed.slow} ease;
       transform: translate(0px, -3px);
     }

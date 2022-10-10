@@ -23,7 +23,7 @@ export function AMatiasQuezada() {
   `;
 
   const nameStyles = css`
-    color: ${cssColor.foregroundStrong};
+    color: ${cssColor.text4};
     display: flex;
     align-items: baseline;
     letter-spacing: 1px;

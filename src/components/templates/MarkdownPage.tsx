@@ -3,7 +3,7 @@ import { Container } from '../atoms/Container.tsx';
 import { css, Translatable, Markdown, Img } from '../../generate/mod.ts';
 import { TagList } from '../molecules/TagList.tsx';
 import { AmqHeader } from '../organisms/AmqHeader.tsx';
-import { cssColor, cssSpace } from '../../theme.ts';
+import { cssSpace } from '../../theme.ts';
 import { AmqDocument } from './AmqDocument.tsx';
 
 type ImageData = undefined | null | string | { src: string; alt: string };

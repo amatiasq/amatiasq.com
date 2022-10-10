@@ -5,7 +5,7 @@ import { cssColor, cssSpace } from '../../theme.ts';
 import { SitePage } from '../types/SitePage.ts';
 import { getMarkdownExtract } from '../util/getMarkdownExtract.ts';
 import { highlightTheme } from '../util/highlightTheme.ts';
-import { Img, renderImage } from './Img.tsx';
+import { renderImage } from './Img.tsx';
 import { Lang, tr, Translatable, useLang } from './Lang.tsx';
 import { usePageUtils } from './PageUtils.tsx';
 import { RawHtml } from './RawHtml.tsx';
@@ -64,9 +64,10 @@ export function Markdown({
     }
 
     code:not(.code-block) {
-      background-color: ${cssColor.backgroundStrong};
+      // color: var(--violet-3);
+      background-color: ${cssColor.surface3};
       padding: ${cssSpace.xs};
-      border-radius: ${cssSpace.xs};
+ §     border-radius: ${cssSpace.xs};
     }
 
     pre {

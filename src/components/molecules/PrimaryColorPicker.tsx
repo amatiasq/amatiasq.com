@@ -29,7 +29,7 @@ export function PrimaryColorPicker() {
       display: block;
       position: fixed;
       overflow: hidden;
-      background-color: ${cssColor.primary};
+      background-color: ${cssColor.brand};
 
       --size: 2rem;
       bottom: calc(var(--size) * -1);
