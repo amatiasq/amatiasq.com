@@ -2,7 +2,6 @@ import React from 'react';
 import { css, Translatable, useLang, RawHtml, tr } from '../../generate/mod.ts';
 import { fetchAndCache } from '../../generate/util/fetchAndCache.ts';
 import { cssDeps, cssGlobal, cssReset } from '../../theme.ts';
-import { PrimaryColorPicker } from '../molecules/PrimaryColorPicker.tsx';
 
 export interface AmqDocumentProps {
   className?: string;

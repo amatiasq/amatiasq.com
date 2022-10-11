@@ -2,40 +2,40 @@ import { colorScheme } from './components/molecules/ColorSchemeToggle.tsx';
 import { bouncyLinkStyles } from './util/bouncyLinkTransition.ts';
 import { linkStyles } from './util/linkStyles.ts';
 
-const primaryColor = '#36c7af';
+const primaryColor = '#00FBFF';
 const linkColor = {
   dark: {
-    default: '#66d9e8',
+    default: primaryColor,
     // FIXME: I can't apply color to external icon on visited links
     // :visited can't be used with ::after
     // :visited can't be used with opacity
-    visited: '#66d9e8',
+    visited: primaryColor,
   },
   light: {
-    default: '#66d9e8',
-    visited: '#66d9e8',
+    default: primaryColor,
+    visited: primaryColor,
   },
 };
 
 const dark = `
   --brand: ${primaryColor};
-  --text: var(--indigo-0);
-  --text-code: ${primaryColor};
+  --text: #FDFBF8;
+  --text-code: #c678dd;
   --text-headers: #FFFFFF;
-  --surface1: var(--gray-9);
-  --surface2: var(--indigo-9);
-  // --surface3: transparent;
-  --border: transparent;
+  --surface1: #263238;
+  --surface2: #161b22;
+  --surface3: ${primaryColor};
+  --border: #586369;
 `;
 
 const light = `
   --brand: #0006B0;
   --text: #3a3a3a;
-  --text-code: var(--);
+  --text-code: #c678dd;
   --text-headers: #000000;
   --surface1: #dae2e7;
   --surface2: #e3e7ed;
-  // --surface3: #0006B0;
+  --surface3: #0006B0;
   --border: gray;
 `;
 
@@ -100,7 +100,8 @@ export const cssFontFamily = {
 
 export const cssDeps = [
   'https://unpkg.com/open-props@1.4.16/open-props.min.css',
-  // 'https://unpkg.com/open-props@1.4.16/normalize.min.css',
+  'https://unpkg.com/open-props@1.4.16/normalize.min.css',
+  // 'https://unpkg.com/open-props@1.4.16/masks.edges.min.css',
   `https://fonts.googleapis.com/css2?display=swap&${fonts
     .map((x) => `family=${x.replace(/\s/g, '+')}:wght@400;700`)
     .join('&')}`,
@@ -110,8 +111,9 @@ export const cssGlobal = `
   ${colorScheme(':root', dark, light)}
 
   body {
-    background-color: #111827;
-    background: var(--gradient-16);
+    background-color: ${cssColor.surface1};
+    // background-color: #111827;
+    // background: var(--gradient-16);
     color: ${cssColor.text};
     font-family: ${cssFontFamily.default};
     font-size: ${cssFontSize.sm};

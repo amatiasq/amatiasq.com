@@ -25,7 +25,7 @@ export function AmqHeader({
     --emoji-size: 1.5rem;
 
     background-color: ${cssColor.surface2};
-    box-shadow: var(--shadow-4);
+    box-shadow: var(--shadow-3);
     padding: ${cssSpace.xl} 0;
     font-size: 1.2em;
 
