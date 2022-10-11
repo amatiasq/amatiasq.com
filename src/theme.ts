@@ -23,7 +23,7 @@ const dark = `
   --text-code: #c678dd;
   --text-headers: #FFFFFF;
   --surface1: #263238;
-  --surface2: #161b22;
+  --surface2: var(--gray-9);
   --surface3: ${primaryColor};
   --border: #586369;
 `;
@@ -51,11 +51,11 @@ export const cssColor = {
 };
 
 export const cssFontSize = {
-  xs: '14px',
-  sm: '18px',
-  md: '24px',
-  lg: '32px',
-  xl: '46px',
+  xs: 'var(--size-2)',
+  sm: 'var(--size-3)',
+  md: 'var(--size-4)',
+  lg: 'var(--size-7)',
+  xl: 'var(--size-9)',
 };
 
 export const cssFontWeight = {

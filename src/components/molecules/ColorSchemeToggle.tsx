@@ -46,12 +46,12 @@ export function colorScheme(selector: string, dark: string, light: string) {
   const nonRootSelector = selector === ':root' ? '' : selector;
 
   return `
-    :where(html:not(.${lightThemeClass})) ${nonRootSelector} { ${dark} }
+    html:not(.${lightThemeClass}) ${nonRootSelector} { ${dark} }
 
     @media (prefers-color-scheme: light) {
-      :where(html) ${nonRootSelector} { ${light} }
+      html ${nonRootSelector} { ${light} }
     }
 
-    :where(html.${lightThemeClass}) ${nonRootSelector} { ${light} }
+    html.${lightThemeClass} ${nonRootSelector} { ${light} }
   `;
 }

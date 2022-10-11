@@ -55,11 +55,9 @@ export function AMatiasQuezada() {
     <h2 className={styles}>
       <Link className={`${nameStyles} inactive`} page={pagesDir}>
         <>
-          <span>{'{ '}</span>
-          <abbr>Adrian</abbr>
+          <abbr>Adrián</abbr>
           <span className="dot">.</span>
           <span>Matías Quezada</span>
-          <span>{' }'}</span>
         </>
       </Link>
     </h2>

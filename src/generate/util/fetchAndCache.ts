@@ -22,22 +22,24 @@ export function fetchAndCache(files: string[]) {
       const cache = cacheDir.resolve(basename(x)).toString();
       const request = fetch(x).then((response) => response.text());
 
+      if (canWriteCache.state === 'granted') {
+        request.then(
+          (content) =>
+            Deno.writeTextFile(cache, content)
+              .catch((reason) =>
+                console.error(`Can't save ${cache}:\n\t${reason}`)
+              )
+              .then(() => console.log(`Cached ${cache}`)),
+          () => null
+        );
+      }
+
       if (canReadCache.state === 'granted') {
-        request.catch((error) =>
+        return request.catch((error) =>
           Deno.readTextFile(cache).catch(() => {
             throw error;
           })
         );
-      }
-
-      if (canWriteCache.state === 'granted') {
-        request.then((content) => {
-          Deno.writeTextFile(cache, content)
-            .catch((reason) =>
-              console.error(`Can't save ${cache}:\n\t${reason}`)
-            )
-            .then(() => console.log(`Cached ${cache}`));
-        });
       }
 
       return request;

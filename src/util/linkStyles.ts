@@ -24,13 +24,13 @@ export function linkStyles(colors: { dark: LinkColors; light: LinkColors }) {
     a { text-decoration: none; }
 
     ${colorScheme(
-      'a',
+      'a[href]',
       `color: ${colors.dark.default}`,
       `color: ${colors.light.default}`
     )}
 
     ${colorScheme(
-      'a:visited',
+      'a[href]:visited',
       `color: ${colors.dark.visited}`,
       `color: ${colors.light.visited}`
     )}
