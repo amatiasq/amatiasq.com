@@ -25,10 +25,14 @@ export function AmqHeader({
     --emoji-size: 1.5rem;
 
     background-color: ${cssColor.surface2};
-    color: ${cssColor.text};
-    border-bottom: 2px solid ${cssColor.border};
+    box-shadow: var(--shadow-4);
     padding: ${cssSpace.xl} 0;
     font-size: 1.2em;
+
+    a,
+    a:visited {
+      color: ${cssColor.text};
+    }
 
     ${cssBreakpoint.medium} {
       --emoji-size: 2rem;
@@ -37,8 +41,8 @@ export function AmqHeader({
       top: 0;
       z-index: 1;
 
-      transition: padding ${cssAnimationSpeed.fast} ease-in-out,
-        font-size ${cssAnimationSpeed.fast} ease-in-out;
+      transition: padding ${cssAnimationSpeed.fast} var(--ease-in-5),
+        font-size ${cssAnimationSpeed.fast} var(--ease-in-5);
 
       &.scrolled {
         --emoji-size: 1.5rem;
@@ -78,7 +82,8 @@ export function AmqHeader({
   `;
 
   const pageLinkStyles = css`
-    color: ${cssColor.textLinks};
+    color: ${cssColor.text};
+    text-shadow: 0 0 3px var(--gray-9);
     margin-right: ${cssSpace.md};
     border-bottom: 1px solid transparent;
     transform: translate(0px, 0px);
@@ -88,7 +93,7 @@ export function AmqHeader({
     }
 
     &:hover {
-      border-bottom: 1px solid ${cssColor.textLinks};
+      border-bottom: 1px solid ${cssColor.brand};
       transition: transform ${cssAnimationSpeed.slow} ease;
       transform: translate(0px, -3px);
     }
@@ -115,7 +120,7 @@ export function AmqHeader({
     >
       <Container className={containerStyles}>
         <AMatiasQuezada />
-        <Eyes />
+        {/* <Eyes /> */}
 
         <nav className={navStyles}>
           <Link
@@ -147,6 +152,6 @@ export function AmqHeader({
   );
 }
 
-function Eyes() {
-  return null;
-}
+// function Eyes() {
+//   return null;
+// }

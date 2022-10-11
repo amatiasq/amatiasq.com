@@ -64,10 +64,10 @@ export function Markdown({
     }
 
     code:not(.code-block) {
-      // color: var(--violet-3);
-      background-color: ${cssColor.surface3};
-      padding: ${cssSpace.xs};
- §     border-radius: ${cssSpace.xs};
+      color: ${cssColor.textCode};
+      // background-color: ${cssColor.surface3};
+      // padding: ${cssSpace.xs};
+      // border-radius: ${cssSpace.xs};
     }
 
     pre {

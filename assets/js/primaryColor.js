@@ -1,16 +1,16 @@
-const PRIMARY_COLOR_KEY = 'amatiasq.com|color-primary';
+const PRIMARY_COLOR_KEY = 'amatiasq.com|color-brand';
 
 function changePrimaryColor(newColor) {
   if (!newColor) return;
-  doc.style.setProperty('--color-primary', newColor);
+  doc.style.setProperty('--color-brand', newColor);
   localStorage.setItem(PRIMARY_COLOR_KEY, newColor);
   primaryColorChanged(newColor);
 }
 
 function primaryColorChanged(
-  newColor = getComputedStyle(doc).getPropertyValue('--color-primary')
+  newColor = getComputedStyle(doc).getPropertyValue('--color-brand')
 ) {
-  const event = new CustomEvent('amq-primary-color-changed', {
+  const event = new CustomEvent('amq-brand-color-changed', {
     detail: newColor,
   });
   doc.dispatchEvent(event);
@@ -18,18 +18,18 @@ function primaryColorChanged(
 
 Object.assign(window, { primaryColorChanged });
 
-doc.addEventListener('amq-primary-color-changed', async (event) => {
-  const newColor = event.detail;
+// doc.addEventListener('amq-brand-color-changed', async (event) => {
+//   const newColor = event.detail;
 
-  doc.style.setProperty('--external-link', getExternalLinkBackground(newColor));
+//   doc.style.setProperty('--external-link', getExternalLinkBackground(newColor));
 
-  const $picker = await $('#color-picker');
-  $picker.value = newColor.trim();
-});
+//   const $picker = await $('#color-picker');
+//   $picker.value = newColor.trim();
+// });
 
 changePrimaryColor(localStorage.getItem(PRIMARY_COLOR_KEY));
 
-doc.dispatchEvent(new Event('amq-primary-color-ready'));
+// doc.dispatchEvent(new Event('amq-brand-color-ready'));
 
 const picker = await $('#color-picker');
 

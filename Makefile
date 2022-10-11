@@ -30,7 +30,7 @@ watch:
 
 start-server:
 	@echo "Serving ./dist..."
-	live-server --port=8088 -q dist --wait 500
+	live-server --port=8088 -q dist --wait 1000
 
 
 lock:

@@ -24,6 +24,7 @@ export function AMatiasQuezada() {
 
   const nameStyles = css`
     color: ${cssColor.textHeaders};
+    text-shadow: 0 0 5px var(--gray-9);
     display: flex;
     align-items: baseline;
     letter-spacing: 1px;

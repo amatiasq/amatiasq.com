@@ -1,42 +1,52 @@
 import { colorScheme } from './components/molecules/ColorSchemeToggle.tsx';
 import { bouncyLinkStyles } from './util/bouncyLinkTransition.ts';
-import { externalLinkStyles } from './util/externalLinkStyles.ts';
+import { linkStyles } from './util/linkStyles.ts';
 
-const primaryColor = '#00FBFF';
+const primaryColor = '#36c7af';
+const linkColor = {
+  dark: {
+    default: '#66d9e8',
+    // FIXME: I can't apply color to external icon on visited links
+    // :visited can't be used with ::after
+    // :visited can't be used with opacity
+    visited: '#66d9e8',
+  },
+  light: {
+    default: '#66d9e8',
+    visited: '#66d9e8',
+  },
+};
 
 const dark = `
   --brand: ${primaryColor};
-  --text: #FDFBF8;
-  --text-links: ${primaryColor};
-  --text-code: var(--);
+  --text: var(--indigo-0);
+  --text-code: ${primaryColor};
   --text-headers: #FFFFFF;
-  --surface1: #263238;
-  --surface2: #161b22;
-  --surface3: ${primaryColor};
-  --border: #586369;
+  --surface1: var(--gray-9);
+  --surface2: var(--indigo-9);
+  // --surface3: transparent;
+  --border: transparent;
 `;
 
 const light = `
   --brand: #0006B0;
   --text: #3a3a3a;
-  --text-links: #0006B0;
   --text-code: var(--);
   --text-headers: #000000;
   --surface1: #dae2e7;
   --surface2: #e3e7ed;
-  --surface3: #0006B0;
+  // --surface3: #0006B0;
   --border: gray;
 `;
 
 export const cssColor = {
   brand: 'var(--brand)',
   text: 'var(--text)',
-  textLinks: 'var(--text-links)',
   textCode: 'var(--text-code)',
   textHeaders: 'var(--text-headers)',
   surface1: 'var(--surface1)',
   surface2: 'var(--surface2)',
-  surface3: 'var(--surface3)',
+  // surface3: 'var(--surface3)',
   border: 'var(--border)',
 };
 
@@ -100,23 +110,20 @@ export const cssGlobal = `
   ${colorScheme(':root', dark, light)}
 
   body {
-    background-color: ${cssColor.surface1};
+    background-color: #111827;
+    background: var(--gradient-16);
     color: ${cssColor.text};
     font-family: ${cssFontFamily.default};
-    font-size: 18px;
-    line-height: 1.5;
-    letter-spacing: 0.5px;
+    font-size: ${cssFontSize.sm};
+    line-height: var(--font-lineheight-3);
+    letter-spacing: var(--font-letterspacing-1);
   }
 
   header, h1, h2, h3, h4, h5, h6 {
     font-family: ${cssFontFamily.header};
   }
 
-  a {
-    color: ${cssColor.brand};
-    text-decoration: none;
-  }
-  ${externalLinkStyles(primaryColor)}
+  ${linkStyles(linkColor)}
   ${bouncyLinkStyles()}
 
   ol { padding: 0; }

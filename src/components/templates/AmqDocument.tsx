@@ -47,7 +47,7 @@ export function AmqDocument({
       </head>
       <body className={`${className} ${bodyStyles}`}>
         {children}
-        <PrimaryColorPicker />
+        {/* <PrimaryColorPicker /> */}
       </body>
     </html>
   );
