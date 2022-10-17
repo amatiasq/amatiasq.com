@@ -10,20 +10,12 @@ export interface ColorSchemeToggleProps {
 }
 
 export function ColorSchemeToggle({ className = '' }: ColorSchemeToggleProps) {
-  const dark = `
-    span:first-child {
-      display: none;
-    }
-  `;
-
-  const light = `
-    span:last-child {
-      display: none;
-    }
-  `;
-
   const styles = css`
-    ${colorScheme('&', dark, light)}
+    ${colorScheme(
+      '',
+      'span:first-child { display: none; }',
+      'span:last-child { display: none; }'
+    )}
     appearance: none;
     background: none;
     border: none;
@@ -46,12 +38,12 @@ export function colorScheme(selector: string, dark: string, light: string) {
   const nonRootSelector = selector === ':root' ? '' : selector;
 
   return `
-    html:not(.${lightThemeClass}) ${nonRootSelector} { ${dark} }
+    :where(html:not(.${lightThemeClass})) ${nonRootSelector} { ${dark} }
 
     @media (prefers-color-scheme: light) {
-      html ${nonRootSelector} { ${light} }
+      :where(html) ${nonRootSelector} { ${light} }
     }
 
-    html.${lightThemeClass} ${nonRootSelector} { ${light} }
+    :where(html.${lightThemeClass}) ${nonRootSelector} { ${light} }
   `;
 }

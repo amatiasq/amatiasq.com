@@ -29,8 +29,8 @@ export function AmqHeader({
     padding: ${cssSpace.xl} 0;
     font-size: 1.2em;
 
-    a,
-    a:visited {
+    a[href],
+    a[href]:visited {
       color: ${cssColor.text};
     }
 
