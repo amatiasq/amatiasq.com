@@ -21,6 +21,8 @@ In this case an area is drawn with some obstacles in the way (in purple) and two
 
 One of the most difficult aspects of this algorithm is we don't know if there's even a valid path between both points, if there is none we want to know it with the less computational cost possible.
 
+This is a better visualization of Pathfinding with different algorithms: https://clementmihailescu.github.io/Pathfinding-Visualizer/
+
 ---
 
 Pathfinding (más específicamente A\*) es un algoritmo que encuentra un cammino entre dos puntos.
@@ -28,3 +30,5 @@ Pathfinding (más específicamente A\*) es un algoritmo que encuentra un cammino
 En este caso se dibuja un 'area con obstáculos en el camino (en púrpura) y se añaden dos puntos blancos. El algoritmo cacula ráapidamente un camino viable (no necesariamente el más mejor) entre ambos puntos y lo pinta de amarillo.
 
 Uno de los aspectos más complicados de este algoritmo es que no sabemos si quiera si hay un camino válido entre ambos puntos, en caso de que no sea posible conectarlos queremos saberlo con el menor coste computacional posible.
+
+Aquí se puede visualizar mejor el Pathfinding con diferentes algoritmos: https://clementmihailescu.github.io/Pathfinding-Visualizer/
