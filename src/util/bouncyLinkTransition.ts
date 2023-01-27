@@ -28,7 +28,7 @@ export function bouncyLinkStyles() {
       border-radius: 8px;
 
       opacity: 1;
-      background: var(--color-primary);
+      background: transparents;
       inset: calc(100% - var(--underline-width)) 0 0 0;
       height: var(--underline-width);
 
