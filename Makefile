@@ -14,6 +14,7 @@ copy-assets:
 
 build: copy-assets
 	@echo "Building..."
+	find . -name .DS_Store | xargs rm
 	deno run \
 		--import-map=import-map.json \
 		--allow-read \
