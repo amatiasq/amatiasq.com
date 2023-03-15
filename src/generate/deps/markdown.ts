@@ -14,7 +14,7 @@ function highlight(code: string, lang?: string) {
   const processing = highlightText(
     clean,
     // FIXME: Support TSX highlighting
-    lang === 'tsx' ? 'ts' : lang || 'js',
+    lang === 'tsx' ? 'ts' : lang || 'plain',
     false
   ) as unknown as Promise<string>;
 

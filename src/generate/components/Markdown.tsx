@@ -79,7 +79,7 @@ export function Markdown({
       position: relative;
       white-space: pre;
 
-      .code-block {
+      > code {
         display: block;
         width: var(--available-width);
         white-space: pre;
