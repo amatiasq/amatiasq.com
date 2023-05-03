@@ -8,7 +8,6 @@ import {
   YearMonthDay,
 } from '../../generate/mod.ts';
 import { ResponsiveHeader } from '../../components/molecules/ResponsiveHeader.tsx';
-import { AmqComments } from '../../components/organisms/AmqComments.tsx';
 
 export interface BlogPostProps extends MarkdownPageMetadata {
   published: YearMonthDay;
