@@ -16,7 +16,7 @@ export interface BlogPostProps extends MarkdownPageMetadata {
 
 export default ({ title, published, content }: BlogPostProps) => {
   return (
-    <MarkdownPage title={title} content={content} footer={<AmqComments />}>
+    <MarkdownPage title={title} content={content}>
       <ResponsiveHeader as={Heading2}>
         <Lang tr={title} />
         <Time value={published} />
