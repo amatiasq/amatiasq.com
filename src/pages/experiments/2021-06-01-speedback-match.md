@@ -6,7 +6,6 @@ title:
 links:
   live: https://amatiasq.com/speedback?alice,bob,matias,dexter
 
-pinned: true
 iframe: true
 ---
 
