@@ -43,6 +43,8 @@ getProduct(userId as ProductId); // error
 
 > Update July 2022: [Zack](https://zackoverflow.dev/) took this one step further by creating a libray that hides the ugliness of this approach https://github.com/modfy/nominal
 
+> Update August 2023: This is becoming [a common pattern called branded types](https://typescript.tv/best-practices/improve-your-type-safety-with-branded-types/) now.
+
 ---
 
 Aquí explico un concepto que encontré usando Typescript donde uno puede usar un tipo "string literal" con "union types" para crear nuevos tipos únicos.
@@ -75,8 +77,9 @@ Este fue el enfoque que tomé en una herramenta para crear bots de Discord en de
 
 > Actualización Julio 2022: [Zack](https://zackoverflow.dev/) llevó esto un paso más allá creando una librería que esconde la parte desagradable de esta técnica https://github.com/modfy/nominal
 
-(solo disponible en inglés 🇬🇧)
+> Actualización Agosto 2023: Esto se está convirtiendo [en un patrón común llamado branded types](https://typescript.tv/best-practices/improve-your-type-safety-with-branded-types/)
 
+(solo disponible en inglés 🇬🇧)
 
 [1]: https://github.com/amatiasq/deno/tree/master/denord
 [2]: https://github.com/amatiasq/deno/blob/master/denord/internals/endpoint-urls.ts#L74-L135
