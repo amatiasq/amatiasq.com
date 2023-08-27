@@ -11,7 +11,12 @@ labels:
   - Unity
   - C#
   - Bash
-  - Self motivation
+  - en: Self-directed
+    es: Autodirigido
+  - en: Autonomous working
+    es: Autogestionado
+  - en: Initiative
+    es: Iniciativa
 ---
 
 Youtube channel [Primer Learning][1] needed some help adapting Unity Game Engine for video production.
