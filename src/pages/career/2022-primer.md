@@ -14,7 +14,7 @@ labels:
   - Self motivation
 ---
 
-Youtube channel Primer [Learning needed][1] some help adapting Unity Game Engine for video production.
+Youtube channel [Primer Learning][1] needed some help adapting Unity Game Engine for video production.
 Together we investigated the main issues, then designed and developed a set of tools that would provide solutions for each one of the sharp edges.
 
 We ended up with a system allows to programatically define a sequence of events, as it was integrated with Unity Timeline so we could preview the video as we were producing it, scrubbing back and forward freely.
