@@ -26,7 +26,7 @@ labels:
   - Slack bot
 ---
 
-Most recently worked on the development and maintenance of a SaaS product for clinics and doctors to communicate with patients and track their data. There was an emphasis on automation and displaying only the most relevant information at any given moment.
+Worked on the development and maintenance of a SaaS product for clinics and doctors to communicate with patients and track their data. There was an emphasis on automation and displaying only the most relevant information at any given moment.
 
 I found myself without a manager to report to shortly after joining, which led me to pull my sleeves and find ways to help the company as part of my daily job.
 
@@ -42,7 +42,7 @@ We created an outstanding team of great individuals with the most efficient dyna
 
 ---
 
-Más recientemente trabajé en el desarrollo y mantenimiento de un producto SaaS para que clinicas y doctores puedan comunicarse con sus pacientes y registrar sus datos. Había un particular énfasis en automatización y mostrar sólo la información relevate en cada momento.
+Trabajé en el desarrollo y mantenimiento de un producto SaaS para que clinicas y doctores puedan comunicarse con sus pacientes y registrar sus datos. Había un particular énfasis en automatización y mostrar sólo la información relevate en cada momento.
 
 Me encontré sin superior al que reportar al poco tiempo de unirme, lo que me llevó a arremangarme y encontrar forma de ayudar a la compañía como parte de mi trabajo diario.
 
