@@ -9,6 +9,7 @@ all: build
 copy-assets:
 	@echo "Copying assets..."
 	mkdir -p ./dist
+	@cp -r ./assets/CV.pdf ./dist
 	@cp -r ./assets/img ./dist
 
 

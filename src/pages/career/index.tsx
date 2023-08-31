@@ -82,7 +82,8 @@ export default (props: PageMetadata) => {
         <ResponsiveHeader as={Heading2}>
           <Lang en="Career" es="Currículum" />
           <IconLink
-            href="../cv/"
+            href="/CV.pdf"
+            download="A. Matias Quezada CV.pdf"
             icon={
               <PdfIcon
                 title={tr(['Download PDF', 'Descargar PDF'], useLang())}

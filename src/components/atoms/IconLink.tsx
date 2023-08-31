@@ -6,9 +6,10 @@ export interface IconLinkProps {
   className?: string;
   href: string;
   icon: JSX.Element;
+  download?: string | true;
 }
 
-export function IconLink({ className, href, icon }: IconLinkProps) {
+export function IconLink({ className, href, icon, download }: IconLinkProps) {
   const styles = css`
     --icon-size: 2rem;
 
@@ -47,7 +48,7 @@ export function IconLink({ className, href, icon }: IconLinkProps) {
   } = icon;
 
   return (
-    <a href={href} className={`${styles} ${className}`}>
+    <a href={href} className={`${styles} ${className}`} download={download}>
       {icon}
       <span>{title}</span>
     </a>
