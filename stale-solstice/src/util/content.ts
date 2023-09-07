@@ -64,7 +64,7 @@ export async function readCollection<C extends keyof AnyEntryMap>(
     const result = [] as CollectionEntry<C>[];
 
     for (const entry of entries) {
-        if  (isSufixed(entry.slug)) continue;
+        if (isSufixed(entry.slug)) continue;
         const sufixes = getSufixes(entry.slug);
         const langs = sufixes.map(slug => entries.find(x => x.slug === slug))
         result.push(merge(entry, ...langs));

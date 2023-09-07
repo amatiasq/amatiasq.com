@@ -3,12 +3,12 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
-    "dev": "astro dev",
-    "start": "astro dev",
-    "build": "npm run i18n &&astro build",
-    "preview": "astro preview",
+    "dev": "bin/generate-i18n-files.sh && astro dev",
+    "start": "npm run dev",
+    "build": "bin/generate-i18n-files.sh --copy && astro build",
+    "preview": "bin/generate-i18n-files.sh && astro preview",
     "astro": "astro",
-    "i18n": "rm -rf src/pages/es && cp -r src/pages src/pages/es",
+    "i18n": "bin/generate-i18n-files.sh",
     "lint": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\"",
     "postinstall": "patch-package"
   },

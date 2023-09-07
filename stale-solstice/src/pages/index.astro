@@ -1,23 +1,12 @@
 ---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Tr from '@components/Tr.astro';
 import { readEntry } from '@util/content';
-import { i18n } from '@util/i18n';
 
-const t = i18n(Astro.url);
 const a = await readEntry('blog', 'a');
-
-const { Content } = await t(a).render();
 ---
 
-<html lang={t.lang}>
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>{t(a.data.title)}</h1>
-    <Content />
-	</body>
-</html>
+<BaseLayout>
+		<h1><Tr value={a.data.title} /></h1>
+    <Tr value={a} />
+</BaseLayout>

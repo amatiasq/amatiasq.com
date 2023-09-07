@@ -1,0 +1,30 @@
+---
+import { setLang, t } from '@util/i18n';
+import type { CollectionEntry, ContentEntryMap } from 'astro:content';
+
+type Entry =  CollectionEntry<keyof ContentEntryMap>;
+
+setLang(Astro.url);
+
+const value = await t(Astro.props.value);
+
+const Component = isCollectionEntry(value)
+    ? await renderCollectionEntry(value)
+    : null;
+
+function isCollectionEntry(x: object | null): x is Entry {
+    return (
+        x != null &&
+        typeof x === 'object' &&
+        'render' in x &&
+        typeof x.render === 'function'
+    );
+}
+
+async function renderCollectionEntry(entry: Entry) {
+    const { Content } = await entry.render();
+    return Content;
+}
+---
+
+{Component ? <Component /> : value}
