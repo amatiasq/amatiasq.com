@@ -1,12 +1,13 @@
 ---
+import Tr from '@components/atoms/Tr.astro';
+
 import BaseLayout from '@layouts/BaseLayout.astro';
-import Tr from '@components/Tr.astro';
 import { readEntry } from '@util/content';
 
 const a = await readEntry('blog', 'a');
 ---
 
 <BaseLayout>
-		<h1><Tr value={a.data.title} /></h1>
+    <h1><Tr value={a.data.title} /></h1>
     <Tr value={a} />
 </BaseLayout>

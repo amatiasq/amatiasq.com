@@ -1,5 +1,17 @@
 ---
+import '../styles/reset.css';
+import '../styles/base.css';
+import '../styles/variables.css';
 import { getLangFromUrl } from '@util/i18n';
+import AmqHeader from '../components/organisms/AmqHeader.astro';
+import Container from '../components/atoms/Container.astro';
+
+const title = [
+	Astro.props.title,
+	'A. Matías Quezada'
+]
+	.filter(Boolean)
+	.join(' | ');
 ---
 
 <html lang={getLangFromUrl(Astro.url)}>
@@ -8,9 +20,12 @@ import { getLangFromUrl } from '@util/i18n';
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>A. Matías Quezada</title>
+		<title>{title}</title>
 	</head>
 	<body>
-		<slot />
+		<AmqHeader />
+		<Container>
+			<slot />
+		</Container>
 	</body>
 </html>

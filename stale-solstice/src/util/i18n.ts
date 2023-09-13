@@ -3,12 +3,9 @@ const arrayMap: Record<Language, number> = { en: 0, es: 1 };
 
 export type Language = ReturnType<typeof getLangFromUrl>;
 
-export function getLang() {
-  return lang;
-}
-
 export function setLang(url: URL) {
   lang = getLangFromUrl(url);
+  return lang;
 }
 
 export function t(value: null | undefined): null;

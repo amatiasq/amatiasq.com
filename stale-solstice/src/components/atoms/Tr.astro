@@ -6,7 +6,7 @@ type Entry =  CollectionEntry<keyof ContentEntryMap>;
 
 setLang(Astro.url);
 
-const value = await t(Astro.props.value);
+const value = await t(Astro.props.value ?? Astro.props);
 
 const Component = isCollectionEntry(value)
     ? await renderCollectionEntry(value)

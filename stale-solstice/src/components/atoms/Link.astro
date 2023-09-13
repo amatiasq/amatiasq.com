@@ -1,0 +1,49 @@
+---
+import { setLang } from '@util/i18n';
+import { relativePath } from '@util/relativePath';
+
+interface Props {
+    page: string;
+    class?: string;
+    parentClass?: string;
+    allowLanguageChange?: boolean;
+}
+
+const {
+    page,
+    class: className,
+    parentClass,
+    allowLanguageChange,
+} = Astro.props;
+
+const absolute = absolutePath(page);
+const isParent = Astro.url.toString().startsWith(absolute);
+const relative = relativePath(Astro.url, absolute);
+const props = relative ? { href: relative } : {};
+
+function absolutePath(path: string) {
+    if (allowLanguageChange) {
+        return path;
+    }
+
+    const lang = setLang(Astro.url);
+
+    if (lang === 'en') {
+        return path;
+    }
+
+    return path.startsWith('/')
+        ? `/${lang}${path}`
+        : `/${lang}/${path}`
+}
+---
+
+<a
+    class:list={[
+        className,
+        isParent && parentClass
+    ]}
+    {...props}
+>
+    <slot />
+</a>

@@ -1,0 +1,57 @@
+html {
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 12px;
+    --space-lg: 20px;
+    --space-xl: 40px;
+
+    --font-size-xs: 14px;
+    --font-size-sm: 18px;
+    --font-size-md: 24px;
+    --font-size-lg: 32px;
+    --font-size-xl: 46px;
+
+    --font-weight-regular: 400;
+    --font-weight-bold: 700;
+
+    --font-family-content: 'Nunito Sans, sans-serif';
+    --font-family-header: 'Nunito, sans-serif';
+    --font-family-code: 'Inconsolata, monospace';
+
+    --animation-speed-fastest: 0.05s;
+    --animation-speed-fast: 0.15s;
+    --animation-speed-medium: 0.3s;
+    --animation-speed-slow: 1s;
+
+    --animation-function-startquick: cubic-bezier(0,.5,0,1);
+    --animation-function-bouncy: cubic-bezier(0.25, 0.1, 0, 2.05);
+}
+
+html:not(.light-scheme) {
+    --color-primary: #00FBFF;
+    --color-foreground: #FDFBF8;
+    --color-foreground-strong: #FFFFFF;
+    --color-background: #263238;
+    --color-background-strong: #161b22;
+    --color-border: #586369;
+}
+
+@media (prefers-color-scheme: light) {
+    html {
+        --color-primary: #0006B0;
+        --color-foreground: #3a3a3a;
+        --color-foregroundStrong: #000000;
+        --color-background: #dae2e7;
+        --color-backgroundStrong: #e3e7ed;
+        --color-border: gray;
+    }
+}
+
+html.light-scheme {
+    --color-primary: #0006B0;
+    --color-foreground: #3a3a3a;
+    --color-foregroundStrong: #000000;
+    --color-background: #dae2e7;
+    --color-backgroundStrong: #e3e7ed;
+    --color-border: gray;
+}

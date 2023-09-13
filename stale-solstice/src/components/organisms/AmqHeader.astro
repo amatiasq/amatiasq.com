@@ -1,0 +1,53 @@
+---
+import { setLang } from '@util/i18n';
+import Container from '../atoms/Container.astro';
+import Link from '../atoms/Link.astro';
+import Tr from '../atoms/Tr.astro';
+import AMatiasQuezada from '../molecules/AMatiasQuezada.astro';
+
+const lang = setLang(Astro.url);
+---
+
+<header class="amq-header">
+    <Container>
+        <AMatiasQuezada />
+
+        <nav>
+            <Link page="/blog" parent-class="active">Blog</Link>
+
+            <Link page="/projects" parent-class="active">
+                <Tr en="Projects" es="Proyectos" />
+            </Link>
+
+            <Link page="/career" parent-class="active">
+                <Tr en="Career" es="Carrera" />
+            </Link>
+
+            <!-- <div class="lang-selector"> -->
+                {lang === 'en' ? null : <Link page="/" allowLanguageChange>🇬🇧</Link>}
+                {lang === 'es' ? null : <Link page="/es">🇪🇸</Link>}
+            <!-- </div> -->
+        </nav>
+    </Container>
+</header>
+
+<style lang="scss" is:global>
+    .amq-header {
+        padding: 1rem 0;
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+
+            a {
+                margin-left: 1rem;
+            }
+        }
+    }
+</style>
