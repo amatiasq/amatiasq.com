@@ -20,13 +20,18 @@ function merge<C extends keyof AnyEntryMap>(
 ) {
     return Object.assign({}, entry, {
         en: en ?? entry,
-        es: es ?? entry
+        es: es ?? entry,
+        key: entry.slug.replace(/^\d{4}-\d{2}-\d{2}-/, '')
     });
 }
 
 type AnyEntryMap = ContentEntryMap & DataEntryMap;
 type AllValuesOf<T> = T extends any ? T[keyof T] : never;
 type ValidContentEntrySlug<C extends keyof ContentEntryMap> = AllValuesOf<ContentEntryMap[C]>['slug'];
+
+export function entryUrl<C extends keyof AnyEntryMap, E extends CollectionEntry<C>>(collection: C, entry: E) {
+    return `/${collection}/${entry.slug.replace(/^\d{4}-\d{2}-\d{2}-/, '')}`;
+}
 
 export function readEntryBySlug<
     C extends keyof ContentEntryMap,

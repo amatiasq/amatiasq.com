@@ -1,13 +1,23 @@
 ---
+import Link from '@components/atoms/Link.astro';
 import Tr from '@components/atoms/Tr.astro';
 
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { readEntry } from '@util/content';
+import { entryUrl, readCollection } from '@util/content';
 
-const a = await readEntry('blog', 'a');
+const blog = await readCollection('blog');
 ---
 
 <BaseLayout>
-    <h1><Tr value={a.data.title} /></h1>
-    <Tr value={a} />
+    <h1>Blog</h1>
+
+    <ol>
+        {blog.reverse().map(post =>
+            <li>
+                <Link page={entryUrl('blog', post)}>
+                    <Tr value={post.data.title} />
+                </Link>
+            </li>
+        )}
+    </ol>
 </BaseLayout>
