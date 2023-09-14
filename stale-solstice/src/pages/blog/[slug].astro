@@ -1,0 +1,13 @@
+---
+import { readCollection } from '@util/content';
+import { getSlugWithoutDate } from '@util/date';
+
+export async function getStaticPaths() {
+    const posts = await readCollection('blog')
+    return posts.map(x => ({ params: { slug: getSlugWithoutDate(x) }}));
+}
+
+const { slug } = Astro.params;
+---
+
+{slug}
