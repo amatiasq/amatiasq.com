@@ -1,10 +1,5 @@
-import {
-    getCollection,
-    getEntries,
-    type CollectionEntry,
-    type ContentEntryMap,
-    type DataEntryMap
-} from 'astro:content';
+import type { CollectionEntry, ContentEntryMap, DataEntryMap } from 'astro:content';
+import { getCollection, getEntries } from 'astro:content';
 
 function isSufixed(slug: string) {
     return slug.endsWith('-en') || slug.endsWith('-es');

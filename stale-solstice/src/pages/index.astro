@@ -1,23 +1,53 @@
 ---
-import Link from '@components/atoms/Link.astro';
+import DatedEntryLink from '@components/molecules/DatedEntryLink.astro';
 import Tr from '@components/atoms/Tr.astro';
-
+import FoldableList from '@components/organisms/FoldableList.astro';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import { entryUrl, readCollection } from '@util/content';
+import { readCollection } from '@util/content';
 
 const blog = await readCollection('blog');
+const career = await readCollection('career');
+const projects = await readCollection('projects');
 ---
 
 <BaseLayout>
-    <h1>Blog</h1>
+    <FoldableList>
+        <h2 slot="title">Blog</h2>
 
-    <ol>
         {blog.reverse().map(post =>
             <li>
-                <Link page={entryUrl('blog', post)}>
-                    <Tr value={post.data.title} />
-                </Link>
+                <DatedEntryLink collection="blog" entry={post} />
             </li>
         )}
-    </ol>
+    </FoldableList>
+
+    <FoldableList>
+        <h2 slot="title">
+            <Tr en="Projects" es="Proyectos" />
+        </h2>
+
+        {projects.reverse().map(project =>
+            <li>
+                <DatedEntryLink collection="projects" entry={project} />
+            </li>
+        )}
+    </FoldableList>
+
+    <FoldableList>
+        <h2 slot="title">
+            <Tr en="Career" es="Experiencia" />
+        </h2>
+
+        {career.reverse().map(project =>
+            <li>
+                <DatedEntryLink collection="career" entry={project}>
+                    <Fragment slot="entry-title">
+                        <Tr value={project.data.org} />
+                        <Tr en=" at " es=" en " />
+                        <Tr value={project.data.role} />
+                    </Fragment>
+                </DatedEntryLink>
+            </li>
+        )}
+    </FoldableList>
 </BaseLayout>

@@ -1,13 +1,12 @@
 ---
-const { class: className } = Astro.props;
 ---
 
-<div class:list={['container', className]}>
+<amq-container {...Astro.props}>
     <slot></slot>
-</div>
+</amq-container>
 
 <style lang="scss" is:global>
-    .container {
+    amq-container {
         --container-side-gap: 2rem;
         --container-width: 40rem;
 
@@ -17,6 +16,7 @@ const { class: className } = Astro.props;
             calc(var(--container-width) - var(--container-sides-gap))
         );
 
+        display: block;
         max-width: var(--container-width);
         padding-left: var(--container-side-gap);
         padding-right: var(--container-side-gap);
