@@ -4,8 +4,8 @@ import type { CollectionEntry, ContentEntryMap } from 'astro:content';
 
 type Entry =  CollectionEntry<keyof ContentEntryMap>;
 
-setLang(Astro.url);
-
+const lang = setLang(Astro.url);
+const hasSlot = Astro.slots.has(lang);
 const value = await t(Astro.props.value ?? Astro.props);
 
 const Component = isCollectionEntry(value)
@@ -27,4 +27,16 @@ async function renderCollectionEntry(entry: Entry) {
 }
 ---
 
-{Component ? <Component /> : value}
+{(() => {
+    if (hasSlot) {
+        if (lang === 'en')
+            return <slot name="en" />;
+        if (lang === 'es')
+            return <slot name="es" />;
+    }
+
+    if (Component)
+        return <Component />;
+
+    return value;
+})()}

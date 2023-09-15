@@ -1,8 +1,9 @@
 ---
 import type { CollectionEntry, ContentEntryMap, DataEntryMap } from 'astro:content';
 import Link from "@components/atoms/Link.astro";
+import Time from '@components/atoms/Time.astro';
 import Tr from "@components/atoms/Tr.astro";
-import { parseDate, getSlugWithoutDate, printDate, getLocale } from "@util/date";
+import { parseDate, getSlugWithoutDate } from "@util/date";
 
 type AnyEntryMap = ContentEntryMap & DataEntryMap;
 
@@ -14,12 +15,10 @@ interface Props<C extends keyof AnyEntryMap> {
 
 const { class: className, collection, entry } = Astro.props as Props<keyof AnyEntryMap>
 const slug = getSlugWithoutDate(entry);
-const date = parseDate(entry);
-const locale = getLocale(Astro.url);
 ---
 
 <amq-dated-entry>
-    {date ? <time datetime={date}>{printDate(locale, date, { omitDay: true })}</time> : null}
+    <Time date={parseDate(entry)} omitDay />
     <Link page={`/${collection}/${slug}`} class={className}>
         <slot name="entry-title">
             <Tr value={entry.data.title} />

@@ -7,7 +7,7 @@ type TwoDigits = `${number}${number}`;
 type YearOnly = `${FourDigits}`;
 type YearMonth = `${FourDigits}-${TwoDigits}`;
 type YearMonthDay = `${FourDigits}-${TwoDigits}-${TwoDigits}`;
-type StringifiedDate = YearOnly | YearMonth | YearMonthDay;
+export type StringifiedDate = YearOnly | YearMonth | YearMonthDay;
 
 const dateRegex = /^(\d{4})-(?:(\d{2})-)?(?:(\d{2})-)?/;
 
@@ -18,6 +18,11 @@ export function getLocale(url: URL) {
     es: 'es-ES',
   };
   return locales[lang] || 'default';
+}
+
+export function getYear(entry: AnyEntry) {
+  const match = entry.slug.match(dateRegex);
+  return match && match[1] ? parseInt(match[1], 10) : null;
 }
 
 export function getSlugWithoutDate(entry: AnyEntry) {

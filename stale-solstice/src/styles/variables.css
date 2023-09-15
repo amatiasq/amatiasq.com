@@ -31,7 +31,8 @@ html:not(.light-scheme) {
     --color-primary: #00FBFF;
     --color-foreground: #FDFBF8;
     --color-foreground-strong: #FFFFFF;
-    --color-background: #263238;
+    /* --color-background: #263238; */
+    --color-background: #181818;
     --color-background-strong: #161b22;
     --color-border: #586369;
 }

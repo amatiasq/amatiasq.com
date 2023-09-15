@@ -11,6 +11,20 @@ const projects = await readCollection('projects');
 ---
 
 <BaseLayout>
+    <Tr>
+        <p slot="en">
+            Welcome to my digital garden.<br />
+            This is the corner of the internet where I list things I make.<br />
+            I hope you find something useful.
+        </p>
+
+        <p slot="es">
+            Bienvenido a mi jardín digital.<br />
+            Este es el rincón de internet donde listo las cosas que hago.<br />
+            Espero que encuentres algo útil.
+        </p>
+    </Tr>
+
     <FoldableList>
         <h2 slot="title">Blog</h2>
 
@@ -42,9 +56,9 @@ const projects = await readCollection('projects');
             <li>
                 <DatedEntryLink collection="career" entry={project}>
                     <Fragment slot="entry-title">
-                        <Tr value={project.data.org} />
-                        <Tr en=" at " es=" en " />
                         <Tr value={project.data.role} />
+                        <Tr en=" at " es=" en " />
+                        <Tr value={project.data.org} />
                     </Fragment>
                 </DatedEntryLink>
             </li>

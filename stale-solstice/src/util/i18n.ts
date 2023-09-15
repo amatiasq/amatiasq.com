@@ -1,12 +1,17 @@
-let lang: Language = 'en';
+export const languages = ['en', 'es'] as const;
+type Language = typeof languages[number];
+
+const urlLangExtractor = new RegExp(`^\/(${languages.join('|')})`);
 const arrayMap: Record<Language, number> = { en: 0, es: 1 };
 
-export type Language = ReturnType<typeof getLangFromUrl>;
+let lang: Language = 'en';
 
 export function setLang(url: URL) {
   lang = getLangFromUrl(url);
   return lang;
 }
+
+export type Translatable = Record<Language, string>;
 
 export function t(value: null | undefined): null;
 export function t(value: string[]): string;
@@ -42,6 +47,10 @@ export function t<T>(
   return key || 'MISSING TRANSLATION';
 }
 
-export function getLangFromUrl(url: URL) {
+export function getLangFromUrl(url: URL) : Language {
   return url.pathname.startsWith('/es') ? 'es' : 'en'
+}
+
+export function getPathWithoutLang(url: URL) {
+  return url.pathname.replace(urlLangExtractor, '');
 }

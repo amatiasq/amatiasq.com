@@ -1,0 +1,59 @@
+---
+import DatedEntryLink from '@components/molecules/DatedEntryLink.astro';
+import Tr from '@components/atoms/Tr.astro';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import { readCollection } from '@util/content';
+import { getYear } from '@util/date';
+
+const blog = await readCollection('blog');
+const perYear: Record<number, typeof blog[number]> = {};
+
+for (const post of blog.reverse()) {
+    const year = getYear(post);
+    perYear[year] ??= [];
+    perYear[year].push(post);
+}
+---
+
+<BaseLayout class="blog-list">
+    <h1>
+        <Tr en="Writing" es="Escritos" />
+    </h1>
+
+    <Tr>
+        <p slot="en">
+            These are mostly notes for myself, but if they are useful to someone else, all the better.
+        </p>
+
+        <p slot="es">
+            En principio esto son notas para mi mismo, pero si a alguien le sirven, bienvenido sea.
+        </p>
+    </Tr>
+
+    {Object.entries(perYear)
+        .reverse()
+        .map(([year, posts]) =>
+            <>
+                <h2>{year}</h2>
+
+                <ul>
+                    {posts.map(post =>
+                        <li>
+                            <DatedEntryLink collection="blog" entry={post} />
+                        </li>
+                    )}
+                </ul>
+            </>
+        )
+    }
+</BaseLayout>
+
+<style lang="scss" is:global>
+    .blog-list {
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+    }
+</style>

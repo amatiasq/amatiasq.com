@@ -5,7 +5,7 @@ interface Props {
     count?: number
 }
 
-const { count = 5 } = Astro.props;
+const { visible = 5 } = Astro.props;
 
 const slot = await Astro.slots.render('default')
 
@@ -15,9 +15,10 @@ const items = slot
     .filter(Boolean)
     .map(item => `${item}</li>` )
 
-const header = items.slice(0, count).join('')
-const concealed = items[count]
-const rest = items.slice(count).join('')
+const cropAt = visible - 1;
+const header = items.slice(0, cropAt).join('')
+const concealed = items[cropAt]
+const rest = items.slice(cropAt).join('')
 ---
 
 <amq-foldable-list>

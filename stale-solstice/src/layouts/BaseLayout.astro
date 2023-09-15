@@ -6,6 +6,15 @@ import { getLangFromUrl } from '@util/i18n';
 import AmqHeader from '../components/organisms/AmqHeader.astro';
 import Container from '../components/atoms/Container.astro';
 
+export interface Props {
+	title?: string;
+	class?: string;
+}
+
+const {
+	class: className,
+} = Astro.props;
+
 const title = [
 	Astro.props.title,
 	'A. Matías Quezada'
@@ -22,7 +31,7 @@ const title = [
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 	</head>
-	<body>
+	<body class:list={[className]}>
 		<AmqHeader />
 		<Container>
 			<slot />

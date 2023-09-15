@@ -1,0 +1,12 @@
+---
+import { getPathWithoutLang, setLang } from '@util/i18n';
+import Link from '../atoms/Link.astro';
+
+const lang = setLang(Astro.url);
+const path = getPathWithoutLang(Astro.url);
+---
+
+<!-- <div class="lang-selector"> -->
+    {lang === 'en' ? null : <Link page={path} allowLanguageChange>🇬🇧</Link>}
+    {lang === 'es' ? null : <Link page={`/es${path}`} allowLanguageChange>🇪🇸</Link>}
+<!-- </div> -->
