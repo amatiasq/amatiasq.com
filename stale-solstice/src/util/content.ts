@@ -9,7 +9,7 @@ function getSufixes(slug: string) {
     return [ `${slug}-en`, `${slug}-es` ] as const;
 }
 
-function merge<C extends keyof AnyEntryMap>(
+function merge<C extends keyof AnyEntry>(
     entry: CollectionEntry<C>,
     ...[en, es]: (CollectionEntry<C> | null | undefined)[]
 ) {
@@ -20,11 +20,11 @@ function merge<C extends keyof AnyEntryMap>(
     });
 }
 
-type AnyEntryMap = ContentEntryMap & DataEntryMap;
+export type AnyEntry = ContentEntryMap & DataEntryMap;
 type AllValuesOf<T> = T extends any ? T[keyof T] : never;
 type ValidContentEntrySlug<C extends keyof ContentEntryMap> = AllValuesOf<ContentEntryMap[C]>['slug'];
 
-export function entryUrl<C extends keyof AnyEntryMap, E extends CollectionEntry<C>>(collection: C, entry: E) {
+export function entryUrl<C extends keyof AnyEntry, E extends CollectionEntry<C>>(collection: C, entry: E) {
     return `/${collection}/${entry.slug.replace(/^\d{4}-\d{2}-\d{2}-/, '')}`;
 }
 
@@ -52,11 +52,11 @@ export function readEntryBySlug<
 //     return readEntry(collection, entryId);
 // }
 
-export function readCollection<C extends keyof AnyEntryMap, E extends CollectionEntry<C>>(
+export function readCollection<C extends keyof AnyEntry, E extends CollectionEntry<C>>(
     collection: C,
     filter?: (entry: CollectionEntry<C>) => entry is E
 ): Promise<E[]>;
-export async function readCollection<C extends keyof AnyEntryMap>(
+export async function readCollection<C extends keyof AnyEntry>(
     collection: C,
     filter?: (entry: CollectionEntry<C>) => unknown
 ): Promise<CollectionEntry<C>[]> {

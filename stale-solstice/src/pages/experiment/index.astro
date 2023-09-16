@@ -1,64 +1,20 @@
 ---
-import DatedEntryLink from '@components/molecules/DatedEntryLink.astro';
+import CollectionList from '@layouts/CollectionList.astro'
 import Tr from '@components/atoms/Tr.astro';
-import BaseLayout from '@layouts/BaseLayout.astro';
-import { readCollection } from '@util/content';
-import { getYear } from '@util/date';
-
-const COLLECTION = 'experiment';
-
-const entries = await readCollection(COLLECTION);
-const perYear: Record<number, typeof entries[number]> = {};
-
-for (const post of entries.reverse()) {
-    const year = getYear(post);
-    perYear[year] ??= [];
-    perYear[year].push(post);
-}
 ---
 
-<BaseLayout class="entry-list">
-    <h1>
-        <Tr en="Writing" es="Escritos" />
+<CollectionList collection="experiment">
+    <h1 slot="list-title">
+        <Tr en="Experiments" es="Experimentos" />
     </h1>
 
-    <Tr>
+    <Tr slot="list-description">
         <p slot="en">
-            These are mostly notes for myself, but if they are useful to someone else, all the better.
+            Sometimes I need to try something quickly and leave it here for future reference.
         </p>
 
         <p slot="es">
             En principio esto son notas para mi mismo, pero si a alguien le sirven, bienvenido sea.
         </p>
     </Tr>
-
-    {Object.entries(perYear)
-        .reverse()
-        .map(([year, posts]) =>
-            <>
-                <h2>{year}</h2>
-
-                <ul>
-                    {posts.map(post =>
-                        <li>
-                            <DatedEntryLink
-                                collection="experiment"
-                                entry={post}
-                            />
-                        </li>
-                    )}
-                </ul>
-            </>
-        )
-    }
-</BaseLayout>
-
-<style lang="scss" is:global>
-    .entry-list {
-        ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-    }
-</style>
+</CollectionList>
