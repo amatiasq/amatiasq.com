@@ -5,7 +5,7 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import { readCollection } from '@util/content';
 import { getYear } from '@util/date';
 
-const COLLECTION = 'blog';
+const COLLECTION = 'experiment';
 
 const entries = await readCollection(COLLECTION);
 const perYear: Record<number, typeof entries[number]> = {};
@@ -42,7 +42,7 @@ for (const post of entries.reverse()) {
                     {posts.map(post =>
                         <li>
                             <DatedEntryLink
-                                collection={COLLECTION}
+                                collection="experiment"
                                 entry={post}
                             />
                         </li>

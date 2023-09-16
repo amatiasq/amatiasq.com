@@ -13,6 +13,7 @@
     "postinstall": "patch-package"
   },
   "dependencies": {
+    "@astrojs/mdx": "^1.1.0",
     "@astrojs/solid-js": "^3.0.1",
     "astro": "^3.0.10",
     "solid-js": "^1.7.11"
