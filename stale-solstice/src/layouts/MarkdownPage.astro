@@ -1,19 +1,54 @@
 ---
+import type { CollectionEntry } from 'astro:content';
+import Link from '@components/atoms/Link.astro';
+import Tr from '@components/atoms/Tr.astro';
+import Markdown from '@components/molecules/Markdown.astro';
+import type { AnyEntry } from '@util/content';
+import { t, type Translatable } from '@util/i18n';
 import BaseLayout, { type Props as BaseLayoutProps } from './BaseLayout.astro';
 
 interface Props extends BaseLayoutProps {
-
+    entry: CollectionEntry<keyof AnyEntry>
 }
 
 const {
+    entry,
     ...baseLayoutProps
 } = Astro.props;
+
+const title = entry.data.title;
+const tags = entry.data.tags as Translatable[] ?? [];
 ---
 
 <BaseLayout {...baseLayoutProps}>
-    <slot></slot>
+    <h1>
+        <slot name="md-title">
+            <Tr value={title} />
+        </slot>
+    </h1>
+
+    <ul class="md-tags">
+        {tags.map(x => (
+            <li>
+                <Link page={`/tags/${t(x, 'en')}`}>
+                    #<Tr value={x} />
+                </Link>
+            </li>
+        ))}
+    </ul>
+
+    <Markdown>
+        <Tr value={entry} />
+    </Markdown>
 </BaseLayout>
 
 <style lang="scss" is:global>
-
+    .md-tags {
+        display: flex;
+        gap: 0.5em;
+        flex-wrap: wrap;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
 </style>

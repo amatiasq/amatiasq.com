@@ -2,6 +2,12 @@
 title:
     en: SolidJS API
     es: SolidJS API (english)
+tags:
+  - a
+  - b
+  - c
+  - en: en
+    es: es
 ---
 
 ## `createSignal`

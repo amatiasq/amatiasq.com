@@ -4,19 +4,21 @@ type Language = typeof languages[number];
 const urlLangExtractor = new RegExp(`^\/(${languages.join('|')})`);
 const arrayMap: Record<Language, number> = { en: 0, es: 1 };
 
-let lang: Language = 'en';
+let savedLanguage: Language = 'en';
 
 export function setLang(url: URL) {
-  lang = getLangFromUrl(url);
-  return lang;
+  savedLanguage = getLangFromUrl(url);
+  return savedLanguage;
 }
+
+export const MISSING_TRANSLATION = 'MISSING TRANSLATION';
 
 export type Translatable = Record<Language, string>;
 
-export function t(value: null | undefined): null;
-export function t(value: string[]): string;
-export function t<T = string>(value: Record<Language, T>): T;
-export function t<T>(value: Record<Language, () => T>): T;
+export function t(value: null | undefined, lang?: Language): null;
+export function t(value: string[], lang?: Language): string;
+export function t<T = string>(value: Record<Language, T>, lang?: Language): T;
+export function t<T>(value: Record<Language, () => T>, lang?: Language): T;
 
 export function t<T>(
   value:
@@ -24,7 +26,8 @@ export function t<T>(
     | undefined
     | string[]
     | Record<Language, string>
-    | Record<Language, () => T>
+    | Record<Language, () => T>,
+  lang: Language = savedLanguage,
 ) {
   if (!value) {
     return null;
@@ -35,7 +38,7 @@ export function t<T>(
   }
 
   if (Array.isArray(value)) {
-    return value[arrayMap[lang]] || value[0] || 'MISSING TRANSLATION';
+    return value[arrayMap[lang]] || value[0] || MISSING_TRANSLATION;
   }
 
   const key = value[lang] || value.en;
@@ -44,7 +47,7 @@ export function t<T>(
     return key();
   }
 
-  return key || 'MISSING TRANSLATION';
+  return key || MISSING_TRANSLATION;
 }
 
 export function getLangFromUrl(url: URL) : Language {
