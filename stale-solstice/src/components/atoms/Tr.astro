@@ -22,6 +22,8 @@ function isCollectionEntry(x: object | null): x is Entry {
 }
 
 async function renderCollectionEntry(entry: Entry) {
+    console.log(entry.body)
+
     const { Content } = await entry.render();
     return Content;
 }
