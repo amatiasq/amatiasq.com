@@ -21,7 +21,7 @@ import { cssAnimationSpeed, cssSpace } from '../../theme.ts';
 import { getAllPagesBySection } from '../../util/getAllPagesBySection.ts';
 
 const { career, talks } = await getAllPagesBySection();
-const SHOW_OPEN_ONLY_TOP = 1;
+const SHOW_OPEN_ONLY_TOP = 5;
 
 export default (props: PageMetadata) => {
   const itemStyles = css`
