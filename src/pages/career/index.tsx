@@ -1,19 +1,45 @@
 import React from 'react';
 import { Container } from '../../components/atoms/Container.tsx';
-import { Heading2 } from '../../components/atoms/Heading.tsx';
+import { Heading2, Heading3 } from '../../components/atoms/Heading.tsx';
 import { IconLink } from '../../components/atoms/IconLink.tsx';
 import { PdfIcon } from '../../components/atoms/icons.tsx';
 import { ResponsiveHeader } from '../../components/molecules/ResponsiveHeader.tsx';
 import { AmqHeader } from '../../components/organisms/AmqHeader.tsx';
 import { AmqPageList } from '../../components/organisms/AmqPageList.tsx';
 import { AmqDocument } from '../../components/templates/AmqDocument.tsx';
-import { Lang, PageMetadata, tr, useLang } from '../../generate/mod.ts';
+import {
+  Lang,
+  Markdown,
+  PageMetadata,
+  css,
+  tr,
+  useLang,
+} from '../../generate/mod.ts';
 import { getAllPagesBySection } from '../../util/getAllPagesBySection.ts';
-import { JobPosition } from '../../components/organisms/JobPosition.tsx';
+import { cssSpace } from '../../theme.ts';
+import { Time } from '../../components/atoms/Time.tsx';
+import { TagList } from '../../components/molecules/TagList.tsx';
+import { Collapsable } from '../../components/molecules/Collapsable.tsx';
+import { BulletList } from '../../components/molecules/BulletList.tsx';
 
 const { career, talks } = await getAllPagesBySection();
 
 export default (props: PageMetadata) => {
+  const itemStyles = css`
+    margin: 3rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: ${cssSpace.lg};
+  `;
+
+  const headerStyles = css`
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: ${cssSpace.lg};
+    margin: 0;
+  `;
+
   return (
     <AmqDocument {...props} title="CV">
       <AmqHeader />
@@ -38,8 +64,21 @@ export default (props: PageMetadata) => {
           {career
             .filter((x) => !x.hide)
             .map((item) => (
-              <li key={item.id}>
-                <JobPosition data={item} showDetail showLabels />
+              <li key={item.id} className={itemStyles}>
+                <Heading3 className={headerStyles}>
+                  <Time value={item.date} yearOnly />
+                  <Lang tr={item.title} />
+                </Heading3>
+
+                <TagList list={item.labels} />
+
+                <Collapsable collapsedText="Read more...">
+                  <summary>
+                    <BulletList>{item.bullets}</BulletList>
+                  </summary>
+
+                  <Markdown>{item.content}</Markdown>
+                </Collapsable>
               </li>
             ))}
         </ol>

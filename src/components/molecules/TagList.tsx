@@ -8,12 +8,12 @@ interface TagListProps {
 }
 
 export function TagList({ className = '', list }: TagListProps) {
+  if (!list) return null;
+
   const containerStyles = css`
     display: flex;
     flex-wrap: wrap;
-    row-gap: ${cssSpace.sm};
     column-gap: ${cssSpace.md};
-    margin: ${cssSpace.lg} 0 ${cssSpace.xl};
   `;
 
   const tagStyles = css`

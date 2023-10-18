@@ -11,7 +11,7 @@ export function Heading2({ className, children }: HeadingProps) {
   const styles = css`
     font-family: ${cssFontFamily.header};
     font-weight: ${cssFontWeight.bold};
-    font-size: ${cssFontSize.lg};
+    font-size: ${cssFontSize.xl};
     // line-height: ${cssFontSize.md};
   `;
 
@@ -26,7 +26,7 @@ export function Heading3({ className, children }: HeadingProps) {
   const styles = css`
     font-family: ${cssFontFamily.header};
     font-weight: ${cssFontWeight.bold};
-    font-size: ${cssFontSize.md};
+    font-size: ${cssFontSize.lg};
     line-height: ${cssFontSize.md};
   `;
 

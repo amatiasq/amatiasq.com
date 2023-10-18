@@ -109,8 +109,8 @@ export const cssGlobal = `
   ${externalLinkStyles(primaryColor)}
   ${bouncyLinkStyles()}
 
-  ol:not(.bullet) { padding: 0; }
-  :is(ol:not(.bullet), ul:not(.bullet)) > li { list-style: none; }
+  ol { padding: 0; }
+  li { list-style: none; }
 
   code {
     font-family: ${cssFontFamily.code};
