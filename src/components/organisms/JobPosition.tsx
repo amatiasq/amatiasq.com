@@ -1,5 +1,5 @@
 import React from 'react';
-import { Lang, Markdown, css, tr, useLang } from '../../generate/mod.ts';
+import { Lang, Markdown, css, tr } from '../../generate/mod.ts';
 import { CareerProps } from '../../pages/career/_template.tsx';
 import { cssSpace } from '../../theme.ts';
 import { Heading3 } from '../atoms/Heading.tsx';
@@ -41,15 +41,13 @@ export function JobPosition({
     }
   `;
 
-  const lang = useLang();
-
   const bullets = data.bullets ? (
     <ul className="bullet">
-      {data.bullets
-        .map((x) => tr(x, lang))
-        .map((x) => (
-          <li key={x}>{x}</li>
-        ))}
+      {data.bullets.map((x) => (
+        <li key={tr(x, 'en')}>
+          <Lang tr={x} />
+        </li>
+      ))}
     </ul>
   ) : null;
 

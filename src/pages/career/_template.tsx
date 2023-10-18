@@ -11,6 +11,7 @@ import {
   YearMonthDay,
   i18n,
   Lang,
+  tr,
 } from '../../generate/mod.ts';
 import { bouncyLinkClass } from '../../util/bouncyLinkTransition.ts';
 
@@ -40,6 +41,7 @@ export default ({
   from,
   to,
   labels,
+  bullets,
   content,
 }: CareerProps) => {
   const timeSpanStyles = css`
@@ -75,6 +77,16 @@ export default ({
       <div className={timeSpanStyles}>
         <Time value={from} omitDay /> - <Time value={to} omitDay />
       </div>
+
+      {bullets ? (
+        <ul className="bullet">
+          {bullets.map((x) => (
+            <li key={tr(x, 'en')}>
+              <Lang tr={x} />
+            </li>
+          ))}
+        </ul>
+      ) : null}
     </MarkdownPage>
   );
 };

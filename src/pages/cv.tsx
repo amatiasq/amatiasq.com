@@ -76,8 +76,6 @@ export default (props: PageMetadata) => {
     justify-content: space-between;
   `;
 
-  const lang = useLang();
-
   function Section({
     children,
     ...props
@@ -118,11 +116,11 @@ export default (props: PageMetadata) => {
 
               {index < RELEVANT_FIRST && item.bullets ? (
                 <ul className="bullet">
-                  {item.bullets
-                    .map((x) => tr(x, lang))
-                    .map((x) => (
-                      <li key={x}>{x}</li>
-                    ))}
+                  {item.bullets.map((x) => (
+                    <li key={tr(x, 'en')}>
+                      <Lang tr={x} />
+                    </li>
+                  ))}
                 </ul>
               ) : null}
             </details>

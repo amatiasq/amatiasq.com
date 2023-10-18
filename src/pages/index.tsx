@@ -20,7 +20,8 @@ export default (props: any) => {
 
         <AmqPageList
           name={{ en: '👨‍💻  Career', es: '👨‍💻  Experiencia' }}
-          list={sections.career}
+          list={sections.career.filter((x) => !x.hide)}
+          yearOnly
         />
 
         <AmqPageList

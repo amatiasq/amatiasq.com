@@ -18,9 +18,15 @@ export interface AmqPageListProps {
   className?: string;
   name: Translatable;
   list: PageMetadata[];
+  yearOnly?: boolean;
 }
 
-export function AmqPageList({ className = '', name, list }: AmqPageListProps) {
+export function AmqPageList({
+  className = '',
+  name,
+  list,
+  yearOnly = false,
+}: AmqPageListProps) {
   const { Link } = usePageUtils();
 
   const styles = css`
@@ -63,7 +69,12 @@ export function AmqPageList({ className = '', name, list }: AmqPageListProps) {
       <ExpandableList title={name} list={list} hideAfter={5}>
         {(item) => (
           <li key={item.id} className={listItemStyles}>
-            <Time className={timeStyles} value={item.date} omitDay />
+            <Time
+              className={timeStyles}
+              value={item.date}
+              yearOnly={yearOnly}
+              omitDay
+            />
             <Link className={linkStyles} page={item.file}>
               {item.title}
             </Link>

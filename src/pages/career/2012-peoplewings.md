@@ -4,6 +4,7 @@ to: 2013-10
 org: Peoplewings
 link: https://twitter.com/peoplewings
 role: CTO
+hide: true
 
 labels:
   - Javascript
