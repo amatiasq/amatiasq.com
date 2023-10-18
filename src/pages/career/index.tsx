@@ -21,6 +21,7 @@ import { Time } from '../../components/atoms/Time.tsx';
 import { TagList } from '../../components/molecules/TagList.tsx';
 import { Collapsable } from '../../components/molecules/Collapsable.tsx';
 import { BulletList } from '../../components/molecules/BulletList.tsx';
+import { CareerProps } from './_template.tsx';
 
 const { career, talks } = await getAllPagesBySection();
 
@@ -46,6 +47,10 @@ export default (props: PageMetadata) => {
     gap: ${cssSpace.lg};
     margin: 0;
   `;
+
+  const lang = useLang();
+  const hasContent = ({ content }: CareerProps) =>
+    (tr(content, lang) ?? '').trim() !== '';
 
   return (
     <AmqDocument {...props} title="CV">
@@ -78,13 +83,15 @@ export default (props: PageMetadata) => {
 
               <TagList list={item.labels} />
 
-              <Collapsable collapsedText="Read more...">
-                <summary>
-                  <BulletList>{item.bullets}</BulletList>
-                </summary>
+              {item.bullets || hasContent(item) ? (
+                <Collapsable collapsedText="Read more...">
+                  <summary>
+                    <BulletList>{item.bullets}</BulletList>
+                  </summary>
 
-                <Markdown>{item.content}</Markdown>
-              </Collapsable>
+                  <Markdown>{item.content}</Markdown>
+                </Collapsable>
+              ) : null}
             </section>
           ))}
 
