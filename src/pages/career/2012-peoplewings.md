@@ -14,6 +14,12 @@ labels:
   - RequireJS
   - en: Agile methodologies
     es: Metodologías Ágiles
+
+bullets:
+  - en: Spearheaded the development team in crafting a social platform
+    es: Lideré al equipo de desarrollo en la creación de una plataforma social
+  - en: Provided mentorship to colleagues in mastering Backbone and RequireJS
+    es: Ofrecí mentoría a mis colegas para que dominaran Backbone y RequireJS
 ---
 
 Led the technical team and oversaw the development of the frontend layer for an ongoing project centered around accommodation sharing. The project utilized technologies such as Backbone, RequireJS, Django, and Tastypie.
