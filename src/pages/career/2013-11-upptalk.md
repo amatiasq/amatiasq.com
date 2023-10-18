@@ -2,7 +2,7 @@
 from: 2013-11-18
 # to: 2014-07-11
 to: 2014-08
-org: UppTalk (formerly Yuilop)
+org: UppTalk
 link: https://upptalk.com/
 role:
   en: Senior Javascript Developer

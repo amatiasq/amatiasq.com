@@ -21,12 +21,14 @@ export interface CareerProps extends MarkdownPageMetadata {
   from: YearMonthDay;
   to: YearMonthDay;
   labels: Translatable[];
+  bullets?: Translatable[];
+  hide?: true;
 }
 
 export function meta({ org, role }: CareerProps, file: string) {
   return {
     ...defaultMeta({}, file),
-    title: i18n`${role} ${{ en: 'at', es: 'en' }} ${org}`,
+    title: i18n`${role ?? ''} ${{ en: 'at', es: 'en' }} ${org ?? ''}`,
   };
 }
 

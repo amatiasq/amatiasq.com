@@ -14,10 +14,16 @@ function useLocale() {
 export interface TimeProps {
   className?: string;
   value: YearMonthDay | Date | null;
+  yearOnly?: boolean;
   omitDay?: boolean;
 }
 
-export function Time({ className = '', value, omitDay = false }: TimeProps) {
+export function Time({
+  className = '',
+  value,
+  yearOnly = false,
+  omitDay = false,
+}: TimeProps) {
   if (!value) return null;
 
   const dateStyles = css`
@@ -33,19 +39,19 @@ export function Time({ className = '', value, omitDay = false }: TimeProps) {
       className={`${dateStyles} ${className}`}
       dateTime={formatDateTime(value)}
     >
-      {printDate(value, { omitDay })}
+      {printDate(value, { yearOnly, omitDay })}
     </time>
   );
 }
 
 function printDate(
   value: YearMonthDay | Date,
-  { omitDay }: { omitDay: boolean }
+  { yearOnly, omitDay }: { yearOnly: boolean; omitDay: boolean }
 ) {
   const locale = useLocale();
   const [year, month, day] = decomposeDate(value);
 
-  if (!month) {
+  if (!month || yearOnly) {
     return `${year}`;
   }
 
