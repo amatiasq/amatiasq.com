@@ -40,6 +40,10 @@ export function Markdown({
   const contentWithAssets = fixImgPaths(contentWithFixes, asset);
 
   const styles = css`
+    & > :first-child {
+      margin-top: 0;
+    }
+
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial,
       sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
 

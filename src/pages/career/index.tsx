@@ -25,11 +25,18 @@ import { BulletList } from '../../components/molecules/BulletList.tsx';
 const { career, talks } = await getAllPagesBySection();
 
 export default (props: PageMetadata) => {
+  const body = css`
+    display: flex;
+    flex-direction: column;
+    padding-top: ${cssSpace.lg};
+    gap: ${cssSpace.xl};
+  `;
+
   const itemStyles = css`
-    margin: 3rem 0;
     display: flex;
     flex-direction: column;
     gap: ${cssSpace.lg};
+    margin-top: ${cssSpace.xl};
   `;
 
   const headerStyles = css`
@@ -44,7 +51,7 @@ export default (props: PageMetadata) => {
     <AmqDocument {...props} title="CV">
       <AmqHeader />
 
-      <Container>
+      <Container className={body}>
         <ResponsiveHeader as={Heading2}>
           <Lang en="Career" es="Currículum" />
           <IconLink
@@ -60,28 +67,26 @@ export default (props: PageMetadata) => {
 
         <q>This page is under development, please forgive any visual issue.</q>
 
-        <ol>
-          {career
-            .filter((x) => !x.hide)
-            .map((item) => (
-              <li key={item.id} className={itemStyles}>
-                <Heading3 className={headerStyles}>
-                  <Time value={item.date} yearOnly />
-                  <Lang tr={item.title} />
-                </Heading3>
+        {career
+          .filter((x) => !x.hide)
+          .map((item) => (
+            <section key={item.id} className={itemStyles}>
+              <Heading3 className={headerStyles}>
+                <Time value={item.date} yearOnly />
+                <Lang tr={item.title} />
+              </Heading3>
 
-                <TagList list={item.labels} />
+              <TagList list={item.labels} />
 
-                <Collapsable collapsedText="Read more...">
-                  <summary>
-                    <BulletList>{item.bullets}</BulletList>
-                  </summary>
+              <Collapsable collapsedText="Read more...">
+                <summary>
+                  <BulletList>{item.bullets}</BulletList>
+                </summary>
 
-                  <Markdown>{item.content}</Markdown>
-                </Collapsable>
-              </li>
-            ))}
-        </ol>
+                <Markdown>{item.content}</Markdown>
+              </Collapsable>
+            </section>
+          ))}
 
         <AmqPageList
           name={{ en: '💬  Talks', es: '💬  Charlas' }}

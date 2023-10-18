@@ -9,6 +9,7 @@ export function BulletList({ children }: BulletListProps) {
   if (!children) return null;
 
   const styles = css`
+    margin: 0;
     padding-left: 2em;
 
     li {

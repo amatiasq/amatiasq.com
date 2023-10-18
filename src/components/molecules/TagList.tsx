@@ -4,7 +4,7 @@ import { cssColor, cssFontFamily, cssSpace } from '../../theme.ts';
 
 interface TagListProps {
   className?: string;
-  list: Translatable[];
+  list: Translatable[] | undefined;
 }
 
 export function TagList({ className = '', list }: TagListProps) {
