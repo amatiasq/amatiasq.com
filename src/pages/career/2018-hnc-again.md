@@ -24,40 +24,46 @@ labels:
   - Github Actions
   - en: Mentoring
     es: Tutoría
+
+bullets:
+  - en: Designed and implemented a Kubernetes deployment system in Azure to consistently deploy dozens of projects.
+    es: Diseñé e implementé un sistema de despliegue en Kubernetes en Azure para desplegar de manera consistente decenas de proyectos.
+  - en: Independently designed and developed a process in C# that converted Excel data into SQL, injected it into a database, served it via a .NET API, and presented it on the frontend using Angular 7+.
+    es: Diseñé y desarrollé de manera independiente un proceso que convertía datos de Excel en SQL, los inyectaba en una base de datos, los servía a través de una API de .NET y los mostraba en el frontend utilizando Angular 7+.
 ---
 
-Development of multiple projects of between 3 and 12 months for big European brands like AkzoNobel and Schneider Electric. Most of the time wearing the Frontend Lead hat while sometimes being the only active developer for the project.
+I worked on multiple projects ranging from 3 to 12 months in duration for prominent European brands such as AkzoNobel and Schneider Electric.
+I often took on the role of Lead Frontend Developer and occasionally was the sole active developer on a project.
 
-My responsibilities included estimating and ensuring the project was delivered successfully in the agreed time, implementing and maintaining internal tools of the company, running interviews, onboarding and mentoring other engineers and prototyping new business opportunities.
+My responsibilities included project estimation, ensuring successful project delivery within agreed timelines, implementing and maintaining internal company tools, conducting interviews, onboarding and mentoring other engineers, and prototyping new business opportunities.
 
-<!-- end extract -->
+One notable project was the [Specification Builder][1], a tool used to compose specification documents. Clients could define document options and content via an Excel spreadsheet, complete with rules to prevent the selection of conflicting options. I designed this communication protocol to streamline client customization of their tools, and it was updated with a new version of the spreadsheet every two weeks.
 
-For example the [Specification builder](https://youtu.be/DsagfgPj9cE), which is a tool to compose specification documents, the available options and content of the document defined by the client via an Excel spreadsheet which included rules to avoid the user selecting conflicting options. This communication protocol was designed by me to make it easier for the client to customize their tool.
+I shaped, designed, and implemented various internal tools and packages for reuse across our projects, including:
 
-I shaped, designed and implemented internal tools and packages to be reused across our projects:
+- A .NET Core package containing recurring utilities such as authentication and database access.
+- A UI Components Library in AngularJS, Angular 2+, and React.
+- Reusable CI configurations for project compilation using GitHub Actions.
+- A deployment system adaptable to all our projects that created Docker containers deployed across multiple Kubernetes clusters, built using Bash.
 
-- .NET Core package to contain recurrent utilities like authentication and database access
-- UI Components Library in AngularJS, Angular 2+ and React
-- Reusable CI configuration to compile our projects using Github Actions
-- A deployment adaptable to all our projects that created Docker containers to be deployed into several Kubernetes clusters built in Bash
-
-I'd particularly highlight the last one for two reasons: first, before that point, each project had its custom deployment system and that was getting increasingly complex to maintain. And second, I knew nothing about Kubernetes when I started this work and after a few weeks, I created a customizable deployment system that guaranteed no downtime even when the application was updated several times a day.
+I want to highlight the last achievement for two reasons: firstly, prior to this effort, each project had its custom deployment system, which was becoming increasingly challenging to maintain. Secondly, I initially had no prior experience with Kubernetes, but within a few weeks, I created a customizable deployment system that ensured uninterrupted application functionality even during multiple daily updates.
 
 ---
 
-Desarrollo de múltiples proyectos de entre 3 y 12 meses para grandes marcas europeas como AkzoNobel y Schneider Electric. La mayor parte del tiempo llevando el sombrero de Líder Frontend mientras que a veces era el único programador activo del proyecto.
+Trabajé en múltiples proyectos con duraciones que oscilaron entre 3 y 12 meses para destacadas marcas europeas como AkzoNobel y Schneider Electric.
+Frecuentemente asumí el rol de Desarrollador Líder Frontend y ocasionalmente fui el único desarrollador activo en un proyecto.
 
-Mis responsabilidades incluían estimar y asegurar que el proyecto era entregado con éxito en el tiempo acordado, implementar y mantener herramientas internas de la compañía, hacer entrevistas, asistir y entrenar a miembros del equipo y prototipar nuevas oportunidades de negocio.
+Mis responsabilidades incluían la estimación de proyectos, garantizar la entrega exitosa de los proyectos dentro de los plazos acordados, implementar y mantener herramientas internas de la empresa, realizar entrevistas, incorporar y mentorizar a otros ingenieros, y prototipar nuevas oportunidades de negocio.
 
-<!-- end extract -->
+Un proyecto destacado fue el [Constructor de Especificaciones][1], una herramienta utilizada para componer documentos de especificación técnica. Los clientes podían definir opciones y contenido del documento a través de una hoja de cálculo de Excel, completa con reglas para evitar la selección de opciones conflictivas. Diseñé este protocolo de comunicación para simplificar la personalización de las herramientas por parte de los clientes, y se actualizaba con una nueva versión de la hoja de cálculo cada dos semanas.
 
-Por ejemplo el [constructor de especificaciones](https://youtu.be/DsagfgPj9cE), el cuál es una herramienta para componer documentos de especificación técnica, las opciones disponibles y el contenido del documento es definido por el cliente vía una hoja de cálculo de Excel que incluye reglas para evitar que el usuario seleccione opciones que hagan conflicto. Este protocolo de comunicación fue diseñado por mi para facilitar que el cliente personalice la herramienta.
+Diseñé, desarrollé e implementé diversas herramientas internas y paquetes para su reutilización en nuestros proyectos, incluyendo:
 
-Di forma, diseñé e implementé herramientas y paquetes internos para reusar en nuestros proyectos:
+- Un paquete de .NET Core que contenía utilidades recurrentes como autenticación y acceso a la base de datos.
+- Una Biblioteca de Componentes de Interfaz de Usuario en AngularJS, Angular 2+ y React.
+- Configuraciones reutilizables de CI para la compilación de proyectos utilizando GitHub Actions.
+- Un sistema de despliegue adaptable a todos nuestros proyectos que creaba contenedores Docker desplegados en múltiples clusters de Kubernetes, construido utilizando Bash.
 
-- Un paquete de .NET Core que contenía utilidades recurrentes como autenticación y acceso a la base de datos
-- Una librería de Componentes UI en AngularJS, Angular 2+ y React
-- Una configuración de CI reusable para compilar nuestros proyectos con Github Actions
-- Un sistema de despliegue para todos nuestros proyectos que creaba contenedores de Docker desplegados en varios clusters de Kubernetes hecho en Bash
+Quiero destacar el último logro por dos razones: en primer lugar, antes de este esfuerzo, cada proyecto tenía su propio sistema de despliegue personalizado, lo que se estaba volviendo cada vez más difícil de mantener. En segundo lugar, al principio no tenía experiencia previa con Kubernetes, pero en pocas semanas creé un sistema de despliegue personalizable que garantizaba el funcionamiento ininterrumpido de la aplicación incluso durante las actualizaciones diarias.
 
-Hago particular énfasis en esto último por dos motivos: primero, hasta ese momento cada proyecto tenía un sistema de despliegue diferente lo que se volvió cada vez más difícil de mantener. Y segundo, no sabía nada sobre Kubernetes cuando empecé este trabajo y tras un par de semanas había creado un sistema de despliegue configurable que garantizaba que la aplicación funcionara de forma permanente incluso cuando se actualizaba varias veces al día.
+[1]: https://youtu.be/DsagfgPj9cE

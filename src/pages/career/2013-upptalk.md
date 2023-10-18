@@ -10,7 +10,7 @@ role:
 labels:
   - Javascript
   - AngularJS
-  - NodeJS
+  - Node.js
   - WebRTC
   - WebSockets
   - VOIP

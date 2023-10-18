@@ -10,7 +10,7 @@ links:
 labels:
   - Shell
   - Javascript
-  - NodeJS
+  - Node.js
   - Markdown
 ---
 
