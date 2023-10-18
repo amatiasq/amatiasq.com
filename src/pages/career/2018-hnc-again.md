@@ -1,6 +1,6 @@
 ---
 from: 2018-10
-#to: 2021-04
+# to: 2021-04-30
 to: 2021-05
 org: Hack&Craft
 link: https://hackandcraft.com/
@@ -24,6 +24,8 @@ labels:
   - Github Actions
   - en: Mentoring
     es: Tutoría
+  - en: Remote work
+    es: Trabajo remoto
 
 bullets:
   - en: Designed and implemented a Kubernetes deployment system in Azure to consistently deploy dozens of projects.

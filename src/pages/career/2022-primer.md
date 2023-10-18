@@ -17,6 +17,8 @@ labels:
     es: Autogestionado
   - en: Initiative
     es: Iniciativa
+  - en: Remote work
+    es: Trabajo remoto
 
 bullets:
   - en: Developed a C# layer to simplify the usage of the Unity Timeline API.
