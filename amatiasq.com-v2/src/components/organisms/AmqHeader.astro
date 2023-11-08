@@ -1,0 +1,82 @@
+---
+import Container from '../atoms/Container.astro';
+import Link from '../atoms/Link.astro';
+import Tr from '../atoms/Tr.astro';
+import AMatiasQuezada from '../molecules/AMatiasQuezada.astro';
+import LanguageSelector from '../molecules/LanguageSelector.astro';
+
+interface Props {
+  fixed?: boolean;
+}
+
+const { fixed } = Astro.props;
+---
+
+<header class:list={['amq-header', fixed ? 'fixed' : '']}>
+  <Container>
+    <AMatiasQuezada />
+
+    <nav>
+      <Link page="/blog" parent-class="active">Blog</Link>
+
+      <Link page="/projects" parent-class="active">
+        <Tr en="Projects" es="Proyectos" />
+      </Link>
+
+      <Link page="/career" parent-class="active">
+        <Tr en="Career" es="Carrera" />
+      </Link>
+
+      <LanguageSelector />
+    </nav>
+  </Container>
+</header>
+
+<style lang="scss" is:global>
+  .amq-header {
+    padding: 1rem 0;
+
+    position: relative;
+    &::after {
+      content: ' ';
+      top: 100%;
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(
+        to bottom,
+        var(--color-background),
+        transparent
+      );
+    }
+
+    &.fixed {
+      position: fixed;
+      left: 0;
+      right: 0;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+
+      @media (min-width: 769px) {
+        flex-direction: row;
+      }
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      @media (min-width: 769px) {
+        margin-right: 1rem;
+      }
+    }
+  }
+</style>

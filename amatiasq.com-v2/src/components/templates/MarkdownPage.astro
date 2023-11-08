@@ -1,0 +1,35 @@
+---
+import type { ContentOf } from '@internals/content';
+import { type Translatable } from '@internals/i18n';
+import Tr from '@components/atoms/Tr.astro';
+import Markdown from '@components/molecules/Markdown.astro';
+import TagList from '@components/organisms/TagList.astro';
+import BaseLayout, {
+  type Props as BaseLayoutProps,
+} from '@components/templates/BaseLayout.astro';
+import Container from '../atoms/Container.astro';
+
+export interface Props extends BaseLayoutProps {
+  entry: ContentOf<{
+    title: Translatable;
+    tags?: Translatable[];
+  }>;
+}
+
+const { entry, ...baseLayoutProps } = Astro.props;
+const title = entry.data.title;
+const tags = entry.data.tags ?? [];
+---
+
+<BaseLayout {...baseLayoutProps}>
+  <Container>
+    <h1>
+      <slot name="article-title">
+        <Tr value={title} />
+      </slot>
+    </h1>
+
+    <TagList class="md-tags" tags={tags} />
+    <Markdown as="article" md={entry.content} />
+  </Container>
+</BaseLayout>

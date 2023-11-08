@@ -1,0 +1,78 @@
+---
+import type { ContentOf } from '../../internals/content';
+import Time from '../atoms/Time.astro';
+import Image from '../atoms/Image.astro';
+import Tr from '../atoms/Tr.astro';
+import MarkdownExcerpt from './MarkdownExcerpt.astro';
+import Link from '../atoms/Link.astro';
+import type { Showcaseable } from '../../content/_meta';
+
+type ShowcaseableContent = ContentOf<Showcaseable>;
+
+interface Props {
+  entries: ShowcaseableContent[];
+  showYear?: boolean;
+}
+
+const { entries, showYear } = Astro.props;
+---
+
+<ol class="content-cards">
+  {
+    entries.map((entry) => (
+      <li class="entry-card">
+        <Link page={entry.href} class="entry-card">
+          <Image value={entry.data.image} thumbnail />
+          <h4>
+            <Tr value={entry.data.title} />
+            {showYear ? <Time date={entry.date} yearOnly /> : null}
+          </h4>
+          <MarkdownExcerpt md={entry.content} />
+        </Link>
+      </li>
+    ))
+  }
+
+  <style is:global>
+    .content-cards {
+      --_columns: var(--columns, 2);
+      --_text-gap: var(--text-gap, 1em);
+
+      display: grid;
+      grid-template-columns: repeat(var(--_columns), minmax(0, 1fr));
+      gap: var(--gap, 3em);
+      margin: 0;
+    }
+
+    .content-cards > .title:empty {
+      display: none;
+    }
+
+    .entry-card {
+      color: currentColor;
+
+      & img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 1.618033988;
+        object-fit: cover;
+        border: 1px solid grey;
+      }
+
+      & h4 {
+        margin: var(--_text-gap) 0 calc(var(--_text-gap) * 0.9);
+        display: flex;
+        justify-content: space-between;
+        gap: 1em;
+      }
+    }
+
+    @media (min-width: 769px) {
+      .entry-card {
+        & h4 {
+          margin: calc(var(--_text-gap) * 1.2) 0 var(--_text-gap);
+        }
+      }
+    }
+  </style>
+</ol>

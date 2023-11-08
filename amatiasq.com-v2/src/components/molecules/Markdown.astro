@@ -1,0 +1,41 @@
+---
+import { markdownToHtml } from '../../internals/markdownToHtml';
+import '../../styles/syntax-highlighting.css';
+
+interface Props {
+  md: string;
+  as?: 'article';
+  class?: string;
+}
+
+const { as: Element = 'div', md, class: className = '' } = Astro.props as Props;
+const html = await markdownToHtml(md);
+---
+
+<Element class:list={['md', className]} set:html={html} />
+
+<style is:global>
+  .md li {
+    list-style: initial;
+  }
+  .md ul,
+  .md ol {
+    margin: 20px 0;
+    padding: reset;
+  }
+
+  .md p {
+    /* margin: ${cssSpace.lg} 0; */
+    text-align: justify;
+  }
+
+  .md blockquote {
+    border-left: 5px solid var(--color-foreground);
+    margin-left: 0;
+    padding-left: 1em;
+  }
+
+  .md :is(h1, h2, h3, h4, h5, h6) {
+    margin-top: 2em;
+  }
+</style>

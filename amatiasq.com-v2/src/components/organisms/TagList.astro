@@ -1,0 +1,35 @@
+---
+import { t, type Translatable } from '../../internals/i18n';
+import Link from '../atoms/Link.astro';
+import Tr from '../atoms/Tr.astro';
+
+interface Props {
+  tags: Translatable[] | undefined;
+  class?: string;
+}
+
+const { tags, class: className } = Astro.props;
+---
+
+<ul class:list={['tag-list', className]}>
+  {
+    tags?.map((x) => (
+      <li>
+        <Link page={`/tags/${t(x)}`}>
+          #<Tr value={x} />
+        </Link>
+      </li>
+    ))
+  }
+</ul>
+
+<style lang="scss" is:global>
+  .tag-list {
+    display: flex;
+    gap: 0.5em;
+    flex-wrap: wrap;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+</style>

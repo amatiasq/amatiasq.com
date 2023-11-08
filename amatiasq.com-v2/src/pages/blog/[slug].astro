@@ -1,0 +1,12 @@
+---
+import { readCollectionAsPages } from '@internals/content';
+import MarkdownPage from '@components/templates/MarkdownPage.astro';
+
+export function getStaticPaths() {
+  return readCollectionAsPages('blog');
+}
+
+const { entry } = Astro.props;
+---
+
+<MarkdownPage entry={entry} />

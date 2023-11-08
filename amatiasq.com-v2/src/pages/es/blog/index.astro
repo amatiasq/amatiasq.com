@@ -1,0 +1,62 @@
+---
+import { readCollection } from '@internals/content';
+import { getYear } from '@internals/date';
+import Container from '@components/atoms/Container.astro';
+import Tr from '@components/atoms/Tr.astro';
+import BaseLayout from '@components/templates/BaseLayout.astro';
+import Link from '@components/atoms/Link.astro';
+import Markdown from '@components/molecules/Markdown.astro';
+
+const blog = await readCollection('blog');
+const perYear: Record<number, typeof blog> = {};
+
+for (const post of blog.reverse()) {
+  const year = getYear(post) ?? 0;
+  perYear[year] ??= [];
+  perYear[year]!.push(post);
+}
+---
+
+<BaseLayout class="entry-list">
+  <Container>
+    <h1>
+      <Tr en="Writing" es="Escritos" />
+    </h1>
+
+    <Tr>
+      <p slot="en">
+        These are mostly notes for myself, but if they are useful to someone
+        else, all the better.
+      </p>
+
+      <p slot="es">
+        En principio esto son notas para mi mismo, pero si a alguien le sirven,
+        bienvenido sea.
+      </p>
+    </Tr>
+
+    {
+      Object.entries(perYear)
+        .reverse()
+        .map(([year, posts]) => (
+          <>
+            <h2>{year || <Tr en="Unknown date" es="Fecha desconocida" />}</h2>
+
+            <ol class="post-list">
+              {posts.map((post) => (
+                <li class="post-entry">
+                  <h4>
+                    <Tr value={post.data.title} />
+                  </h4>
+                  <Markdown md={post.excerpt} />
+                  <Link page={post.href}>
+                    <Tr en="Read article" es="Leer artículo" />
+                  </Link>
+                </li>
+              ))}
+            </ol>
+          </>
+        ))
+    }
+  </Container>
+</BaseLayout>

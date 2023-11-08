@@ -1,0 +1,20 @@
+---
+import CollectionList from '@layouts/CollectionList.astro'
+import Tr from '@components/atoms/Tr.astro';
+---
+
+<CollectionList collection="talks">
+    <h1 slot="list-title">
+        <Tr en="Talks" es="Charlas" />
+    </h1>
+
+    <Tr slot="list-description">
+        <p slot="en">
+            In occasion of conferences, meetups, or just for fun, I like to talk about things I'm passionate about.
+        </p>
+
+        <p slot="es">
+            En ocasión de conferencias, meetups, o simplemente por diversión, me gusta hablar de cosas que me apasionan.
+        </p>
+    </Tr>
+</CollectionList>
