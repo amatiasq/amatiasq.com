@@ -8,44 +8,47 @@ const entries = await readCollection('career');
 ---
 
 <BaseLayout class="career">
-    <h1 slot="list-title">
-        <Tr en="Professional experience" es="Experiencia profesional" />
-    </h1>
+  <h1 slot="list-title">
+    <Tr en="Professional experience" es="Experiencia profesional" />
+  </h1>
 
-    <Tr slot="list-description">
-        <p slot="en">
-            I've been working as a software developer since 2007.
-            I've worked in several companies and projects, and I've used a lot of different technologies.
-        </p>
+  <Tr slot="list-description">
+    <p slot="en">
+      I've been working as a software developer since 2007. I've worked in
+      several companies and projects, and I've used a lot of different
+      technologies.
+    </p>
 
-        <p slot="es">
-            He trabajado como desarrollador de software desde 2007.
-            He trabajado en varias empresas y proyectos, y he usado muchas tecnologías diferentes.
-        </p>
-    </Tr>
+    <p slot="es">
+      He trabajado como desarrollador de software desde 2007. He trabajado en
+      varias empresas y proyectos, y he usado muchas tecnologías diferentes.
+    </p>
+  </Tr>
 
-    <ul>
-        {entries.reverse().map(job =>
-            <li>
-                <DatedEntryLink collection="career" entry={job}>
-                    <Fragment slot="entry-title">
-                        <Tr value={job.data.role} />
-                        <Tr en=" at " es=" en " />
-                        <Tr value={job.data.org} />
-                    </Fragment>
-                </DatedEntryLink>
-            </li>
-        )}
-    </ul>
+  <ul>
+    {
+      entries.reverse().map((job) => (
+        <li>
+          <DatedEntryLink collection="career" entry={job}>
+            <Fragment slot="entry-title">
+              <Tr value={job.data.role} />
+              <Tr en=" at " es=" en " />
+              <Tr value={job.data.org} />
+            </Fragment>
+          </DatedEntryLink>
+        </li>
+      ))
+    }
+  </ul>
 </BaseLayout>
 
-<style lang="scss" is:global>
-    .career {
-        ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
+<style is:global>
+  .career {
+    & ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
     }
+  }
 </style>
-src/internals/content
+ src/internals/content

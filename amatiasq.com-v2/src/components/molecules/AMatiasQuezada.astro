@@ -12,7 +12,7 @@ import Link from '../atoms/Link.astro';
   </Link>
 </h2>
 
-<style lang="scss" is:global>
+<style is:global>
   .amq {
     display: flex;
     gap: var(--space-md);
@@ -21,37 +21,39 @@ import Link from '../atoms/Link.astro';
     font-size: 1.3em;
     font-weight: 400;
 
-    @media (min-width: 769px) {
-      font-size: 1.5em;
-    }
-
-    .name {
+    & .name {
       color: var(---color-foreground-strong);
       display: flex;
       align-items: baseline;
       letter-spacing: 1px;
       white-space: nowrap;
 
-      abbr {
+      & abbr {
         display: inline-flex;
         width: 0.7em;
         overflow: hidden;
         transition: width var(--animation-speed-medium) ease;
       }
 
-      abbr,
-      span + span {
+      & abbr,
+      & span + span {
         margin-left: 0.4em;
       }
 
       &:hover {
-        abbr {
+        & abbr {
           width: 3.3em;
         }
-        .dot {
+        & .dot {
           display: none;
         }
       }
+    }
+  }
+
+  @media (min-width: 769px) {
+    .amq {
+      font-size: 1.5em;
     }
   }
 </style>

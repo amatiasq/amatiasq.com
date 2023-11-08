@@ -32,11 +32,11 @@ const { fixed } = Astro.props;
   </Container>
 </header>
 
-<style lang="scss" is:global>
+<style is:global>
   .amq-header {
     padding: 1rem 0;
-
     position: relative;
+
     &::after {
       content: ' ';
       top: 100%;
@@ -57,24 +57,27 @@ const { fixed } = Astro.props;
       right: 0;
     }
 
-    .container {
+    & .container {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       gap: 1rem;
       align-items: center;
-
-      @media (min-width: 769px) {
-        flex-direction: row;
-      }
     }
 
-    nav {
+    & nav {
       display: flex;
       align-items: center;
       gap: 1rem;
+    }
+  }
 
-      @media (min-width: 769px) {
+  @media (min-width: 769px) {
+    .amq-header {
+      & .container {
+        flex-direction: row;
+      }
+      & nav {
         margin-right: 1rem;
       }
     }

@@ -7,6 +7,7 @@ import ContentCards from '@components/molecules/ContentCards.astro';
 import BaseLayout from '@components/templates/BaseLayout.astro';
 import BlogPostList from '@components/page-index/BlogPostList.astro';
 import CareerList from '@components/page-index/CareerList.astro';
+import Introduction from '@components/page-index/Introduction.astro';
 
 setLang(Astro.url);
 
@@ -26,35 +27,7 @@ function present<T extends Content>(list: T[]) {
 ---
 
 <BaseLayout>
-  <section class="intro">
-    <Container>
-      <Tr>
-        <div slot="en">
-          <p>Welcome to my digital garden.</p>
-          <p>This is the corner of the internet where I list things I make.</p>
-          <p>I hope you find something useful.</p>
-        </div>
-
-        <div slot="es">
-          <p>Bienvenido a mi jardín digital.</p>
-          <p>Este es el rincón de internet donde guardo las cosas que hago.</p>
-          <p>Espero que encuentres algo útil.</p>
-        </div>
-      </Tr>
-
-      <svg
-        width="80"
-        height="80"
-        viewBox="0 0 24 24"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path d="
-          M 4 9
-          l 7 6
-            7 -6"></path>
-      </svg>
-    </Container>
-  </section>
+  <Introduction />
 
   <section class="projects">
     <Container>
@@ -99,21 +72,6 @@ function present<T extends Content>(list: T[]) {
     </Container>
   </section>
 
-  <script>
-    (() => {
-      const main = document.querySelector('main');
-      const svg = document.querySelector('.intro svg') as HTMLElement;
-
-      if (!main || !svg) return;
-
-      main.addEventListener('scroll', function listener() {
-        main.removeEventListener('scroll', listener);
-        svg.addEventListener('transitionend', () => svg.remove());
-        svg.style.opacity = '0';
-      });
-    })();
-  </script>
-
   <style is:global>
     body {
       max-height: 100dvh;
@@ -121,7 +79,6 @@ function present<T extends Content>(list: T[]) {
 
     main {
       flex: 1;
-      /* scroll-snap-type: y proximity; */
       overflow-x: hidden;
       overflow-y: scroll;
 
@@ -148,38 +105,6 @@ function present<T extends Content>(list: T[]) {
         font-size: 3em;
         font-weight: lighter;
       }
-
-      &.intro {
-        min-height: 70dvh;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        font-weight: lighter;
-        line-height: 200%;
-
-        & svg {
-          position: fixed;
-          margin: auto;
-          bottom: 10px;
-          left: 0;
-          right: 0;
-          stroke: currentColor;
-          fill: none;
-          stroke-width: 0.5;
-          animation: jump-animation 10s infinite;
-          transition: opacity 200ms ease-in-out;
-        }
-      }
-    }
-
-    @keyframes jump-animation {
-      0%,
-      10% {
-        transform: translateY(0);
-      }
-      5% {
-        transform: translateY(10px);
-      }
     }
 
     @media (min-width: 769px) {
@@ -191,11 +116,6 @@ function present<T extends Content>(list: T[]) {
         --columns: 2;
         --gap: 4em;
         --text-gap: 1em;
-        scroll-snap-align: start;
-
-        &.intro {
-          font-size: 2rem;
-        }
       }
     }
   </style>

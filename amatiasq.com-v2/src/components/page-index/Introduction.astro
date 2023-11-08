@@ -1,0 +1,90 @@
+---
+import Container from '@components/atoms/Container.astro';
+import Tr from '@components/atoms/Tr.astro';
+---
+
+<section class="intro">
+  <Container>
+    <Tr>
+      <div slot="en">
+        <p>Welcome to my digital garden.</p>
+        <p>This is the corner of the internet where I list things I make.</p>
+        <p>I hope you find something useful.</p>
+      </div>
+
+      <div slot="es">
+        <p>Bienvenido a mi jardín digital.</p>
+        <p>Este es el rincón de internet donde guardo las cosas que hago.</p>
+        <p>Espero que encuentres algo útil.</p>
+      </div>
+    </Tr>
+
+    <svg
+      width="80"
+      height="80"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="
+        M  4  9
+        l  7  6
+           7 -6
+      "></path>
+    </svg>
+  </Container>
+</section>
+
+<script>
+  (() => {
+    const main = document.querySelector('main');
+    const svg = document.querySelector('.intro svg') as HTMLElement;
+
+    if (!main || !svg) return;
+
+    main.addEventListener('scroll', function listener() {
+      main.removeEventListener('scroll', listener);
+      svg.addEventListener('transitionend', () => svg.remove());
+      svg.style.opacity = '0';
+    });
+  })();
+</script>
+
+<style is:global>
+  .intro {
+    min-height: 70dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-weight: lighter;
+    line-height: 200%;
+
+    & svg {
+      position: fixed;
+      margin: auto;
+      bottom: 10px;
+      left: 0;
+      right: 0;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 0.5;
+      animation: introduction-arrow-scroll-indicator 10s infinite;
+      transition: opacity 200ms ease-in-out;
+    }
+  }
+
+  @keyframes introduction-arrow-scroll-indicator {
+    0%,
+    10% {
+      transform: translateY(0);
+    }
+    5% {
+      transform: translateY(10px);
+    }
+  }
+
+  @media (min-width: 769px) {
+    .intro {
+      font-size: 2rem;
+    }
+  }
+</style>
