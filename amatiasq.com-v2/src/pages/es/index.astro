@@ -41,6 +41,18 @@ function present<T extends Content>(list: T[]) {
           <p>Espero que encuentres algo útil.</p>
         </div>
       </Tr>
+
+      <svg
+        width="80"
+        height="80"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="
+          M 4 9
+          l 7 6
+            7 -6"></path>
+      </svg>
     </Container>
   </section>
 
@@ -87,6 +99,21 @@ function present<T extends Content>(list: T[]) {
     </Container>
   </section>
 
+  <script>
+    (() => {
+      const main = document.querySelector('main');
+      const svg = document.querySelector('.intro svg') as HTMLElement;
+
+      if (!main || !svg) return;
+
+      main.addEventListener('scroll', function listener() {
+        main.removeEventListener('scroll', listener);
+        svg.addEventListener('transitionend', () => svg.remove());
+        svg.style.opacity = '0';
+      });
+    })();
+  </script>
+
   <style is:global>
     body {
       max-height: 100dvh;
@@ -125,9 +152,33 @@ function present<T extends Content>(list: T[]) {
       &.intro {
         min-height: 70dvh;
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        justify-content: center;
         font-weight: lighter;
         line-height: 200%;
+
+        & svg {
+          position: fixed;
+          margin: auto;
+          bottom: 10px;
+          left: 0;
+          right: 0;
+          stroke: currentColor;
+          fill: none;
+          stroke-width: 0.5;
+          animation: jump-animation 10s infinite;
+          transition: opacity 200ms ease-in-out;
+        }
+      }
+    }
+
+    @keyframes jump-animation {
+      0%,
+      10% {
+        transform: translateY(0);
+      }
+      5% {
+        transform: translateY(10px);
       }
     }
 
