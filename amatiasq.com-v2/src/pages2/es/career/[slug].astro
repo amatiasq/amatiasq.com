@@ -1,0 +1,25 @@
+---
+import { readCollection } from 'src/internals/content';
+import { getSlugWithoutDate } from '@util/date';
+import Tr from '@components/atoms/Tr.astro';
+import MarkdownPage from '@layouts/MarkdownPage.astro';
+
+export async function getStaticPaths() {
+    const posts = await readCollection('career')
+    return posts.map(job => ({
+        params: { slug: getSlugWithoutDate(job) },
+        props: { job }
+    }));
+}
+
+const { job } = Astro.props;
+---
+
+<MarkdownPage entry={job}>
+    <Fragment slot="md-title">
+        <Tr value={job.data.role} />
+        <Tr en=" at " es=" en " />
+        <Tr value={job.data.org} />
+    </Fragment>
+</MarkdownPage>
+src/internals/content

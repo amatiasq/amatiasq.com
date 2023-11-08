@@ -1,0 +1,50 @@
+---
+import type { ImageDeclaration } from '../../content/_meta';
+import { t } from '../../internals/i18n';
+import { Image as AstroImage } from 'astro:assets';
+
+interface Props {
+  value: ImageDeclaration | undefined;
+  thumbnail?: boolean;
+}
+
+let src: string | null = null;
+let alt: string | null = null;
+
+const { value, thumbnail = false } = Astro.props;
+
+const style =
+  thumbnail && value?.center
+    ? `
+    object-fit: none;
+    object-position: ${value.center}
+  `
+    : '';
+
+if (value) {
+  if ('src' in value) {
+    src = t(value.src);
+    alt = t(value);
+  } else {
+    src = t(value);
+  }
+}
+
+function getAssetSrc(name: string) {
+  const path = `/src/assets/img/${name}`;
+  const modules = import.meta.glob('/src/assets/img/*', { eager: true });
+  const mod = modules[path] as { default: string };
+
+  if (!mod) {
+    throw new Error(`Image ${name} not found`);
+  }
+
+  return mod.default;
+}
+---
+
+{
+  src ? (
+    <AstroImage src={getAssetSrc(src) as any} alt={alt ?? ''} style={style} />
+  ) : null
+}

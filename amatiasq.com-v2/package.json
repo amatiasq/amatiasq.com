@@ -1,0 +1,40 @@
+{
+  "name": "amatiasq.com",
+  "type": "commonjs",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "bin/generate-i18n-files.sh && astro dev",
+    "start": "npm run dev",
+    "build": "bin/generate-i18n-files.sh --copy && astro build",
+    "preview": "bin/generate-i18n-files.sh && astro preview",
+    "astro": "astro",
+    "i18n": "bin/generate-i18n-files.sh",
+    "lint": "prettier --write  \"**/*.{js,jsx,ts,tsx,md,mdx,astro}\" && eslint --fix \"src/**/*.{js,ts,jsx,tsx,astro}\"",
+    "postinstall": "patch-package"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^1.1.0",
+    "@astrojs/solid-js": "^3.0.1",
+    "astro": "^3.0.10",
+    "fast-glob": "^3.3.1",
+    "rehype-highlight": "^7.0.0",
+    "solid-js": "^1.7.11",
+    "yaml": "^2.3.3"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.10",
+    "@typescript-eslint/parser": "^6.6.0",
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.48.0",
+    "eslint-plugin-astro": "^0.29.0",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "patch-package": "^8.0.0",
+    "postcss": "^8.4.31",
+    "postcss-nesting": "^12.0.1",
+    "prettier": "^3.0.3",
+    "prettier-config-standard": "^7.0.0",
+    "prettier-plugin-astro": "^0.12.0",
+    "sass": "^1.66.1",
+    "sharp": "^0.32.6"
+  }
+}

@@ -1,0 +1,71 @@
+---
+import type { Content } from '../../internals/content';
+import Link from '../atoms/Link.astro';
+import Time from '../atoms/Time.astro';
+import Tr from '../atoms/Tr.astro';
+import MarkdownExcerpt from '../molecules/MarkdownExcerpt.astro';
+
+interface Props {
+  career: Content<'career'>[];
+}
+
+const { career } = Astro.props;
+---
+
+<ol class="career-history">
+  {
+    career.map((entry) => (
+      <li class="career-entry">
+        <h4>
+          <Tr value={entry.data.role} />
+          <small>
+            <Tr en=" at " es=" en " />
+          </small>
+          <Tr value={entry.data.org} />
+        </h4>
+        <Time date={entry.date} yearOnly />
+        <MarkdownExcerpt md={entry.content} cropAt={200} />
+        <Link page={entry.href}>
+          <Tr en="Read more" es="Leer más" />
+        </Link>
+      </li>
+    ))
+  }
+</ol>
+
+<style is:global>
+  .career-history {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+  }
+
+  .career-entry {
+    overflow: hidden;
+    display: grid;
+    min-width: 0;
+    grid-template-columns: 1fr max-content;
+    grid-template-areas:
+      'title title'
+      'description description'
+      'date readmore';
+
+    & h4 {
+      grid-area: title;
+      margin: 0;
+    }
+
+    & .md {
+      grid-area: description;
+      margin: var(--text-gap, 1em) 0;
+    }
+
+    & time {
+      grid-area: date;
+    }
+
+    & a {
+      grid-area: readmore;
+    }
+  }
+</style>

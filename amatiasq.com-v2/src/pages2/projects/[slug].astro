@@ -1,0 +1,18 @@
+---
+import { readCollection } from 'src/internals/content';
+import { getSlugWithoutDate } from '@util/date';
+import MarkdownPage from '@layouts/MarkdownPage.astro';
+
+export async function getStaticPaths() {
+    const posts = await readCollection('projects')
+    return posts.map(post => ({
+        params: { slug: getSlugWithoutDate(post) },
+        props: { post }
+    }));
+}
+
+const { post } = Astro.props;
+---
+
+<MarkdownPage entry={post} />
+src/internals/content

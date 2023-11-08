@@ -1,0 +1,25 @@
+---
+import { MISSING_TRANSLATION, setLang, t } from '@util/i18n';
+// import type { CollectionEntry, ContentEntryMap } from 'astro:content';
+
+// type Entry = CollectionEntry<keyof ContentEntryMap>;
+
+const lang = setLang(Astro.url);
+const hasSlot = Astro.slots.has(lang);
+const value = await t(Astro.props.value ?? Astro.props);
+
+if (!hasSlot && value === MISSING_TRANSLATION)
+  throw new Error(`Missing translation for "${JSON.stringify(Astro.props)}"`);
+---
+
+{
+  !hasSlot ? (
+    value
+  ) : lang === 'en' ? (
+    <slot name="en" />
+  ) : lang === 'es' ? (
+    <slot name="es" />
+  ) : (
+    MISSING_TRANSLATION
+  )
+}
