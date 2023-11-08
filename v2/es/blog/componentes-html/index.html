@@ -1,0 +1,91 @@
+<!DOCTYPE html><html lang="en" class="astro-ydck33jo"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v3.4.0"><title>A. Matías Quezada</title><style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: GitHub Dark
+  Description: Dark theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-dark
+  Current colors taken from GitHub's CSS
+*/.hljs{color:#c9d1d9;background:#0d1117}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#ff7b72}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#d2a8ff}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-variable,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id{color:#79c0ff}.hljs-regexp,.hljs-string,.hljs-meta .hljs-string{color:#a5d6ff}.hljs-built_in,.hljs-symbol{color:#ffa657}.hljs-comment,.hljs-code,.hljs-formula{color:#8b949e}.hljs-name,.hljs-quote,.hljs-selector-tag,.hljs-selector-pseudo{color:#7ee787}.hljs-subst{color:#c9d1d9}.hljs-section{color:#1f6feb;font-weight:700}.hljs-bullet{color:#f2cc60}.hljs-emphasis{color:#c9d1d9;font-style:italic}.hljs-strong{color:#c9d1d9;font-weight:700}.hljs-addition{color:#aff5b4;background-color:#033a16}.hljs-deletion{color:#ffdcd7;background-color:#67060c}pre code.hljs{--_code-margin: var(--code-margin, 1.5em);white-space:pre;background-color:#000;margin:var(--_code-margin) calc(var(--_code-margin) * -1);padding:var(--_code-margin);border-radius:8px}pre code.hljs>.hljs-comment{color:#999}code:not(.hljs){padding:0 .3em .1em;border-radius:5px;background-color:#0000004d}.md li{list-style:initial}.md ul,.md ol{margin:20px 0;padding:reset}.md p{text-align:justify}.md blockquote{border-left:5px solid var(--color-foreground);margin-left:0;padding-left:1em}.md :is(h1,h2,h3,h4,h5,h6){margin-top:2em}
+</style>
+<link rel="stylesheet" href="/v2/_astro/_slug_.04db7373.css" />
+<style>.tag-list{display:flex;gap:.5em;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+</style></head><body class="astro-ydck33jo"><header class="amq-header"><div class="container"><h2 class="amq"><a class="name" href="../../../../"><span>{</span><abbr>Adrian</abbr><span class="dot">.</span><span>Matías Quezada</span><span>}</span></a></h2><nav><a href="../../../../blog/">Blog</a><a href="../../../../projects/">Projects</a><a href="../../../../career/">Career</a><!-- <div class="lang-selector"> --><a href="../../../../es/v2/es/blog/componentes-html/">
+🇪🇸
+</a><!-- </div> --></nav></div></header><main class="astro-ydck33jo"><div class="container"><h1>HTML Components (spanish)</h1><ul class="tag-list md-tags"></ul><article class="md"><p>Acabo de caer en cuenta de porqué no me gusta angular, backbone, ember...</p>
+<h3>El problema</h3>
+<p>Todos estos frameworks si bien intentan dividir la aplicación que vas a construír en módulos se hace esto por mantenibilidad, no por reutilización de los módulos.</p>
+<p>En otras tecnologías generalmente creas un componente reutilizable y basta con mover el archivo de proyecto para tenerlo listo, pero estos frameworks no se puede hacer eso, por ejemplo una simple targeta que muestre los datos de una persona:</p>
+<p>Con backbone o bien tienes un archivo enorme o tienes varios archivos, modelo, vista, plantilla, estilos... y seguramente los archivos JS y la plantilla se carguen mediante un cargador de dependencias como RequireJS con lo que para usar el módulo necesitas tenerlo o bien compilar el módulo en un solo archivo antes de utilizarlo.</p>
+<p>Con angular la separación en módulos no es tan radical al haber mucho menos código, pero una simple directiva será un archivo JS que bien puede tener el HTML en formato string o cargarlo de un archivo aparte y el CSS debería ponerse aparte ya que si se pone en la plantilla cada vez que se instancie la directiva se estaría creando un nuevo tag style ya renderizado.</p>
+<p>Además, ya a nivel de estándar, con los estilos tenemos el problema de que los estilos que creemos para nuestro componente reutilizable podría fácilmente afectar a un elemento de la página que no pretendíamos modificar, para ser realmente reutilizable es necesario que el CSS solo se aplique a los elementos del componente en cuestión. Analizado de esta forma parece ser que el tema es poder tener en un solo archivo un pequeño bloque de lógica, contenido y estilo que pueda ser importado en cualquier página sin afectar en nada a la página en cuestión. Y resulta HTML desde un principio nos permite definir en un solo archivo y de forma natural lógica, contenido y estilos.</p>
+<h3>La solución</h3>
+<p>Entonces me encuentro con <a href="http://www.webcomponentsshift.com/">estas diapositivas</a> que hablan de los HTML WebComponents y resulta ser justo lo que hace falta:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"x-tarjeta"</span> <span class="hljs-attr">extends</span>=<span class="hljs-string">"button"</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">template</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">style</span>></span><span class="css">
+            <span class="hljs-selector-tag">h1</span> {
+                <span class="hljs-attribute">color</span>: red;
+            }
+            <span class="hljs-selector-tag">img</span> {
+                <span class="hljs-attribute">height</span>: <span class="hljs-number">32px</span>;
+                <span class="hljs-attribute">width</span>: <span class="hljs-number">32px</span>;
+            }
+            <span class="hljs-selector-class">.separator</span> { ... }
+        </span><span class="hljs-tag">&#x3C;/<span class="hljs-name">style</span>></span>
+
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">header</span>></span>
+            Full name: <span class="hljs-tag">&#x3C;<span class="hljs-name">content</span> <span class="hljs-attr">select</span>=<span class="hljs-string">"h1"</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">content</span>></span>
+            Age: <span class="hljs-tag">&#x3C;<span class="hljs-name">content</span> <span class="hljs-attr">select</span>=<span class="hljs-string">".age"</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">content</span>></span>
+        <span class="hljs-tag">&#x3C;/<span class="hljs-name">header</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"separator"</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+        <span class="hljs-tag">&#x3C;<span class="hljs-name">section</span>></span>
+            <span class="hljs-tag">&#x3C;<span class="hljs-name">content</span> <span class="hljs-attr">select</span>=<span class="hljs-string">"img"</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">content</span>></span>
+        <span class="hljs-tag">&#x3C;/<span class="hljs-name">section</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">template</span>></span>
+
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">script</span>></span><span class="javascript">
+        <span class="hljs-keyword">var</span> template = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">'template'</span>);
+        <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">register</span>({ <span class="hljs-comment">// this == &#x3C;element></span>
+            <span class="hljs-attr">prototype</span>: {
+                <span class="hljs-attr">readyCallback</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+                    <span class="hljs-keyword">var</span> dom = template.<span class="hljs-property">content</span>.<span class="hljs-title function_">cloneNode</span>(<span class="hljs-literal">true</span>);
+                    <span class="hljs-keyword">var</span> shadow = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">createShadowRoot</span>()
+                    shadow.<span class="hljs-title function_">appendChild</span>(dom);
+                }
+            }
+        });
+    </span><span class="hljs-tag">&#x3C;/<span class="hljs-name">script</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">element</span>></span>
+</code></pre>
+<p>Al estar los estilos dentro del template se vuelven a añadir al dom cada vez que creamos un <code>x-tarjeta</code> (como con angular) pero en este caso gracias al <code>ShadowDOM</code> los estilos solo se aplican al template y a su contenido.</p>
+<p>Además el estándard de html templates nos permite mezclar el template con los elementos que inserten dentro de <code>x-tarjeta</code></p>
+<pre><code class="hljs language-html"><span class="hljs-comment">&#x3C;!-- Uso --></span>
+<span class="hljs-tag">&#x3C;<span class="hljs-name">x-tarjeta</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>A. Matías Q.<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"age"</span>></span>24<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"/.../foto.png"</span> /></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">x-tarjeta</span>></span>
+</code></pre>
+<p>Y por último el estándard html imports nos permite tener este componente en un archivo html independiente y transportable e importarlo en donde lo necesitemos, incluyendo otros compoentes.</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">link</span> <span class="hljs-attr">rel</span>=<span class="hljs-string">"import"</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"x-tarjeta.html"</span> /></span>
+</code></pre>
+<h3>Conclusión</h3>
+<p>Ahora mismo estoy dividido entre angular y los web components:</p>
+<h4>Angular</h4>
+<ul>
+<li>+El parseador de angular provee doble binding</li>
+<li>+Los templates están directamente integrados con el framework por lo que podemos manipular la lógica desde la vista, suena a mala idea pero en componentes pequeños es mantenible.</li>
+<li>-Un componente requiere un archivo independiente para el HTML, un JS importado desde el HTML y un CSS importado desde el HTML o desde otro CSS. (dos imports para un componente)</li>
+</ul>
+<h5>Web components</h5>
+<ul>
+<li>+Compactos, tienen todo lo necesario en el mismo archivo sin que éste sea demasiado grande</li>
+<li>+Futuro estándar</li>
+<li>+Alcance del CSS limitado al componente</li>
+<li>-Soportado en gran parte por Chrome, pero generalmente hay que usar polyfills que no pueden reproducir toda la funcionalidad (en particular limitar el CSS)</li>
+<li>-Si bien es excelente para crear componentes me es difícil imaginar una web completa hecha con componentes. Desde Polymer recomiendan crear elementos hasta para componentes no visuales como AJAX o Keyboard, pero no lo vo claro.</li>
+</ul>
+<p>Tal como lo veo ahora una web se compone de la parte aplicación que es todo el código único de la app que difícilmente sirva para otro proyecto y una serie de componentes, lo ideal para mi sería poder hacer la parte de aplicación con angular ya que me permite crear módulos mantenibles y utilizar los WebComponents como componentes reutilizables pero desconozco como se relaciones ambas tecnologías.</p>
+<p>Espero poder hacer un prototipo mezclándolas y escribir más adelante...</p></article></div><footer class="amq-footer"><span>Created by A. Matías Quezada</span><!-- <span>Copyright 2023</span> --></footer></main></body></html>

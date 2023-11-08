@@ -1,0 +1,103 @@
+<!DOCTYPE html><html lang="en" class="astro-ydck33jo"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v3.4.0"><title>A. Matías Quezada</title><style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: GitHub Dark
+  Description: Dark theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-dark
+  Current colors taken from GitHub's CSS
+*/.hljs{color:#c9d1d9;background:#0d1117}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#ff7b72}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#d2a8ff}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-variable,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id{color:#79c0ff}.hljs-regexp,.hljs-string,.hljs-meta .hljs-string{color:#a5d6ff}.hljs-built_in,.hljs-symbol{color:#ffa657}.hljs-comment,.hljs-code,.hljs-formula{color:#8b949e}.hljs-name,.hljs-quote,.hljs-selector-tag,.hljs-selector-pseudo{color:#7ee787}.hljs-subst{color:#c9d1d9}.hljs-section{color:#1f6feb;font-weight:700}.hljs-bullet{color:#f2cc60}.hljs-emphasis{color:#c9d1d9;font-style:italic}.hljs-strong{color:#c9d1d9;font-weight:700}.hljs-addition{color:#aff5b4;background-color:#033a16}.hljs-deletion{color:#ffdcd7;background-color:#67060c}pre code.hljs{--_code-margin: var(--code-margin, 1.5em);white-space:pre;background-color:#000;margin:var(--_code-margin) calc(var(--_code-margin) * -1);padding:var(--_code-margin);border-radius:8px}pre code.hljs>.hljs-comment{color:#999}code:not(.hljs){padding:0 .3em .1em;border-radius:5px;background-color:#0000004d}.md li{list-style:initial}.md ul,.md ol{margin:20px 0;padding:reset}.md p{text-align:justify}.md blockquote{border-left:5px solid var(--color-foreground);margin-left:0;padding-left:1em}.md :is(h1,h2,h3,h4,h5,h6){margin-top:2em}
+</style>
+<link rel="stylesheet" href="/v2/_astro/_slug_.04db7373.css" />
+<style>.tag-list{display:flex;gap:.5em;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+</style></head><body class="astro-ydck33jo"><header class="amq-header"><div class="container"><h2 class="amq"><a class="name" href="../../../"><span>{</span><abbr>Adrian</abbr><span class="dot">.</span><span>Matías Quezada</span><span>}</span></a></h2><nav><a href="../../../blog/">Blog</a><a href="../../../projects/">Projects</a><a href="../../../career/">Career</a><!-- <div class="lang-selector"> --><a href="../../../es/v2/blog/solidjs-api/">
+🇪🇸
+</a><!-- </div> --></nav></div></header><main class="astro-ydck33jo"><div class="container"><h1>SolidJS API</h1><ul class="tag-list md-tags"></ul><article class="md"><h2><code>createSignal</code></h2>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [counter, setCounter] = <span class="hljs-title function_">createSignal</span>(initialValue);
+<span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">h1</span>></span>{counter()}<span class="hljs-tag">&#x3C;/<span class="hljs-name">h1</span>></span></span> <span class="hljs-comment">// dependencies = [counter]</span>
+</code></pre>
+<p>Setter only has effect if <code>newValue !== currentValue</code>.</p>
+<ul>
+<li>Override this behaviour with <code>setCounter(newValue, { equals: false })</code></li>
+<li>Custom equality checker with <code>setCounter(newValue, { equals: (newVal, oldVal) => newVal === oldVal + 1 })</code></li>
+</ul>
+<h3>Derived signal</h3>
+<p>To create a signal that is the computed value of another signal</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">calculatedValue</span> = (<span class="hljs-params"></span>) => {
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_">counter</span>() + <span class="hljs-number">1</span>;
+};
+</code></pre>
+<h2><code>createEffect</code></h2>
+<ul>
+<li>Registers a operation that depends on a signal</li>
+<li>First execution happens after the component is added to the DOM and before repaint</li>
+<li>Can <em>read</em> state but <strong>DONT WRITE STATE FROM <code>createEffect</code></strong></li>
+</ul>
+<pre><code class="hljs language-js"><span class="hljs-title function_">createEffect</span>(<span class="hljs-function">() =></span> {
+    <span class="hljs-title function_">doSomething</span>(<span class="hljs-title function_">counter</span>());
+});
+</code></pre>
+<h3>What if I want to write state?</h3>
+<p>That's <code>createMemo()</code></p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> plusOne = <span class="hljs-title function_">createMemo</span>(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_">counter</span>() + <span class="hljs-number">1</span>;
+})
+</code></pre>
+<p>What's the difference with a <strong>derived signal</strong>? that's executed on every invocation while <code>createMemo</code> <em>memoizes</em> the result until <code>counter()</code> changes.</p>
+<p>We can pass initialValue and custom equality checker.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> plusOne = <span class="hljs-title function_">createMemo</span>(<span class="hljs-function">(<span class="hljs-params">prevValue</span>) =></span> {
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_">counter</span>() + prevValue;
+}, initialValue, {
+    <span class="hljs-attr">equals</span>: <span class="hljs-function">(<span class="hljs-params">newVal, oldVal</span>) =></span> newVal === oldVal + <span class="hljs-number">1</span> <span class="hljs-comment">// or false</span>
+})
+</code></pre>
+<h3>Return value can be cyclical</h3>
+<pre><code class="hljs language-js"><span class="hljs-title function_">createEffect</span>(<span class="hljs-function">(<span class="hljs-params">a</span>) =></span> {
+    <span class="hljs-comment">// return value will be passed to the next invocation</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-title function_">counter</span>() + a;
+
+    <span class="hljs-comment">// Argument for first execution</span>
+}, initialValue);
+</code></pre>
+<h3><code>onCleanup</code></h3>
+<pre><code class="hljs language-js"><span class="hljs-title function_">createEffect</span>(<span class="hljs-function">() =></span> {
+    <span class="hljs-keyword">const</span> fetch = <span class="hljs-title function_">fetcher</span>();
+    <span class="hljs-title function_">onCleanup</span>(<span class="hljs-function">() =></span> fetch.<span class="hljs-title function_">abort</span>());
+});
+</code></pre>
+<h2><code>createResource</code></h2>
+<p>Mixes signals with <code>async</code>.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">fetchUser</span> = <span class="hljs-keyword">async</span> (<span class="hljs-params"></span>) => {
+    <span class="hljs-keyword">await</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =></span> <span class="hljs-built_in">setTimeout</span>(resolve, <span class="hljs-number">1000</span>));
+    <span class="hljs-keyword">return</span> user;
+};
+
+<span class="hljs-keyword">const</span> [user, { <span class="hljs-attr">mutate</span>: mutateUser, <span class="hljs-attr">refetch</span>: refetchUser }] = <span class="hljs-title function_">createResource</span>(fetchUser);
+
+<span class="hljs-keyword">return</span> (
+    &#x3C;Switch>
+        &#x3C;Match when={user.loading}>&#x3C;p>Loading...&#x3C;p>&#x3C;/Match>
+        &#x3C;Match when={user.error}>&#x3C;p>ERROR: {user.error}&#x3C;p>&#x3C;/Match>
+        {/* get latest value */}
+        {/* user() does almost the same but returns null if re-fetching */}
+        &#x3C;Match when={user.latest}>...&#x3C;/Match>
+    &#x3C;/Switch>
+)
+</code></pre>
+<h3>What if the async function depends on a signal?</h3>
+<pre><code class="hljs language-js"><span class="hljs-title function_">createResource</span>(userId, fetchUser);
+</code></pre>
+<h3>What if the async function depends on more signals?</h3>
+<pre><code class="hljs language-js"><span class="hljs-title function_">createResource</span>(
+    <span class="hljs-function">() =></span> [<span class="hljs-title function_">userId</span>(), <span class="hljs-title function_">roleId</span>()],
+    <span class="hljs-function">(<span class="hljs-params">[userId, roleId]</span>) =></span> <span class="hljs-title function_">fetchUser</span>(userId, roleId)
+);
+</code></pre>
+<h3>What does <code>mutate</code> do?</h3>
+<p>Mutate is just a setter, it updates the value in-memory.</p>
+<h3>What does <code>refetch</code> do?</h3>
+<p>Are you dumb?</p>
+<h3>And how do I update the data in the server?</h3>
+<p>I don't know! use <code>fetch()</code> to call and endpoint or something.
+Remember to use <code>mutate</code> to immediately update the user and <code>refetch</code> after the operation is successful.</p></article></div><footer class="amq-footer"><span>Created by A. Matías Quezada</span><!-- <span>Copyright 2023</span> --></footer></main></body></html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html><html lang="en" class="astro-ydck33jo"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v3.4.0"><title>A. Matías Quezada</title><style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: GitHub Dark
+  Description: Dark theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-dark
+  Current colors taken from GitHub's CSS
+*/.hljs{color:#c9d1d9;background:#0d1117}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#ff7b72}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#d2a8ff}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-variable,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id{color:#79c0ff}.hljs-regexp,.hljs-string,.hljs-meta .hljs-string{color:#a5d6ff}.hljs-built_in,.hljs-symbol{color:#ffa657}.hljs-comment,.hljs-code,.hljs-formula{color:#8b949e}.hljs-name,.hljs-quote,.hljs-selector-tag,.hljs-selector-pseudo{color:#7ee787}.hljs-subst{color:#c9d1d9}.hljs-section{color:#1f6feb;font-weight:700}.hljs-bullet{color:#f2cc60}.hljs-emphasis{color:#c9d1d9;font-style:italic}.hljs-strong{color:#c9d1d9;font-weight:700}.hljs-addition{color:#aff5b4;background-color:#033a16}.hljs-deletion{color:#ffdcd7;background-color:#67060c}pre code.hljs{--_code-margin: var(--code-margin, 1.5em);white-space:pre;background-color:#000;margin:var(--_code-margin) calc(var(--_code-margin) * -1);padding:var(--_code-margin);border-radius:8px}pre code.hljs>.hljs-comment{color:#999}code:not(.hljs){padding:0 .3em .1em;border-radius:5px;background-color:#0000004d}.md li{list-style:initial}.md ul,.md ol{margin:20px 0;padding:reset}.md p{text-align:justify}.md blockquote{border-left:5px solid var(--color-foreground);margin-left:0;padding-left:1em}.md :is(h1,h2,h3,h4,h5,h6){margin-top:2em}
+</style>
+<link rel="stylesheet" href="/v2/_astro/_slug_.04db7373.css" />
+<style>.tag-list{display:flex;gap:.5em;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+</style></head><body class="astro-ydck33jo"><header class="amq-header"><div class="container"><h2 class="amq"><a class="name" href="../../../../"><span>{</span><abbr>Adrian</abbr><span class="dot">.</span><span>Matías Quezada</span><span>}</span></a></h2><nav><a href="../../../../blog/">Blog</a><a href="../../../../projects/">Projects</a><a href="../../../../career/">Career</a><!-- <div class="lang-selector"> --><a href="../../../../es/v2/es/blog/object-create-vs-new/">
+🇪🇸
+</a><!-- </div> --></nav></div></header><main class="astro-ydck33jo"><div class="container"><h1>Object.create vs new (spanish)</h1><ul class="tag-list md-tags"></ul><article class="md"><blockquote>
+<p>Actualización 19/3/2014: Finalmente he entendido la utilidad de reemplazar <code>new</code>, se puede ver <a href="../type-new/">aquí</a></p>
+</blockquote>
+<p>JotaEseros! Tengo un dilema existencial que me impide dormir.</p>
+<p>Hasta donde sé los constructores hacen más o menos esto</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">fakeNew</span>(<span class="hljs-params">Ctor</span>) {
+  <span class="hljs-keyword">var</span> instance = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">Ctor</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
+  instance.<span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>);
+  <span class="hljs-keyword">return</span> instance;
+}
+</code></pre>
+<p>Todo empezó cuando quise hacer polyfill de Object.create(), así podría crear objectos sin usar <code>new</code>, decidí usar la versión sencilla</p>
+<pre><code class="hljs language-js"><span class="hljs-title class_">Object</span>.<span class="hljs-property">create</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">proto</span>) {
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">F</span>(<span class="hljs-params"></span>) {}
+  F.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = proto;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">F</span>();
+};
+</code></pre>
+<p>Y empecé a crear un montón de objetos y a prototiparlos, pero como los objetos muchas veces necesitaban inicializar sus propiedades les hice el método <code>.init()</code></p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> base = {
+  <span class="hljs-attr">init</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-title class_">EmitterMixin</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
+  },
+};
+
+<span class="hljs-keyword">var</span> obj = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(base).<span class="hljs-title function_">init</span>();
+</code></pre>
+<p>Pero claro, tengo que acordarme de devolver <code>this</code> siempre al acabar <code>.init()</code> y muchas veces lo olvidaba o me olvidaba de invocar <code>.init()</code> que es peor. Así que intentando como simplificar la inicialización de un objeto pensé crear una funcioń global que se encargara de invocar a <code>Object.create</code>, llamar a la función inicializadora y devolver this:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">create</span>(<span class="hljs-params">proto</span>) {
+  <span class="hljs-keyword">var</span> child = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(proto);
+  child.<span class="hljs-title function_">init</span>();
+  <span class="hljs-keyword">return</span> child;
+}
+</code></pre>
+<p>Y me empezaron a dar ganas de reventarme la cabeza contra la pared al darme cuenta que <strong>lo que estaba haciendo es prácticamente lo mismo que hace el operador nativo <code>new</code></strong> pero mucho más lento y, en caso de usar el polyfill the <code>Object.create</code> incluso usando <code>new</code> por debajo.</p>
+<p>Entonces me pregunto, que beneficios aporta abandonar <code>new</code>? es <a href="http://jsperf.com/object-create-vs-constructor-vs-object-literal/49">notablemente más rápido</a> en la mayoría de navegadores y por la naturaleza de javascript solemos necesitar crear una función inicializadora que en el caso de <code>new</code> es el constructor.</p>
+<p>Y lo que es más grave aún, he notado que <strong>usaba dos tipos diferentes de objetos</strong>, unos "<em>abstractos</em>" y otros "<em>instancias</em>" la mayor diferencia es que en las instancias tenía que invocar <code>.init()</code> siempre mientras que los abstractos no era necesario porque solo serían usados para crear otros objetos que los prototiparan. Y es un patrón que he visto mientras usaba <code>new</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Foo</span>(<span class="hljs-params"></span>) { }
+<span class="hljs-title class_">Foo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">method</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) { ... };
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">Bar</span>(<span class="hljs-params"></span>) { }
+<span class="hljs-comment">// Objeto "abstracto", no se invoca inicializador</span>
+<span class="hljs-title class_">Bar</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">Foo</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
+<span class="hljs-title class_">Bar</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">other</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) { ... };
+
+<span class="hljs-comment">// Objeto "instancia"</span>
+<span class="hljs-comment">// se invoca el constructor como inicializador</span>
+<span class="hljs-keyword">var</span> obj = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Bar</span>();
+</code></pre>
+<p>Realmente hay es una ventaja abandonar <code>new</code>? estamos seguros que no se trata de una herramienta de alto nivel que simplifica algo que igualmente tendremos que hacer nosotros a mano? Que pros y contras tienen <code>new</code> y <code>Object.create</code>?</p></article></div><footer class="amq-footer"><span>Created by A. Matías Quezada</span><!-- <span>Copyright 2023</span> --></footer></main></body></html>

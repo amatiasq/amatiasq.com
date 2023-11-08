@@ -1,0 +1,326 @@
+<!DOCTYPE html><html lang="en" class="astro-ydck33jo"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v3.4.0"><title>A. Matías Quezada</title><style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: GitHub Dark
+  Description: Dark theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-dark
+  Current colors taken from GitHub's CSS
+*/.hljs{color:#c9d1d9;background:#0d1117}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#ff7b72}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#d2a8ff}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-variable,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id{color:#79c0ff}.hljs-regexp,.hljs-string,.hljs-meta .hljs-string{color:#a5d6ff}.hljs-built_in,.hljs-symbol{color:#ffa657}.hljs-comment,.hljs-code,.hljs-formula{color:#8b949e}.hljs-name,.hljs-quote,.hljs-selector-tag,.hljs-selector-pseudo{color:#7ee787}.hljs-subst{color:#c9d1d9}.hljs-section{color:#1f6feb;font-weight:700}.hljs-bullet{color:#f2cc60}.hljs-emphasis{color:#c9d1d9;font-style:italic}.hljs-strong{color:#c9d1d9;font-weight:700}.hljs-addition{color:#aff5b4;background-color:#033a16}.hljs-deletion{color:#ffdcd7;background-color:#67060c}pre code.hljs{--_code-margin: var(--code-margin, 1.5em);white-space:pre;background-color:#000;margin:var(--_code-margin) calc(var(--_code-margin) * -1);padding:var(--_code-margin);border-radius:8px}pre code.hljs>.hljs-comment{color:#999}code:not(.hljs){padding:0 .3em .1em;border-radius:5px;background-color:#0000004d}.md li{list-style:initial}.md ul,.md ol{margin:20px 0;padding:reset}.md p{text-align:justify}.md blockquote{border-left:5px solid var(--color-foreground);margin-left:0;padding-left:1em}.md :is(h1,h2,h3,h4,h5,h6){margin-top:2em}
+</style>
+<link rel="stylesheet" href="/v2/_astro/_slug_.04db7373.css" />
+<style>.tag-list{display:flex;gap:.5em;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+</style></head><body class="astro-ydck33jo"><header class="amq-header"><div class="container"><h2 class="amq"><a class="name" href="../../../"><span>{</span><abbr>Adrian</abbr><span class="dot">.</span><span>Matías Quezada</span><span>}</span></a></h2><nav><a href="../../../blog/">Blog</a><a href="../../../projects/">Projects</a><a href="../../../career/">Career</a><!-- <div class="lang-selector"> --><a href="../../../es/v2/blog/solidjs/">
+🇪🇸
+</a><!-- </div> --></nav></div></header><main class="astro-ydck33jo"><div class="container"><h1>SolidJS</h1><ul class="tag-list md-tags"></ul><article class="md"><p>These last years I've past from AngularJS (v1) to Angular2+ and since I tried ReactJS I've considered it my go-to framework.</p>
+<p>These weeks I've been trying <a href="https://www.solidjs.com/">SolidJS</a> and when I compare it with ReactJS there are a set of things that I really like.</p>
+<h2>Direct access to DOM</h2>
+<p>There is no Virtual DOM in SolidJS</p>
+<blockquote>
+<p>DOM are the classes and functions the browser give us to modify the HTML like <code>document.createElement()</code> and <code>div.appendChild()</code></p>
+<p>Virtual DOM is, quickly explained, a lot of code that React brings so we use it instead of the real DOM, that way React has full control over the browser.</p>
+</blockquote>
+<pre><code class="hljs language-js"><span class="hljs-comment">// This is how we create elements in SolidJS</span>
+<span class="hljs-keyword">const</span> myElement = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> /></span></span>;
+myElement.<span class="hljs-title function_">appendChild</span>(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">span</span> /></span></span>);
+</code></pre>
+<p><a href="https://codesandbox.io/s/rough-river-dq6p8u?file=/index.tsx">View in codesandbox.io</a></p>
+<p>This in React is not possible because <code>&#x3C;div /></code> doesn't return the real DOM element but an internal representation.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> myElement = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> /></span></span>;
+<span class="hljs-comment">// { type: 'div', key: null, ref: null, props: {}, ... }</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(myElement);
+</code></pre>
+<p><a href="https://codesandbox.io/s/blissful-julien-kf7psp?file=/index.tsx">View in codesandbox.io</a></p>
+<h3>Direct access to DOM events</h3>
+<p>On the same line, since React hides the DOM behind Virtual DOM it also hides the events behind what they call <em>synthetic events</em>.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { createRoot } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-dom/client"</span>;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">MyComponent</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{(event)</span> =></span> {
+      // SyntheticBaseEvent {
+      //   _reactName: "onClick",
+      //   nativeEvent: PointerEvent,
+      //   ...
+      // }
+      console.log(event);
+    }}>
+      Hi!
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+  );
+}
+
+<span class="hljs-keyword">const</span> root = <span class="hljs-title function_">createRoot</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">"root"</span>));
+root.<span class="hljs-title function_">render</span>(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> /></span></span>);
+</code></pre>
+<p><a href="https://codesandbox.io/s/hardcore-feistel-xyzzoj?file=/index.tsx">View in codesandbox.io</a></p>
+<p>While Solid doesn't need that</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">MyComponent</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{(event)</span> =></span> {
+      // PointerEvent
+      console.log(event);
+      event.target.classList.add('clicked')
+    }}>
+      Hi
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">button</span>></span></span>
+  );
+}
+
+<span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> /></span></span>);
+</code></pre>
+<p><a href="https://codesandbox.io/s/romantic-leftpad-52pbf9?file=/index.tsx">View in codesandbox.io</a></p>
+<h2>Signals vs Hooks</h2>
+<p>On React Hooks are used which are "magically" connected to the components and can't be used outside</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">MyComponent</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-comment">// ok</span>
+  <span class="hljs-keyword">const</span> [count, setCount] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>)
+}
+
+<span class="hljs-comment">// Invalid hook call.</span>
+<span class="hljs-comment">// Hooks can only be called inside of the body of a function component.</span>
+<span class="hljs-keyword">const</span> [globalCount, setGlobalCount] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>);
+</code></pre>
+<p><a href="https://codesandbox.io/s/festive-perlman-ongnnq?file=/index.tsx">View in codesandbox.io</a></p>
+<p>On SolidJS Signals have nothing to do with componentes, they are an independent tool and can be used without components at all.</p>
+<p>On SolidJS components are just a tool to organize code.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { createSignal } <span class="hljs-keyword">from</span> <span class="hljs-string">"solid-js"</span>;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">MyComponent</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-comment">// ok</span>
+  <span class="hljs-keyword">const</span> [count, setCount] = <span class="hljs-title function_">createSignal</span>(<span class="hljs-number">0</span>);
+}
+
+<span class="hljs-comment">// ok</span>
+<span class="hljs-keyword">const</span> [globalCount, setGlobalCount] = <span class="hljs-title function_">createSignal</span>(<span class="hljs-number">0</span>);
+</code></pre>
+<p><a href="https://codesandbox.io/s/affectionate-wescoff-i2uswe?file=/index.tsx">View in codesandbox.io</a></p>
+<h2>Components run only once</h2>
+<p>On React a function component runs every time something changes. This made React team feel the need to create a hook <code>useEffect()</code> which is, by difference, the most complex concept and hardest to understand in React. It's primary responsibility is to "run code some times instead of every time the component is executed".</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { useEffect, useState } <span class="hljs-keyword">from</span> <span class="hljs-string">"react"</span>;
+<span class="hljs-keyword">import</span> { createRoot } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-dom/client"</span>;
+
+<span class="hljs-comment">// we can put these values directly on useEffect's call</span>
+<span class="hljs-comment">// but there they loose their meaning</span>
+<span class="hljs-comment">// we create variables so what they do is clearly understood</span>
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">EXECUTE_ONCE</span> = [];
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">EXECUTE_ALWAYS</span> = <span class="hljs-literal">null</span>;
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">ONE_SECOND</span> = <span class="hljs-number">1000</span>;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">MyComponent</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> [count, setCount] = <span class="hljs-title function_">useState</span>(<span class="hljs-number">0</span>);
+
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"Rendering..."</span>, count);
+
+  <span class="hljs-title function_">useEffect</span>(<span class="hljs-function">() =></span> {
+    <span class="hljs-comment">// setInterval wouldn't work here for reasons</span>
+    <span class="hljs-comment">// that escape the scope of this post</span>
+    <span class="hljs-comment">// this serves as an example of how complex useEffect is</span>
+    <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function">() =></span> <span class="hljs-title function_">setCount</span>(count + <span class="hljs-number">1</span>), <span class="hljs-variable constant_">ONE_SECOND</span>)
+  }, <span class="hljs-variable constant_">EXECUTE_ALWAYS</span>)
+
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{count}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+}
+
+<span class="hljs-keyword">const</span> root = <span class="hljs-title function_">createRoot</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">'root'</span>));
+root.<span class="hljs-title function_">render</span>(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> /></span></span>);
+</code></pre>
+<p><a href="https://codesandbox.io/s/romantic-pine-hv1lem?file=/index.tsx">View in codesandbox.io</a></p>
+<p>While in SolidJS a component is ran only once, any change in Signals will only affect the part of the HTML (or code) that use such Signal</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { createSignal } <span class="hljs-keyword">from</span> <span class="hljs-string">"solid-js"</span>;
+
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">ONE_SECOND</span> = <span class="hljs-number">1000</span>;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">MyComponent</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> [count, setCount] = <span class="hljs-title function_">createSignal</span>(<span class="hljs-number">0</span>);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"Rendering once"</span>);
+  <span class="hljs-built_in">setInterval</span>(<span class="hljs-function">() =></span> <span class="hljs-title function_">setCount</span>(<span class="hljs-title function_">count</span>() + <span class="hljs-number">1</span>), <span class="hljs-variable constant_">ONE_SECOND</span>);
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{count()}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+}
+
+<span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> /></span></span>);
+</code></pre>
+<p><a href="https://codesandbox.io/s/zen-wood-5cd41k?file=/index.tsx">View in codesandbox.io</a></p>
+<p>Here we can also appreciate the difference between SolidJS and ReactJS, the latter needs to pass through the Virtual DOM before reaching the real DOM so it needs us to import and use more abstractions:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { createRoot } <span class="hljs-keyword">from</span> <span class="hljs-string">"react-dom/client"</span>;
+<span class="hljs-comment">// ... and later...</span>
+<span class="hljs-title function_">createRoot</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">getElementById</span>(<span class="hljs-string">'root'</span>)).<span class="hljs-title function_">render</span>(...)
+</code></pre>
+<p>In SolidJS <code>&#x3C;MyComponent /></code> returns a real DOM object that we can just append to the <code>body</code> directly (never use <code>body</code>with <code>ReactDOM.createRoot()</code> or bad things will happen).</p>
+<p>I've seen people present the fact that components run only once as something negative as "thinking each state of the application from zero" is one of React's mottos. But, in my opinion, that was never true due to the existence of <code>useEffect()</code>. It doesn't matter what component you're looking at, if it has <code>useEffect()</code> then we need to take into account previous and following executions.</p>
+<h2>JSX</h2>
+<p>There are also several details in the differences of JSX between ReactJS and SolidJS like how we set a CSS class to an element:</p>
+<ul>
+<li>ReactJS: <code>&#x3C;div className="a" /></code></li>
+<li>SolidJS: <code>&#x3C;div class="a" /></code></li>
+<li>HTML: <code>&#x3C;div class="a">&#x3C;/div></code></li>
+</ul>
+<p>Or getting the real DOM object in React</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { createRef } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">MyComponent</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">const</span> ref = <span class="hljs-title function_">createRef</span>();
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">{ref}</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> console.log(ref.current)} /></span>
+}
+</code></pre>
+<p>Vs getting the DOM object in Solid:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> ref = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> /></span></span>
+</code></pre>
+<p>Or</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">MyComponent</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">let</span> ref;
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">ref</span>=<span class="hljs-string">{ref}</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">{()</span> =></span> console.log(ref)} /></span>
+}
+</code></pre>
+<p>On top of that Solid comes with several utility components like</p>
+<ul>
+<li><code>&#x3C;Show when={...}></code></li>
+<li><code>&#x3C;For each={...}></code></li>
+<li><code>&#x3C;Dynamic as="div" /></code></li>
+<li><a href="https://www.solidjs.com/docs/latest/api#control-flow">and more</a></li>
+</ul>
+<p>Which in React have to be implemented by hand or from code, creating a mix of JSX and JS which may be difficult to follow.</p>
+<h2>Directives</h2>
+<p>Finally and more importantly, this is a feature that I simply haven't seen in React (because it wouln't fit anyway): extend elements with code.</p>
+<p>Usually in React when we create a component that generates DOM element, for example a <code>&#x3C;div></code>, we have to ensure our component accepts all properties that <code>&#x3C;div></code> accepts, extract the ones that are relevant to our component and pass the rest to the div. This is easy in Javascript but when we use Typescript it gets a bit complicated:</p>
+<blockquote>
+<p>Note: if you're using Javascript without Typescript... go try it.</p>
+</blockquote>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// If we don't exclude the properties we're about</span>
+<span class="hljs-comment">// to override Typescript will throw an error</span>
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">DivProps</span> = <span class="hljs-title class_">Omit</span>&#x3C;
+    <span class="hljs-title class_">ComponentProps</span>&#x3C;<span class="hljs-string">"div"</span>>,
+    <span class="hljs-string">"onDrag"</span> | <span class="hljs-string">"onDragStart"</span> | <span class="hljs-string">"onDragEnd"</span>
+>;
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">DraggableProps</span> = <span class="hljs-title class_">DivProps</span> &#x26; {
+  <span class="hljs-attr">onDrag</span>: <span class="hljs-function">(<span class="hljs-params">event: MyCustomEvent</span>) =></span> <span class="hljs-built_in">void</span>;
+  <span class="hljs-attr">onDragStart</span>: <span class="hljs-function">(<span class="hljs-params">event: MyCustomEvent</span>) =></span> <span class="hljs-built_in">void</span>;
+  <span class="hljs-attr">onDragEnd</span>: <span class="hljs-function">(<span class="hljs-params">event: MyCustomEvent</span>) =></span> <span class="hljs-built_in">void</span>;
+};
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">Draggable</span>(<span class="hljs-params">{
+  onDrag,
+  onDragStart,
+  onDragEnd,
+  children,
+  ...divProps
+}: DraggableProps</span>) {
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>
+      <span class="hljs-attr">onDrag</span>=<span class="hljs-string">{handleDrag}</span>
+      <span class="hljs-attr">onDragStart</span>=<span class="hljs-string">{handleDragStart}</span>
+      <span class="hljs-attr">onDragEnd</span>=<span class="hljs-string">{handleDragEnd}</span>
+      // <span class="hljs-attr">just</span> `<span class="hljs-attr">draggable</span>` <span class="hljs-attr">doesn</span>'<span class="hljs-attr">t</span> <span class="hljs-attr">work</span>
+      <span class="hljs-attr">draggable</span>=<span class="hljs-string">{true}</span>
+      {<span class="hljs-attr">...divProps</span>}
+    ></span>
+      {children}
+    <span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>
+  );
+
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">handleDrag</span>(<span class="hljs-params"></span>) { <span class="hljs-comment">/* ... */</span> }
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">handleDragStart</span>(<span class="hljs-params"></span>) { <span class="hljs-comment">/* ... */</span> }
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">handleDragEnd</span>(<span class="hljs-params"></span>) { <span class="hljs-comment">/* ... */</span> }
+}
+</code></pre>
+<p>It looks like a lot of boilerplate, repetitive and doesn't provide much information.</p>
+<p>In Solid this is addressed with directives, functions that aren't components by themselves but they run over a component.</p>
+<p>Directives <strong>extend</strong> the DOM instead of <strong>containing</strong> it.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { onCleanup } <span class="hljs-keyword">from</span> <span class="hljs-string">"solid-js"</span>;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">draggable</span>(<span class="hljs-params">el, { onDrag, onDragStart, onDragEnd }</span>) {
+  el.<span class="hljs-title function_">setAttribute</span>(<span class="hljs-string">'draggable'</span>, <span class="hljs-string">'true'</span>)
+  el.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">'drag'</span>, handleDrag);
+  el.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">'dragstart'</span>, handleDragStart);
+  el.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">'dragstop'</span>, handleDragEnd);
+
+  <span class="hljs-title function_">onCleanup</span>(<span class="hljs-function">() =></span> {
+    el.<span class="hljs-title function_">removeAttribute</span>(<span class="hljs-string">'draggable'</span>)
+    el.<span class="hljs-title function_">removeEventListener</span>(<span class="hljs-string">'drag'</span>, handleDrag);
+    el.<span class="hljs-title function_">removeEventListener</span>(<span class="hljs-string">'dragstart'</span>, handleDragStart);
+    el.<span class="hljs-title function_">removeEventListener</span>(<span class="hljs-string">'dragstop'</span>, handleDragEnd);
+  });
+
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">handleDrag</span>(<span class="hljs-params"></span>) { <span class="hljs-comment">/* ... */</span> }
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">handleDragStart</span>(<span class="hljs-params"></span>) { <span class="hljs-comment">/* ... */</span> }
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">handleDragEnd</span>(<span class="hljs-params"></span>) { <span class="hljs-comment">/* ... */</span> }
+}
+
+<span class="hljs-keyword">const</span> element = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span> <span class="hljs-attr">use:draggable</span>=<span class="hljs-string">{{</span>
+  <span class="hljs-attr">onDrag</span>() { /* <span class="hljs-attr">...</span> */ },
+  <span class="hljs-attr">onDragStart</span>() { /* <span class="hljs-attr">...</span> */ },
+  <span class="hljs-attr">onDragEnd</span>() { /* <span class="hljs-attr">...</span> */ },
+}} /></span></span>;
+</code></pre>
+<p><a href="https://codesandbox.io/s/eager-banach-2tdqdn?file=/index.tsx">View in codesandbox.io</a></p>
+<h2>Drawbacks</h2>
+<p>There are two points particularly painful when comparing Solid with React:</p>
+<h3>1. <strong>DO NOT DESTRUCTURE PROPERTIES</strong></h3>
+<p>The <code>props</code> object in SolidJS is a <code>Proxy</code>, if you don't know what it means it's enough to be aware that Solid knows when you accesss <code>props.something</code> and will return the updated value if it has changed.</p>
+<p>If we use destructuring of <code>props</code> we're reading all properties once when the component is created and if any of them was a Signal we won't get any updates:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { createSignal } <span class="hljs-keyword">from</span> <span class="hljs-string">"solid-js"</span>;
+
+<span class="hljs-comment">// DON'T DO THIS IN SOLID</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">MyComponent</span>(<span class="hljs-params">{ a, b }</span>) {
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{a} - {b}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+}
+
+<span class="hljs-keyword">const</span> [signal1, setSignal1] = <span class="hljs-title function_">createSignal</span>();
+<span class="hljs-keyword">const</span> [signal2, setSignal2] = <span class="hljs-title function_">createSignal</span>();
+
+<span class="hljs-keyword">const</span> element = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> <span class="hljs-attr">a</span>=<span class="hljs-string">{signal1()}</span> <span class="hljs-attr">b</span>=<span class="hljs-string">{signal2()}</span> /></span></span>;
+
+<span class="hljs-comment">// &#x3C;div> won't be updated</span>
+<span class="hljs-title function_">setSignal1</span>(<span class="hljs-string">'Hello'</span>)
+<span class="hljs-title function_">setSignal2</span>(<span class="hljs-string">'World'</span>)
+</code></pre>
+<p>Instead of that we should take <code>props</code> as a single variable and access it's properties wherever we use them:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">import</span> { createSignal } <span class="hljs-keyword">from</span> <span class="hljs-string">"solid-js"</span>;
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">MyComponent</span>(<span class="hljs-params">props</span>) {
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">div</span>></span>{props.a} - {props.b}<span class="hljs-tag">&#x3C;/<span class="hljs-name">div</span>></span></span>;
+}
+
+<span class="hljs-keyword">const</span> [signal1, setSignal1] = <span class="hljs-title function_">createSignal</span>();
+<span class="hljs-keyword">const</span> [signal2, setSignal2] = <span class="hljs-title function_">createSignal</span>();
+
+<span class="hljs-keyword">const</span> element = <span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> <span class="hljs-attr">a</span>=<span class="hljs-string">{signal1()}</span> <span class="hljs-attr">b</span>=<span class="hljs-string">{signal2()}</span> /></span></span>;
+
+<span class="hljs-comment">// &#x3C;div> will update once</span>
+<span class="hljs-title function_">setSignal1</span>(<span class="hljs-string">'Hello'</span>)
+<span class="hljs-comment">// &#x3C;div> will update twice</span>
+<span class="hljs-title function_">setSignal2</span>(<span class="hljs-string">'World'</span>)
+
+<span class="hljs-comment">// or</span>
+<span class="hljs-keyword">import</span> { batch } <span class="hljs-keyword">from</span> <span class="hljs-string">'solid-js'</span>
+
+<span class="hljs-comment">// &#x3C;div> will only be updated once</span>
+<span class="hljs-title function_">batch</span>(<span class="hljs-function">() =></span> {
+  <span class="hljs-title function_">setSignal1</span>(<span class="hljs-string">'Hello'</span>)
+  <span class="hljs-title function_">setSignal2</span>(<span class="hljs-string">'World'</span>)
+})
+</code></pre>
+<h3>2. Props manipulation</h3>
+<p>Following the previous point, this means that in Solid we can't just manipulate props</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> { a, b, ...rest } = props
+<span class="hljs-comment">// or</span>
+<span class="hljs-keyword">const</span> newProps = { ...defaultProps, ...props };
+</code></pre>
+<p>Solid instead provides two functions to do such operations: <code>splitProps()</code> and <code>mergeProps()</code>.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> [vowels, consonants, leftovers] = <span class="hljs-title function_">splitProps</span>(
+    props,
+    [<span class="hljs-string">"a"</span>, <span class="hljs-string">"e"</span>],
+    [<span class="hljs-string">"b"</span>, <span class="hljs-string">"c"</span>, <span class="hljs-string">"d"</span>]
+);
+<span class="hljs-comment">// and</span>
+<span class="hljs-keyword">const</span> newProps = <span class="hljs-title function_">mergeProps</span>(defaultProps, props);
+</code></pre>
+<h2>Conclusion</h2>
+<p>In summary SolidJS is a library that has learnt a lot from React and gives us a similar development experience but removing all the abstraction layers that React (necessarily) addded when the web standards weren't mature enough for the applications we are developing.</p>
+<p>I leave here my template to create projects with SolidJS, Typescript and Vite as compiler:</p>
+<p>https://github.com/amatiasq/vite-solidjs-typescript-boilerplate</p>
+<p>Have a great day</p></article></div><footer class="amq-footer"><span>Created by A. Matías Quezada</span><!-- <span>Copyright 2023</span> --></footer></main></body></html>

@@ -1,0 +1,152 @@
+<!DOCTYPE html><html lang="en" class="astro-ydck33jo"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v3.4.0"><title>A. Matías Quezada</title><style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: GitHub Dark
+  Description: Dark theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-dark
+  Current colors taken from GitHub's CSS
+*/.hljs{color:#c9d1d9;background:#0d1117}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#ff7b72}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#d2a8ff}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-variable,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id{color:#79c0ff}.hljs-regexp,.hljs-string,.hljs-meta .hljs-string{color:#a5d6ff}.hljs-built_in,.hljs-symbol{color:#ffa657}.hljs-comment,.hljs-code,.hljs-formula{color:#8b949e}.hljs-name,.hljs-quote,.hljs-selector-tag,.hljs-selector-pseudo{color:#7ee787}.hljs-subst{color:#c9d1d9}.hljs-section{color:#1f6feb;font-weight:700}.hljs-bullet{color:#f2cc60}.hljs-emphasis{color:#c9d1d9;font-style:italic}.hljs-strong{color:#c9d1d9;font-weight:700}.hljs-addition{color:#aff5b4;background-color:#033a16}.hljs-deletion{color:#ffdcd7;background-color:#67060c}pre code.hljs{--_code-margin: var(--code-margin, 1.5em);white-space:pre;background-color:#000;margin:var(--_code-margin) calc(var(--_code-margin) * -1);padding:var(--_code-margin);border-radius:8px}pre code.hljs>.hljs-comment{color:#999}code:not(.hljs){padding:0 .3em .1em;border-radius:5px;background-color:#0000004d}.md li{list-style:initial}.md ul,.md ol{margin:20px 0;padding:reset}.md p{text-align:justify}.md blockquote{border-left:5px solid var(--color-foreground);margin-left:0;padding-left:1em}.md :is(h1,h2,h3,h4,h5,h6){margin-top:2em}
+</style>
+<link rel="stylesheet" href="/v2/_astro/_slug_.04db7373.css" />
+<style>.tag-list{display:flex;gap:.5em;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+</style></head><body class="astro-ydck33jo"><header class="amq-header"><div class="container"><h2 class="amq"><a class="name" href="../../../"><span>{</span><abbr>Adrian</abbr><span class="dot">.</span><span>Matías Quezada</span><span>}</span></a></h2><nav><a href="../../../blog/">Blog</a><a href="../../../projects/">Projects</a><a href="../../../career/">Career</a><!-- <div class="lang-selector"> --><a href="../../../es/v2/blog/graham-number/">
+🇪🇸
+</a><!-- </div> --></nav></div></header><main class="astro-ydck33jo"><div class="container"><h1>Graham number with Javascript</h1><ul class="tag-list md-tags"></ul><article class="md"><p>Following <a href="https://www.youtube.com/watch?v=R6FDpTv6CYg">this video</a> (in spanish) I learned the <em>arrow</em> notation in math:</p>
+<pre><code>3↑3 = 3^3^3 = 3^27 = 7_625_597_484_987
+</code></pre>
+<p>That it gets more brutal the more arrows we add</p>
+<pre><code>3↑↑3 = 3↑3↑3 = 3↑7_625_597_484_987
+3↑↑↑3 = 3↑↑3↑↑3 = 3↑3↑3↑3↑3↑3↑3↑3... (repeat 7_625_597_484_987 times)
+</code></pre>
+<p>So I wondered how far can a computer take such big calculations, for this I created a function <code>arrow</code> to represent the operation</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">arrow</span>(<span class="hljs-params">base, exponent</span>) {
+    <span class="hljs-keyword">let</span> value = base;
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &#x3C; exponent; i++) {
+        value = value ** base;
+    }
+
+    <span class="hljs-keyword">return</span> value;
+}
+
+<span class="hljs-title function_">arrow</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>) <span class="hljs-comment">// 7625597484987</span>
+<span class="hljs-title function_">arrow</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>).<span class="hljs-title function_">toString</span>().<span class="hljs-property">length</span> <span class="hljs-comment">//13</span>
+</code></pre>
+<p>Looks good, the number and calculation for single arrow is correct, let's make the function to handle multiple arrow expressions (<code>3↑↑3</code> and <code>3↑↑↑3</code>), for this the amount of arrows will be a new parameter at the end.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">manyArrows</span>(<span class="hljs-params">base, exponent, amount = <span class="hljs-number">1</span></span>) {
+    <span class="hljs-keyword">if</span> (amount === <span class="hljs-number">1</span>) {
+        <span class="hljs-comment">// only one arrow, use the previous function</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-title function_">arrow</span>(base, exponent);
+    }
+
+    <span class="hljs-keyword">let</span> value = base;
+
+    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &#x3C; exponent; i++) {
+        value = value ** <span class="hljs-title function_">manyArrows</span>(base, exponent, amount - <span class="hljs-number">1</span>)
+    }
+
+    <span class="hljs-keyword">return</span> value;
+}
+
+<span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// 16</span>
+<span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// 1.157920892373162e+77</span>
+<span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// 7625597484987</span>
+</code></pre>
+<p>Good, it works as expected, let's push and get the value for <code>3↑↑3</code></p>
+<pre><code class="hljs language-js"><span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">2</span>) <span class="hljs-comment">// Infinity</span>
+</code></pre>
+<p>Hm... we've reached the top limit for Javascript's <code>number</code> type. But wait, there was a proposal for a new feature of <code>BigInt</code> that would add a new numeric type to handle (duh) big integers:</p>
+<ul>
+<li>https://github.com/tc39/proposal-bigint</li>
+<li>https://www.proposals.es/proposals/BigInt</li>
+<li>https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt</li>
+</ul>
+<p>Yep, and it's ready to be used, we just need to add <code>n</code> at the end of a number to make it a BigInt 🎉</p>
+<pre><code class="hljs language-js"><span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3n</span>, <span class="hljs-number">3n</span>, <span class="hljs-number">1</span>) <span class="hljs-comment">// 7625597484987n</span>
+<span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3n</span>, <span class="hljs-number">3n</span>, <span class="hljs-number">2</span>)
+
+<span class="hljs-comment">// Uncaught RangeError: Maximum BigInt size exceeded</span>
+<span class="hljs-comment">//     at manyArrows (&#x3C;anonymous>:8:19)</span>
+<span class="hljs-comment">//     at &#x3C;anonymous>:1:1</span>
+</code></pre>
+<p>Well that's it, we've reached Javascript limits for integer calculations 🤷</p>
+<p>If you wondered what this has to do with Graham's number well that is...</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> g = [<span class="hljs-number">4</span>]
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &#x3C;= <span class="hljs-number">64</span>; i++) {
+    <span class="hljs-keyword">let</span> previousLayer = g[i - <span class="hljs-number">1</span>]
+    g[i] = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, previousLayer)
+}
+
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">GRAHAM_NUMBER</span> = g[<span class="hljs-number">64</span>]
+</code></pre>
+<p>Or</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">let</span> g1 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>)
+<span class="hljs-keyword">let</span> g2 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g1)
+<span class="hljs-keyword">let</span> g3 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g2)
+<span class="hljs-keyword">let</span> g4 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g3)
+<span class="hljs-keyword">let</span> g5 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g4)
+<span class="hljs-keyword">let</span> g6 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g5)
+<span class="hljs-keyword">let</span> g7 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g6)
+<span class="hljs-keyword">let</span> g8 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g7)
+<span class="hljs-keyword">let</span> g9 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g8)
+<span class="hljs-keyword">let</span> g10 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g9)
+<span class="hljs-keyword">let</span> g11 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g10)
+<span class="hljs-keyword">let</span> g12 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g11)
+<span class="hljs-keyword">let</span> g13 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g12)
+<span class="hljs-keyword">let</span> g14 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g13)
+<span class="hljs-keyword">let</span> g15 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g14)
+<span class="hljs-keyword">let</span> g16 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g15)
+<span class="hljs-keyword">let</span> g17 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g16)
+<span class="hljs-keyword">let</span> g18 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g17)
+<span class="hljs-keyword">let</span> g19 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g18)
+<span class="hljs-keyword">let</span> g20 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g19)
+<span class="hljs-keyword">let</span> g21 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g20)
+<span class="hljs-keyword">let</span> g22 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g21)
+<span class="hljs-keyword">let</span> g23 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g22)
+<span class="hljs-keyword">let</span> g24 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g23)
+<span class="hljs-keyword">let</span> g25 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g24)
+<span class="hljs-keyword">let</span> g26 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g25)
+<span class="hljs-keyword">let</span> g27 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g26)
+<span class="hljs-keyword">let</span> g28 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g27)
+<span class="hljs-keyword">let</span> g29 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g28)
+<span class="hljs-keyword">let</span> g30 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g29)
+<span class="hljs-keyword">let</span> g31 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g30)
+<span class="hljs-keyword">let</span> g32 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g31)
+<span class="hljs-keyword">let</span> g33 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g32)
+<span class="hljs-keyword">let</span> g34 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g33)
+<span class="hljs-keyword">let</span> g35 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g34)
+<span class="hljs-keyword">let</span> g36 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g35)
+<span class="hljs-keyword">let</span> g37 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g36)
+<span class="hljs-keyword">let</span> g38 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g37)
+<span class="hljs-keyword">let</span> g39 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g38)
+<span class="hljs-keyword">let</span> g40 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g39)
+<span class="hljs-keyword">let</span> g41 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g40)
+<span class="hljs-keyword">let</span> g42 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g41)
+<span class="hljs-keyword">let</span> g43 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g42)
+<span class="hljs-keyword">let</span> g44 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g43)
+<span class="hljs-keyword">let</span> g45 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g44)
+<span class="hljs-keyword">let</span> g46 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g45)
+<span class="hljs-keyword">let</span> g47 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g46)
+<span class="hljs-keyword">let</span> g48 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g47)
+<span class="hljs-keyword">let</span> g49 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g48)
+<span class="hljs-keyword">let</span> g50 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g49)
+<span class="hljs-keyword">let</span> g51 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g50)
+<span class="hljs-keyword">let</span> g52 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g51)
+<span class="hljs-keyword">let</span> g53 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g52)
+<span class="hljs-keyword">let</span> g54 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g53)
+<span class="hljs-keyword">let</span> g55 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g54)
+<span class="hljs-keyword">let</span> g56 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g55)
+<span class="hljs-keyword">let</span> g57 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g56)
+<span class="hljs-keyword">let</span> g58 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g57)
+<span class="hljs-keyword">let</span> g59 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g58)
+<span class="hljs-keyword">let</span> g60 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g59)
+<span class="hljs-keyword">let</span> g61 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g60)
+<span class="hljs-keyword">let</span> g62 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g61)
+<span class="hljs-keyword">let</span> g63 = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g62)
+
+<span class="hljs-keyword">const</span> <span class="hljs-variable constant_">GRAHAM_NUMBER</span> = <span class="hljs-title function_">manyArrows</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, g63)
+</code></pre>
+<p>In cases like this the expression "more than atoms in the universe" falls short.</p></article></div><footer class="amq-footer"><span>Created by A. Matías Quezada</span><!-- <span>Copyright 2023</span> --></footer></main></body></html>
