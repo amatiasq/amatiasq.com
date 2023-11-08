@@ -21,7 +21,7 @@ jobs:
           cd amatiasq.com-v2
           npm ci
           npm run build
-          cp dist ../dist/v2
+          cp -r dist ../dist/v2
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
