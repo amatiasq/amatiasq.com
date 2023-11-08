@@ -34,17 +34,17 @@ import Tr from '@components/atoms/Tr.astro';
   </Container>
 </section>
 
-<script>
+<script defer>
   (() => {
     const main = document.querySelector('main');
-    const svg = document.querySelector('.intro svg') as HTMLElement;
+    const svg = document.querySelector('.intro svg');
 
     if (!main || !svg) return;
 
     main.addEventListener('scroll', function listener() {
       main.removeEventListener('scroll', listener);
       svg.addEventListener('transitionend', () => svg.remove());
-      svg.style.opacity = '0';
+      svg.style.opacity = 0;
     });
   })();
 </script>
