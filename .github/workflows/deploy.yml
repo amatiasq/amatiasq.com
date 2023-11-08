@@ -16,6 +16,13 @@ jobs:
       - name: Build app
         run: make ci
 
+      - name: Build v2
+        run: |
+          cd amatiasq.com-v2
+          npm ci
+          npm run build
+          cp dist ../dist/v2
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
