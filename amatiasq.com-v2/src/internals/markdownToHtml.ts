@@ -9,12 +9,11 @@ import latex from 'highlight.js/lib/languages/latex';
 import nginx from 'highlight.js/lib/languages/nginx';
 import openscad from 'highlight.js/lib/languages/openscad';
 import scala from 'highlight.js/lib/languages/scala';
-import { common } from 'lowlight';
+import { common as commonLanguages } from 'lowlight';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeStringify from 'rehype-stringify';
 import remarkParse from 'remark-parse';
 import remarkRehype from 'remark-rehype';
-
 import { unified } from 'unified';
 
 const processor = await unified()
@@ -26,7 +25,7 @@ const processor = await unified()
   .use(rehypeHighlight, {
     // prefix: 'lang-',
     languages: {
-      ...common,
+      ...commonLanguages,
       dart,
       dns,
       dockerfile,
