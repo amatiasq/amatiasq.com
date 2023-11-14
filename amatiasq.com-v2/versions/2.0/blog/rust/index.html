@@ -1,0 +1,323 @@
+<!DOCTYPE html><html lang="en" class="astro-ydck33jo"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v3.4.0"><title>A. Matías Quezada</title><style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: GitHub Dark
+  Description: Dark theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-dark
+  Current colors taken from GitHub's CSS
+*/.hljs{color:#c9d1d9;background:#0d1117}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#ff7b72}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#d2a8ff}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-variable,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id{color:#79c0ff}.hljs-regexp,.hljs-string,.hljs-meta .hljs-string{color:#a5d6ff}.hljs-built_in,.hljs-symbol{color:#ffa657}.hljs-comment,.hljs-code,.hljs-formula{color:#8b949e}.hljs-name,.hljs-quote,.hljs-selector-tag,.hljs-selector-pseudo{color:#7ee787}.hljs-subst{color:#c9d1d9}.hljs-section{color:#1f6feb;font-weight:700}.hljs-bullet{color:#f2cc60}.hljs-emphasis{color:#c9d1d9;font-style:italic}.hljs-strong{color:#c9d1d9;font-weight:700}.hljs-addition{color:#aff5b4;background-color:#033a16}.hljs-deletion{color:#ffdcd7;background-color:#67060c}pre code.hljs{--_code-margin: var(--code-margin, 1.5em);white-space:pre;background-color:#000;margin:var(--_code-margin) calc(var(--_code-margin) * -1);padding:var(--_code-margin);border-radius:8px}pre code.hljs>.hljs-comment{color:#999}code:not(.hljs){padding:0 .3em .1em;border-radius:5px;background-color:#0000004d}.md li{list-style:initial}.md ul,.md ol{margin:20px 0;padding:reset}.md p{text-align:justify}.md blockquote{border-left:5px solid var(--color-foreground);margin-left:0;padding-left:1em}.md :is(h1,h2,h3,h4,h5,h6){margin-top:2em}
+</style>
+<link rel="stylesheet" href="/v2.0/_astro/_slug_.04db7373.css" />
+<style>.tag-list{display:flex;gap:.5em;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+</style></head><body class="astro-ydck33jo"><header class="amq-header"><div class="container"><h2 class="amq"><a class="name" href="../../../"><span>{</span><abbr>Adrian</abbr><span class="dot">.</span><span>Matías Quezada</span><span>}</span></a></h2><nav><a href="../../../blog/">Blog</a><a href="../../../projects/">Projects</a><a href="../../../career/">Career</a><!-- <div class="lang-selector"> --><a href="../../../es/v2.0/blog/rust/">
+🇪🇸
+</a><!-- </div> --></nav></div></header><main class="astro-ydck33jo"><div class="container"><h1>Rust</h1><ul class="tag-list md-tags"></ul><article class="md"><p>I've decided to try <a href="https://www.rust-lang.org/">rust language</a> for several reasons:</p>
+<ul>
+<li><strong>WebAssembly</strong>: I've been looking for a language that allows me to run performant code in the browser as WebAssembly and Javascript / Typescript are not good fit for the case because of the weak typing system and the Garbage Collector.</li>
+<li><strong>No garbage collector</strong>: talking about GC, I love to run <a href="https://amatiasq.com/projects/lulas/">simulations on the web</a> and garbage collector eventually becomes an issue by making the simulation unpredictable</li>
+<li><strong>Type system</strong>: I was lucky enough to get to know F# and fell in love with it's way to use types, you start a program by defining the states of the application in it's type system. The root idea is really good but all of that translates to more types to create and instantiate at runtime which will also put more load on the Garbage Collector. Rust's type system takes the best ideas from it while removing all types at runtime.</li>
+<li><strong>Reputation</strong>: Following the public surveys on the industry it's clear that people that use Rust have found something different in this language, it's even <a href="https://www.zdnet.com/article/rust-in-the-linux-kernel-why-it-matters-and-whats-happening-next/">getting into the Linux kernel</a>.</li>
+</ul>
+<h2>The project</h2>
+<p>So why not start with something simple like <em>creating a web application that renders a graph in SVG</em>? 🧑‍💻</p>
+<p>Following <a href="https://www.youtube.com/playlist?list=PLZaoyhMXgBzoM9bfb5pyUOT3zjnaDdSEP">no boilerplate</a> I found <a href="https://yew.rs/">Yew</a>, a React-like framework for rust:</p>
+<pre><code class="hljs language-rs">[#function_component]
+<span class="hljs-keyword">fn</span> <span class="hljs-title function_">MyComponent</span>(props: Props) {
+  <span class="hljs-keyword">return</span> html!{
+    &#x3C;div>{props.content}&#x3C;/div>
+  };
+}
+</code></pre>
+<p>Well this looks promising.</p>
+<h2>Installation</h2>
+<p>To install Rust I ran the following commands (for unix systems like Linux and Mac) as stated in <a href="https://yew.rs/docs/getting-started/introduction">Yew's documentation</a></p>
+<pre><code class="hljs language-bash"><span class="hljs-comment"># from https://rustup.rs/</span>
+curl --proto <span class="hljs-string">'=https'</span> --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+<span class="hljs-comment"># this enables rustup command immediately</span>
+<span class="hljs-built_in">source</span> <span class="hljs-string">"<span class="hljs-variable">$HOME</span>/.cargo/env"</span>
+
+<span class="hljs-comment"># install something about webassembly support... I guess</span>
+rustup target add wasm32-unknown-unknown
+
+<span class="hljs-comment"># some dependencies we're going to need</span>
+cargo install --locked trunk
+cargo install cargo-generate
+</code></pre>
+<p>Then generated a new project with <code>cargo generate</code> command</p>
+<pre><code class="hljs language-bash">cargo generate --git https://github.com/yewstack/yew-trunk-minimal-template
+</code></pre>
+<h2>First impressions</h2>
+<p>At first glance the code looks familiar,</p>
+<pre><code class="hljs language-rs"><span class="hljs-comment">// main.rs</span>
+<span class="hljs-keyword">mod</span> app;
+
+<span class="hljs-keyword">use</span> app::App;
+
+<span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() {
+    yew::Renderer::&#x3C;App>::<span class="hljs-title function_ invoke__">new</span>().<span class="hljs-title function_ invoke__">render</span>();
+}
+</code></pre>
+<pre><code class="hljs language-rs"><span class="hljs-comment">// app.rs</span>
+<span class="hljs-keyword">use</span> yew::prelude::*;
+
+<span class="hljs-meta">#[function_component(App)]</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">app</span>() <span class="hljs-punctuation">-></span> Html {
+    html! {
+        &#x3C;main>
+            &#x3C;img class=<span class="hljs-string">"logo"</span> src=<span class="hljs-string">"https://yew.rs/img/logo.png"</span> alt=<span class="hljs-string">"Yew logo"</span> />
+            &#x3C;h1>{ <span class="hljs-string">"Hello World!"</span> }&#x3C;/h1>
+            &#x3C;span class=<span class="hljs-string">"subtitle"</span>>{ <span class="hljs-string">"from Yew with "</span> }&#x3C;i class=<span class="hljs-string">"heart"</span> />&#x3C;/span>
+        &#x3C;/main>
+    }
+}
+</code></pre>
+<p>C-like syntax, quite similar to Typescript to be honest...</p>
+<ul>
+<li>the <code>#[something]</code> look like attribute / decorators</li>
+<li>looks like <code>use something</code> is used to import types and values</li>
+<li>I like how light the function syntax is by requesting just <code>fn name() -> ReturnType</code></li>
+<li>By now I know that functions ending with <code>!</code> are meta-programming, code generating code at compile-time</li>
+</ul>
+<p>I heard in some video that <strong>not having semicolon in the last statement of a block is implicit return</strong> so <code>app()</code> is returning the result of the <code>html!</code> macro.</p>
+<h2>First file</h2>
+<p>Only custom types in Rust are</p>
+<h3><code>struct</code></h3>
+<p>This is a container of properties of a given type. It can be generic exactly like Typescript.</p>
+<pre><code class="hljs language-rs"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">MyType</span>&#x3C;T> {
+  a: T,
+}
+
+<span class="hljs-comment">// methods can be added later</span>
+<span class="hljs-comment">// they can even be added by third-party modules</span>
+<span class="hljs-comment">// we can have multiple impl blocks for the same struct</span>
+<span class="hljs-comment">// they look like nothing more than stand-alone functions</span>
+<span class="hljs-comment">// with nice syntax-sugar to look like methods</span>
+<span class="hljs-keyword">impl</span> <span class="hljs-title class_">MyType</span>&#x3C;T> {
+  <span class="hljs-comment">// what does &#x26; do here? I don't know yet 🤷</span>
+  <span class="hljs-keyword">fn</span> <span class="hljs-title function_">myMethod</span>(&#x26;<span class="hljs-keyword">self</span>, x: <span class="hljs-type">i32</span>) <span class="hljs-punctuation">-></span> <span class="hljs-type">bool</span> { <span class="hljs-literal">true</span> }
+}
+
+<span class="hljs-comment">// structs can also be tuples</span>
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Vector2</span>(<span class="hljs-type">i32</span>, <span class="hljs-type">i32</span>);
+
+<span class="hljs-comment">// or even have no items at all</span>
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Person</span>;
+</code></pre>
+<h3><code>enum</code></h3>
+<p>Enums are particularly powerful, they define a "one of" type and each entry can have values inside</p>
+<pre><code class="hljs language-rs"><span class="hljs-comment">// this one is part of Rust</span>
+<span class="hljs-keyword">enum</span> <span class="hljs-title class_">Option</span>&#x3C;T> {
+  <span class="hljs-title function_ invoke__">Some</span>(T),
+  <span class="hljs-literal">None</span>,
+}
+
+<span class="hljs-keyword">enum</span> <span class="hljs-title class_">Event</span> {
+  Scroll,
+  <span class="hljs-title function_ invoke__">KeyDown</span>(Key),
+  Click { x: <span class="hljs-type">i32</span>, y: y32 },
+}
+
+<span class="hljs-comment">// yep, they can have methods too ❤️</span>
+<span class="hljs-keyword">impl</span> <span class="hljs-title class_">Event</span> {
+  <span class="hljs-keyword">fn</span> <span class="hljs-title function_">something</span>(&#x26;<span class="hljs-keyword">self</span>) <span class="hljs-punctuation">-></span> <span class="hljs-type">i32</span> { <span class="hljs-number">0</span> }
+}
+</code></pre>
+<h3>Back to the project</h3>
+<p>I can't wait to define my application's state with types so first thing I do is create a new file <code>types.rs</code> and create a struct inside, Github Copilot takes the rest for me</p>
+<pre><code class="hljs language-rs"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span> {
+  id: <span class="hljs-type">u64</span>, <span class="hljs-comment">// should have used i32</span>
+  node_type: NodeType,
+  name: <span class="hljs-type">String</span>,
+}
+
+<span class="hljs-keyword">enum</span> <span class="hljs-title class_">NodeType</span> {
+  Person,
+  Place
+}
+
+<span class="hljs-comment">// error: global values have to be const x: Type</span>
+<span class="hljs-comment">// but I won't know that for a while</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">me</span> = Node {
+  id: <span class="hljs-number">1</span>,
+  node_type: NodeType::Person,
+  name: <span class="hljs-string">"A. Matías Quezada"</span>,
+}
+</code></pre>
+<p>That looks good, now let's import this file and use this value but... why is VS Code "Go to definition" not working?</p>
+<h2>Editor integration</h2>
+<p>I change <code>main.rs</code> to a simple case</p>
+<pre><code class="hljs language-rs"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">test</span>() {}
+
+<span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() {
+    <span class="hljs-title function_ invoke__">test</span>();
+}
+</code></pre>
+<p>And no, VS Code doesn't know where to find <code>test</code> definition 🤦. I know from <a href="https://youtu.be/ifaLk5v3W90">my source material</a> that VS Code is integrated with Rust and I've installed a few of the most popular Rust extensions so why is this not working?</p>
+<p>Turns out the only extension we need to work with Rust is <code>rust-analyzer</code> and I have it installed and even <a href="https://code.visualstudio.com/docs/languages/rust">VS Code</a> documentation says it should work out of the box... Tried removing any other Rust extension I had, restarting VS Code, restarting the computer, disabling and re-enabling the extension and... wait! it works now, I don't know how.</p>
+<h2>Importing a file</h2>
+<p>Ok now let's import that <code>types.rs</code> file... it should be something like <code>use types::*</code>, right?</p>
+<p><a href="https://doc.rust-lang.org/book/ch07-02-defining-modules-to-control-scope-and-privacy.html">Wrong!</a></p>
+<p>Turns out <code>use</code> keyword only creates shortcuts (aliases) for existing items, it doesn't import them.</p>
+<p>So to import a file... ok someone on the internet says you should use <code>mod filename;</code> without the <code>.rs</code> extension but that's not working for me... ok let's breath deeply.</p>
+<pre><code class="hljs language-rs"><span class="hljs-comment">// main.rs</span>
+<span class="hljs-comment">// in a rust file we can define an inner module</span>
+<span class="hljs-keyword">mod</span> my_internal_module {
+  <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">some_internal_function</span>() {}
+}
+
+my_internal_module::<span class="hljs-title function_ invoke__">some_internal_function</span>();
+</code></pre>
+<p>And, in theory we should be able to move the content of that module to a file called <code>my_internal_module.rs</code> and change the <code>mod</code> instruction to <code>mod my_internal_module;</code> and that should work, and it does... once.</p>
+<p>Consider the following file structure:</p>
+<pre><code class="hljs language-rs"><span class="hljs-comment">// src/main.rs</span>
+<span class="hljs-keyword">mod</span> my_internal_module;
+
+my_internal_module::<span class="hljs-title function_ invoke__">some_internal_function</span>();
+
+<span class="hljs-comment">// src/my_internal_module.rs</span>
+<span class="hljs-keyword">mod</span> another_module;
+
+<span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">some_internal_function</span>() {
+  another_module::<span class="hljs-title function_ invoke__">deepest_function</span>();
+}
+
+<span class="hljs-comment">// src/another_module.rs</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">deepest_function</span>() {}
+</code></pre>
+<p>In this case Rust looks up <code>another_module</code> in <code>my_internal_module/another_module.rs</code>, apparently we can't chain <code>mod</code> imports this way. It works if we move all <code>mod</code> instructions to the <code>main.rs</code> file though.</p>
+<pre><code class="hljs language-rs"><span class="hljs-comment">// src/main.rs</span>
+<span class="hljs-keyword">mod</span> my_internal_module;
+<span class="hljs-keyword">mod</span> another_module;
+
+my_internal_module::<span class="hljs-title function_ invoke__">some_internal_function</span>();
+
+<span class="hljs-comment">// src/my_internal_module.rs</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">some_internal_function</span>() {
+  another_module::<span class="hljs-title function_ invoke__">deepest_function</span>();
+}
+
+<span class="hljs-comment">// src/another_module.rs</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">deepest_function</span>() {}
+</code></pre>
+<p>So main behaves like an index file and root for imported files, I guess I'll have to go with this until I learn more. I ended up <a href="https://github.com/amatiasq/learn-rust/blob/d69a056f1cb35723d504c48c58ee75fa51feecb1/src/main.rs#L1-L3">importing all files from <code>main.rs</code></a>.</p>
+<h2>First errors</h2>
+<h3>Error feedback</h3>
+<p>As I'm changing the code I notice the errors aren't in the right place and only update when I save the file. Of course, this is not an interpreted language, it's a copiled one so it needs me to save before it tries to understand what I wrote (I suppose). Being used to the rapid feedback of the Typescript ecosystem this breaks my flow a bit.</p>
+<p>Also looks like there are "layers" of errors, when I solve all of the compiler errors a second kind of errors pup up immediately all over the codebase and when I address those a bunch of warnings that haven't shown before suddently fill the place.</p>
+<p>The errors are really kind and explain exactly where the issue happened and even suggest a solution for it which is a lovely detail from the Rust compiler team.</p>
+<h3>Global values</h3>
+<p>Now that I'm importing the files and both the compiler and the editor are showing me the errors I see I can't just <code>let me = Node {...}</code> outside a function. The correct way to do this is with <code>const me: Node = Node {...}</code>. Why do I need to type the type name twice? I don't know, the compiler asked for it. Is there a way to avoid that? let me know if you find the answer.</p>
+<h3>Strings are not <code>&#x26;str</code></h3>
+<p>Now is where I start to get really lost, in <code>Node</code> struct I typed the property as <code>name: String</code> and when I try to instatiate the struct with <code>name: "A. Matías Quezada"</code> I'm immediately slapped by the error: <code>expected String, found &#x26;str</code> <a href="https://youtu.be/1Z9yy0t2RGQ">WAT</a></p>
+<pre><code> --> src/data.rs:6:11
+  |
+6 |     name: "A. Matías Quezada",
+  |           ^^^^^^^^^^^^^^^^^^^- help: try using a conversion method: `.to_string()`
+  |           |
+  |           expected struct `String`, found `&#x26;str`
+</code></pre>
+<p>Copilot had added <code>.to_string()</code> at the end of it and I removed it because I considered it redundant but, hey! we're here to learn. I change it back to <code>name: "A. Matías Quezada".to_string()</code> and it looks good, all other strings still fail but I save the file and no error is thrown in <em>this line</em>. I prompty add <code>.to_string()</code> to all other strings in the file, save aaaaaaaand...</p>
+<pre><code>error[E0015]: cannot call non-const fn `&#x3C;str as ToString>::to_string` in constants
+ --> src/data.rs:6:31
+  |
+6 |     name: "A. Matías Quezada".to_string(),
+</code></pre>
+<p>Ok... I don't know what to do now... what if... I just...</p>
+<pre><code class="hljs language-rs"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span> {
+    id: <span class="hljs-type">u64</span>,
+    node_type: NodeType,
+    <span class="hljs-comment">// name: String,</span>
+    name: &#x26;<span class="hljs-type">str</span>,
+}
+</code></pre>
+<p>🤞</p>
+<pre><code>error[E0106]: missing lifetime specifier
+  --> src/types.rs:19:15
+   |
+19 |     name: &#x26;str,
+   |               ^ expected named lifetime parameter
+   |
+help: consider introducing a named lifetime parameter
+   |
+16 ~ struct Node&#x3C;'a> {
+17 |     id: u64,
+18 |     node_type: NodeType,
+19 ~     name: &#x26;'a str,
+   |
+
+For more information about this error, try `rustc --explain E0106`.
+</code></pre>
+<p>Well at least it's telling me what to do, right? I just need to add a... named lifetime? parameter... whatever it is.</p>
+<pre><code class="hljs language-rs"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>&#x3C;<span class="hljs-symbol">'a</span>> {
+    id: <span class="hljs-type">u64</span>,
+    node_type: NodeType,
+    <span class="hljs-comment">// name: String,</span>
+    name: &#x26;<span class="hljs-symbol">'a</span> <span class="hljs-type">str</span>,
+}
+</code></pre>
+<p>Ok this can't be right, let's save and see...</p>
+<pre><code>error[E0106]: missing lifetime specifier
+  --> src/types.rs:30:20
+   |
+30 |     nodes: Vec&#x3C;Node>,
+   |                    ^^^^ expected named lifetime parameter
+   |
+help: consider introducing a named lifetime parameter
+   |
+29 ~ struct Graph&#x3C;'a> {
+30 ~     nodes: Vec&#x3C;Node&#x3C;'a>>,
+   |
+
+For more information about this error, try `rustc --explain E0106`.
+</code></pre>
+<p>Hm... ok I can do that, I also have a <code>create_graph()</code> function that probably needs to be updated:</p>
+<pre><code class="hljs language-rs"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">create_graph</span>&#x3C;<span class="hljs-symbol">'a</span>>() <span class="hljs-punctuation">-></span> Graph&#x3C;<span class="hljs-symbol">'a</span>> {
+  Graph {
+    nodes: <span class="hljs-built_in">vec!</span>[me]
+  }
+}
+</code></pre>
+<p>Well <a href="https://github.com/amatiasq/learn-rust/commit/1c9f5b740638eac27222a204fbec455e2cd6544a">I did something!</a>.</p>
+<h2>Takeaways</h2>
+<ul>
+<li>At first glance Rust looks simple and familiar</li>
+<li>The compiler errors are as good as they say</li>
+<li>There is no <code>null</code>, it's that simple</li>
+<li>The file structure looks familiar coming from javascript, having top-level exported functins and, optionally, classes</li>
+<li>The code is terse but with several symbols, not a fan of <code>::</code> and <code>&#x26;</code> everywhere and I find <code>&#x3C;'a></code>  difficult to type</li>
+<li>Rust doesn't allow creating logic outside a function and global values have special rules: they have to be <code>const</code> or <code>static</code> (the latter is mutable)</li>
+<li>The Rust language is quite thin and depends on libraries for most complex behaviour (async/await, http, threading...)</li>
+<li>The way to define methods is perfect, similar to C# extensions methods, allow to extend a third-party class without having access to it's source</li>
+<li>Rust output contains no types, let me repeat that, the binary knows nothing about types. The types are a tool for the developer and the compiler only</li>
+<li>There is many things about <code>lifecycle</code> that escapes my understanding but looks like we can use generic-like types to recive (from the function invoker) how long a variable should stay in memory</li>
+<li>A <code>crate</code> is a compilation unit, think of it like a DLL, an application may contain several crates</li>
+<li><a href="https://doc.rust-lang.org/book/">Rust book</a> is the next stop</li>
+</ul>
+<p>About language features:</p>
+<ul>
+<li>Love the macro system that gives us wonders like the <code>vec![1,2,3]</code> lists</li>
+<li><code>mod</code> can be use to create an inline module or to load a file from <code>main.rs</code></li>
+<li><code>use</code> creates namespace aliases and allows for multiple values or <code>*</code>: <code>use namespace::module::{A,B,C}</code></li>
+<li>Looks like there are several types for string: <code>String</code>, <code>&#x26;str</code>, more?</li>
+<li>The type system is the best part I love that <code>struct</code> can be a tuple or have no items</li>
+<li>Not sure of this but looks like <code>enum</code> branches are actually structs</li>
+</ul>
+<pre><code class="hljs language-rs"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">MyStruct1</span> { x: <span class="hljs-type">i32</span> }
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">MyStruct2</span>(<span class="hljs-type">i32</span>);
+<span class="hljs-comment">// this is like an interface</span>
+<span class="hljs-comment">// with no members</span>
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">MyStruct3</span>;
+
+<span class="hljs-keyword">enum</span> <span class="hljs-title class_">MyEnum</span> {
+  <span class="hljs-comment">// exactly the same code but</span>
+  <span class="hljs-comment">// without `struct` keyword</span>
+  MyStruct1 { x: <span class="hljs-type">i32</span> },
+  <span class="hljs-title function_ invoke__">MyStruct2</span>(<span class="hljs-type">i32</span>),
+  MyStruct3,
+}
+</code></pre>
+<p>Maybe I should've started with a project I'm more familiar with... did somebody say Lulas v38.0?</p>
+<p>Eat more vegetables</p></article></div><footer class="amq-footer"><span>Created by A. Matías Quezada</span><!-- <span>Copyright 2023</span> --></footer></main></body></html>

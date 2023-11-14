@@ -1,0 +1,206 @@
+<!DOCTYPE html><html lang="en" class="astro-ydck33jo"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v3.4.0"><title>A. Matías Quezada</title><style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: GitHub Dark
+  Description: Dark theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-dark
+  Current colors taken from GitHub's CSS
+*/.hljs{color:#c9d1d9;background:#0d1117}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#ff7b72}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#d2a8ff}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-variable,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id{color:#79c0ff}.hljs-regexp,.hljs-string,.hljs-meta .hljs-string{color:#a5d6ff}.hljs-built_in,.hljs-symbol{color:#ffa657}.hljs-comment,.hljs-code,.hljs-formula{color:#8b949e}.hljs-name,.hljs-quote,.hljs-selector-tag,.hljs-selector-pseudo{color:#7ee787}.hljs-subst{color:#c9d1d9}.hljs-section{color:#1f6feb;font-weight:700}.hljs-bullet{color:#f2cc60}.hljs-emphasis{color:#c9d1d9;font-style:italic}.hljs-strong{color:#c9d1d9;font-weight:700}.hljs-addition{color:#aff5b4;background-color:#033a16}.hljs-deletion{color:#ffdcd7;background-color:#67060c}pre code.hljs{--_code-margin: var(--code-margin, 1.5em);white-space:pre;background-color:#000;margin:var(--_code-margin) calc(var(--_code-margin) * -1);padding:var(--_code-margin);border-radius:8px}pre code.hljs>.hljs-comment{color:#999}code:not(.hljs){padding:0 .3em .1em;border-radius:5px;background-color:#0000004d}.md li{list-style:initial}.md ul,.md ol{margin:20px 0;padding:reset}.md p{text-align:justify}.md blockquote{border-left:5px solid var(--color-foreground);margin-left:0;padding-left:1em}.md :is(h1,h2,h3,h4,h5,h6){margin-top:2em}
+</style>
+<link rel="stylesheet" href="/v2.0/_astro/_slug_.04db7373.css" />
+<style>.tag-list{display:flex;gap:.5em;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+</style></head><body class="astro-ydck33jo"><header class="amq-header"><div class="container"><h2 class="amq"><a class="name" href="../../../"><span>{</span><abbr>Adrian</abbr><span class="dot">.</span><span>Matías Quezada</span><span>}</span></a></h2><nav><a href="../../../blog/">Blog</a><a href="../../../projects/">Projects</a><a href="../../../career/">Career</a><!-- <div class="lang-selector"> --><a href="../../../es/v2.0/blog/patron-promise-implementacion/">
+🇪🇸
+</a><!-- </div> --></nav></div></header><main class="astro-ydck33jo"><div class="container"><h1>Promise pattern: Implementation (spanish)</h1><ul class="tag-list md-tags"></ul><article class="md"><p>Lo prometido es deuda (bien lo saben las funciones) y he encontrado un momento para empezar a explicar la forma en la que he implementado el patrón Promise en mi caso, no tiene porqué ser la mejor, pero cumple con su cometido.</p>
+<p><strong>NOTA:</strong> Me gustaría implementarla en Test Driven Development, pero ya es bastante para quien lee y para el que escribe seguir la implementación como para encima añadir TDD, pero no quisiera dejar de recomendarlo.</p>
+<h3>Primero: Funcionalidad básica</h3>
+<p>Lo que necesitamos de un objeto Promise es:</p>
+<ul>
+<li>Crear instancias totalmente independientes</li>
+<li>Añadirle callbacks que serán llamados cuando se cumpla la promesa</li>
+<li>Notificarle cuando se ha cumplido la promesa</li>
+</ul>
+<p>Con los objetivos en la mano es más sencillo ver que hacer, lo primero necesitamos una clase, a la hora de crear clases en Javascript yo me decanto por el patrón de constructor con prototipos que espero explicar algún día.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Promise</span>(<span class="hljs-params"></span>) {}
+</code></pre>
+<p><strong>Segundo punto:</strong> poder añadirle callbacks, ésto consiste en el método <code>.then()</code> al que deberemos poder llamar pasándole las funciones que queremos que se ejecuten cuando la promesa se cumpla. Puesto de debe poderse añadir más de un callback para cada promise lo más lógico sería crear un Array donde almacenarlos</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Promise</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">_callbacks</span> = [];
+}
+</code></pre>
+<p>Y el método <code>.then()</code> que vaya añadiendo al Array los callbacks que se le pasen, puesto que es mejor que los errores se detecten cuanto antes también podemos asegurarnos que el callback es una función:</p>
+<pre><code class="hljs language-js"><span class="hljs-title class_">Promise</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">then</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">callback</span>) {
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> callback !== <span class="hljs-string">'function'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">"[Promise.then] El argumento 'callback' no es una función "</span> + <span class="hljs-keyword">typeof</span> callback);
+  }
+
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">_callbacks</span>.<span class="hljs-title function_">push</span>(callback);
+};
+</code></pre>
+<p>Y ahora que ya tenemos todos los callbacks en un Array necesitamos algún sistema para avisarle al Promise que ya tiene los datos que necesita y que se los pase a los callbacks. Sobre ésto no he visto ninguna implementación, pero a mi me parece bastante razonable crear un método <code>Promise.done()</code> que notifica al Promise que ya está cumplido y ejecuta los callbacks.</p>
+<pre><code class="hljs language-js"><span class="hljs-title class_">Promise</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">done</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">var</span> callback;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &#x3C; <span class="hljs-variable language_">this</span>.<span class="hljs-property">_callbacks</span>.<span class="hljs-property">length</span>; i++) {
+    callback = <span class="hljs-variable language_">this</span>.<span class="hljs-property">_callbacks</span>[i];
+    <span class="hljs-title function_">callback</span>();
+  }
+};
+</code></pre>
+<p>Y ya lo tenemos hecho, hemos creado un Promise básico, vamos a probarlo. Imaginemos cualquier función asíncrona, por ejemplo vamos a crear una función que nos avise cuando pase un segundo:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">esperarUnSegundo</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">var</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>();
+  <span class="hljs-comment">// Hacemos un timeout a mil milisegundos</span>
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    promise.<span class="hljs-title function_">done</span>();
+  }, <span class="hljs-number">1000</span>);
+  <span class="hljs-keyword">return</span> promise;
+}
+
+<span class="hljs-title function_">esperarUnSegundo</span>().<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+  <span class="hljs-title function_">alert</span>(<span class="hljs-string">'Ha pasado un segundo =D'</span>);
+});
+</code></pre>
+<p>Pruébame</p>
+<p>Si probamos todo el código veremos que al cabo de un segundo ejecuta el alert.</p>
+<p>Todo funciona perfectamente, vamos un punto más allá, ésta vez descarguemos una página, como no nos importa ahora mismo el código que descarga la página fingiremos llamar a una función <code>peticiónHttp(url, callback)</code> que lo hará por nosotros.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">descargar</span>(<span class="hljs-params">url</span>) {
+  <span class="hljs-keyword">var</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>();
+  petició<span class="hljs-title function_">nHttp</span>(url, <span class="hljs-keyword">function</span> (<span class="hljs-params">codigoHtml</span>) {
+    promise.<span class="hljs-title function_">done</span>();
+  });
+  <span class="hljs-keyword">return</span> promise;
+}
+<span class="hljs-title function_">descargar</span>(<span class="hljs-string">'www.google.com'</span>).<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+  <span class="hljs-comment">// Y ahora?</span>
+});
+</code></pre>
+<p>Sorpresa! La función ha descargado la página y obtenido el html, pero nuestro Promise no ha sido capaz de pasarlo al callback. La función del Promise en un principio era avisar cuando una tarea asíncrona termina, pero la mayoría de las tareas asíncronas devuelven un resultado y cuando avisemos al Promise que se ha cumplido también querremos que pase el resultado a todos los callbacks. Para ello modificaremos el método done y para que pase a los callbacks todos los argumentos que se le pasen a él (si no sabes lo que hace el método apply puedes mirarlo <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function/apply" title="appy method">aquí</a>):</p>
+<pre><code class="hljs language-js"><span class="hljs-title class_">Promise</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">done</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+  <span class="hljs-comment">// Guardamos los argumentos que se le ha pasado a .done()</span>
+  <span class="hljs-keyword">var</span> args = <span class="hljs-variable language_">arguments</span>;
+  <span class="hljs-keyword">var</span> callback;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &#x3C; <span class="hljs-variable language_">this</span>.<span class="hljs-property">_callbacks</span>.<span class="hljs-property">length</span>; i++) {
+    callback = <span class="hljs-variable language_">this</span>.<span class="hljs-property">_callbacks</span>[i];
+    <span class="hljs-comment">// Y se los pasamos al callback</span>
+    callback.<span class="hljs-title function_">apply</span>(<span class="hljs-literal">null</span>, args);
+  }
+};
+</code></pre>
+<p>Y ya está, ahora podemos pasarle argumentos a <code>.done()</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">descargar</span>(<span class="hljs-params">url</span>) {
+  <span class="hljs-keyword">var</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>();
+  petició<span class="hljs-title function_">nHttp</span>(url, <span class="hljs-keyword">function</span> (<span class="hljs-params">codigoHtml</span>) {
+    promise.<span class="hljs-title function_">done</span>(codigoHtml);
+  });
+  <span class="hljs-keyword">return</span> promise;
+}
+
+<span class="hljs-title function_">descargar</span>(<span class="hljs-string">'www.google.com'</span>).<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">codigoHtml</span>) {
+  <span class="hljs-title function_">alert</span>(codigoHtml);
+});
+</code></pre>
+<p>Ya tenemos nuestra versión 0.1 de la clase Promise :D</p>
+<h3>Segundo: Gestión de errores</h3>
+<p>Hasta aquí ya tenemos un Promise con el que avisar cuando acaba una tarea asíncrona, pero nos olvidamos de algo muy importante, a la hora de programar no todo sale como quisiéramos y muchas veces nos encontramos con errores, que pasaría si <code>peticiónHttp()</code> fallara? Que jamás se ejecutaría el <code>.done()</code> del Promise que hemos devuelto y el callback esperará sentado a que lo llamen el resto de su vida. Hay que preparar el Promise para que avise cuando algo va mal. Necesitamos añadirle al Promise:</p>
+<ul>
+<li>Poder añadir callbacks especiales para cuando se produzca un error</li>
+<li>Avisarle cuando se produzca un error</li>
+<li>Que le pase al callback de error el objeto Error que se ha lanzado</li>
+</ul>
+<p>Lo primero es que el Promise no solo reciba un callback normal sino que también reciba otro callback que será ejecutado solo si se produce un error. Una idea que me gusta es dárselo al método <code>.then()</code> como segundo argumento, ya que el primero es el callback normal. Y éste debería guardarlo, para ello debemos crear otro Array donde guardar los callbacks de errores:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Promise</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">_callbacks</span> = [];
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">_onError</span> = [];
+}
+<span class="hljs-title class_">Promise</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">then</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">callback, onError</span>) {
+  <span class="hljs-comment">// Validamos el callback normal</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> callback !== <span class="hljs-string">'function'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">"[Promise.then] El argumento 'callback' no es una función "</span> + <span class="hljs-keyword">typeof</span> callback);
+  }
+  <span class="hljs-comment">// Validamos el callback de error. Como es opcional puede ser 'undefined' o una función</span>
+  <span class="hljs-keyword">if</span> (onError &#x26;&#x26; <span class="hljs-keyword">typeof</span> onError !== <span class="hljs-string">'function'</span>) {
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">"[Promise.then] El argumento 'onError' no es una función "</span> + <span class="hljs-keyword">typeof</span> onError);
+  }
+
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">_callbacks</span>.<span class="hljs-title function_">push</span>(callback);
+  <span class="hljs-comment">// Si no era undefined debe ser una función, porque ya lo validamos</span>
+  <span class="hljs-keyword">if</span> (onError) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_onError</span>.<span class="hljs-title function_">push</span>(onError);
+  }
+};
+</code></pre>
+<p>Como se ve es prácticamente lo mismo que para los callbacks, ya que se trata de lo mismo, un callback por si hay errores. Ahora vamos a matar los últimos dos puntos de un tiro. Añadiremos un método para avisar al Promise cuando se produzca un error y le pasaremos el objeto Error para que lo pase a todos los callbacks de error.</p>
+<pre><code class="hljs language-js"><span class="hljs-title class_">Promise</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">fail</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) {
+  <span class="hljs-keyword">var</span> callback;
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &#x3C; <span class="hljs-variable language_">this</span>.<span class="hljs-property">_onError</span>.<span class="hljs-property">length</span>; i++) {
+    callback = <span class="hljs-variable language_">this</span>.<span class="hljs-property">_onError</span>[i];
+    <span class="hljs-title function_">callback</span>(error);
+  }
+};
+</code></pre>
+<p>Y ya está, ahora cuando llamemos al método <code>.fail()</code> llamará a todos los callbacks de error y les pasará el objeto Error. Ahora podemos adaptar la función <code>descargar()</code> para que también notifique cuando se produzca un error:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">descargar</span>(<span class="hljs-params">url</span>) {
+  <span class="hljs-keyword">var</span> promise = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>();
+  <span class="hljs-keyword">try</span> {
+    petició<span class="hljs-title function_">nHttp</span>(url, <span class="hljs-keyword">function</span> (<span class="hljs-params">codigoHtml</span>) {
+      promise.<span class="hljs-title function_">done</span>(codigoHtml);
+    });
+  } <span class="hljs-keyword">catch</span> (error) {
+    promise.<span class="hljs-title function_">fail</span>(error);
+  }
+  <span class="hljs-keyword">return</span> promise;
+}
+<span class="hljs-title function_">descargar</span>(<span class="hljs-string">'www.google.com'</span>).<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">codigoHtml</span>) {
+  <span class="hljs-title function_">alert</span>(codigoHtml);
+});
+</code></pre>
+<p>Ahora ya podemos decir que tenemos la versión 0.2 del Promise tengo que dejar para otro post métodos más complicados como <code>.then()</code> concatenados y el <code>.and()</code> porque ya es muy tarde. Aquí dejo el código completo al que le he añadido la propiedad <code>_estado</code> para evitar que se pueda cumplir o fallar un Promise cuando ya está cumplido o fallado.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Promise</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">_callbacks</span> = [];
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">_onError</span> = [];
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">_estado</span> = <span class="hljs-string">'esperando'</span>;
+}
+
+<span class="hljs-title class_">Promise</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">then</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">callback, onError</span>) {
+  <span class="hljs-comment">// Validamos el callback normal</span>
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> callback !== <span class="hljs-string">'function'</span>)
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">"[Promise.then] El argumento 'callback' no es una función "</span> + <span class="hljs-keyword">typeof</span> callback);
+
+  <span class="hljs-comment">// Validamos el callback de error. Como es opcional puede ser 'undefined' o una función</span>
+  <span class="hljs-keyword">if</span> (onError &#x26;&#x26; <span class="hljs-keyword">typeof</span> onError !== <span class="hljs-string">'function'</span>)
+    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">"[Promise.then] El argumento 'onError' no es una función "</span> + <span class="hljs-keyword">typeof</span> onError);
+
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">_callbacks</span>.<span class="hljs-title function_">push</span>(callback);
+  <span class="hljs-comment">// Si no era undefined debe ser una función, porque ya lo validamos</span>
+  <span class="hljs-keyword">if</span> (onError) <span class="hljs-variable language_">this</span>.<span class="hljs-property">_onError</span>.<span class="hljs-title function_">push</span>(onError);
+};
+
+<span class="hljs-title class_">Promise</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">done</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) {
+  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">_estado</span> !== <span class="hljs-string">'esperando'</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">'Intentando cumplir un promise que ya ha finalizado'</span>);
+
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">_estado</span> = <span class="hljs-string">'cumplido'</span>;
+  <span class="hljs-comment">// Guardamos los argumentos que se le ha pasado a .done()</span>
+  <span class="hljs-keyword">var</span> args = <span class="hljs-variable language_">arguments</span>;
+  <span class="hljs-keyword">var</span> callback;
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &#x3C; <span class="hljs-variable language_">this</span>.<span class="hljs-property">_callbacks</span>.<span class="hljs-property">length</span>; i++) {
+    callback = <span class="hljs-variable language_">this</span>.<span class="hljs-property">_callbacks</span>[i];
+    <span class="hljs-comment">// Y se los pasamos al callback</span>
+    callback.<span class="hljs-title function_">apply</span>(<span class="hljs-literal">null</span>, args);
+  }
+};
+
+<span class="hljs-title class_">Promise</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">fail</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">error</span>) {
+  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">_estado</span> !== <span class="hljs-string">'esperando'</span>) <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">'Intentando hacer fallar un promise que ya ha finalizado'</span>);
+
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">_estado</span> = <span class="hljs-string">'fallado'</span>;
+  <span class="hljs-keyword">var</span> callback;
+
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &#x3C; <span class="hljs-variable language_">this</span>.<span class="hljs-property">_onError</span>.<span class="hljs-property">length</span>; i++) {
+    callback = <span class="hljs-variable language_">this</span>.<span class="hljs-property">_onError</span>[i];
+    <span class="hljs-title function_">callback</span>(error);
+  }
+};
+</code></pre></article></div><footer class="amq-footer"><span>Created by A. Matías Quezada</span><!-- <span>Copyright 2023</span> --></footer></main></body></html>

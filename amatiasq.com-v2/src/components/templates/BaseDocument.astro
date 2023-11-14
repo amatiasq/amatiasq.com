@@ -1,0 +1,27 @@
+---
+import '../../styles/base.css';
+import { getLangFromUrl } from '@internals/i18n';
+
+export interface Props {
+  title?: string;
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+const title = [Astro.props.title, 'A. Matías Quezada']
+  .filter(Boolean)
+  .join(' | ');
+---
+
+<html lang={getLangFromUrl(Astro.url)}>
+  <head>
+    <meta charset="utf-8" />
+    <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+  </head>
+  <body class:list={[className]}>
+    <slot />
+  </body>
+</html>

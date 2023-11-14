@@ -1,0 +1,30 @@
+---
+import Link from './Link.astro';
+
+interface Props {
+  page: string;
+  remaining?: number;
+}
+
+const { page, remaining } = Astro.props;
+---
+
+<div class="view-all">
+  <Link page={page}>View {remaining ? `${remaining} more` : 'All'} →</Link>
+</div>
+
+<style is:global>
+  .view-all {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+
+    > a {
+      color: var(--color-primary);
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+  }
+</style>

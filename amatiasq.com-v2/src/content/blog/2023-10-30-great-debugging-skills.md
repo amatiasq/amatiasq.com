@@ -20,38 +20,38 @@ I then joined a team whose aim was to rewrite it a second time with the followin
 
 ```js
 function Form(url) {
-    // private field
-    var fields = [];
-    // public field
-    this.el = document.createElement('form');
+  // private field
+  var fields = [];
+  // public field
+  this.el = document.createElement('form');
 
-    // private methods
-    function validateFields() {
-        // do something with fields
-        // remember .map() .filter() .aggregate() etc. don't exist
-    }
+  // private methods
+  function validateFields() {
+    // do something with fields
+    // remember .map() .filter() .aggregate() etc. don't exist
+  }
 
-    // public method
-    //
-    // we had to duplicate the name so the callstack wasn't
-    //      error in 'anonymous' function
-    // I begged for years for automatically-named arrow functions
-    // they weren't
-    this.addField = function addField(field) {
-        // semicolons were required
-        // sometimes we just forgot
-        // and no tooling fixed it for JS
-        fields.push(field)
-    }
+  // public method
+  //
+  // we had to duplicate the name so the callstack wasn't
+  //      error in 'anonymous' function
+  // I begged for years for automatically-named arrow functions
+  // they weren't
+  this.addField = function addField(field) {
+    // semicolons were required
+    // sometimes we just forgot
+    // and no tooling fixed it for JS
+    fields.push(field);
+  };
 
-    this.el.addEventListener('submit', function(event) {
-        event.preventDefault();
-        validateFields();
-        // submit();
-    });
+  this.el.addEventListener('submit', function (event) {
+    event.preventDefault();
+    validateFields();
+    // submit();
+  });
 }
 
-var form = new Form("");
+var form = new Form('');
 document.body.appendChild(form.el);
 ```
 
@@ -63,17 +63,17 @@ He had started a different re-writing of the application, a third Version 2.0 ma
 
 ```js
 function Form(action) {
-    // private field, just convention
-    this._fields = [];
-    // public field
-    this.action = action;
+  // private field, just convention
+  this._fields = [];
+  // public field
+  this.action = action;
 }
 Form.prototype.addField = function addField(field) {
-    // ahh simpler times
-    this.field.push(field)
+  // ahh simpler times
+  this.field.push(field);
 };
 
-var form = new Form("")
+var form = new Form('');
 ```
 
 This is where I learnt about the protype inheritance and understood that the function `addField` is a single one, shared across all instances which magically are injected on invocation via **THE LAST DOT RULE**.
@@ -83,21 +83,23 @@ This is where I learnt about the protype inheritance and understood that the fun
 This is a simple explanation of what is `this` inside a function.
 Skip to the end to continue the story.
 
+The last dot rule, which I made up, says...
+
 > Look at where line where the function is invoked. Whatever is before the last dot, right before the function name, that will be `this` inside that function, and only for that invocation.
 
 ```js
 // in global scope `this` is the window object
-this
+this;
 
 // call addEventListener and pass window as `this`
 window.addEventLister();
 
 // call function appendChild with document.body as `this`
-document.body.appendChild()
+document.body.appendChild();
 
 function whatIsThis() {
-    // this can be window, or anything before the dot
-    return this;
+  // this can be window, or anything before the dot
+  return this;
 }
 
 // whatIsThis is invoked with no `this`
@@ -106,7 +108,7 @@ function whatIsThis() {
 whatIsThis() === window;
 
 // because every global variable belongs to the global scope
-window.whatIsThis() === window
+window.whatIsThis() === window;
 
 var container = { whatIsThis: whatIsThis };
 container.whatIsThis() === container;
@@ -132,18 +134,18 @@ Let me try to reproduce it from memory, I'll make it up as `Rectangle` but it wa
 
 ```js
 function Rectangle(paramA, paramB, paramC) {
-    alert(paramA)
-    prompt(paramB)
-    console.log(paramC)
-    this.el = ce('div');
-    this.someField = '';
+  alert(paramA);
+  prompt(paramB);
+  console.log(paramC);
+  this.el = ce('div');
+  this.someField = '';
 }
 Rectangle.prototype.enabled = true;
 Rectangle.prototype.sides = 4;
 Rectangle.prototype.anchor = 'center';
-Rectangle.prototype.styles = { color: 'red', borderColor: 'blue' }
+Rectangle.prototype.styles = { color: 'red', borderColor: 'blue' };
 Rectangle.prototype.iAmAMethod = function iAmAMethod() {
-    this.someField = 'potato';
+  this.someField = 'potato';
 };
 ```
 
@@ -174,7 +176,7 @@ const c = b.querySelector;
 // and invoke that function
 // but pass `document.body` as `this`
 // and ".button" as first argument
-c.call(document.body, '.button')
+c.call(document.body, '.button');
 ```
 
 What can be even more difficult to see is what happens when we _set_ a pointer and when we modify what it points to.
@@ -183,7 +185,7 @@ What can be even more difficult to see is what happens when we _set_ a pointer a
 // a points to String(potato)
 let a = 'potato';
 // now we change the pointer, a points to a different address
-a = 'other-potato'
+a = 'other-potato';
 
 // we create an object, b points to it
 const b = { a };
@@ -203,26 +205,25 @@ And that was exactly what happened with that class, the `styles` property was a 
 const a = new Rectangle();
 const b = new Rectangle();
 
-console.log(b.styles.color) // red
+console.log(b.styles.color); // red
 
 // we're changing the object `styles` points to
 // `styles` is a pointer that lives in the prototype object
 // so all instances point to the same address in memory
 // changing the object in one will change it for all
-a.styles.color = 'purple'
+a.styles.color = 'purple';
 
-console.log(b.styles.color) // purple
+console.log(b.styles.color); // purple
 ```
 
 That doesn't happen if we move `styles` to the constructor because it's invoked once per instance and each instance will get it's own styles object with it's own, different, pointer.
 
 For when I confirmed that was the issue my teammates were already gone and our Version Control System didn't allow us to edit a file while another person had it open. Yep, that's how it was. So the next day I let my team know of the findings and we promptly moved `styles` to the constructor which solved the issue.
 
-
 ```js
 function Rectangle(paramA, paramB, paramC) {
-    // this is a different object for each instance
-    this.styles = { color: 'red', borderColor: 'blue' };
+  // this is a different object for each instance
+  this.styles = { color: 'red', borderColor: 'blue' };
 }
 Rectangle.prototype.enabled = true;
 Rectangle.prototype.sides = 4;
@@ -240,7 +241,7 @@ const a = new Rectangle();
 // so JS will check if the prototype has it, and return that
 // setting it here creates the property `enabled` at the moment
 // in the object `a` points to
-a.enabled = false
+a.enabled = false;
 ```
 
 We stopped defining "class fields" in the prototype for hygene but never spent the time to remove them all.

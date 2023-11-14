@@ -1,59 +1,46 @@
 ---
-import Link from '../atoms/Link.astro';
+export interface Props {
+  class?: string;
+  brackets?: boolean;
+}
+
+const { class: className, brackets = false } = Astro.props;
 ---
 
-<h2 class="amq">
-  <Link class="name" page="/">
-    <span>{'{'}</span>
-    <abbr>Adrian</abbr>
-    <span class="dot">.</span>
-    <span>Matías Quezada</span>
-    <span>{'}'}</span>
-  </Link>
-</h2>
+<span class:list={['a-matias-quezada', className]}>
+  {brackets ? <span>{'{'}</span> : null}
+  <abbr>Adrian</abbr>
+  <span class="dot">.</span>
+  <span>Matías Quezada</span>
+  {brackets ? <span>{'}'}</span> : null}
+</span>
 
 <style is:global>
-  .amq {
-    display: flex;
-    gap: var(--space-md);
-    align-items: center;
-    margin: 0;
-    font-size: 1.3em;
-    font-weight: 400;
+  .a-matias-quezada {
+    --_width-modifier: var(--width-modifier, 1);
+    white-space: nowrap;
 
-    & .name {
-      color: var(---color-foreground-strong);
-      display: flex;
-      align-items: baseline;
-      letter-spacing: 1px;
-      white-space: nowrap;
-
-      & abbr {
-        display: inline-flex;
-        width: 0.7em;
-        overflow: hidden;
-        transition: width var(--animation-speed-medium) ease;
-      }
-
-      & abbr,
-      & span + span {
-        margin-left: 0.4em;
-      }
-
-      &:hover {
-        & abbr {
-          width: 3.3em;
-        }
-        & .dot {
-          display: none;
-        }
-      }
+    > abbr {
+      display: inline-flex;
+      width: calc(var(--_width-modifier) * 0.7em);
+      overflow: hidden;
+      transition: width 0.2s ease;
+      /* margin-left: 0.2em; */
     }
-  }
 
-  @media (min-width: 769px) {
-    .amq {
-      font-size: 1.5em;
+    > span + abbr,
+    > span + span {
+      margin-left: calc(var(--_width-modifier) * 0.2em);
+    }
+
+    &:hover {
+      > abbr {
+        width: calc(var(--_width-modifier) * 3.3em);
+      }
+
+      > .dot {
+        display: none;
+      }
     }
   }
 </style>

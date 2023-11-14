@@ -1,0 +1,122 @@
+---
+import { readCollection, type Content } from '@internals/content';
+import { setLang } from '@internals/i18n';
+import Container from '@components/atoms/Container.astro';
+import Tr from '@components/atoms/Tr.astro';
+import ContentCards from '@components/organisms/ContentCards.astro';
+import BaseLayout from '@components/templates/BaseLayout.astro';
+import BlogPostList from '@components/page-index/BlogPostList.astro';
+import CareerList from '@components/page-index/CareerList.astro';
+import Introduction from '@components/page-index/Introduction.astro';
+
+setLang(Astro.url);
+
+const projects = present(await readCollection('projects'));
+const blog = present(await readCollection('blog'));
+const experiments = present(await readCollection('experiments'));
+const talks = present(await readCollection('talks'));
+const career = present(await readCollection('career')).filter(
+  (x) => !x.data.hide,
+);
+
+function present<T extends Content>(list: T[]) {
+  const pinned = list.filter((x) => 'pinned' in x.data);
+  const unpinned = list.filter((x) => !('pinned' in x.data));
+  return [...unpinned, ...pinned].reverse().slice(0, 6);
+}
+---
+
+<BaseLayout>
+  <Introduction />
+
+  <section class="projects">
+    <Container>
+      <h2>
+        <Tr slot="header" en="🧑‍💻 Projects" es="🧑‍💻 Projectos" />
+      </h2>
+      <ContentCards entries={projects} />
+    </Container>
+  </section>
+
+  <section class="blog">
+    <Container>
+      <h2>✍️ Blog</h2>
+      <BlogPostList posts={blog} />
+    </Container>
+  </section>
+
+  <section class="experiments">
+    <Container>
+      <h2>
+        <Tr slot="header" en="🧪 Experiments" es="🧪 Experimentos" />
+      </h2>
+      <ContentCards entries={experiments} />
+    </Container>
+  </section>
+
+  <section class="talks">
+    <Container>
+      <h2>
+        <Tr slot="header" en="💬 Talks" es="💬 Charlas" />
+      </h2>
+      <ContentCards entries={talks} showYear />
+    </Container>
+  </section>
+
+  <section class="career">
+    <Container>
+      <h2>
+        <Tr slot="header" en="💼 Career" es="💼 Experiencia" />
+      </h2>
+      <CareerList career={career} />
+    </Container>
+  </section>
+
+  <style is:global>
+    body {
+      max-height: 100dvh;
+    }
+
+    main {
+      flex: 1;
+      overflow-x: hidden;
+      overflow-y: scroll;
+
+      display: flex;
+      flex-direction: column;
+      gap: 25dvh;
+    }
+
+    section {
+      --columns: 1;
+      --gap: 3em;
+      --text-gap: 0.7em;
+
+      & .container {
+        display: flex;
+        gap: var(--gap);
+        flex-direction: column;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+
+      & h2 {
+        margin: 0;
+        font-size: 3em;
+        font-weight: lighter;
+      }
+    }
+
+    @media (min-width: 769px) {
+      main {
+        padding-top: 5em;
+      }
+
+      section {
+        --columns: 2;
+        --gap: 4em;
+        --text-gap: 1em;
+      }
+    }
+  </style>
+</BaseLayout>

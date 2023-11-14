@@ -3,7 +3,7 @@ import type { ContentOf } from '../../internals/content';
 import Time from '../atoms/Time.astro';
 import Image from '../atoms/Image.astro';
 import Tr from '../atoms/Tr.astro';
-import MarkdownExcerpt from './MarkdownExcerpt.astro';
+import MarkdownExcerpt from '../molecules/MarkdownExcerpt.astro';
 import Link from '../atoms/Link.astro';
 import type { Showcaseable } from '../../content/_meta';
 
@@ -17,7 +17,7 @@ interface Props {
 const { entries, showYear } = Astro.props;
 ---
 
-<ol class="content-cards">
+<ol class="showcase-cards unstyled">
   {
     entries.map((entry) => (
       <li class="entry-card">
@@ -34,21 +34,29 @@ const { entries, showYear } = Astro.props;
   }
 
   <style is:global>
-    .content-cards {
-      --_columns: var(--columns, 2);
-      --_text-gap: var(--text-gap, 1em);
+    .showcase-cards {
+      --_columns: var(--columns, 1);
+      --_gap: var(--gap, calc(var(--spacing) * 2));
+      --_text-gap: var(--text-gap, calc(var(--spacing) / 2));
 
-      display: grid;
-      grid-template-columns: repeat(var(--_columns), minmax(0, 1fr));
-      gap: var(--gap, 3em);
+      flex: 1 1 100px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      row-gap: var(--_gap);
+
+      /* grid-template-columns: repeat(var(--_columns), minmax(0, 1fr)); */
+      grid-template-rows: repeat(var(--_columns), minmax(0, 1fr));
+      gap: var(--_gap);
       margin: 0;
     }
 
-    .content-cards > .title:empty {
+    .showcase-cards > .title:empty {
       display: none;
     }
 
     .entry-card {
+      width: 40%;
       color: currentColor;
 
       & img {
@@ -62,16 +70,8 @@ const { entries, showYear } = Astro.props;
       & h4 {
         margin: var(--_text-gap) 0 calc(var(--_text-gap) * 0.9);
         display: flex;
-        justify-content: space-between;
+        justify-showcase: space-between;
         gap: 1em;
-      }
-    }
-
-    @media (min-width: 769px) {
-      .entry-card {
-        & h4 {
-          margin: calc(var(--_text-gap) * 1.2) 0 var(--_text-gap);
-        }
       }
     }
   </style>

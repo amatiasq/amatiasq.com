@@ -1,0 +1,225 @@
+<!DOCTYPE html><html lang="en" class="astro-ydck33jo"><head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="viewport" content="width=device-width"><meta name="generator" content="Astro v3.4.0"><title>A. Matías Quezada</title><style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: GitHub Dark
+  Description: Dark theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-dark
+  Current colors taken from GitHub's CSS
+*/.hljs{color:#c9d1d9;background:#0d1117}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#ff7b72}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#d2a8ff}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-variable,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id{color:#79c0ff}.hljs-regexp,.hljs-string,.hljs-meta .hljs-string{color:#a5d6ff}.hljs-built_in,.hljs-symbol{color:#ffa657}.hljs-comment,.hljs-code,.hljs-formula{color:#8b949e}.hljs-name,.hljs-quote,.hljs-selector-tag,.hljs-selector-pseudo{color:#7ee787}.hljs-subst{color:#c9d1d9}.hljs-section{color:#1f6feb;font-weight:700}.hljs-bullet{color:#f2cc60}.hljs-emphasis{color:#c9d1d9;font-style:italic}.hljs-strong{color:#c9d1d9;font-weight:700}.hljs-addition{color:#aff5b4;background-color:#033a16}.hljs-deletion{color:#ffdcd7;background-color:#67060c}pre code.hljs{--_code-margin: var(--code-margin, 1.5em);white-space:pre;background-color:#000;margin:var(--_code-margin) calc(var(--_code-margin) * -1);padding:var(--_code-margin);border-radius:8px}pre code.hljs>.hljs-comment{color:#999}code:not(.hljs){padding:0 .3em .1em;border-radius:5px;background-color:#0000004d}.md li{list-style:initial}.md ul,.md ol{margin:20px 0;padding:reset}.md p{text-align:justify}.md blockquote{border-left:5px solid var(--color-foreground);margin-left:0;padding-left:1em}.md :is(h1,h2,h3,h4,h5,h6){margin-top:2em}
+</style>
+<link rel="stylesheet" href="/v2.0/_astro/_slug_.04db7373.css" />
+<style>.tag-list{display:flex;gap:.5em;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+</style></head><body class="astro-ydck33jo"><header class="amq-header"><div class="container"><h2 class="amq"><a class="name" href="../../../../"><span>{</span><abbr>Adrian</abbr><span class="dot">.</span><span>Matías Quezada</span><span>}</span></a></h2><nav><a href="../../../../blog/">Blog</a><a href="../../../../projects/">Projects</a><a href="../../../../career/">Career</a><!-- <div class="lang-selector"> --><a href="../../../../es/v2.0/es/blog/generate-html-pages-from-markdown-with-deno/">
+🇪🇸
+</a><!-- </div> --></nav></div></header><main class="astro-ydck33jo"><div class="container"><h1>Generate HTML pages from TSX with Deno</h1><ul class="tag-list md-tags"></ul><article class="md"><p>I've been working on a new version of this site with a clear idea:</p>
+<ul>
+<li>I want content to be Markdown</li>
+<li>I want it to be the fastest site ever (negotiable)</li>
+<li>Bilingual (N-lingual in fact)</li>
+</ul>
+<p>And after some months of work I found myself taking the same unspoken assuption that I recently wrote for my friend @Shakira who helped me with this beautiful design 🙌</p>
+<blockquote>
+<p>I will animate the header somehow but with CSS only, no room for JS in the site of JS guy. That's the message 🤣</p>
+</blockquote>
+<p>That's it.</p>
+<p>The post can end here.</p>
+<p>But I have more to write:</p>
+<p>That means...</p>
+<ul>
+<li>plain HTML / CSS pages</li>
+<li>CSS / JS embeded directly into HTML</li>
+<li>only necessary CSS / JS is included</li>
+</ul>
+<p>And... I need to try <a href="https://deno.land/">Deno</a>, it looks amazing, it sounds amazing and you know you'll find issues when you start using it but what may those be?</p>
+<p>Here's the trip to generate HTML pages from TSX with Deno:</p>
+<ul>
+<li>You have <a href="https://deno.land/#installation">Deno</a> installed</li>
+<li>Create .tsx file</li>
+<li>import <code>React</code> from <code>https://esm.sh/react</code></li>
+<li>import <code>{ renderToStaticMarkup }</code> from <code>https://esm.sh/react-dom/server</code>;</li>
+<li>this:</li>
+</ul>
+<pre><code class="hljs language-ts"><span class="hljs-comment">// Versions included for important reasons! 🥲</span>
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'https://esm.sh/react@18.2.0'</span>
+<span class="hljs-keyword">import</span> { renderToStaticMarkup } <span class="hljs-keyword">from</span> <span class="hljs-string">'https://esm.sh/react-dom@18.2.0/server'</span>;
+
+<span class="hljs-comment">// This is our only component</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">MyComponent</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> &#x3C;p><span class="hljs-title class_">This</span> is my page!&#x3C;p>
+}
+
+<span class="hljs-comment">// renderToStaticMarkup does the magic</span>
+<span class="hljs-keyword">const</span> html = <span class="hljs-title function_">renderToStaticMarkup</span>(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">MyComponent</span> /></span></span>);
+
+<span class="hljs-comment">// send the resulting HTML to the program output</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(html);
+</code></pre>
+<p>"But Matias! want this to read from / written to the disk! not from the code itself!"</p>
+<pre><code class="hljs language-tsx"><span class="hljs-comment">// main.tsx</span>
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'https://esm.sh/react@18.2.0'</span>;
+<span class="hljs-keyword">import</span> { renderToStaticMarkup } <span class="hljs-keyword">from</span> <span class="hljs-string">'https://esm.sh/react-dom@18.2.0/server'</span>;
+
+<span class="hljs-comment">// we read arguments</span>
+<span class="hljs-keyword">const</span> [input, output] = <span class="hljs-title class_">Deno</span>.<span class="hljs-property">args</span>;
+
+<span class="hljs-comment">// input/output may be relative to current working directory</span>
+<span class="hljs-keyword">const</span> cwd = <span class="hljs-string">`file://<span class="hljs-subst">${Deno.cwd()}</span>/`</span>;
+
+<span class="hljs-keyword">const</span> input_fullpath = <span class="hljs-keyword">new</span> <span class="hljs-title function_">URL</span>(input, cwd).<span class="hljs-property">pathname</span>;
+<span class="hljs-keyword">const</span> output_fullpath = <span class="hljs-keyword">new</span> <span class="hljs-title function_">URL</span>(output, cwd).<span class="hljs-property">pathname</span>;
+
+<span class="hljs-comment">// Import .tsx file containing the page</span>
+<span class="hljs-keyword">const</span> inputModule = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(input_fullpath);
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">Page</span> = inputModule.<span class="hljs-property">default</span>;
+
+<span class="hljs-keyword">const</span> html = <span class="hljs-title function_">renderToStaticMarkup</span>(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Page</span> <span class="hljs-attr">randomProp</span>=<span class="hljs-string">"yay"</span> /></span></span>);
+
+<span class="hljs-comment">// Write generated HTML to disk</span>
+<span class="hljs-keyword">await</span> <span class="hljs-title class_">Deno</span>.<span class="hljs-title function_">writeTextFile</span>(output_fullpath, html);
+</code></pre>
+<pre><code class="hljs language-tsx"><span class="hljs-comment">// MyPage.tsx</span>
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'https://esm.sh/react@18.2.0'</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> () => &#x3C;p><span class="hljs-title class_">This</span> is my page!&#x3C;p>
+</code></pre>
+<pre><code class="hljs language-bash">deno run \
+  --allow-read=. \
+  --allow-write=. \
+  --allow-net=https://esm.sh \
+  ./main.tsx \
+  ./MyPage.tsx ./MyPage.html
+</code></pre>
+<p>Permissions explained:</p>
+<ul>
+<li><code>--allow-read=.</code> Deno allows the script to read the folder I'm currenly at: <code>.</code></li>
+<li><code>--allow-write=.</code> same as above, it only needs input/output access each but <code>.</code> is enough most of the time</li>
+<li><code>--allow-net=https://esm.sh</code> requires access to esm.sh to download dependencies: <code>react</code> and <code>react-dom</code></li>
+<li><code>./main.tsx</code> that's not a permission, that's the name of the file we created above!</li>
+<li><code>./MyPage.tsx ./MyPage.html</code> those are the arguments to be passed to <code>input</code> and <code>ouput</code>, wheren't you paying attention!?</li>
+</ul>
+<p>Ok but we can make this better, we don't want to pass file by file, we want to give it a folder and for it to generate another one with same structure, if only we had a...</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">export</span> <span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">getFilesRecursively</span>(<span class="hljs-params">currentPath: <span class="hljs-built_in">string</span></span>) {
+  <span class="hljs-keyword">const</span> <span class="hljs-attr">names</span>: <span class="hljs-built_in">string</span>[] = [];
+
+  <span class="hljs-keyword">for</span> <span class="hljs-keyword">await</span> (<span class="hljs-keyword">const</span> dirEntry <span class="hljs-keyword">of</span> <span class="hljs-title class_">Deno</span>.<span class="hljs-title function_">readDir</span>(currentPath)) {
+    <span class="hljs-keyword">const</span> entryPath = <span class="hljs-string">`<span class="hljs-subst">${root}</span>/<span class="hljs-subst">${dirEntry.name}</span>`</span>;
+
+    <span class="hljs-keyword">if</span> (dirEntry.<span class="hljs-property">isDirectory</span>) {
+      names.<span class="hljs-title function_">push</span>(...(<span class="hljs-keyword">await</span> <span class="hljs-title function_">getFilesRecursively</span>(entryPath)).<span class="hljs-title function_">sort</span>());
+    } <span class="hljs-keyword">else</span> {
+      names.<span class="hljs-title function_">push</span>(entryPath);
+    }
+  }
+
+  <span class="hljs-keyword">return</span> names;
+}
+</code></pre>
+<p>I'm sure that's part of <code>esm.sh/std</code> somewhere...</p>
+<p>Now let's update the <code>main.tsx</code> we created above:</p>
+<pre><code class="hljs language-tsx"><span class="hljs-comment">// main.tsx</span>
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'https://esm.sh/react@18.2.0'</span>;
+<span class="hljs-keyword">import</span> { renderToStaticMarkup } <span class="hljs-keyword">from</span> <span class="hljs-string">'https://esm.sh/react-dom@18.2.0/server'</span>;
+
+<span class="hljs-comment">// Import function to get the name of the directory of a file</span>
+<span class="hljs-keyword">import</span> { dirname } <span class="hljs-keyword">from</span> <span class="hljs-string">'https://deno.land/std@0.143.0/path/mod.ts'</span>;
+
+<span class="hljs-keyword">const</span> [input, output] = <span class="hljs-title class_">Deno</span>.<span class="hljs-property">args</span>;
+
+<span class="hljs-comment">// quick helper function is there something in the deno.land/std like this?</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">relativeToCwd</span> = (<span class="hljs-params">target: <span class="hljs-built_in">string</span></span>) =>
+  <span class="hljs-keyword">new</span> <span class="hljs-title function_">URL</span>(target, <span class="hljs-string">`file://<span class="hljs-subst">${Deno.cwd()}</span>/`</span>);
+
+<span class="hljs-keyword">const</span> input_dir = <span class="hljs-title function_">relativeToCwd</span>(input);
+<span class="hljs-keyword">const</span> output_dir = <span class="hljs-title function_">relativeToCwd</span>(output);
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">const</span> file <span class="hljs-keyword">of</span> <span class="hljs-keyword">await</span> <span class="hljs-title function_">getFilesRecursively</span>(input_dir)) {
+  <span class="hljs-comment">// Import .tsx file containing the page</span>
+  <span class="hljs-keyword">const</span> inputModule = <span class="hljs-keyword">await</span> <span class="hljs-keyword">import</span>(file);
+  <span class="hljs-keyword">const</span> <span class="hljs-title class_">Page</span> = inputModule.<span class="hljs-property">default</span>;
+
+  <span class="hljs-keyword">const</span> html = <span class="hljs-title function_">renderToStaticMarkup</span>(<span class="xml"><span class="hljs-tag">&#x3C;<span class="hljs-name">Page</span> <span class="hljs-attr">randomProp</span>=<span class="hljs-string">"yay"</span> /></span></span>);
+
+  <span class="hljs-comment">// ./input/mydir/myfile.tsx becomes</span>
+  <span class="hljs-comment">// ./output/mydir/myfile.html</span>
+  <span class="hljs-keyword">const</span> destination = file
+    .<span class="hljs-title function_">replace</span>(input_dir, output_dir)
+    .<span class="hljs-title function_">replace</span>(<span class="hljs-regexp">/.tsx$/</span>, <span class="hljs-string">'.html'</span>);
+
+  <span class="hljs-comment">// This creates all folders required</span>
+  <span class="hljs-comment">// Also if the folder is already there it doesn't throw an exception :)</span>
+  <span class="hljs-keyword">await</span> <span class="hljs-title class_">Deno</span>.<span class="hljs-title function_">mkdir</span>(<span class="hljs-title function_">dirname</span>(destination), { <span class="hljs-attr">recursive</span>: <span class="hljs-literal">true</span> });
+
+  <span class="hljs-comment">// Write generated HTML to disk</span>
+  <span class="hljs-keyword">await</span> <span class="hljs-title class_">Deno</span>.<span class="hljs-title function_">writeTextFile</span>(destination, html);
+}
+</code></pre>
+<p>At times you may find it useful to remove the output directory before you start writing to it... I do this which is not beautiful but does the job 🤷‍♀️</p>
+<pre><code class="hljs language-ts"><span class="hljs-keyword">try</span> {
+  <span class="hljs-comment">// This fuction does throw an error even with `{ recursive: true }` which kind of makes sense</span>
+  <span class="hljs-keyword">await</span> <span class="hljs-title class_">Deno</span>.<span class="hljs-title function_">remove</span>(output, { <span class="hljs-attr">recursive</span>: <span class="hljs-literal">true</span> });
+  <span class="hljs-comment">// deno-lint-ignore no-empty</span>
+} <span class="hljs-keyword">catch</span> {}
+</code></pre>
+<p>From this you can start creating your site with JS knowing no JS will be executed in the browser.</p>
+<pre><code class="hljs language-tsx"><span class="hljs-comment">// input/index.tsx</span>
+<span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">'https://esm.sh/react@18.2.0'</span>
+
+<span class="hljs-comment">// css set aside in a variable because { } would mess with React's JSX</span>
+<span class="hljs-keyword">const</span> styles = <span class="hljs-string">`
+  .body { margin: 0 }
+`</span>
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> () => (
+  &#x3C;html lang="en">
+    &#x3C;head>
+      &#x3C;meta charSet="UTF-8" />
+      &#x3C;meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      &#x3C;meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      &#x3C;title>My website!&#x3C;/title>
+      &#x3C;style>{styles}&#x3C;/style>
+    &#x3C;/head>
+    &#x3C;body>
+      &#x3C;p>This is my index!&#x3C;p>
+    &#x3C;/body>
+  &#x3C;/html>
+)
+</code></pre>
+<pre><code class="hljs language-bash">deno run \
+  --allow-read=. \
+  --allow-write=. \
+  --allow-net=https://esm.sh \
+  ./main.tsx \
+  ./input ./output
+</code></pre>
+<p>And that would generate a file like this:</p>
+<pre><code class="hljs language-html"><span class="hljs-tag">&#x3C;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">head</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span> /></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">"X-UA-Compatible"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"IE=edge"</span> /></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"width=device-width, initial-scale=1.0"</span> /></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">title</span>></span>My website!<span class="hljs-tag">&#x3C;/<span class="hljs-name">title</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">style</span>></span><span class="css">
+      <span class="hljs-selector-class">.body</span> {
+        <span class="hljs-attribute">margin</span>: <span class="hljs-number">0</span>;
+      }
+    </span><span class="hljs-tag">&#x3C;/<span class="hljs-name">style</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">head</span>></span>
+  <span class="hljs-tag">&#x3C;<span class="hljs-name">body</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span>This is my index!<span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
+    <span class="hljs-tag">&#x3C;<span class="hljs-name">p</span>></span><span class="hljs-tag">&#x3C;/<span class="hljs-name">p</span>></span>
+  <span class="hljs-tag">&#x3C;/<span class="hljs-name">body</span>></span>
+<span class="hljs-tag">&#x3C;/<span class="hljs-name">html</span>></span>
+</code></pre>
+<p>"But Matias, you went through all that husle to get a slightly more complex way of writing HTML?"</p>
+<p>Yes, that's exactly it, thanks for noticing. Now we have components and can componentise the sht out of those pages and since we're actually importing the files through <code>import()</code> all dependencies would be properly managed by Deno! Not just that, a Javascript environment means we can do all sort of things like processing Markdown before the generation of the page, but that's another story.</p>
+<p>Other things that I learned along the way and would love to write about:</p>
+<ul>
+<li>Import maps (with our without slash? BOTH! and with full versions!)
+<ul>
+<li><code>/deps/some-dependency.ts</code> why I still found them useful</li>
+<li>The hell of Deno's <code>lock.json</code> file (and why it exists)</li>
+</ul>
+</li>
+</ul></article></div><footer class="amq-footer"><span>Created by A. Matías Quezada</span><!-- <span>Copyright 2023</span> --></footer></main></body></html>

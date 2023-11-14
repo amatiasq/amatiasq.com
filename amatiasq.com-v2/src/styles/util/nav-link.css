@@ -1,0 +1,35 @@
+.nav-link {
+  position: relative;
+  z-index: 2;
+
+  /* &::before, */
+  &::after {
+    content: ' ';
+    z-index: 1;
+
+    position: absolute;
+    left: -1em;
+    bottom: 50%;
+    width: 5px;
+    height: 2px;
+
+    border-radius: 5%;
+    background-color: var(--color-accent);
+
+    /* transition: width 0.1s ease-in-out;
+    transition-property: width, opacity, bottom, left, background-color; */
+  }
+
+  &:hover::after {
+    background-color: var(--color-primary);
+  }
+
+  /* &:hover::before {
+    top: -0.2em;
+    bottom: -0.2em;
+    left: 0;
+    width: 100%;
+    height: calc(100% + 0.4em);
+    opacity: 0.3;
+  } */
+}

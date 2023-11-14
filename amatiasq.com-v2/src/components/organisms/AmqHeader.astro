@@ -1,9 +1,7 @@
 ---
 import Container from '../atoms/Container.astro';
-import Link from '../atoms/Link.astro';
 import Tr from '../atoms/Tr.astro';
 import AMatiasQuezada from '../molecules/AMatiasQuezada.astro';
-import LanguageSelector from '../molecules/LanguageSelector.astro';
 
 interface Props {
   fixed?: boolean;
@@ -12,73 +10,85 @@ interface Props {
 const { fixed } = Astro.props;
 ---
 
-<header class:list={['amq-header', fixed ? 'fixed' : '']}>
+<script
+  defer
+  type="module"
+  src="https://components.amatiasq.com/hamburger-button.js"></script>
+
+<nav class:list={['amq-header', fixed ? 'is-fixed' : null]}>
   <Container>
-    <AMatiasQuezada />
+    <div class="left">
+      <hamburger-button></hamburger-button>
+      <AMatiasQuezada brackets />
+    </div>
 
-    <nav>
-      <Link page="/blog" parent-class="active">Blog</Link>
-
-      <Link page="/projects" parent-class="active">
+    <div class="right">
+      <a class="nav-link" href="#projects">
         <Tr en="Projects" es="Proyectos" />
-      </Link>
-
-      <Link page="/career" parent-class="active">
-        <Tr en="Career" es="Carrera" />
-      </Link>
-
-      <LanguageSelector />
-    </nav>
+      </a>
+      <a class="nav-link" href="#experiments">
+        <Tr en="Experiments" es="Experimentos" />
+      </a>
+      <a class="nav-link" href="#blog">Blog</a>
+      <a class="nav-link" href="#talks">
+        <Tr en="Talks" es="Charlas" />
+      </a>
+      <a class="nav-link" href="#career">
+        <Tr en="Career" es="Experiencia" />
+      </a>
+    </div>
   </Container>
-</header>
+</nav>
 
 <style is:global>
+  @import url('../../styles/util/nav-link.css');
+
   .amq-header {
-    padding: 1rem 0;
-    position: relative;
+    background-color: var(--color-secondary);
+    padding: 1em;
 
-    &::after {
-      content: ' ';
-      top: 100%;
-      position: absolute;
-      left: 0;
-      right: 0;
-      height: 5px;
-      background: linear-gradient(
-        to bottom,
-        var(--color-background),
-        transparent
-      );
-    }
-
-    &.fixed {
-      position: fixed;
-      left: 0;
-      right: 0;
-    }
-
-    & .container {
+    & .container,
+    & .left,
+    & .right {
       display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 1rem;
-      align-items: center;
+      gap: 1em;
     }
 
-    & nav {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+    & .left {
+      flex: 1;
     }
+
+    & .right {
+      visibility: hidden;
+    }
+
+    & a {
+      margin-left: 1em;
+      color: var(--color-);
+    }
+
+    & hamburger-button {
+      --color: var(--color-text);
+      --spacing: 7px;
+    }
+  }
+
+  .amq-header.is-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
   }
 
   @media (min-width: 769px) {
     .amq-header {
-      & .container {
-        flex-direction: row;
-      }
-      & nav {
-        margin-right: 1rem;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+
+      & .right {
+        visibility: visible;
       }
     }
   }

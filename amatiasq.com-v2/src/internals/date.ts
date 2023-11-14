@@ -52,11 +52,11 @@ export function parseDate(slug: string): StringifiedDate | null {
 export function printDate(
   locale: ReturnType<typeof getLocale>,
   value: StringifiedDate | Date,
-  { omitDay }: { omitDay: boolean },
+  { omitDay, yearOnly }: { omitDay: boolean; yearOnly: boolean },
 ) {
   const [year, month, day] = decomposeDate(value);
 
-  if (!month) {
+  if (yearOnly || !month) {
     return `${year}`;
   }
 

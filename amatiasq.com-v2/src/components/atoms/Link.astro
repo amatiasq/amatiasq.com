@@ -1,6 +1,7 @@
 ---
 import { setLang } from '@internals/i18n';
-import { relativePath } from '@util/relativePath';
+import { relativePath } from '@internals/relativePath';
+import { basePath } from '@internals/package';
 
 interface Props {
   page: string;
@@ -16,7 +17,7 @@ const {
   allowLanguageChange,
 } = Astro.props;
 
-const absolute = absolutePath(page);
+const absolute = `${basePath}${absolutePath(page)}`;
 const isParent = Astro.url.toString().startsWith(absolute);
 const relative = relativePath(Astro.url, absolute);
 const props = relative ? { href: relative } : {};

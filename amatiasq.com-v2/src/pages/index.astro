@@ -1,13 +1,15 @@
 ---
-import { readCollection, type Content } from '@internals/content';
-import { setLang } from '@internals/i18n';
 import Container from '@components/atoms/Container.astro';
+import AMatiasQuezada from '@components/molecules/AMatiasQuezada.astro';
+import BaseDocument from '@components/templates/BaseDocument.astro';
 import Tr from '@components/atoms/Tr.astro';
-import ContentCards from '@components/molecules/ContentCards.astro';
-import BaseLayout from '@components/templates/BaseLayout.astro';
+import { setLang } from '@internals/i18n';
+import { readCollection, type Content } from '@internals/content';
+import ContentCards from '@components/organisms/ContentCards.astro';
 import BlogPostList from '@components/page-index/BlogPostList.astro';
 import CareerList from '@components/page-index/CareerList.astro';
-import Introduction from '@components/page-index/Introduction.astro';
+import ViewAll from '@components/atoms/ViewAll.astro';
+import AmqHeader from '@components/organisms/AmqHeader.astro';
 
 setLang(Astro.url);
 
@@ -22,101 +24,156 @@ const career = present(await readCollection('career')).filter(
 function present<T extends Content>(list: T[]) {
   const pinned = list.filter((x) => 'pinned' in x.data);
   const unpinned = list.filter((x) => !('pinned' in x.data));
-  return [...unpinned, ...pinned].reverse().slice(0, 6);
+  return [...unpinned, ...pinned].reverse(); //.slice(0, 6);
 }
 ---
 
-<BaseLayout>
-  <Introduction />
+<BaseDocument>
+  <AmqHeader fixed />
 
-  <section class="projects">
-    <Container>
-      <h2>
-        <Tr slot="header" en="🧑‍💻 Projects" es="🧑‍💻 Projectos" />
-      </h2>
-      <ContentCards entries={projects} />
-    </Container>
-  </section>
+  <main>
+    <section id="intro">
+      <Container as="header">
+        <h1>
+          Hey there!<br />
+           I'm <AMatiasQuezada class="amq-name" /><br />
+           Turning ideas into code that works for us
+        </h1>
+        <!--
+        <p>
+          I create programs that help people to achieve their goals.<br />I'm a
+          self-taught developer with a passion for learning and sharing knowledge.
+        </p>
+        -->
+        <p>
+          Welcome to my digital garden.<br />
+           This is the corner of the internet where I list things I make.<br />
+           I hope you find something useful.
+        </p>
+      </Container>
 
-  <section class="blog">
-    <Container>
-      <h2>✍️ Blog</h2>
-      <BlogPostList posts={blog} />
-    </Container>
-  </section>
+      <style is:global>
+        section#intro {
+          display: flex;
+          flex-direction: column;
+          height: 100dvh;
 
-  <section class="experiments">
-    <Container>
-      <h2>
-        <Tr slot="header" en="🧪 Experiments" es="🧪 Experimentos" />
-      </h2>
-      <ContentCards entries={experiments} />
-    </Container>
-  </section>
+          > header {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex: 1;
+            gap: 2rem;
+          }
 
-  <section class="talks">
-    <Container>
-      <h2>
-        <Tr slot="header" en="💬 Talks" es="💬 Charlas" />
-      </h2>
-      <ContentCards entries={talks} showYear />
-    </Container>
-  </section>
+          & h1 {
+            font-size: 1.5em;
+            line-height: 150%;
+          }
 
-  <section class="career">
-    <Container>
-      <h2>
-        <Tr slot="header" en="💼 Career" es="💼 Experiencia" />
-      </h2>
-      <CareerList career={career} />
-    </Container>
-  </section>
+          & p {
+            font-weight: 300;
+            font-size: 1.2em;
+            line-height: 150%;
+          }
 
-  <style is:global>
-    body {
-      max-height: 100dvh;
-    }
+          & .amq-name {
+            /* we are using thin font here */
+            --width-modifier: 0.9;
+            color: var(--color-primary);
+          }
+        }
 
-    main {
-      flex: 1;
-      overflow-x: hidden;
-      overflow-y: scroll;
+        @media (min-width: 769px) {
+          section#intro {
+            & h1 {
+              font-size: 3em;
+            }
 
-      display: flex;
-      flex-direction: column;
-      gap: 25dvh;
-    }
+            & p {
+              font-size: 1.5em;
+            }
+          }
+        }
+      </style>
+    </section>
 
-    section {
-      --columns: 1;
-      --gap: 3em;
-      --text-gap: 0.7em;
+    <section id="projects">
+      <Container>
+        <h2>🧑‍💻 <Tr en="Projects" es="Proyectos" /></h2>
+        <ContentCards entries={projects} max={6} viewAll="/projects" />
+      </Container>
+    </section>
 
-      & .container {
+    <section id="blog">
+      <Container>
+        <h2>✍️ Blog</h2>
+        <BlogPostList posts={blog.slice(0, 6)} />
+        {
+          blog.length > 6 ? (
+            <ViewAll page="/blog" remaining={blog.length - 6} />
+          ) : null
+        }
+      </Container>
+    </section>
+
+    <section id="experiments">
+      <Container>
+        <h2>
+          <Tr slot="header" en="🧪 Experiments" es="🧪 Experimentos" />
+        </h2>
+        <ContentCards entries={experiments} max={6} viewAll="/experiments" />
+      </Container>
+    </section>
+
+    <section id="talks">
+      <Container>
+        <h2>
+          <Tr slot="header" en="💬 Talks" es="💬 Charlas" />
+        </h2>
+        <ContentCards entries={talks} max={6} viewAll="/talks" showYear />
+      </Container>
+    </section>
+
+    <section id="career">
+      <Container>
+        <h2>
+          <Tr slot="header" en="💼 Career" es="💼 Experiencia" />
+        </h2>
+        <CareerList career={career.slice(0, 6)} />
+        {
+          career.length > 6 ? (
+            <ViewAll page="/career" remaining={career.length - 6} />
+          ) : null
+        }
+      </Container>
+    </section>
+  </main>
+</BaseDocument>
+
+<style lang="scss" is:global>
+  main {
+    --gap: calc(var(--spacing) * 1.5);
+
+    display: flex;
+    flex-direction: column;
+
+    > section:not(#intro) {
+      margin: var(--gap) auto;
+      padding-top: calc(var(--gap) * 1.5);
+
+      > .container {
         display: flex;
-        gap: var(--gap);
         flex-direction: column;
-        justify-content: center;
-        box-sizing: border-box;
-      }
-
-      & h2 {
-        margin: 0;
-        font-size: 3em;
-        font-weight: lighter;
+        gap: var(--gap);
       }
     }
+  }
 
-    @media (min-width: 769px) {
-      main {
-        padding-top: 5em;
-      }
-
-      section {
-        --columns: 2;
-        --gap: 4em;
-        --text-gap: 1em;
-      }
+  @media (min-width: 769px) {
+    main {
+      --gap: calc(var(--spacing) * 2);
+      --columns: 2;
     }
-  </style>
-</BaseLayout>
+  }
+</style>

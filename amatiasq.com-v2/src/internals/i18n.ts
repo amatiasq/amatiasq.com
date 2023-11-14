@@ -1,5 +1,7 @@
+import { basePath } from './package';
+
 export const languages = ['en', 'es'] as const;
-type Language = typeof languages[number];
+type Language = (typeof languages)[number];
 
 const urlLangExtractor = new RegExp(`^\/(${languages.join('|')})`);
 const arrayMap: Record<Language, number> = { en: 0, es: 1 };
@@ -51,8 +53,8 @@ export function t<T>(
   return key || MISSING_TRANSLATION;
 }
 
-export function getLangFromUrl(url: URL) : Language {
-  return url.pathname.startsWith('/es') ? 'es' : 'en'
+export function getLangFromUrl(url: URL): Language {
+  return url.pathname.replace(basePath, '').startsWith('/es') ? 'es' : 'en';
 }
 
 export function getPathWithoutLang(url: URL) {

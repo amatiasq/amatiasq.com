@@ -1,9 +1,10 @@
 import { defineConfig } from 'astro/config';
+import { basePath } from './package.json';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://amatiasq.com',
-  base: '/v2',
+  base: basePath,
   // trailingSlash: 'always',
   scopedStyleStrategy: 'class',
   integrations: [],

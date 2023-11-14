@@ -9,5 +9,8 @@
   "prettier.documentSelectors": ["**/*.astro"],
   "[astro]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "explorer.autoRevealExclude": {
+    "**/src/pages/es": true
   }
 }
