@@ -29,149 +29,147 @@ function present<T extends Content>(list: T[]) {
 ---
 
 <BaseDocument>
-  <AmqHeader fixed />
-
-  <main>
-    <section id="intro">
-      <Container as="header">
-        <h1>
-          Hey there!<br />
-           I'm <AMatiasQuezada class="amq-name" /><br />
-           Turning ideas into code that works for us
-        </h1>
-        <!--
+  <section id="intro">
+    <Container as="header">
+      <h1>
+        Hey there!<br />
+         I'm <AMatiasQuezada class="amq-name" /><br />
+         Turning ideas into code that works for us
+      </h1>
+      <!--
         <p>
           I create programs that help people to achieve their goals.<br />I'm a
           self-taught developer with a passion for learning and sharing knowledge.
         </p>
-        -->
-        <p>
-          Welcome to my digital garden.<br />
-           This is the corner of the internet where I list things I make.<br />
-           I hope you find something useful.
-        </p>
-      </Container>
+      -->
+      <p>
+        Welcome to my digital garden.<br />
+         This is the corner of the internet where I list things I make.<br />
+         I hope you find something useful.
+      </p>
+    </Container>
 
-      <style is:global>
-        section#intro {
+    <style is:global>
+      section#intro {
+        display: flex;
+        flex-direction: column;
+        height: calc(100dvh - var(--amq-header-height));
+
+        > header {
           display: flex;
           flex-direction: column;
-          height: 100dvh;
+          justify-content: center;
+          flex: 1;
+          gap: 2rem;
+        }
 
-          > header {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            flex: 1;
-            gap: 2rem;
-          }
+        & h1 {
+          font-size: 1.5em;
+          line-height: 150%;
+        }
 
+        & p {
+          font-weight: 300;
+          font-size: 1.2em;
+          line-height: 150%;
+        }
+
+        & .amq-name {
+          /* we are using thin font here */
+          --width-modifier: 0.9;
+          color: var(--color-primary);
+        }
+      }
+
+      @media (min-width: 769px) {
+        section#intro {
           & h1 {
-            font-size: 1.5em;
-            line-height: 150%;
+            font-size: 3em;
           }
 
           & p {
-            font-weight: 300;
-            font-size: 1.2em;
-            line-height: 150%;
-          }
-
-          & .amq-name {
-            /* we are using thin font here */
-            --width-modifier: 0.9;
-            color: var(--color-primary);
+            font-size: 1.5em;
           }
         }
+      }
+    </style>
+  </section>
 
-        @media (min-width: 769px) {
-          section#intro {
-            & h1 {
-              font-size: 3em;
-            }
+  <AmqHeader />
 
-            & p {
-              font-size: 1.5em;
-            }
-          }
-        }
-      </style>
-    </section>
+  <section id="projects">
+    <Container>
+      <h2>🧑‍💻 <Tr en="Projects" es="Proyectos" /></h2>
+      <ContentCards entries={projects} max={6} viewAll="/projects" />
+    </Container>
+  </section>
 
-    <section id="projects">
-      <Container>
-        <h2>🧑‍💻 <Tr en="Projects" es="Proyectos" /></h2>
-        <ContentCards entries={projects} max={6} viewAll="/projects" />
-      </Container>
-    </section>
+  <section id="blog">
+    <Container>
+      <h2>✍️ Blog</h2>
+      <BlogPostList posts={blog.slice(0, 6)} />
+      {
+        blog.length > 6 ? (
+          <ViewAll page="/blog" remaining={blog.length - 6} />
+        ) : null
+      }
+    </Container>
+  </section>
 
-    <section id="blog">
-      <Container>
-        <h2>✍️ Blog</h2>
-        <BlogPostList posts={blog.slice(0, 6)} />
-        {
-          blog.length > 6 ? (
-            <ViewAll page="/blog" remaining={blog.length - 6} />
-          ) : null
-        }
-      </Container>
-    </section>
+  <section id="experiments">
+    <Container>
+      <h2>
+        <Tr slot="header" en="🧪 Experiments" es="🧪 Experimentos" />
+      </h2>
+      <ContentCards entries={experiments} max={6} viewAll="/experiments" />
+    </Container>
+  </section>
 
-    <section id="experiments">
-      <Container>
-        <h2>
-          <Tr slot="header" en="🧪 Experiments" es="🧪 Experimentos" />
-        </h2>
-        <ContentCards entries={experiments} max={6} viewAll="/experiments" />
-      </Container>
-    </section>
+  <section id="talks">
+    <Container>
+      <h2>
+        <Tr slot="header" en="💬 Talks" es="💬 Charlas" />
+      </h2>
+      <ContentCards entries={talks} max={6} viewAll="/talks" showYear />
+    </Container>
+  </section>
 
-    <section id="talks">
-      <Container>
-        <h2>
-          <Tr slot="header" en="💬 Talks" es="💬 Charlas" />
-        </h2>
-        <ContentCards entries={talks} max={6} viewAll="/talks" showYear />
-      </Container>
-    </section>
-
-    <section id="career">
-      <Container>
-        <h2>
-          <Tr slot="header" en="💼 Career" es="💼 Experiencia" />
-        </h2>
-        <CareerList career={career.slice(0, 6)} />
-        {
-          career.length > 6 ? (
-            <ViewAll page="/career" remaining={career.length - 6} />
-          ) : null
-        }
-      </Container>
-    </section>
-  </main>
+  <section id="career">
+    <Container>
+      <h2>
+        <Tr slot="header" en="💼 Career" es="💼 Experiencia" />
+      </h2>
+      <CareerList career={career.slice(0, 6)} />
+      {
+        career.length > 6 ? (
+          <ViewAll page="/career" remaining={career.length - 6} />
+        ) : null
+      }
+    </Container>
+  </section>
 </BaseDocument>
 
-<style lang="scss" is:global>
-  main {
+<style is:global>
+  body {
     --gap: calc(var(--spacing) * 1.5);
 
     display: flex;
     flex-direction: column;
+  }
 
-    > section:not(#intro) {
-      margin: var(--gap) auto;
-      padding-top: calc(var(--gap) * 1.5);
+  section:not(#intro) {
+    margin: var(--gap) auto;
+    padding-top: calc(var(--gap) * 1.5);
 
-      > .container {
-        display: flex;
-        flex-direction: column;
-        gap: var(--gap);
-      }
+    > .container {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap);
     }
   }
 
   @media (min-width: 769px) {
-    main {
+    body {
       --gap: calc(var(--spacing) * 2);
       --columns: 2;
     }

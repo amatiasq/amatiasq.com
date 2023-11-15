@@ -17,10 +17,10 @@ const { career } = Astro.props;
     career.map((entry) => (
       <li class="career-entry">
         <h4>
-          <Tr value={entry.data.role} />
+          <Tr value={entry.data.role} />{' '}
           <small>
-            <Tr en=" at " es=" en " />
-          </small>
+            <Tr en="at" es="en" />
+          </small>{' '}
           <Tr value={entry.data.org} />
         </h4>
         <Time date={entry.date} yearOnly />
@@ -53,6 +53,10 @@ const { career } = Astro.props;
     & h4 {
       grid-area: title;
       margin: 0;
+
+      > small {
+        font-size: 0.7em;
+      }
     }
 
     & .md {

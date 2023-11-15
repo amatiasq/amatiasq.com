@@ -1,94 +1,171 @@
 ---
 import Container from '../atoms/Container.astro';
+import githubIcon from '../icons/Github.svg?raw';
+import linkedInIcon from '../icons/LinkedIn.svg?raw';
 import Tr from '../atoms/Tr.astro';
-import AMatiasQuezada from '../molecules/AMatiasQuezada.astro';
-
-interface Props {
-  fixed?: boolean;
-}
-
-const { fixed } = Astro.props;
+import WebComponent from '../atoms/WebComponent.astro';
 ---
 
-<script
-  defer
-  type="module"
-  src="https://components.amatiasq.com/hamburger-button.js"></script>
+<script defer>
+  function closeHamburger() {
+    document.querySelector('hamburger-button')?.removeAttribute('active');
+  }
+</script>
 
-<nav class:list={['amq-header', fixed ? 'is-fixed' : null]}>
+<WebComponent src="https://components.amatiasq.com/hamburger-button.js" />
+
+<nav class="amq-header">
   <Container>
-    <div class="left">
-      <hamburger-button></hamburger-button>
-      <AMatiasQuezada brackets />
-    </div>
-
-    <div class="right">
-      <a class="nav-link" href="#projects">
+    <div class="internal-links">
+      <a class="nav-link" href="#projects" onclick="closeHamburger();">
         <Tr en="Projects" es="Proyectos" />
       </a>
-      <a class="nav-link" href="#experiments">
+      <a class="nav-link" href="#experiments" onclick="closeHamburger();">
         <Tr en="Experiments" es="Experimentos" />
       </a>
-      <a class="nav-link" href="#blog">Blog</a>
-      <a class="nav-link" href="#talks">
+      <a class="nav-link" href="#blog" onclick="closeHamburger();"> Blog</a>
+      <a class="nav-link" href="#talks" onclick="closeHamburger();">
         <Tr en="Talks" es="Charlas" />
       </a>
-      <a class="nav-link" href="#career">
+      <a class="nav-link" href="#career" onclick="closeHamburger();">
         <Tr en="Career" es="Experiencia" />
+      </a>
+    </div>
+
+    <div class="external-links">
+      <a target="_blank" href="https://github.com/amatiasq">
+        <Fragment set:html={githubIcon} />
+      </a>
+      <a target="_blank" href="https://www.linkedin.com/in/amatiasq/">
+        <Fragment set:html={linkedInIcon} />
       </a>
     </div>
   </Container>
 </nav>
 
 <style is:global>
-  @import url('../../styles/util/nav-link.css');
+  /* @import url('../../styles/util/nav-link.css'); */
+
+  :root {
+    --amq-header-height: 0px;
+  }
 
   .amq-header {
     background-color: var(--color-secondary);
     padding: 1em;
 
-    & .container,
-    & .left,
-    & .right {
-      display: flex;
-      gap: 1em;
-    }
-
-    & .left {
+    & .internal-links {
       flex: 1;
+      font-size: 1.2em;
     }
+  }
 
-    & .right {
-      visibility: hidden;
-    }
+  /* MOBILE */
+  @media (max-width: 768px) {
+    hamburger-button {
+      position: fixed;
+      top: 15px;
+      left: 15px;
+      z-index: 2;
+      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      padding: 0.4em 0.5em;
+      border-radius: 8px;
 
-    & a {
-      margin-left: 1em;
-      color: var(--color-);
-    }
-
-    & hamburger-button {
       --color: var(--color-text);
       --spacing: 7px;
     }
-  }
 
-  .amq-header.is-fixed {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-  }
-
-  @media (min-width: 769px) {
     .amq-header {
+      display: flex;
       position: fixed;
       top: 0;
-      left: 0;
-      right: 0;
+      bottom: 0;
+      left: -80dvw;
+      width: 80dvw;
+      z-index: 1;
+      transition: left 0.3s ease-out;
 
-      & .right {
-        visibility: visible;
+      & .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 2em 0;
+        gap: 5em;
+      }
+
+      & .internal-links {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1.5em;
+        font-size: 1.5em;
+
+        > a::after {
+          display: none;
+        }
+      }
+
+      & .external-links {
+        display: flex;
+        justify-content: space-evenly;
+        align-self: stretch;
+      }
+    }
+
+    hamburger-button[active] + .amq-header {
+      left: 0;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 1);
+    }
+  }
+
+  /* DESKTOP */
+  @media (min-width: 769px) {
+    :root {
+      --amq-header-height: calc(32px + (16px * 2));
+    }
+
+    hamburger-button {
+      display: none;
+    }
+
+    .amq-header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+
+      & a {
+        margin-left: 1em;
+      }
+
+      & .container,
+      & .internal-links,
+      & .external-links {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+      }
+    }
+
+    .nav-link {
+      position: relative;
+
+      &::before {
+        content: ' ';
+        z-index: 1;
+
+        position: absolute;
+        left: -1em;
+        top: 50%;
+        width: 5px;
+        height: 2px;
+
+        border-radius: 5%;
+        background-color: var(--color-accent);
+      }
+
+      &:hover::before {
+        background-color: var(--color-primary);
       }
     }
   }

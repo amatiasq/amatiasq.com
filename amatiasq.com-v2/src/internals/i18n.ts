@@ -1,5 +1,3 @@
-import { basePath } from './package';
-
 export const languages = ['en', 'es'] as const;
 type Language = (typeof languages)[number];
 
@@ -54,7 +52,7 @@ export function t<T>(
 }
 
 export function getLangFromUrl(url: URL): Language {
-  return url.pathname.replace(basePath, '').startsWith('/es') ? 'es' : 'en';
+  return url.pathname.startsWith('/es') ? 'es' : 'en';
 }
 
 export function getPathWithoutLang(url: URL) {

@@ -2,7 +2,6 @@
   "name": "amatiasq.com",
   "type": "commonjs",
   "version": "0.0.1",
-  "basePath": "/v2",
   "scripts": {
     "dev": "bin/generate-i18n-files.sh && astro dev",
     "start": "npm run dev",
