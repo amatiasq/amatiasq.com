@@ -10,6 +10,7 @@ import BlogPostList from '@components/page-index/BlogPostList.astro';
 import CareerList from '@components/page-index/CareerList.astro';
 import ViewAll from '@components/atoms/ViewAll.astro';
 import AmqHeader from '@components/organisms/AmqHeader.astro';
+import DotsAnimation from '@components/organisms/DotsAnimation.astro';
 
 setLang(Astro.url);
 
@@ -30,6 +31,9 @@ function present<T extends Content>(list: T[]) {
 
 <BaseDocument>
   <section id="intro">
+    <canvas id="glcanvas" width="640" height="480"></canvas>
+    <DotsAnimation />
+
     <Container as="header">
       <h1>
         Hey there!<br />
