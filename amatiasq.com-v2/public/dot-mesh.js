@@ -16,12 +16,16 @@ registerPaint('dot-mesh', class {
   }
 
   #parseProps(props) {
-    return Object.fromEntries(allProps.map(x => {
-      const val = props.get(x).toString()
-      return [x, numberProps.includes(x) ? parse(val, props.get(x)) : val]
-    }));
+    const result = {};
 
-    function parse(val, name) {
+    for (const propName of allProps) {
+      const val = props.get(propName).toString()
+      result[propName] = numberProps.includes(propName) ? parse(val) : val;
+    }
+
+    return result;
+
+    function parse(val) {
       const result = parseInt(val, 10);
       return isNaN(result) ? undefined : result;
     }
