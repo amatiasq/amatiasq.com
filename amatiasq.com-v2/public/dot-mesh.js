@@ -1,4 +1,5 @@
 const numberProps = [
+  '--t',
   '--points',
   '--points-x',
   '--points-y',
@@ -10,55 +11,60 @@ const allProps = [
   '--color-text',
 ];
 
+const rand = (max, min = 0) => Math.random() * (max - min) + min;
+const VELOCITY = 0.1;
+
 registerPaint('dot-mesh', class {
   static get inputProperties() {
     return [...allProps];
   }
 
   #parseProps(props) {
-    const result = {};
+    return Object.fromEntries(
+      allProps.map(propName => [propName, parse(propName)])
+    );
 
-    for (const propName of allProps) {
-      const val = props.get(propName).toString()
-      result[propName] = numberProps.includes(propName) ? parse(val) : val;
-    }
-
-    return result;
-
-    function parse(val) {
-      const result = parseInt(val, 10);
-      return isNaN(result) ? undefined : result;
+    function parse(name) {
+      const val = props.get(name).toString().trim();
+      if (!numberProps.includes(name)) return val;
+      const result = parseFloat(val);
+      if (!isNaN(result)) return result;
     }
   }
 
   paint(ctx, { width: w, height: h }, props) { //, [{ value: x }, { value: y }]) {
     const {
+      '--t': t,
       '--color-background': bg = 'white',
       '--color-text': fg = 'black',
       '--points': points = 10,
-      '--points-x': x = points,
-      '--points-y': y = points,
     } = this.#parseProps(props);
 
-    console.log({
-      points, x, y
-    })
+    this.points ??= Array.from({ length: points }, () => ({
+      x: rand(w),
+      y: rand(h),
+      vx: rand(VELOCITY, -VELOCITY),
+      vy: rand(VELOCITY, -VELOCITY),
+    }));
 
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, w, h);
     ctx.fillStyle = fg;
 
-    const point = (x, y, radius = 2) => ctx.arc(x, y, radius, 0, 2 * Math.PI);
+    const circle = (x, y, radius = 2) => ctx.arc(x, y, radius, 0, 2 * Math.PI);
 
-    for (let i = 0; i < x; i++) {
-      for (let j = 0; j < y; j++) {
-        ctx.beginPath();
-        point(
-          i * (w / x),
-          j * (h / y),
-        )
-        ctx.fill();
-      }
+    // console.log(t)
+
+    for (const point of this.points) {
+      const x = (point.x + point.vx * t) % w;
+      const y = (point.y + point.vy * t) % h;
+
+      ctx.beginPath();
+      circle(
+        x < 0 ? x + w : x,
+        y < 0 ? y + h : y
+      );
+      ctx.fill();
     }
   }
 });

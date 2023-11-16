@@ -27,6 +27,18 @@ const title = [Astro.props.title, 'A. Matías Quezada']
       if ('paintWorklet' in CSS) {
         (CSS as any).paintWorklet.addModule('dot-mesh.js');
       }
+
+      // if ('animationWorklet' in CSS) {
+      //   (CSS as any).animationWorklet.addModule('potato.js');
+      // }
+
+      requestAnimationFrame(function tick() {
+        requestAnimationFrame(tick);
+        document.documentElement.style.setProperty(
+          '--t',
+          performance.now().toString(),
+        );
+      });
     </script>
     <style is:global>
       :root {
