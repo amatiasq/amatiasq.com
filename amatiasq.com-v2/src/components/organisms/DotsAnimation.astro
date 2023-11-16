@@ -1,0 +1,68 @@
+---
+interface Props {
+  for: string;
+}
+
+const { for: forSelector } = Astro.props;
+---
+
+<script type="module" define:vars={{ forSelector }}>
+  import * as THREE from 'https://cdnjs.cloudflare.com/ajax/libs/three.js/0.158.0/three.module.min.js';
+
+  // setTimeout(startRipple, 1000);
+  startRipple();
+
+  function startRipple() {
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000,
+    );
+
+    const container = document.querySelector(forSelector);
+    const rect = container.getBoundingClientRect();
+
+    const renderer = new THREE.WebGLRenderer({ alpha: true });
+    renderer.setSize(rect.width, rect.height);
+
+    const canvas = renderer.domElement;
+    canvas.classList.add('dots-animation');
+    container.insertBefore(canvas, container.firstElementChild);
+
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
+    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+    const cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    camera.position.z = 5;
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  }
+</script>
+
+<style is:global>
+  .dots-animation {
+    z-index: 1;
+  }
+  .dots-animation + script + * {
+    z-index: 2;
+  }
+
+  .dots-animation,
+  .dots-animation + * {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+</style>

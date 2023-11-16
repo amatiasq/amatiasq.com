@@ -10,6 +10,7 @@ import BlogPostList from '@components/page-index/BlogPostList.astro';
 import CareerList from '@components/page-index/CareerList.astro';
 import ViewAll from '@components/atoms/ViewAll.astro';
 import AmqHeader from '@components/organisms/AmqHeader.astro';
+import DotsAnimation from '../components/organisms/DotsAnimation.astro';
 
 setLang(Astro.url);
 
@@ -30,6 +31,8 @@ function present<T extends Content>(list: T[]) {
 
 <BaseDocument>
   <section id="intro">
+    <DotsAnimation for="#intro" />
+
     <Container as="header">
       <h1>
         Hey there!<br />
@@ -51,6 +54,7 @@ function present<T extends Content>(list: T[]) {
 
     <style is:global>
       section#intro {
+        position: relative;
         display: flex;
         flex-direction: column;
         height: calc(100dvh - var(--amq-header-height));
