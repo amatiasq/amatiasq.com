@@ -18,9 +18,26 @@ const title = [Astro.props.title, 'A. Matías Quezada']
   <head>
     <meta charset="utf-8" />
     <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
-    <link rel="icon" href="https://fav.farm/🧑‍💻" />
     <meta name="viewport" content="width=device-width" />
     <title>{title}</title>
+    <script>
+      // if (CSS['paintWorklet'] === undefined)
+      //   await import('https://unpkg.com/css-paint-polyfill')
+
+      if ('paintWorklet' in CSS) {
+        (CSS as any).paintWorklet.addModule('dot-mesh.js');
+      }
+    </script>
+    <style is:global>
+      :root {
+        --points-x: 10;
+        --points-y: 10;
+      }
+      body {
+        background: paint(dot-mesh);
+        background-attachment: fixed;
+      }
+    </style>
   </head>
   <body class:list={[className]}>
     <slot />
