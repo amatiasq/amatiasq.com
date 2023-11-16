@@ -1,45 +1,60 @@
-class DotMeshPainter {
-  // someday when the browser supports it
-  // static get inputArguments() {
-  //   return [
-  //     0, // x
-  //     0, // y
-  //   ];
-  // }
+const numberProps = [
+  '--points',
+  '--points-x',
+  '--points-y',
+]
 
+const allProps = [
+  ...numberProps,
+  '--color-background',
+  '--color-text',
+];
+
+registerPaint('dot-mesh', class {
   static get inputProperties() {
-    return [
-      '--color-background',
-      '--color-text',
-      '--points-x',
-      '--points-y',
-    ];
+    return [...allProps];
   }
 
-  paint(ctx, geom, props) { //, [{ value: x }, { value: y }]) {
-    const x = parseInt(props.get('--points-x').toString(), 10);
-    const y = parseInt(props.get('--points-y').toString(), 10);
+  #parseProps(props) {
+    return Object.fromEntries(allProps.map(x => {
+      const val = props.get(x).toString()
+      return [x, numberProps.includes(x) ? parse(val, props.get(x)) : val]
+    }));
 
-    ctx.fillStyle = props.get('--color-background');
-    ctx.fillRect(0, 0, geom.width, geom.height);
-    ctx.fillStyle = props.get('--color-text')
-
-    function point(x, y, radius = 2) {
-      ctx.arc(x, y, radius, 0, 2 * Math.PI);
+    function parse(val, name) {
+      const result = parseInt(val, 10);
+      return isNaN(result) ? undefined : result;
     }
+  }
+
+  paint(ctx, { width: w, height: h }, props) { //, [{ value: x }, { value: y }]) {
+    const {
+      '--color-background': bg = 'white',
+      '--color-text': fg = 'black',
+      '--points': points = 10,
+      '--points-x': x = points,
+      '--points-y': y = points,
+    } = this.#parseProps(props);
+
+    console.log({
+      points, x, y
+    })
+
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, w, h);
+    ctx.fillStyle = fg;
+
+    const point = (x, y, radius = 2) => ctx.arc(x, y, radius, 0, 2 * Math.PI);
 
     for (let i = 0; i < x; i++) {
       for (let j = 0; j < y; j++) {
         ctx.beginPath();
-        console.log({ i, j, x, y, width: geom.width, height: geom.height })
         point(
-          i * (geom.width / x),
-          j * (geom.height / y),
+          i * (w / x),
+          j * (h / y),
         )
         ctx.fill();
       }
     }
   }
-}
-
-registerPaint('dot-mesh', DotMeshPainter);
+});
