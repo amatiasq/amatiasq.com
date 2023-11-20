@@ -1,6 +1,7 @@
 @import './reset.css';
 /* @import './pico.css'; */
 @import './syntax-highlighting.css';
+/* @import './content-grid.css'; */
 
 @import './themes/blue-orange-darker.css';
 @import './fonts/IBM-plex-and-Inconsolata.css';
@@ -61,18 +62,3 @@ img {
     list-style: none;
   }
 }
-
-/*
-summary {
-  cursor: pointer;
-  list-style: none;
-}
-summary::-webkit-details-marker {
-  display: none;
-}
-.md summary {
-  list-style: unset;
-}
-.md summary::-webkit-details-marker {
-  display: unset;
-} */

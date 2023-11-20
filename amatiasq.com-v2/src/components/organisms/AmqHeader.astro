@@ -4,6 +4,12 @@ import githubIcon from '../icons/Github.svg?raw';
 import linkedInIcon from '../icons/LinkedIn.svg?raw';
 import Tr from '../atoms/Tr.astro';
 import WebComponent from '../atoms/WebComponent.astro';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
 ---
 
 <script defer>
@@ -14,7 +20,7 @@ import WebComponent from '../atoms/WebComponent.astro';
 
 <WebComponent src="https://components.amatiasq.com/hamburger-button.js" />
 
-<nav class="amq-header">
+<nav class:list={['amq-header', className]}>
   <Container>
     <div class="internal-links">
       <a class="nav-link" href="#projects" onclick="closeHamburger();">
