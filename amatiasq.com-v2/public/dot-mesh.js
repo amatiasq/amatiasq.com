@@ -1,24 +1,18 @@
-function log(x) {
-  console.log(x);
-  return x;
-}
-
 class GridWorklet {
-  static get inputProperties() {
-    return log(workletProperties({
-      color: [
-        '--color-background',
-        '--color-text',
-        '--grid-color',
-      ],
-      numeric: [
-        '--grid-size',
-        // '--grid-columns',
-        // '--grid-width',
-        // '--grid-height',
-      ],
-    }));
-  }
+  static inputProperties = workletProperties({
+    color: [
+      '--color-background',
+      '--color-text',
+      '--grid-color',
+    ],
+    numeric: [
+      '--grid-size',
+      // '--grid-columns',
+      // '--grid-width',
+      // '--grid-height',
+    ],
+  });
+
 
   paint(ctx, { width: w, height: h }, props) {
     const {
@@ -56,13 +50,11 @@ class GridWorklet {
 }
 
 registerPaint('dotted-grid', class DottedGrid extends GridWorklet {
-  static get inputProperties() {
-    return log(GridWorklet.inputProperties.extend({
-      numeric: [
-        '--grid-point-size',
-      ]
-    }));
-  }
+  static inputProperties = GridWorklet.inputProperties.extend({
+    numeric: [
+      '--grid-point-size',
+    ]
+  });
 
   init(props) {
     const {
@@ -143,86 +135,10 @@ function workletProperties({ text = [], numeric = [], color = [] }) {
   });
 
   function parse(name, value) {
-    console.log(name, value)
     const val = value?.toString().trim();
     if (!val) return undefined;
     if (!numeric.includes(name)) return val;
     const result = parseFloat(val);
     if (!isNaN(result)) return result;
   }
-
 }
-
-// function drawDigit(context, value, x, y, height) {
-//   if (value === 1) {
-//     drawOne(context, x, y, height);
-//   } else if (value === 0) {
-//     drawZero(context, x, y, height);
-//   }
-// }
-
-// function drawOne(context, x, y, height) {
-//   const width = height / 2;
-//   const startX = x + width / 2;
-
-//   context.beginPath();
-//   context.moveTo(startX, y);
-//   context.lineTo(startX, y + height);
-//   context.stroke();
-// }
-
-// function drawZero(context, x, y, height) {
-//   const width = height / 2;
-//   const centerX = x + width / 2;
-//   const centerY = y + height / 2;
-//   const radius = width / 2;
-
-//   context.beginPath();
-//   context.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-//   context.stroke();
-// }
-
-// function drawFancyOne(context, x, y, height) {
-//   const width = height / 2;
-//   const baseX = x + width / 2;
-//   const topY = y + height * 0.2;
-
-//   // Draw the slanting part of '1'
-//   context.beginPath();
-//   context.moveTo(baseX - width * 0.2, topY);
-//   context.lineTo(baseX, y);
-//   context.lineTo(baseX, y + height);
-//   context.stroke();
-
-//   // Draw the base of '1'
-//   context.beginPath();
-//   context.moveTo(baseX - width * 0.2, y + height);
-//   context.lineTo(baseX + width * 0.2, y + height);
-//   context.stroke();
-// }
-
-// function drawFancyZero(context, x, y, height) {
-//   const width = height / 2;
-//   const centerX = x + width / 2;
-//   const centerY = y + height / 2;
-//   const radius = width / 2;
-
-//   // Outer circle
-//   context.beginPath();
-//   context.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-//   context.stroke();
-
-//   // Inner circle for the '0' to give a donut shape
-//   context.beginPath();
-//   context.arc(centerX, centerY, radius * 0.6, 0, 2 * Math.PI);
-//   context.stroke();
-// }
-
-// // Example usage
-// function drawFancyDigit(context, value, x, y, height) {
-//   if (value === 1) {
-//     drawFancyOne(context, x, y, height);
-//   } else if (value === 0) {
-//     drawFancyZero(context, x, y, height);
-//   }
-// }
