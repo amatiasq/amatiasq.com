@@ -150,11 +150,21 @@ function present<T extends Content>(list: T[]) {
 </BaseDocument>
 
 <style is:global>
+  :root {
+    --grid-size: 50;
+    --grid-point-size: 1;
+    --grid-color: hsl(75, 0%, 20%);
+  }
+
   body {
     --gap: calc(var(--spacing) * 1.5);
 
     display: flex;
     flex-direction: column;
+    background-color: var(--color-background);
+
+    background: paint(diagonal-grid);
+    background-attachment: fixed;
   }
 
   section:not(#intro) {
