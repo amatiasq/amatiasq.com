@@ -1,8 +1,14 @@
 ---
+import Container from '../atoms/Container.astro';
 import AmqHeader from '../organisms/AmqHeader.astro';
 import BaseDocument from './BaseDocument.astro';
+
+export type { Props } from './BaseDocument.astro';
 ---
 
 <BaseDocument>
   <AmqHeader />
+  <Container>
+    <slot />
+  </Container>
 </BaseDocument>

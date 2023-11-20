@@ -55,14 +55,6 @@ function present<T extends Content>(list: T[]) {
         flex-direction: column;
         height: calc(100dvh - var(--amq-header-height));
 
-        > header {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          flex: 1;
-          gap: 2rem;
-        }
-
         & h1 {
           font-size: 1.5em;
           line-height: 150%;
@@ -150,21 +142,12 @@ function present<T extends Content>(list: T[]) {
 </BaseDocument>
 
 <style is:global>
-  :root {
-    --grid-size: 10;
-    --grid-point-size: 1;
-    --grid-color: hsl(75, 0%, 8%);
-  }
-
   body {
     --gap: calc(var(--spacing) * 1.5);
 
     display: flex;
     flex-direction: column;
     background-color: var(--color-background);
-
-    background: paint(diagonal-grid);
-    background-attachment: fixed;
   }
 
   section:not(#intro) {

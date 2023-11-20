@@ -20,9 +20,23 @@ const title = [Astro.props.title, 'A. Matías Quezada']
     <!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> -->
     <meta name="viewport" content="width=device-width" />
     <title>{title}</title>
+
     <script>
-      CSS.paintWorklet?.addModule('dot-mesh.js');
+      CSS.paintWorklet?.addModule('/dot-mesh.js');
     </script>
+
+    <style>
+      :root {
+        --grid-size: 10;
+        --grid-point-size: 1;
+        --grid-color: hsl(75, 0%, 8%);
+      }
+
+      body {
+        background: paint(diagonal-grid);
+        background-attachment: fixed;
+      }
+    </style>
   </head>
   <body class:list={[className]}>
     <slot />

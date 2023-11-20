@@ -7,7 +7,6 @@ import TagList from '@components/organisms/TagList.astro';
 import BaseLayout, {
   type Props as BaseLayoutProps,
 } from '@components/templates/BaseLayout.astro';
-import Container from '../atoms/Container.astro';
 
 export interface Props extends BaseLayoutProps {
   entry: ContentOf<{
@@ -22,14 +21,12 @@ const tags = entry.data.tags ?? [];
 ---
 
 <BaseLayout {...baseLayoutProps}>
-  <Container>
-    <h1>
-      <slot name="article-title">
-        <Tr value={title} />
-      </slot>
-    </h1>
+  <h1>
+    <slot name="article-title">
+      <Tr value={title} />
+    </slot>
+  </h1>
 
-    <TagList class="md-tags" tags={tags} />
-    <Markdown as="article" md={entry.content} />
-  </Container>
+  <TagList class="md-tags" tags={tags} />
+  <Markdown as="article" md={entry.content} />
 </BaseLayout>
