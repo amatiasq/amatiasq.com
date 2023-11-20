@@ -44,15 +44,20 @@ import WebComponent from '../atoms/WebComponent.astro';
 </nav>
 
 <style is:global>
-  /* @import url('../../styles/util/nav-link.css'); */
-
   :root {
     --amq-header-height: 0px;
   }
 
   .amq-header {
+    box-shadow: 0 8px 16px 0px #000;
     background-color: var(--color-secondary);
     padding: 1em;
+
+    --color-background: var(--color-secondary);
+    --grid-color: hsl(75, 0%, 10%);
+
+    background: paint(diagonal-grid);
+    background-attachment: fixed;
 
     & .internal-links {
       flex: 1;
@@ -133,6 +138,7 @@ import WebComponent from '../atoms/WebComponent.astro';
       position: sticky;
       top: 0;
       width: 100%;
+      z-index: 1;
 
       & a {
         margin-left: 1em;

@@ -39,7 +39,7 @@ const visible = max ? entries.slice(0, max) : entries;
   {
     visible.map((entry) => (
       <li class="entry-card">
-        <Link page={entry.href} class="entry-card">
+        <Link page={entry.href}>
           <Image value={entry.data.image} thumbnail />
           <h4>
             <Tr value={entry.data.title} />
@@ -75,7 +75,17 @@ const visible = max ? entries.slice(0, max) : entries;
   }
 
   .entry-card {
-    color: currentColor;
+    /* &.sad-glass {
+      backdrop-filter: blur(2px);
+      border-radius: 5px;
+      overflow: hidden;
+      padding: 10px;
+      background-color: rgba(0 0 0 / 0.1);
+    } */
+
+    & a {
+      color: currentColor;
+    }
 
     & img {
       display: block;
