@@ -1,0 +1,464 @@
+<!DOCTYPE html><html lang="es" class="astro-wb7wxecl"><head><meta charset="utf-8"><!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> --><meta name="viewport" content="width=device-width"><title>A. Matías Quezada</title><style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: GitHub Dark
+  Description: Dark theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-dark
+  Current colors taken from GitHub's CSS
+*/.hljs{color:#c9d1d9;background:#0d1117}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#ff7b72}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#d2a8ff}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-variable,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id{color:#79c0ff}.hljs-regexp,.hljs-string,.hljs-meta .hljs-string{color:#a5d6ff}.hljs-built_in,.hljs-symbol{color:#ffa657}.hljs-comment,.hljs-code,.hljs-formula{color:#8b949e}.hljs-name,.hljs-quote,.hljs-selector-tag,.hljs-selector-pseudo{color:#7ee787}.hljs-subst{color:#c9d1d9}.hljs-section{color:#1f6feb;font-weight:700}.hljs-bullet{color:#f2cc60}.hljs-emphasis{color:#c9d1d9;font-style:italic}.hljs-strong{color:#c9d1d9;font-weight:700}.hljs-addition{color:#aff5b4;background-color:#033a16}.hljs-deletion{color:#ffdcd7;background-color:#67060c}pre code.hljs{--_code-margin: var(--code-margin, 1.5em);white-space:pre;background-color:#000;margin:var(--_code-margin) calc(var(--_code-margin) * -1);padding:var(--_code-margin);border-radius:8px}pre code.hljs>.hljs-comment{color:#999}code:not(.hljs){padding:0 .3em .1em;border-radius:5px;background-color:#0000004d}.md li{list-style:initial}.md ul,.md ol{margin:20px 0;padding:reset}.md p{text-align:justify}.md blockquote{border-left:2px solid var(--color-text);margin-left:0;padding-left:1em}.md :is(h1,h2,h3,h4,h5,h6){margin-top:.7em;margin-bottom:.3em}
+.tag-list{display:flex;gap:.5em;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+</style>
+<link rel="stylesheet" href="/_astro/_slug_.d64b408e.css" /><script type="module">CSS.paintWorklet?.addModule("/dot-mesh.js");
+</script></head><body class="astro-wb7wxecl"><script defer>
+  function closeHamburger() {
+    document.querySelector('hamburger-button')?.removeAttribute('active');
+  }
+</script><script type="module" defer>export const tagName = 'hamburger-button';
+
+export const template = `
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+
+  <style>
+    :host {
+      cursor: pointer;
+  
+      --_color: var(--color, black);
+      --_width: var(--width, 2em);
+      --_thickness: var(--thickness, 3px);
+      --_spacing: var(--spacing, 7px);
+      --_opacity: var(--opacity, 0.5);
+  
+      --translation-x: calc(var(--_thickness) + var(--_spacing));
+    }
+  
+    .bar {
+      width: var(--_width);
+      height: var(--_thickness);
+      background-color: var(--_color);
+      margin: var(--_spacing) 0;
+      opacity: var(--_opacity);
+  
+      will-change: transform, opacity;
+      transition: 0.4s;
+      transition-property: transform, opacity;
+    }
+  
+    :host(:hover) .bar {
+      opacity: 1;
+    }
+  
+    :host([active]) .bar:first-of-type {
+      transform: translate(0, var(--translation-x)) rotate(45deg);
+    }
+  
+    :host([active]) .bar:nth-child(2) {
+      opacity: 0;
+    }
+  
+    :host([active]) .bar:last-of-type {
+      transform: translate(0, calc(var(--translation-x) * -1)) rotate(-45deg);
+    }
+  </style>
+`;
+
+export class HamburgerButton extends HTMLElement {
+  #shadowRoot;
+
+  constructor() {
+    super();
+
+    this.#shadowRoot = this.attachShadow({ mode: 'open' });
+    this.#shadowRoot.innerHTML = template;
+  
+    this.bars = this.shadowRoot.querySelectorAll(".bar");
+    this.toggle = this.toggle.bind(this);
+  }
+
+  connectedCallback() {
+    this.addEventListener("click", this.toggle);
+  }
+  disconnectedCallback() {
+    this.addEventListener("click", this.toggle);
+  }
+
+  toggle() {
+    this.toggleAttribute("active");
+
+    const event = new CustomEvent('toggle', {
+      detail: {
+        active: this.hasAttribute("active")
+      }
+    });
+
+    this.dispatchEvent(event);
+  }
+}
+
+customElements.define('hamburger-button', HamburgerButton);</script><hamburger-button><template shadowrootmode="open"><!-- don't fold me  -->
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+
+  <style>
+    :host {
+      cursor: pointer;
+  
+      --_color: var(--color, black);
+      --_width: var(--width, 2em);
+      --_thickness: var(--thickness, 3px);
+      --_spacing: var(--spacing, 7px);
+      --_opacity: var(--opacity, 0.5);
+  
+      --translation-x: calc(var(--_thickness) + var(--_spacing));
+    }
+  
+    .bar {
+      width: var(--_width);
+      height: var(--_thickness);
+      background-color: var(--_color);
+      margin: var(--_spacing) 0;
+      opacity: var(--_opacity);
+  
+      will-change: transform, opacity;
+      transition: 0.4s;
+      transition-property: transform, opacity;
+    }
+  
+    :host(:hover) .bar {
+      opacity: 1;
+    }
+  
+    :host([active]) .bar:first-of-type {
+      transform: translate(0, var(--translation-x)) rotate(45deg);
+    }
+  
+    :host([active]) .bar:nth-child(2) {
+      opacity: 0;
+    }
+  
+    :host([active]) .bar:last-of-type {
+      transform: translate(0, calc(var(--translation-x) * -1)) rotate(-45deg);
+    }
+  </style>
+</template></hamburger-button><nav class="amq-header"><div class="container"><div class="internal-links"><a class="nav-link" href="#projects" onclick="closeHamburger();">Proyectos</a><a class="nav-link" href="#experiments" onclick="closeHamburger();">Experimentos</a><a class="nav-link" href="#blog" onclick="closeHamburger();"> Blog</a><a class="nav-link" href="#talks" onclick="closeHamburger();">Charlas</a><a class="nav-link" href="#career" onclick="closeHamburger();">Experiencia</a></div><div class="external-links"><a target="_blank" href="https://github.com/amatiasq"><svg aria-label="Github icon" width="32" height="32" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd"
+        d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"
+        fill="#fff">
+    </path>
+</svg></a><a target="_blank" href="https://www.linkedin.com/in/amatiasq/"><?xml version="1.0" encoding="utf-8"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg aria-label="LinkedIn Icon" width="32" height="32" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path
+        d="M18.72 3.99997H5.37C5.19793 3.99191 5.02595 4.01786 4.86392 4.07635C4.70189 4.13484 4.55299 4.22471 4.42573 4.34081C4.29848 4.45692 4.19537 4.59699 4.12232 4.75299C4.04927 4.909 4.0077 5.07788 4 5.24997V18.63C4.01008 18.9901 4.15766 19.3328 4.41243 19.5875C4.6672 19.8423 5.00984 19.9899 5.37 20H18.72C19.0701 19.9844 19.4002 19.8322 19.6395 19.5761C19.8788 19.32 20.0082 18.9804 20 18.63V5.24997C20.0029 5.08247 19.9715 4.91616 19.9078 4.76122C19.8441 4.60629 19.7494 4.466 19.6295 4.34895C19.5097 4.23191 19.3672 4.14059 19.2108 4.08058C19.0544 4.02057 18.8874 3.99314 18.72 3.99997ZM9 17.34H6.67V10.21H9V17.34ZM7.89 9.12997C7.72741 9.13564 7.5654 9.10762 7.41416 9.04768C7.26291 8.98774 7.12569 8.89717 7.01113 8.78166C6.89656 8.66615 6.80711 8.5282 6.74841 8.37647C6.6897 8.22474 6.66301 8.06251 6.67 7.89997C6.66281 7.73567 6.69004 7.57169 6.74995 7.41854C6.80986 7.26538 6.90112 7.12644 7.01787 7.01063C7.13463 6.89481 7.2743 6.80468 7.42793 6.74602C7.58157 6.68735 7.74577 6.66145 7.91 6.66997C8.07259 6.66431 8.2346 6.69232 8.38584 6.75226C8.53709 6.8122 8.67431 6.90277 8.78887 7.01828C8.90344 7.13379 8.99289 7.27174 9.05159 7.42347C9.1103 7.5752 9.13699 7.73743 9.13 7.89997C9.13719 8.06427 9.10996 8.22825 9.05005 8.3814C8.99014 8.53456 8.89888 8.6735 8.78213 8.78931C8.66537 8.90513 8.5257 8.99526 8.37207 9.05392C8.21843 9.11259 8.05423 9.13849 7.89 9.12997ZM17.34 17.34H15V13.44C15 12.51 14.67 11.87 13.84 11.87C13.5822 11.8722 13.3313 11.9541 13.1219 12.1045C12.9124 12.2549 12.7546 12.4664 12.67 12.71C12.605 12.8926 12.5778 13.0865 12.59 13.28V17.34H10.29V10.21H12.59V11.21C12.7945 10.8343 13.0988 10.5225 13.4694 10.3089C13.84 10.0954 14.2624 9.98848 14.69 9.99997C16.2 9.99997 17.34 11 17.34 13.13V17.34Z" />
+</svg></a></div></div></nav><div class="container"><h1>Rust</h1><ul class="tag-list md-tags"></ul><article class="md"><p>Decidí probar <a href="https://www.rust-lang.org/">el lenguaje Rust</a> por varias razones:</p>
+<ul>
+<li><strong>WebAssembly</strong>: He estado buscando un lenguaje que me permita ejecutar código eficiente en el navegador como WebAssembly y Javascript / Typescript no son buenos candidatos por el tipado débil y el Colector de Basura (Garbage Collector).</li>
+<li><strong>No hay Garbage Collector</strong>: hablando del GC, me gusta ejecutar <a href="https://amatiasq.com/projects/lulas/">simulaciones en la web</a> y el colector de basura tarde o temprano se convierte en un problema haciendoo la simulación impredecible.</li>
+<li><strong>Sistema de tipado</strong>: Tuve la suerte de aprender F# y me enamoré de la forma en la que usa tipos, empiezas un programa definiendo los estados de la aplicación en forma de tipos. La idea es muy buena pero todo eso se traduce a más tipos que crear e instanciar en tiempo de ejecución que añade más carga al colector de basura. El sistema de tipos de Rust toma las mejores ideas a la vez que elimina todos los tipos en tiempo de compilación.</li>
+<li><strong>Reputación</strong>: Siguiendo las encuestas de la industria está claro que la gente que usa Rust encontró algo diferente en éste lenguaje, incluso <a href="https://www.zdnet.com/article/rust-in-the-linux-kernel-why-it-matters-and-whats-happening-next/">se está abriendo camino al kernel de Linux</a>.</li>
+</ul>
+<h2>El proyecto</h2>
+<p>Así que porqué no empezar con algo simple como <em>crear una aplicación web que renderice un gráfico SVG</em>? 🧑‍💻</p>
+<p>Siguiendo <a href="https://www.youtube.com/playlist?list=PLZaoyhMXgBzoM9bfb5pyUOT3zjnaDdSEP">no boilerplate</a> encontré <a href="https://yew.rs/">Yew</a>, un framework para Rust inspirado en React:</p>
+<pre><code class="hljs language-rs">[#function_component]
+<span class="hljs-keyword">fn</span> <span class="hljs-title function_">MyComponent</span>(props: Props) {
+  <span class="hljs-keyword">return</span> html!{
+    &#x3C;div>{props.content}&#x3C;/div>
+  };
+}
+</code></pre>
+<p>Esto promete.</p>
+<h2>Instalación</h2>
+<p>Para instalar Rust ejecuté los siguientes comandos (para sistemas unix como Linux y Mac) como dicen en la <a href="https://yew.rs/docs/getting-started/introduction">documentación de Yew</a></p>
+<pre><code class="hljs language-bash"><span class="hljs-comment"># de https://rustup.rs/</span>
+curl --proto <span class="hljs-string">'=https'</span> --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+<span class="hljs-comment"># esto activa el comando rustup inmediatamente</span>
+<span class="hljs-built_in">source</span> <span class="hljs-string">"<span class="hljs-variable">$HOME</span>/.cargo/env"</span>
+
+<span class="hljs-comment"># instala algo sobre soporte para webassembly... creo</span>
+rustup target add wasm32-unknown-unknown
+
+<span class="hljs-comment"># algunas dependencias que vamos a necesitar</span>
+cargo install --locked trunk
+cargo install cargo-generate
+</code></pre>
+<p>Entonces generé un proyecto con el comando <code>cargo generate</code></p>
+<pre><code class="hljs language-bash">cargo generate --git https://github.com/yewstack/yew-trunk-minimal-template
+</code></pre>
+<h2>Primeras impresiones</h2>
+<p>A primera vista el código parece familiar,</p>
+<pre><code class="hljs language-rs"><span class="hljs-comment">// main.rs</span>
+<span class="hljs-keyword">mod</span> app;
+
+<span class="hljs-keyword">use</span> app::App;
+
+<span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() {
+    yew::Renderer::&#x3C;App>::<span class="hljs-title function_ invoke__">new</span>().<span class="hljs-title function_ invoke__">render</span>();
+}
+</code></pre>
+<pre><code class="hljs language-rs"><span class="hljs-comment">// app.rs</span>
+<span class="hljs-keyword">use</span> yew::prelude::*;
+
+<span class="hljs-meta">#[function_component(App)]</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">app</span>() <span class="hljs-punctuation">-></span> Html {
+    html! {
+        &#x3C;main>
+            &#x3C;img class=<span class="hljs-string">"logo"</span> src=<span class="hljs-string">"https://yew.rs/img/logo.png"</span> alt=<span class="hljs-string">"Yew logo"</span> />
+            &#x3C;h1>{ <span class="hljs-string">"Hello World!"</span> }&#x3C;/h1>
+            &#x3C;span class=<span class="hljs-string">"subtitle"</span>>{ <span class="hljs-string">"from Yew with "</span> }&#x3C;i class=<span class="hljs-string">"heart"</span> />&#x3C;/span>
+        &#x3C;/main>
+    }
+}
+</code></pre>
+<p>Sintaxis estilo C, bastante similar a Typescript para ser honesto...</p>
+<ul>
+<li>el <code>#[loquesea]</code> parece atributos / decoradores</li>
+<li>parece que <code>use algo</code> se usa para importar tipos y valores</li>
+<li>me gusta lo ligera que es la sintaxis de funciones: <code>fn name() -> ReturnType</code></li>
+<li>a éstas alturas ya se que las funciones que terminan en <code>!</code>son meta-programación, código que genera código en tiempo de compilación</li>
+</ul>
+<p>Escuché en algún video que <strong>no poner punto y coma en la última sentencia de un bloque es un <code>return</code> implícito</strong> así que <code>app()</code> devuelve el resultado de la macro <code>html!</code>.</p>
+<h2>Primer archivo</h2>
+<p>Los únicos tipos personalizables de Rust son</p>
+<h3><code>struct</code></h3>
+<p>Es un contenedor de propiedades. Puede ser genérico igual que en Typescript.</p>
+<pre><code class="hljs language-rs"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">MyType</span>&#x3C;T> {
+  a: T,
+}
+
+<span class="hljs-comment">// los métodos pueden añadirse después</span>
+<span class="hljs-comment">// incluso pueden ser añadidos por módulos ajenos</span>
+<span class="hljs-comment">// podemos tener multiples blockes impl para el mismo struct</span>
+<span class="hljs-comment">// parecen no ser más que funciones independientes</span>
+<span class="hljs-comment">// con una sintaxis bonita para parecer métodos</span>
+<span class="hljs-keyword">impl</span> <span class="hljs-title class_">MyType</span>&#x3C;T> {
+  <span class="hljs-comment">// que hace &#x26; aquí? aún no lo sé 🤷</span>
+  <span class="hljs-keyword">fn</span> <span class="hljs-title function_">myMethod</span>(&#x26;<span class="hljs-keyword">self</span>, x: <span class="hljs-type">i32</span>) <span class="hljs-punctuation">-></span> <span class="hljs-type">bool</span> { <span class="hljs-literal">true</span> }
+}
+
+<span class="hljs-comment">// los structs pueden ser tambien tuplas</span>
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Vector2</span>(<span class="hljs-type">i32</span>, <span class="hljs-type">i32</span>);
+
+<span class="hljs-comment">// o incluso no tener items en absoluto!</span>
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">Person</span>;
+</code></pre>
+<h3><code>enum</code></h3>
+<p>Los enums son particularmente poderosos, definen tipos "uno de X" y cada opción puede tener valores dentro</p>
+<pre><code class="hljs language-rs"><span class="hljs-comment">// este es parte de Rust</span>
+<span class="hljs-keyword">enum</span> <span class="hljs-title class_">Option</span>&#x3C;T> {
+  <span class="hljs-title function_ invoke__">Some</span>(T),
+  <span class="hljs-literal">None</span>,
+}
+
+<span class="hljs-keyword">enum</span> <span class="hljs-title class_">Event</span> {
+  Scroll,
+  <span class="hljs-title function_ invoke__">KeyDown</span>(Key),
+  Click { x: <span class="hljs-type">i32</span>, y: y32 },
+}
+
+<span class="hljs-comment">// si, pueden tener métodos también ❤️</span>
+<span class="hljs-keyword">impl</span> <span class="hljs-title class_">Event</span> {
+  <span class="hljs-keyword">fn</span> <span class="hljs-title function_">something</span>(&#x26;<span class="hljs-keyword">self</span>) <span class="hljs-punctuation">-></span> <span class="hljs-type">i32</span> { <span class="hljs-number">0</span> }
+}
+</code></pre>
+<h3>De vuelta al proyecto</h3>
+<p>No puedo esperar para definir el estado de mi aplicación con tipos así que lo primero que hago es crear un archivo <code>types.rs</code> y crear un struct dentro, Github Copilot hace el resto por mi</p>
+<pre><code class="hljs language-rs"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span> {
+  id: <span class="hljs-type">u64</span>, <span class="hljs-comment">// debió usar i32</span>
+  node_type: NodeType,
+  name: <span class="hljs-type">String</span>,
+}
+
+<span class="hljs-keyword">enum</span> <span class="hljs-title class_">NodeType</span> {
+  Person,
+  Place
+}
+
+<span class="hljs-comment">// error: los valores globales deben ser const x: Type</span>
+<span class="hljs-comment">// pero no sabré eso por un rato</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">me</span> = Node {
+  id: <span class="hljs-number">1</span>,
+  node_type: NodeType::Person,
+  name: <span class="hljs-string">"A. Matías Quezada"</span>,
+}
+</code></pre>
+<p>Esto pinta bien, ahora vamos a importar este archivo y usar este valor pero... porqué "Ir a la definición" no funciona en VS Code?</p>
+<h2>Integración con el editor</h2>
+<p>Cambio <code>main.rs</code> a un caso más simple</p>
+<pre><code class="hljs language-rs"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">test</span>() {}
+
+<span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() {
+    <span class="hljs-title function_ invoke__">test</span>();
+}
+</code></pre>
+<p>Y no, VS Code no sabe donde encontrar la definición de <code>test</code> 🤦. Se por <a href="https://youtu.be/ifaLk5v3W90">mis fuentes</a> que VS Code está integrado con Rust y he instalado un par de las extensiones más populares así que porqué no funciona?</p>
+<p>Resulta que la única extensión que necesitamos para trabajar con Rust es <code>rust-analyzer</code> y la tengo instalada e incluso la documentación de <a href="https://code.visualstudio.com/docs/languages/rust">VS Code</a> dice que debe funcionar directamnete... Intenté quitando las demás extensiones de Rust, reiniciando VS Code, reiniciando la computadora, desactivando y re-activando la extensión y... espera! ahora funciona, y no se cómo.</p>
+<h2>Importando un archivo</h2>
+<p>Bien, ahora vamos a importar ese archivo <code>types.rs</code>... debe ser algo como <code>use types::*</code>, cierto?</p>
+<p><a href="https://doc.rust-lang.org/book/ch07-02-defining-modules-to-control-scope-and-privacy.html">Incorrecto!</a></p>
+<p>Resulta que la palabra clave <code>use</code> solo crea un acceso directo (alias) para items ya existentes, no los importa.</p>
+<p>Entonces para importar un archivo... vale, alguien en internet dice que debemos usar <code>mod nombre_de_archivo;</code> sin la extensión <code>.rs</code> pero eso no me funciona... vamos a respirar hondo.</p>
+<pre><code class="hljs language-rs"><span class="hljs-comment">// main.rs</span>
+<span class="hljs-comment">// en un archivo rust podemos definir un módulo interno</span>
+<span class="hljs-keyword">mod</span> my_internal_module {
+  <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">some_internal_function</span>() {}
+}
+
+my_internal_module::<span class="hljs-title function_ invoke__">some_internal_function</span>();
+</code></pre>
+<p>Y, en teoría deberíamos ser capaces de mover el contenido de ese módulo a un archivo llamado <code>my_internal_module.rs</code> y cambiar la instrucción <code>mod</code> a <code>mod my_internal_module;</code> y eso debería funcionar, y lo hace... una vez.</p>
+<p>Imaginemos la siguiente estructura de archivos:</p>
+<pre><code class="hljs language-rs"><span class="hljs-comment">// src/main.rs</span>
+<span class="hljs-keyword">mod</span> my_internal_module;
+
+my_internal_module::<span class="hljs-title function_ invoke__">some_internal_function</span>();
+
+<span class="hljs-comment">// src/my_internal_module.rs</span>
+<span class="hljs-keyword">mod</span> another_module;
+
+<span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">some_internal_function</span>() {
+  another_module::<span class="hljs-title function_ invoke__">deepest_function</span>();
+}
+
+<span class="hljs-comment">// src/another_module.rs</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">deepest_function</span>() {}
+</code></pre>
+<p>En este caso Rust busca <code>another_module</code> en <code>my_internal_module/another_module.rs</code>, aparentemente no podemos encadenar <code>mod</code>de esta forma. Aunque funciona si movemos todas las instrucciones <code>mod</code> al archivo <code>main.rs</code>.</p>
+<pre><code class="hljs language-rs"><span class="hljs-comment">// src/main.rs</span>
+<span class="hljs-keyword">mod</span> my_internal_module;
+<span class="hljs-keyword">mod</span> another_module;
+
+my_internal_module::<span class="hljs-title function_ invoke__">some_internal_function</span>();
+
+<span class="hljs-comment">// src/my_internal_module.rs</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">some_internal_function</span>() {
+  another_module::<span class="hljs-title function_ invoke__">deepest_function</span>();
+}
+
+<span class="hljs-comment">// src/another_module.rs</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">deepest_function</span>() {}
+</code></pre>
+<p>Así que main se comporta como un índice y raíz para importar archivos, supongo que tendré que tirar con esto hasta que aprenda más. Termino <a href="https://github.com/amatiasq/learn-rust/blob/d69a056f1cb35723d504c48c58ee75fa51feecb1/src/main.rs#L1-L3">importando todos los archivos desde <code>main.rs</code></a>.</p>
+<h2>Primeros errores</h2>
+<h3>Feedback</h3>
+<p>Mientras cambio el código me doy cuenta que los errores no están en el lugar correcto y solo se actualizan cuando guardo el archivo. Claro, este no es un lenguaje interpretado, es compilado así que necesita que guarde el archivo antes de intentar entender lo que he escrito (supongo). Al estar acostumbrado al feedback inmediato del ecosistema de Typescript esto me saca un poco de mi zona.</p>
+<p>También parece que hay "capas" de errores, cuando resuelvo todos los errores del compilador un segundo tipo de errores aparecen inmediatamente por todo el código y cuando los soluciono un montón de advertencias que no habían salido antes aparecen de pronto por todos lados.</p>
+<p>Los errores son muy amables y explican exactamente dónde ocurrió el problema e incluso sugieren una solución lo que es todo un detalle de parte del equipo del compilador de Rust.</p>
+<h3>Valores globales</h3>
+<p>Ahora que estoy importando archivos y tanto el compilador como el editor me muestran los errores veo que no puedo simplemente <code>let me = Node {...}</code> fuera de una función. La forma correcta de hacer esto es con <code>const me: Node = Node {...}</code>. Porqué necesito escribir el tipo dos veces? no lo se, el compilador lo pidió. Hay una forma de evitar eso? si encuentras la respuesta avísame.</p>
+<h3>Strings are not <code>&#x26;str</code></h3>
+<p>Ahora es cuando empiezo a encontrarme realmente perdido, en el struct <code>Node</code> declaré la propiedad como <code>name: String</code> y cuando intento instanciar la struct con <code>name: "A. Matías Quezada"</code> soy inmediatamente abofeteado por el error: <code>expected String, found &#x26;str</code> <a href="https://youtu.be/1Z9yy0t2RGQ">WAT</a></p>
+<pre><code> --> src/data.rs:6:11
+  |
+6 |     name: "A. Matías Quezada",
+  |           ^^^^^^^^^^^^^^^^^^^- help: try using a conversion method: `.to_string()`
+  |           |
+  |           expected struct `String`, found `&#x26;str`
+</code></pre>
+<p>Copilot había añadido <code>.to_string()</code> justo ahí y lo borré porque pensé que era redundante, pero oye, estamos aquí para aprender. Lo cambié a<code>name: "A. Matías Quezada".to_string()</code> de vuelta y pinta bien, todas las demás strings del archivo siguen dando error pero guardé el archivo y <em>esta línea</em> ya no da error. Procedo a añadir <code>.to_string()</code> a todos los demás strings en el archivo, guardo y...</p>
+<pre><code>error[E0015]: cannot call non-const fn `&#x3C;str as ToString>::to_string` in constants
+ --> src/data.rs:6:31
+  |
+6 |     name: "A. Matías Quezada".to_string(),
+</code></pre>
+<p>Vale... No se que hacer ahora... y si... solo...</p>
+<pre><code class="hljs language-rs"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span> {
+    id: <span class="hljs-type">u64</span>,
+    node_type: NodeType,
+    <span class="hljs-comment">// name: String,</span>
+    name: &#x26;<span class="hljs-type">str</span>,
+}
+</code></pre>
+<p>🤞</p>
+<pre><code>error[E0106]: missing lifetime specifier
+  --> src/types.rs:19:15
+   |
+19 |     name: &#x26;str,
+   |               ^ expected named lifetime parameter
+   |
+help: consider introducing a named lifetime parameter
+   |
+16 ~ struct Node&#x3C;'a> {
+17 |     id: u64,
+18 |     node_type: NodeType,
+19 ~     name: &#x26;'a str,
+   |
+
+For more information about this error, try `rustc --explain E0106`.
+</code></pre>
+<p>Bueno, al menos me está diciendo que tengo que hacer, verdad? Solo tengo que añadir un... named lifetime parameter?... lo que sea eso.</p>
+<pre><code class="hljs language-rs"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">Node</span>&#x3C;<span class="hljs-symbol">'a</span>> {
+    id: <span class="hljs-type">u64</span>,
+    node_type: NodeType,
+    <span class="hljs-comment">// name: String,</span>
+    name: &#x26;<span class="hljs-symbol">'a</span> <span class="hljs-type">str</span>,
+}
+</code></pre>
+<p>Vale esto no puede estar bien, vamos a guardar y ver...</p>
+<pre><code>error[E0106]: missing lifetime specifier
+  --> src/types.rs:30:20
+   |
+30 |     nodes: Vec&#x3C;Node>,
+   |                    ^^^^ expected named lifetime parameter
+   |
+help: consider introducing a named lifetime parameter
+   |
+29 ~ struct Graph&#x3C;'a> {
+30 ~     nodes: Vec&#x3C;Node&#x3C;'a>>,
+   |
+
+For more information about this error, try `rustc --explain E0106`.
+</code></pre>
+<p>Hm... vale, puedo hacer eso, también tengo una función <code>create_graph()</code> que probablemente necesite ser actualizada:</p>
+<pre><code class="hljs language-rs"><span class="hljs-keyword">fn</span> <span class="hljs-title function_">create_graph</span>&#x3C;<span class="hljs-symbol">'a</span>>() <span class="hljs-punctuation">-></span> Graph&#x3C;<span class="hljs-symbol">'a</span>> {
+  Graph {
+    nodes: <span class="hljs-built_in">vec!</span>[me]
+  }
+}
+</code></pre>
+<p>Bueno <a href="https://github.com/amatiasq/learn-rust/commit/1c9f5b740638eac27222a204fbec455e2cd6544a">hice algo!</a>.</p>
+<h2>Notas finales</h2>
+<ul>
+<li>A primera vista Rust parece simple y familiar</li>
+<li>Los errores del compilador son tan buenos como dicen</li>
+<li>No hay <code>null</code>, es así de simple</li>
+<li>La estructura de archivo se ve familiar viniendo de javascript, a primer nivel tenemos funciones exportadas y, opcionalmente, clases</li>
+<li>El el código es breve pero con muchos símbolos, no soy fan de <code>::</code> y <code>&#x26;</code> por todos lados y encontré <code>&#x3C;'a></code>  difícil de teclear</li>
+<li>Rust no permite crear lógica fuera de una función y los valores global siguen reglas especiales: tienen que ser <code>const</code> o <code>static</code> (este último es mutable)</li>
+<li>El lenguaje Rust es bastante fino y depende de librerías para la mayoría de comportamientos avanzados (async/await, http, threading...)</li>
+<li>La forma de definir métodos es perfecta, similar a los extension methods de C#, permiten extender una clase de terceros sin tener acceso al código</li>
+<li>El archivo generado no contiene tipos, repito, el binario no sabe nada sobre tipos. Los tipos son solo una herramienta para el humano y el compilador</li>
+<li>Hay muchas cosas sobre <code>lifecycle</code> que escapan mi entendimiento pero parece que podemos usar algo parecido a tipos genéricos para recibir (de quién llama a la función) cuánto tiempo debe una variable permanecer en la memoria</li>
+<li>Un <code>crate</code> es una unidad de compilación, imagínalo como una DLL, una aplicación puede contener varios crates</li>
+<li>La siguiente parada es <a href="https://doc.rust-lang.org/book/">Rust book</a></li>
+</ul>
+<p>Sobre funciones del lenguaje:</p>
+<ul>
+<li>Me encanta el sistema de macros que nos da maravillas como las listas <code>vec![1,2,3]</code></li>
+<li><code>mod</code> puede ser usado para crear un módulo interno de un archivo o para cargar un archivo desde <code>main.rs</code></li>
+<li><code>use</code> crea alias de namespaces y permite múltiples valores o <code>*</code>: <code>use namespace::module::{A,B,C}</code></li>
+<li>Parece que hay varios tipos de strings: <code>String</code>, <code>&#x26;str</code>, más?</li>
+<li>El sistema de tipos es la mejor parte, me encanta que <code>struct</code> pueda ser una tupla o no contener ningún item</li>
+<li>No estoy seguro pero creo que las ramas de un <code>enum</code> son en realidad structs</li>
+</ul>
+<pre><code class="hljs language-rs"><span class="hljs-keyword">struct</span> <span class="hljs-title class_">MyStruct1</span> { x: <span class="hljs-type">i32</span> }
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">MyStruct2</span>(<span class="hljs-type">i32</span>);
+<span class="hljs-comment">// esto es como una interfaz</span>
+<span class="hljs-comment">// sin miembros</span>
+<span class="hljs-keyword">struct</span> <span class="hljs-title class_">MyStruct3</span>;
+
+<span class="hljs-keyword">enum</span> <span class="hljs-title class_">MyEnum</span> {
+  <span class="hljs-comment">// exactamente el mismo código</span>
+  <span class="hljs-comment">// sin la palabra clave `struct`</span>
+  MyStruct1 { x: <span class="hljs-type">i32</span> },
+  <span class="hljs-title function_ invoke__">MyStruct2</span>(<span class="hljs-type">i32</span>),
+  MyStruct3,
+}
+</code></pre>
+<p>Quizás debí empezar con un proyecto con el que esté más familiarizado... alguien dijo Lulas v38.0?</p>
+<p>Come más verduras</p></article></div></body></html>

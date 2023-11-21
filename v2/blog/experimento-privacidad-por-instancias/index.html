@@ -1,0 +1,397 @@
+<!DOCTYPE html><html lang="en" class="astro-wb7wxecl"><head><meta charset="utf-8"><!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> --><meta name="viewport" content="width=device-width"><title>A. Matías Quezada</title><style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: GitHub Dark
+  Description: Dark theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-dark
+  Current colors taken from GitHub's CSS
+*/.hljs{color:#c9d1d9;background:#0d1117}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#ff7b72}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#d2a8ff}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-variable,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id{color:#79c0ff}.hljs-regexp,.hljs-string,.hljs-meta .hljs-string{color:#a5d6ff}.hljs-built_in,.hljs-symbol{color:#ffa657}.hljs-comment,.hljs-code,.hljs-formula{color:#8b949e}.hljs-name,.hljs-quote,.hljs-selector-tag,.hljs-selector-pseudo{color:#7ee787}.hljs-subst{color:#c9d1d9}.hljs-section{color:#1f6feb;font-weight:700}.hljs-bullet{color:#f2cc60}.hljs-emphasis{color:#c9d1d9;font-style:italic}.hljs-strong{color:#c9d1d9;font-weight:700}.hljs-addition{color:#aff5b4;background-color:#033a16}.hljs-deletion{color:#ffdcd7;background-color:#67060c}pre code.hljs{--_code-margin: var(--code-margin, 1.5em);white-space:pre;background-color:#000;margin:var(--_code-margin) calc(var(--_code-margin) * -1);padding:var(--_code-margin);border-radius:8px}pre code.hljs>.hljs-comment{color:#999}code:not(.hljs){padding:0 .3em .1em;border-radius:5px;background-color:#0000004d}.md li{list-style:initial}.md ul,.md ol{margin:20px 0;padding:reset}.md p{text-align:justify}.md blockquote{border-left:2px solid var(--color-text);margin-left:0;padding-left:1em}.md :is(h1,h2,h3,h4,h5,h6){margin-top:.7em;margin-bottom:.3em}
+.tag-list{display:flex;gap:.5em;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+</style>
+<link rel="stylesheet" href="/_astro/_slug_.d64b408e.css" /><script type="module">CSS.paintWorklet?.addModule("/dot-mesh.js");
+</script></head><body class="astro-wb7wxecl"><script defer>
+  function closeHamburger() {
+    document.querySelector('hamburger-button')?.removeAttribute('active');
+  }
+</script><script type="module" defer>export const tagName = 'hamburger-button';
+
+export const template = `
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+
+  <style>
+    :host {
+      cursor: pointer;
+  
+      --_color: var(--color, black);
+      --_width: var(--width, 2em);
+      --_thickness: var(--thickness, 3px);
+      --_spacing: var(--spacing, 7px);
+      --_opacity: var(--opacity, 0.5);
+  
+      --translation-x: calc(var(--_thickness) + var(--_spacing));
+    }
+  
+    .bar {
+      width: var(--_width);
+      height: var(--_thickness);
+      background-color: var(--_color);
+      margin: var(--_spacing) 0;
+      opacity: var(--_opacity);
+  
+      will-change: transform, opacity;
+      transition: 0.4s;
+      transition-property: transform, opacity;
+    }
+  
+    :host(:hover) .bar {
+      opacity: 1;
+    }
+  
+    :host([active]) .bar:first-of-type {
+      transform: translate(0, var(--translation-x)) rotate(45deg);
+    }
+  
+    :host([active]) .bar:nth-child(2) {
+      opacity: 0;
+    }
+  
+    :host([active]) .bar:last-of-type {
+      transform: translate(0, calc(var(--translation-x) * -1)) rotate(-45deg);
+    }
+  </style>
+`;
+
+export class HamburgerButton extends HTMLElement {
+  #shadowRoot;
+
+  constructor() {
+    super();
+
+    this.#shadowRoot = this.attachShadow({ mode: 'open' });
+    this.#shadowRoot.innerHTML = template;
+  
+    this.bars = this.shadowRoot.querySelectorAll(".bar");
+    this.toggle = this.toggle.bind(this);
+  }
+
+  connectedCallback() {
+    this.addEventListener("click", this.toggle);
+  }
+  disconnectedCallback() {
+    this.addEventListener("click", this.toggle);
+  }
+
+  toggle() {
+    this.toggleAttribute("active");
+
+    const event = new CustomEvent('toggle', {
+      detail: {
+        active: this.hasAttribute("active")
+      }
+    });
+
+    this.dispatchEvent(event);
+  }
+}
+
+customElements.define('hamburger-button', HamburgerButton);</script><hamburger-button><template shadowrootmode="open"><!-- don't fold me  -->
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+
+  <style>
+    :host {
+      cursor: pointer;
+  
+      --_color: var(--color, black);
+      --_width: var(--width, 2em);
+      --_thickness: var(--thickness, 3px);
+      --_spacing: var(--spacing, 7px);
+      --_opacity: var(--opacity, 0.5);
+  
+      --translation-x: calc(var(--_thickness) + var(--_spacing));
+    }
+  
+    .bar {
+      width: var(--_width);
+      height: var(--_thickness);
+      background-color: var(--_color);
+      margin: var(--_spacing) 0;
+      opacity: var(--_opacity);
+  
+      will-change: transform, opacity;
+      transition: 0.4s;
+      transition-property: transform, opacity;
+    }
+  
+    :host(:hover) .bar {
+      opacity: 1;
+    }
+  
+    :host([active]) .bar:first-of-type {
+      transform: translate(0, var(--translation-x)) rotate(45deg);
+    }
+  
+    :host([active]) .bar:nth-child(2) {
+      opacity: 0;
+    }
+  
+    :host([active]) .bar:last-of-type {
+      transform: translate(0, calc(var(--translation-x) * -1)) rotate(-45deg);
+    }
+  </style>
+</template></hamburger-button><nav class="amq-header"><div class="container"><div class="internal-links"><a class="nav-link" href="#projects" onclick="closeHamburger();">Projects</a><a class="nav-link" href="#experiments" onclick="closeHamburger();">Experiments</a><a class="nav-link" href="#blog" onclick="closeHamburger();"> Blog</a><a class="nav-link" href="#talks" onclick="closeHamburger();">Talks</a><a class="nav-link" href="#career" onclick="closeHamburger();">Career</a></div><div class="external-links"><a target="_blank" href="https://github.com/amatiasq"><svg aria-label="Github icon" width="32" height="32" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd"
+        d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"
+        fill="#fff">
+    </path>
+</svg></a><a target="_blank" href="https://www.linkedin.com/in/amatiasq/"><?xml version="1.0" encoding="utf-8"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg aria-label="LinkedIn Icon" width="32" height="32" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path
+        d="M18.72 3.99997H5.37C5.19793 3.99191 5.02595 4.01786 4.86392 4.07635C4.70189 4.13484 4.55299 4.22471 4.42573 4.34081C4.29848 4.45692 4.19537 4.59699 4.12232 4.75299C4.04927 4.909 4.0077 5.07788 4 5.24997V18.63C4.01008 18.9901 4.15766 19.3328 4.41243 19.5875C4.6672 19.8423 5.00984 19.9899 5.37 20H18.72C19.0701 19.9844 19.4002 19.8322 19.6395 19.5761C19.8788 19.32 20.0082 18.9804 20 18.63V5.24997C20.0029 5.08247 19.9715 4.91616 19.9078 4.76122C19.8441 4.60629 19.7494 4.466 19.6295 4.34895C19.5097 4.23191 19.3672 4.14059 19.2108 4.08058C19.0544 4.02057 18.8874 3.99314 18.72 3.99997ZM9 17.34H6.67V10.21H9V17.34ZM7.89 9.12997C7.72741 9.13564 7.5654 9.10762 7.41416 9.04768C7.26291 8.98774 7.12569 8.89717 7.01113 8.78166C6.89656 8.66615 6.80711 8.5282 6.74841 8.37647C6.6897 8.22474 6.66301 8.06251 6.67 7.89997C6.66281 7.73567 6.69004 7.57169 6.74995 7.41854C6.80986 7.26538 6.90112 7.12644 7.01787 7.01063C7.13463 6.89481 7.2743 6.80468 7.42793 6.74602C7.58157 6.68735 7.74577 6.66145 7.91 6.66997C8.07259 6.66431 8.2346 6.69232 8.38584 6.75226C8.53709 6.8122 8.67431 6.90277 8.78887 7.01828C8.90344 7.13379 8.99289 7.27174 9.05159 7.42347C9.1103 7.5752 9.13699 7.73743 9.13 7.89997C9.13719 8.06427 9.10996 8.22825 9.05005 8.3814C8.99014 8.53456 8.89888 8.6735 8.78213 8.78931C8.66537 8.90513 8.5257 8.99526 8.37207 9.05392C8.21843 9.11259 8.05423 9.13849 7.89 9.12997ZM17.34 17.34H15V13.44C15 12.51 14.67 11.87 13.84 11.87C13.5822 11.8722 13.3313 11.9541 13.1219 12.1045C12.9124 12.2549 12.7546 12.4664 12.67 12.71C12.605 12.8926 12.5778 13.0865 12.59 13.28V17.34H10.29V10.21H12.59V11.21C12.7945 10.8343 13.0988 10.5225 13.4694 10.3089C13.84 10.0954 14.2624 9.98848 14.69 9.99997C16.2 9.99997 17.34 11 17.34 13.13V17.34Z" />
+</svg></a></div></div></nav><div class="container"><h1>Experiment: Per-instance privacy (spanish)</h1><ul class="tag-list md-tags"></ul><article class="md"><blockquote>
+<p>Actualización 19/3/2014: Sorprendentemente parece que una propuesta del ECMAScript 6 sigue mismo el patrón descrito en este post, y yo que pensaba que era demasiado rebuscado...</p>
+<p>http://wiki.ecmascript.org/doku.php?id=harmony:classes</p>
+</blockquote>
+<p>Como ya comenté, la privacidad en Javascript es un tema peliagudo, <strong>el lenguaje no nos ofrece ninguna herramienta para gestionar la privacidad</strong> automáticamente, tenemos que aprovechar el scope de <strong>los closures para ocultar información</strong> que el usuario de nuestra librería no necesita saber, <strong>pero ocultar propiedades de una instancia es mucho más complicado</strong>. Hace algunos años me empeñé en buscar una forma de conseguir privacidad por instancias que no fuera mediante el constructor, como ya expliqué en el <a href="http://www.amatiasq.com/2012/02/conceptos-basicos-javascript-privacidad/" title="Conceptos Básicos Javascript: Privacidad">post anterior</a>.</p>
+<p>Para empezar está claro que es necesario tener un closure, para ocultar las variables desde fuera:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// función de ejecución inmediata</span>
+(<span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-variable language_">global</span></span>) {
+  <span class="hljs-comment">// Contenido oculto</span>
+})(<span class="hljs-variable language_">this</span>);
+</code></pre>
+<p>Dentro de éste closure definiría la clase:</p>
+<pre><code class="hljs language-js">(<span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-variable language_">global</span></span>) {
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">Persona</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">var</span> secreto;
+  }
+
+  <span class="hljs-title class_">Persona</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = {
+    <span class="hljs-attr">guardarSecreto</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">susurro</span>) {
+      secreto = susurro;
+    },
+    <span class="hljs-attr">revelarSecreto</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+      <span class="hljs-keyword">return</span> secreto;
+    },
+  };
+
+  <span class="hljs-variable language_">global</span>.<span class="hljs-property">Persona</span> = <span class="hljs-title class_">Persona</span>;
+})(<span class="hljs-variable language_">this</span>);
+</code></pre>
+<p>Evidentemente es imposible acceder a la variable <code>secreto</code> desde los métodos porque <code>secreto</code> <strong>está encerrada en el constructor y no se puede acceder ella desde fuera</strong> del constructor. Así que si quiero privacidad sin meter los métodos en el constructor por los métodos que <a href="http://www.amatiasq.com/?p=174" title="Conceptos Básicos Javascript: Privacidad">ya expliqué</a> la solución pasa por sacar la variable del constructor:</p>
+<pre><code class="hljs language-js">(<span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-variable language_">global</span></span>) {
+  <span class="hljs-keyword">var</span> secreto;
+
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">Persona</span>(<span class="hljs-params"></span>) {}
+  <span class="hljs-title class_">Persona</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = {
+    <span class="hljs-attr">guardarSecreto</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">susurro</span>) {
+      secreto = susurro;
+    },
+    <span class="hljs-attr">revelarSecreto</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+      <span class="hljs-keyword">return</span> secreto;
+    },
+  };
+
+  <span class="hljs-variable language_">global</span>.<span class="hljs-property">Persona</span> = <span class="hljs-title class_">Persona</span>;
+})(<span class="hljs-variable language_">this</span>);
+
+<span class="hljs-keyword">var</span> pepe = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Persona</span>();
+<span class="hljs-keyword">var</span> maria = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Persona</span>();
+pepe.<span class="hljs-title function_">guardarSecreto</span>(<span class="hljs-string">'estás en matrix'</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(maria.<span class="hljs-title function_">revelarSecreto</span>());
+</code></pre>
+<p>Pruébame</p>
+<p>Bien, ahora <code>secreto</code> está fuera del constructor, pero tenemos otro problema, <strong>todas las instancias de <code>Persona</code> comparten la misma variable!</strong> Hay que buscar la forma de contar un secreto a <code>pepe</code> sin que <code>maria</code> se entere, dicho de otra forma, de guardar un valor en una instancia sin modificar la otra. En Javascript es muy sencillo trabajar con mappings así que porqué no guardamos en un mapping la relación instancia-valor? Así cada instancia podrá tener su valor guardado en la variable secreto sin interferir con el valor de otra instancia.</p>
+<pre><code class="hljs language-js">(<span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-variable language_">global</span></span>) {
+  <span class="hljs-keyword">var</span> secreto = {};
+
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">Persona</span>(<span class="hljs-params"></span>) {}
+  <span class="hljs-title class_">Persona</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = {
+    <span class="hljs-attr">guardarSecreto</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">susurro</span>) {
+      secreto[<span class="hljs-variable language_">this</span>] = susurro;
+    },
+    <span class="hljs-attr">revelarSecreto</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+      <span class="hljs-keyword">return</span> secreto[<span class="hljs-variable language_">this</span>];
+    },
+  };
+
+  <span class="hljs-variable language_">global</span>.<span class="hljs-property">Persona</span> = <span class="hljs-title class_">Persona</span>;
+})(<span class="hljs-variable language_">this</span>);
+
+<span class="hljs-keyword">var</span> pepe = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Persona</span>();
+<span class="hljs-keyword">var</span> maria = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Persona</span>();
+pepe.<span class="hljs-title function_">guardarSecreto</span>(<span class="hljs-string">'estás en matrix'</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(maria.<span class="hljs-title function_">revelarSecreto</span>());
+</code></pre>
+<p>Pruébame</p>
+<p>Esto tampoco funciona, porqué? Para entender ésto hay que investigar un poco, <strong>los índices de los arrays y los mappings en Javascript son <code>strings</code></strong>, y si intentas poner un índice de otro tipo lo convierte a <code>string</code> con el método <code>.toString()</code></p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> array = [];
+array[<span class="hljs-number">0</span>] = <span class="hljs-string">'Hola!'</span>;
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i <span class="hljs-keyword">in</span> array) {
+  <span class="hljs-keyword">if</span> (array.<span class="hljs-title function_">hasOwnProperty</span>(i)) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(
+      <span class="hljs-string">'Array tiene la propiedad --['</span> + i + <span class="hljs-string">']-- del tipo --['</span> + <span class="hljs-keyword">typeof</span> i + <span class="hljs-string">']-- con el valor --['</span> + array[i] + <span class="hljs-string">']--'</span>,
+    );
+  }
+}
+
+<span class="hljs-keyword">var</span> mapping = {};
+<span class="hljs-keyword">var</span> indice = {};
+mapping[indice] = <span class="hljs-string">'Mundo!'</span>;
+
+<span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i <span class="hljs-keyword">in</span> mapping) {
+  <span class="hljs-keyword">if</span> (mapping.<span class="hljs-title function_">hasOwnProperty</span>(i)) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(
+      <span class="hljs-string">'Mapping tiene la propiedad --['</span> +
+        i +
+        <span class="hljs-string">']-- del tipo --['</span> +
+        <span class="hljs-keyword">typeof</span> i +
+        <span class="hljs-string">']-- con el valor --['</span> +
+        mapping[i] +
+        <span class="hljs-string">']--'</span>,
+    );
+  }
+}
+</code></pre>
+<p>Pruébame</p>
+<p>Entonces <strong>tanto <code>pepe</code> como <code>maria</code> se convierten a <code>[object Object]</code> cuando los utilizo como índices</strong> del mapping. Y hasta aquí había llegado hasta que descubrí los <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/WeakMap" title="WeakMap"><code>WeakMap</code> de Firefox</a>. Consiste básicamente en una clase con métodos <code>.set(id, valor);</code> y <code>.get(id);</code> por lo que cumple la misma funcionalidad que un mapping, con la diferencia de que si el único punto del programa en el que se usa una referencia es un <code>WeakMap</code>, <strong>el recolector de basura la puede borrar</strong>. Es una funcionalidad que es necesaria en Javascript por motivos que no voy a enumerar ahora, pero para mi trae un éxtra: "WeakMaps are key/value maps in which <strong>keys are objects</strong>" (Los WeakMaps son mappings clave/valor donde <strong>las claves son objetos</strong>). Sorpresa! Los <code>WeakMap</code> a diferencia de los mappings comunes no usan strings como claves, sino objetos. Esto haría viable la implementación anterior:</p>
+<pre><code class="hljs language-js">(<span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-variable language_">global</span></span>) {
+  <span class="hljs-keyword">var</span> secreto = <span class="hljs-keyword">new</span> <span class="hljs-title class_">WeakMap</span>();
+
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">Persona</span>(<span class="hljs-params"></span>) {}
+  <span class="hljs-title class_">Persona</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = {
+    <span class="hljs-attr">guardarSecreto</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">susurro</span>) {
+      secreto.<span class="hljs-title function_">set</span>(<span class="hljs-variable language_">this</span>, susurro);
+    },
+    <span class="hljs-attr">revelarSecreto</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+      <span class="hljs-comment">// Si no tenemos ningún secreto</span>
+      <span class="hljs-keyword">if</span> (!secreto.<span class="hljs-title function_">has</span>(<span class="hljs-variable language_">this</span>)) <span class="hljs-keyword">return</span> <span class="hljs-string">'Nada'</span>;
+      <span class="hljs-keyword">else</span> <span class="hljs-keyword">return</span> secreto.<span class="hljs-title function_">get</span>(<span class="hljs-variable language_">this</span>);
+    },
+  };
+
+  <span class="hljs-variable language_">global</span>.<span class="hljs-property">Persona</span> = <span class="hljs-title class_">Persona</span>;
+})(<span class="hljs-variable language_">this</span>);
+
+<span class="hljs-keyword">var</span> pepe = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Persona</span>();
+<span class="hljs-keyword">var</span> maria = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Persona</span>();
+
+pepe.<span class="hljs-title function_">guardarSecreto</span>(<span class="hljs-string">'estás en matrix'</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'Secreto de María: '</span> + maria.<span class="hljs-title function_">revelarSecreto</span>());
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'Secreto de Pepe: '</span> + pepe.<span class="hljs-title function_">revelarSecreto</span>());
+</code></pre>
+<p>Pruébame</p>
+<p><strong>Nota</strong>: Aunque los WeakMap solo están en Firefox, ésto funcionará en todos los navegadores porque he creado una clase que se comporta de forma similar, pero que no permite al recolector de basura eliminar los objetos, la implementación puede verse al final del artículo.</p>
+<p>Funciona! Hemos conseguido guardar una variable privada por instancia con un closure por clase. Ahora llémoslo un poco más allá, que pasa si <strong>en lugar de guardar una variable guardamos un objeto donde podremos tener todas las variables que queramos</strong> para ésa instancia?</p>
+<pre><code class="hljs language-js">(<span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-variable language_">global</span></span>) {
+  <span class="hljs-keyword">var</span> privadas = <span class="hljs-keyword">new</span> <span class="hljs-title class_">WeakMap</span>();
+
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">Persona</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-comment">// Inicializamos el objeto</span>
+    privadas.<span class="hljs-title function_">set</span>(<span class="hljs-variable language_">this</span>, {});
+    privadas.<span class="hljs-title function_">get</span>(<span class="hljs-variable language_">this</span>).<span class="hljs-property">otraPrivada</span> = <span class="hljs-string">'Variable inaccesible desde fuera'</span>;
+  }
+
+  <span class="hljs-title class_">Persona</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = {
+    <span class="hljs-attr">guardarSecreto</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">susurro</span>) {
+      privadas.<span class="hljs-title function_">get</span>(<span class="hljs-variable language_">this</span>).<span class="hljs-property">secreto</span> = susurro;
+    },
+    <span class="hljs-attr">revelarSecreto</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+      <span class="hljs-keyword">return</span> privadas.<span class="hljs-title function_">get</span>(<span class="hljs-variable language_">this</span>).<span class="hljs-property">secreto</span>;
+    },
+  };
+
+  <span class="hljs-variable language_">global</span>.<span class="hljs-property">Persona</span> = <span class="hljs-title class_">Persona</span>;
+})(<span class="hljs-variable language_">this</span>);
+
+<span class="hljs-keyword">var</span> pepe = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Persona</span>();
+<span class="hljs-keyword">var</span> maria = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Persona</span>();
+
+pepe.<span class="hljs-title function_">guardarSecreto</span>(<span class="hljs-string">'estás en matrix'</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'Secreto de María: '</span> + maria.<span class="hljs-title function_">revelarSecreto</span>());
+</code></pre>
+<p>Pruébame</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">privadas</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">var</span> map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">WeakMap</span>();
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params">clave</span>) {
+    <span class="hljs-keyword">if</span> (!map.<span class="hljs-title function_">has</span>(clave)) map.<span class="hljs-title function_">set</span>(clave, {});
+    <span class="hljs-keyword">return</span> map.<span class="hljs-title function_">get</span>(clave);
+  };
+}
+</code></pre>
+<p>Y ahora ésta funcion nos devuelve otra función que podremos llamar cuando queramos con la instancia para obtener las privadas. Nuestra clase queda:</p>
+<pre><code class="hljs language-js">(<span class="hljs-keyword">function</span> (<span class="hljs-params"><span class="hljs-variable language_">global</span></span>) {
+  <span class="hljs-keyword">var</span> p = <span class="hljs-title function_">privadas</span>();
+
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">Persona</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-title function_">p</span>(<span class="hljs-variable language_">this</span>).<span class="hljs-property">secreto</span> = <span class="hljs-string">'Nada'</span>;
+    <span class="hljs-title function_">p</span>(<span class="hljs-variable language_">this</span>).<span class="hljs-property">otraPrivada</span> = <span class="hljs-string">'Variable inaccesible desde fuera'</span>;
+  }
+
+  <span class="hljs-title class_">Persona</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = {
+    <span class="hljs-attr">guardarSecreto</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">susurro</span>) {
+      <span class="hljs-title function_">p</span>(<span class="hljs-variable language_">this</span>).<span class="hljs-property">secreto</span> = susurro;
+    },
+    <span class="hljs-attr">revelarSecreto</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+      <span class="hljs-keyword">return</span> <span class="hljs-title function_">p</span>(<span class="hljs-variable language_">this</span>).<span class="hljs-property">secreto</span>;
+    },
+  };
+
+  <span class="hljs-variable language_">global</span>.<span class="hljs-property">Persona</span> = <span class="hljs-title class_">Persona</span>;
+})(<span class="hljs-variable language_">this</span>);
+
+<span class="hljs-keyword">var</span> pepe = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Persona</span>();
+<span class="hljs-keyword">var</span> maria = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Persona</span>();
+
+pepe.<span class="hljs-title function_">guardarSecreto</span>(<span class="hljs-string">'estás en matrix'</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'Secreto de María: '</span> + maria.<span class="hljs-title function_">revelarSecreto</span>());
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'Secreto de Pepe: '</span> + pepe.<span class="hljs-title function_">revelarSecreto</span>());
+</code></pre>
+<p>Pruébame</p>
+<p>Y voilá! Tenemos privadas por clases sin crear más de un closure. :D</p>
+<h3>Resumen</h3>
+<p>Está claro que <strong>es aberrante pensar en crear una arquitectura basada en éste sistema</strong>, incluso dejando de lado lo extraño de la sintaxis (<code>p(this)</code> para acceder a las privadas), <strong>sería peligroso</strong> porque aunque Firefox nos ofrezca <code>WeakMap</code> en el resto de navegadores tendríamos que crear una funcionalidad similiar y no podríamos evitar tener una referencia a las instancias si queremos que el sistema sea irrompible, lo que haría que el recolector de basura no pudiera borrar las instancias que ya no utilizemos con <strong>riesgo de llenar la memoria RAM disponible</strong>.</p>
+<p>Como ya he dicho muchas veces, la gracia de <strong>esto no es forzar Javascript a su límite, sino forzar la mente</strong>, si hoy forzamos la imaginación hasta sus límites mañana podremos sobrepasarlos. La idea es ejercitar y mejorar la capacidad de buscar soluciones creativas y funcionales por extrañas o imposibles que parezcan.</p>
+<p>Finalmente, como expliqué en la nota, aquí está la implementación que usé para que los ejemplos funcionen en navegadores que no sean Firefox, guarda en los objetos la propiedad <em>$$ID</em> para no tener que buscar en todo el array de claves el índice del objeto:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> <span class="hljs-title class_">WeakMap</span> === <span class="hljs-string">'undefined'</span>) {
+  <span class="hljs-variable language_">window</span>.<span class="hljs-property">WeakMap</span> = <span class="hljs-keyword">function</span> <span class="hljs-title function_">WeakMap</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">keys</span> = [];
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">values</span> = [];
+  };
+  <span class="hljs-title class_">WeakMap</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = {
+    <span class="hljs-attr">constructor</span>: <span class="hljs-title class_">WeakMap</span>,
+
+    <span class="hljs-attr">set</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">key, value</span>) {
+      <span class="hljs-keyword">var</span> id = (key.<span class="hljs-property">$$ID</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">keys</span>.<span class="hljs-property">length</span>);
+      <span class="hljs-variable language_">this</span>.<span class="hljs-property">keys</span>[id] = key;
+      <span class="hljs-variable language_">this</span>.<span class="hljs-property">values</span>[id] = value;
+    },
+
+    <span class="hljs-attr">get</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) {
+      <span class="hljs-keyword">var</span> id = key.<span class="hljs-property">$$ID</span>;
+
+      <span class="hljs-comment">// Si el índice del objeto no se corresponde</span>
+      <span class="hljs-comment">// con su posición en la lista de claves</span>
+      <span class="hljs-comment">// Es que ha sido modificado, debemos corregirlo.</span>
+      <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">keys</span>[id] !== key) id = <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">_fixIndex</span>(key);
+
+      <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">values</span>[id];
+    },
+
+    <span class="hljs-attr">has</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) {
+      <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">_fixIndex</span>(key) !== <span class="hljs-literal">null</span>;
+    },
+
+    <span class="hljs-attr">_fixIndex</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">key</span>) {
+      <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> i = <span class="hljs-variable language_">this</span>.<span class="hljs-property">keys</span>.<span class="hljs-property">length</span>; i--; ) <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">keys</span>[i] === key) <span class="hljs-keyword">return</span> (key.<span class="hljs-property">$$ID</span> = i);
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">null</span>;
+    },
+  };
+}
+</code></pre></article></div></body></html>

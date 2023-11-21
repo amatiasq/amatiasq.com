@@ -1,0 +1,327 @@
+<!DOCTYPE html><html lang="es" class="astro-wb7wxecl"><head><meta charset="utf-8"><!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> --><meta name="viewport" content="width=device-width"><title>A. Matías Quezada</title><style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: GitHub Dark
+  Description: Dark theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-dark
+  Current colors taken from GitHub's CSS
+*/.hljs{color:#c9d1d9;background:#0d1117}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#ff7b72}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#d2a8ff}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-variable,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id{color:#79c0ff}.hljs-regexp,.hljs-string,.hljs-meta .hljs-string{color:#a5d6ff}.hljs-built_in,.hljs-symbol{color:#ffa657}.hljs-comment,.hljs-code,.hljs-formula{color:#8b949e}.hljs-name,.hljs-quote,.hljs-selector-tag,.hljs-selector-pseudo{color:#7ee787}.hljs-subst{color:#c9d1d9}.hljs-section{color:#1f6feb;font-weight:700}.hljs-bullet{color:#f2cc60}.hljs-emphasis{color:#c9d1d9;font-style:italic}.hljs-strong{color:#c9d1d9;font-weight:700}.hljs-addition{color:#aff5b4;background-color:#033a16}.hljs-deletion{color:#ffdcd7;background-color:#67060c}pre code.hljs{--_code-margin: var(--code-margin, 1.5em);white-space:pre;background-color:#000;margin:var(--_code-margin) calc(var(--_code-margin) * -1);padding:var(--_code-margin);border-radius:8px}pre code.hljs>.hljs-comment{color:#999}code:not(.hljs){padding:0 .3em .1em;border-radius:5px;background-color:#0000004d}.md li{list-style:initial}.md ul,.md ol{margin:20px 0;padding:reset}.md p{text-align:justify}.md blockquote{border-left:2px solid var(--color-text);margin-left:0;padding-left:1em}.md :is(h1,h2,h3,h4,h5,h6){margin-top:.7em;margin-bottom:.3em}
+.tag-list{display:flex;gap:.5em;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+</style>
+<link rel="stylesheet" href="/_astro/_slug_.d64b408e.css" /><script type="module">CSS.paintWorklet?.addModule("/dot-mesh.js");
+</script></head><body class="astro-wb7wxecl"><script defer>
+  function closeHamburger() {
+    document.querySelector('hamburger-button')?.removeAttribute('active');
+  }
+</script><script type="module" defer>export const tagName = 'hamburger-button';
+
+export const template = `
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+
+  <style>
+    :host {
+      cursor: pointer;
+  
+      --_color: var(--color, black);
+      --_width: var(--width, 2em);
+      --_thickness: var(--thickness, 3px);
+      --_spacing: var(--spacing, 7px);
+      --_opacity: var(--opacity, 0.5);
+  
+      --translation-x: calc(var(--_thickness) + var(--_spacing));
+    }
+  
+    .bar {
+      width: var(--_width);
+      height: var(--_thickness);
+      background-color: var(--_color);
+      margin: var(--_spacing) 0;
+      opacity: var(--_opacity);
+  
+      will-change: transform, opacity;
+      transition: 0.4s;
+      transition-property: transform, opacity;
+    }
+  
+    :host(:hover) .bar {
+      opacity: 1;
+    }
+  
+    :host([active]) .bar:first-of-type {
+      transform: translate(0, var(--translation-x)) rotate(45deg);
+    }
+  
+    :host([active]) .bar:nth-child(2) {
+      opacity: 0;
+    }
+  
+    :host([active]) .bar:last-of-type {
+      transform: translate(0, calc(var(--translation-x) * -1)) rotate(-45deg);
+    }
+  </style>
+`;
+
+export class HamburgerButton extends HTMLElement {
+  #shadowRoot;
+
+  constructor() {
+    super();
+
+    this.#shadowRoot = this.attachShadow({ mode: 'open' });
+    this.#shadowRoot.innerHTML = template;
+  
+    this.bars = this.shadowRoot.querySelectorAll(".bar");
+    this.toggle = this.toggle.bind(this);
+  }
+
+  connectedCallback() {
+    this.addEventListener("click", this.toggle);
+  }
+  disconnectedCallback() {
+    this.addEventListener("click", this.toggle);
+  }
+
+  toggle() {
+    this.toggleAttribute("active");
+
+    const event = new CustomEvent('toggle', {
+      detail: {
+        active: this.hasAttribute("active")
+      }
+    });
+
+    this.dispatchEvent(event);
+  }
+}
+
+customElements.define('hamburger-button', HamburgerButton);</script><hamburger-button><template shadowrootmode="open"><!-- don't fold me  -->
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+
+  <style>
+    :host {
+      cursor: pointer;
+  
+      --_color: var(--color, black);
+      --_width: var(--width, 2em);
+      --_thickness: var(--thickness, 3px);
+      --_spacing: var(--spacing, 7px);
+      --_opacity: var(--opacity, 0.5);
+  
+      --translation-x: calc(var(--_thickness) + var(--_spacing));
+    }
+  
+    .bar {
+      width: var(--_width);
+      height: var(--_thickness);
+      background-color: var(--_color);
+      margin: var(--_spacing) 0;
+      opacity: var(--_opacity);
+  
+      will-change: transform, opacity;
+      transition: 0.4s;
+      transition-property: transform, opacity;
+    }
+  
+    :host(:hover) .bar {
+      opacity: 1;
+    }
+  
+    :host([active]) .bar:first-of-type {
+      transform: translate(0, var(--translation-x)) rotate(45deg);
+    }
+  
+    :host([active]) .bar:nth-child(2) {
+      opacity: 0;
+    }
+  
+    :host([active]) .bar:last-of-type {
+      transform: translate(0, calc(var(--translation-x) * -1)) rotate(-45deg);
+    }
+  </style>
+</template></hamburger-button><nav class="amq-header"><div class="container"><div class="internal-links"><a class="nav-link" href="#projects" onclick="closeHamburger();">Proyectos</a><a class="nav-link" href="#experiments" onclick="closeHamburger();">Experimentos</a><a class="nav-link" href="#blog" onclick="closeHamburger();"> Blog</a><a class="nav-link" href="#talks" onclick="closeHamburger();">Charlas</a><a class="nav-link" href="#career" onclick="closeHamburger();">Experiencia</a></div><div class="external-links"><a target="_blank" href="https://github.com/amatiasq"><svg aria-label="Github icon" width="32" height="32" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd"
+        d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"
+        fill="#fff">
+    </path>
+</svg></a><a target="_blank" href="https://www.linkedin.com/in/amatiasq/"><?xml version="1.0" encoding="utf-8"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg aria-label="LinkedIn Icon" width="32" height="32" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path
+        d="M18.72 3.99997H5.37C5.19793 3.99191 5.02595 4.01786 4.86392 4.07635C4.70189 4.13484 4.55299 4.22471 4.42573 4.34081C4.29848 4.45692 4.19537 4.59699 4.12232 4.75299C4.04927 4.909 4.0077 5.07788 4 5.24997V18.63C4.01008 18.9901 4.15766 19.3328 4.41243 19.5875C4.6672 19.8423 5.00984 19.9899 5.37 20H18.72C19.0701 19.9844 19.4002 19.8322 19.6395 19.5761C19.8788 19.32 20.0082 18.9804 20 18.63V5.24997C20.0029 5.08247 19.9715 4.91616 19.9078 4.76122C19.8441 4.60629 19.7494 4.466 19.6295 4.34895C19.5097 4.23191 19.3672 4.14059 19.2108 4.08058C19.0544 4.02057 18.8874 3.99314 18.72 3.99997ZM9 17.34H6.67V10.21H9V17.34ZM7.89 9.12997C7.72741 9.13564 7.5654 9.10762 7.41416 9.04768C7.26291 8.98774 7.12569 8.89717 7.01113 8.78166C6.89656 8.66615 6.80711 8.5282 6.74841 8.37647C6.6897 8.22474 6.66301 8.06251 6.67 7.89997C6.66281 7.73567 6.69004 7.57169 6.74995 7.41854C6.80986 7.26538 6.90112 7.12644 7.01787 7.01063C7.13463 6.89481 7.2743 6.80468 7.42793 6.74602C7.58157 6.68735 7.74577 6.66145 7.91 6.66997C8.07259 6.66431 8.2346 6.69232 8.38584 6.75226C8.53709 6.8122 8.67431 6.90277 8.78887 7.01828C8.90344 7.13379 8.99289 7.27174 9.05159 7.42347C9.1103 7.5752 9.13699 7.73743 9.13 7.89997C9.13719 8.06427 9.10996 8.22825 9.05005 8.3814C8.99014 8.53456 8.89888 8.6735 8.78213 8.78931C8.66537 8.90513 8.5257 8.99526 8.37207 9.05392C8.21843 9.11259 8.05423 9.13849 7.89 9.12997ZM17.34 17.34H15V13.44C15 12.51 14.67 11.87 13.84 11.87C13.5822 11.8722 13.3313 11.9541 13.1219 12.1045C12.9124 12.2549 12.7546 12.4664 12.67 12.71C12.605 12.8926 12.5778 13.0865 12.59 13.28V17.34H10.29V10.21H12.59V11.21C12.7945 10.8343 13.0988 10.5225 13.4694 10.3089C13.84 10.0954 14.2624 9.98848 14.69 9.99997C16.2 9.99997 17.34 11 17.34 13.13V17.34Z" />
+</svg></a></div></div></nav><div class="container"><h1>Asincronía y el EventLoop</h1><ul class="tag-list md-tags"></ul><article class="md"><p>Me gustaría hacer un repaso al tema de la asincronía en Javascript porque me llama la atención que pese a tener casi 20 años es un tema que sigue madurando y he visto surgir buenas ideas recientemente.</p>
+<h3>El event loop</h3>
+<p>Primero lo primero, de donde sale la asincronía. Javascript es un lenguaje cuya ejecución se basa en lo que se llama <strong>event loop</strong> (bucle de eventos). El <em>event loop</em> es una cola donde se van añadiendo los bloques de código que quieren ejecutarse, por ejemplo: cuando el navegador está renderizando el HTML de una página y se encuentra un tag <code>&#x3C;script></code> el contenido de ese elemento se añade al <em>event loop</em> para que sea ejecutado tan pronto como sea posible.</p>
+<p>Lo mismo ocurre cuando la página ya está cargada y el usuario hace click. Si tenemos una función listener (también llamado callback) escuchando los eventos click de un objeto esa función se añade a la cola del <em>event loop</em> para que el sistema lo ejecute tan pronto como sea posible.</p>
+<p>De esta forma todos los bloques de código que se ejecutan en javascript han sido bloques de código que entraron a la cola del <em>event loop</em> y cuando llegó su turno fueron ejecutados. Podemos entenderlo más fácilmente si implementamos un falso event loop en Javascript:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> eventLoop = {
+  <span class="hljs-attr">_queue</span>: [],
+
+  <span class="hljs-attr">add</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">fn</span>) {
+    <span class="hljs-comment">// añadimos la función a la cola</span>
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_queue</span>.<span class="hljs-title function_">push</span>(fn);
+
+    <span class="hljs-comment">// si está desocupado ejecutar la función</span>
+    <span class="hljs-keyword">if</span> (!<span class="hljs-variable language_">this</span>.<span class="hljs-property">running</span>) <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">executeNext</span>();
+  },
+
+  <span class="hljs-attr">executeNext</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">running</span> || <span class="hljs-variable language_">this</span>.<span class="hljs-property">_queue</span>.<span class="hljs-property">length</span> === <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span>;
+
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">running</span> = <span class="hljs-literal">true</span>;
+    <span class="hljs-keyword">var</span> block = <span class="hljs-variable language_">this</span>.<span class="hljs-property">_queue</span>.<span class="hljs-title function_">shift</span>();
+    <span class="hljs-title function_">block</span>();
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">running</span> = <span class="hljs-literal">false</span>;
+
+    <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">executeNext</span>();
+  },
+};
+</code></pre>
+<p>Pruébame</p>
+<p>Esto significa que mientras un bloque esté ejecutándose ningún otro bloque de código puede estar ejecutándose a la vez. Pero si un proceso tarda mucho (como leer el disco, comunicarse con el servidor, esperar una determinada cantidad de tiempo...) lo que hacemos es pasarles una función que será añadida al <em>event loop</em> cuando el proceso acabe.</p>
+<p>Cada "bloque" que el <em>event loop</em> ejecuta se llama "un tick del event loop", de ahí el nombre de la función <code>process.nextTick</code> de NodeJS.</p>
+<p>Una forma sencilla de controlar el <em>event loop</em> es mediante <code>setTimeout</code>, <code>setInterval</code> y <code>setImmediate</code>, podemos crear funciones similares que hagan la misma funcionalidad (simplificada) pero para nuestro <code>eventLoop</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">mySetImmediate</span>(<span class="hljs-params">fn</span>) {
+  eventLoop.<span class="hljs-title function_">add</span>(fn);
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">mySetTimeout</span>(<span class="hljs-params">fn, milliseconds</span>) {
+  <span class="hljs-comment">// la unica forma de dejar pasar el tiempo</span>
+  <span class="hljs-comment">// es mediante el VERDADERO setTimeout ;)</span>
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-title function_">mySetImmediate</span>(fn);
+  }, milliseconds);
+}
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">mySetInterval</span>(<span class="hljs-params">fn, milliseconds</span>) {
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">execute</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-title function_">fn</span>();
+    <span class="hljs-title function_">mySetTimeout</span>(execute, milliseconds);
+  }
+
+  <span class="hljs-title function_">mySetTimeout</span>(execute, milliseconds);
+}
+</code></pre>
+<p>Como se puede ver tanto setTimeout como setInterval esperan la cantidad de milisegundos definida y <strong>entonces añaden</strong> el bloque al <em>event loop</em>, si el <em>event loop</em> está ocupado en ese momento puede tardar un poco más de lo esperado en ejecutarse nuestra función.</p>
+<p>Entiendiendo esto es más fácil entender porqué Javascript funciona de la forma que funciona.</p>
+<ul>
+<li>Solo hay un bloque de código ejecutandose en cada momento</li>
+<li>Los bloques se encolan</li>
+<li>Se considera asíncrono a una sección de código que será ejecutada en un "tick" distinto</li>
+</ul>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span>;
+<span class="hljs-built_in">setTimeout</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+  <span class="hljs-comment">// esta función es asíncrona porque el tick que llama a setTimeout</span>
+  <span class="hljs-comment">// tiene que acabar antes que esta función sea invocada.</span>
+  a = <span class="hljs-number">2</span>;
+}, <span class="hljs-number">100</span>);
+</code></pre>
+<p>En el caso de javascript para el navegador además nos encontramos con que el <em>event loop</em> es compartido por Javascript y el motor de renderizado del navegador. Como el <em>event loop</em> solo puede ejecutar un bloque por vez resulta que si estamos ejecutando Javascript el navegador no puede renderizar la página y vice versa, si la página tarda mucho en renderizarse retrasará la ejecución del Javascript. Esto es así porque desde Javascript podemos modificar el DOM y si el navegador intenta renderizar la página mientras nosotros la modificamos tendríamos otro tipo de problemas peores.</p>
+<p>Pero es importante tener esto en cuenta ya que un proceso Javascript que tarde demasiado "congelará" la página, no funcionarán los clicks, scroll, ni siquiera los <code>:hover</code>.</p>
+<h3>Un poco de historia</h3>
+<p>Cuando Javascript fue desarrollado la comunicación asíncrona con el DOM se solucionó mediante eventos y tiene todo el sentido del mundo. Quieres saber cuando el usuario hace click en un elemento? Registra el evento y el navegador te avisará, quieres saber cuando el usuario haga scroll? registra el evento!</p>
+<p>El problema empezó cuando empezamos a usar eventos para cosas no tan claras, como eventos puntuales que solo se disparaban una vez:</p>
+<pre><code class="hljs language-js"><span class="hljs-variable language_">window</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">'load'</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) { ... });
+<span class="hljs-title function_">someAjax</span>().<span class="hljs-property">onready</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) { ... };
+</code></pre>
+<p>Incluso para controlar errores</p>
+<pre><code class="hljs language-js">xhr.<span class="hljs-property">onerror</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) { ... };
+<span class="hljs-variable language_">document</span>.<span class="hljs-title function_">querySelector</span>(<span class="hljs-string">"script"</span>).<span class="hljs-property">onerror</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) { ... };
+</code></pre>
+<p>Hasta para controlar un progreso (en APIs modernas incluso)</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> reader = <span class="hljs-keyword">new</span> <span class="hljs-title class_">FileReader</span>();
+reader.<span class="hljs-property">onprogress</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) { ... };
+</code></pre>
+<p>Pero al no estar acostumbrados a trabajar con asincronía de esta forma no fuimos capaces de ver que estabamos usando una herramienta para todo, como dicen por ahí "para un hombre con un martillo todo es un clavo".</p>
+<p>En node decidieron adaptar el patrón "Continuous Passing Style", que consiste en pasar callbacks a funciones asíncronas</p>
+<pre><code class="hljs language-js">fs.<span class="hljs-title function_">readFile</span>(<span class="hljs-string">"foo"</span>, <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) { ... });
+</code></pre>
+<p>Y por suerte integraron <code>EventEmitter</code>, que permitió crear APIs que usaran eventos sin más complejidad. Y lo que es mejor, incluyeron los streams, una forma de gestión de asincronía creada para que podamos acceder a un recurso por partes. Con el tiempo llegaron los promises que fue lo primero que me hizo plantearme si estábamos enfocando la asincronía de forma coherente.</p>
+<p>En total he llegado a resumir los distintos tipos de asincronía en dos, ambos con la característica de que necesitan gestionar también errores:</p>
+<ul>
+<li><strong>Valor asíncrono</strong>: el callback se invoca una sola vez en el futuro</li>
+<li><strong>Collección asíncrona</strong>: el callback se invoca una vez por cada elemento en la colección</li>
+</ul>
+<h3> Valor asíncrono</h3>
+<p>En el primer caso tenemos un valor asíncrono, puede ser el valor devuelto por una función asíncrona o el valor puede ser nulo en cuyo caso simplemente funcionaría para detectar cuando el proceso ha finalizado. Este caso está cubierto por los Promises.</p>
+<p>Desde mi punto de vista se trata de una especie de meta-programación, tenemos un valor (el promise) que sustituye al valor real para que podamos seguir con nuestra ejecución síncrona.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> contentPromise = file.<span class="hljs-title function_">readContent</span>();
+<span class="hljs-keyword">return</span> contentPromise;
+</code></pre>
+<h3> Colección asíncrona</h3>
+<p>Podemos verlo como un array asíncrono, que a medida que se le van añadiendo elementos va invocando a su callback. En este grupo metería a todo componente asíncrono que invoque a su callback más de una vez:</p>
+<ul>
+<li>Flujo de datos</li>
+<li>Progreso</li>
+<li>Eventos</li>
+</ul>
+<p>Una de las funcionalidades que más me gustan de <a href="https://www.dartlang.org/">Dart</a> es que <a href="https://www.dartlang.org/articles/improving-the-dom/#events">han sustituído los eventos DOM por streams</a>, un pequeño detalle pero que es todo un cambio de concepto, los eventos DOM son una lista de tamaño indeterminado. Cada vez que el usuario hace click es como añadir ese evento al stream de eventos click de ese elemento. Al ser un stream podemos escucharlo, filtrarlo, manipularlo... de la misma forma que hacemos con una colección. Incluso hay implementaciones que tienen métodos <code>.forEach</code> y <code>.filter</code> y <code>.map</code> cumpliendo la misma interfaz que el resto de colecciones.</p>
+<p>Por otro lado los streams siguen siendo útiles para su funcionalidad primera, entregarnos un contenido que vamos recibiendo por partes, es decir; en lugar de cargar un achivo de 1Gb en memoria, un stream nos lo va entregando en bloques más pequeños así podemos trabajarlos y liberar memoria. Además en casos como medidores de progresos encajan perfectamente, siendo cada actualización del progreso un elemento del stream.</p>
+<h3> Y todo junto</h3>
+<blockquote>
+<p>Nota: el código a continuación es adaptado de otros lenguajes y no existe en Javascript</p>
+</blockquote>
+<p>Incluso hay implementaciones muy completas que integran perfectamente los stream y los promises, podemos hacer de forma sencilla cosas como capturar el primer click en la pagina</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// window.onClick instanceof Stream</span>
+<span class="hljs-keyword">var</span> firstClick = <span class="hljs-variable language_">window</span>.<span class="hljs-property">onClick</span>.<span class="hljs-property">first</span>;
+firstClick.<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) { ... });
+</code></pre>
+<p>Comprobar si las primeras diez teclas han sido "flecha derecha"</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> firstTenKeys = input.<span class="hljs-property">onKeyDown</span>.<span class="hljs-title function_">take</span>(<span class="hljs-number">10</span>);
+<span class="hljs-keyword">var</span> keyRightTenTimes = firstTenKeys.<span class="hljs-title function_">every</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) {
+  <span class="hljs-keyword">return</span> event.<span class="hljs-property">keyCode</span> === <span class="hljs-number">39</span>;
+});
+keyRightTenTimes.<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) {
+  <span class="hljs-keyword">if</span> (value) <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'You like left arrow! :D'</span>);
+});
+</code></pre>
+<p>Capturar solo el tercer click en la página</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> thirdClick = input.<span class="hljs-property">onKeyDown</span>.<span class="hljs-title function_">elementAt</span>(<span class="hljs-number">3</span>);
+thirdClick.<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'You clicked three times :)'</span>);
+});
+</code></pre>
+<p>Obtener todo el contenido del archivo desde el stream, no hace falta un método especial</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> stream = file.<span class="hljs-title function_">getReadStream</span>()
+<span class="hljs-keyword">var</span> fileContent = stream.<span class="hljs-title function_">join</span>(<span class="hljs-string">''</span>);
+fileContent.<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span>(<span class="hljs-params">content</span>) { ... });
+</code></pre>
+<p>O detectar el primer evento <code>readystatechange</code> en que el <code>readyState</code> sea <code>4</code>, convertirlo en promise y devolver la respuesta</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">return</span> xhr.<span class="hljs-property">onReadyStateChange</span>
+  .<span class="hljs-title function_">filter</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) {
+    <span class="hljs-keyword">return</span> xhr.<span class="hljs-property">readyState</span> === <span class="hljs-number">4</span>;
+  })
+  .<span class="hljs-property">first</span>.<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">return</span> xhr.<span class="hljs-property">responseText</span>;
+  });
+</code></pre>
+<p>Unificar varias operaciones</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// readFile returns promise</span>
+<span class="hljs-keyword">var</span> concat = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Stream</span>([<span class="hljs-title function_">readFile</span>(<span class="hljs-string">'./header.html'</span>), <span class="hljs-title function_">readFile</span>(<span class="hljs-string">'./content.html'</span>), <span class="hljs-title function_">readFile</span>(<span class="hljs-string">'./footer.html'</span>)]);
+stream.<span class="hljs-title function_">listen</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">chunk</span>) {
+  response.<span class="hljs-title function_">write</span>(chunk);
+});
+</code></pre>
+<p>Incluso cosas más complejas como detectar la primera acción del usuario en la página</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// Promise.race devuelve un promise que se completará</span>
+<span class="hljs-comment">// cuando el primer promise de la lista se complete</span>
+<span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">race</span>([<span class="hljs-variable language_">window</span>.<span class="hljs-property">onClick</span>.<span class="hljs-property">first</span>, <span class="hljs-variable language_">window</span>.<span class="hljs-property">onKeyDown</span>.<span class="hljs-property">first</span>, <span class="hljs-variable language_">window</span>.<span class="hljs-property">onMouseMove</span>.<span class="hljs-property">first</span>]).<span class="hljs-title function_">then</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) {
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'El usuario ha disparado el evento '</span> + event.<span class="hljs-property">type</span>);
+});
+</code></pre>
+<p>Y hasta capturar el evento <code>load</code> de window aunque ya haya pasado:</p>
+<pre><code class="hljs language-js"><span class="hljs-built_in">setTimeout</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+  <span class="hljs-variable language_">window</span>.<span class="hljs-property">onLoad</span>.<span class="hljs-title function_">first</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-comment">// Me van a invocar aunque el evento</span>
+    <span class="hljs-comment">// ya haya pasado :)</span>
+  });
+}, <span class="hljs-number">1000</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span>); <span class="hljs-comment">// una hora</span>
+</code></pre>
+<h3>Resumen</h3>
+<p>La gestión de la asincronía, que siempre ha sido un caos, se simplifica de forma radical gracias a una buena combinación de Stream/Promises. Espero poder actualizar la entrada de los promises con los nuevos promises estándard de ECMAScript 6 :)</p>
+<p>Conocen más patrones de gestión de asincronía?</p></article></div></body></html>

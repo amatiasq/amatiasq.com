@@ -1,0 +1,351 @@
+<!DOCTYPE html><html lang="en" class="astro-wb7wxecl"><head><meta charset="utf-8"><!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> --><meta name="viewport" content="width=device-width"><title>A. Matías Quezada</title><style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: GitHub Dark
+  Description: Dark theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-dark
+  Current colors taken from GitHub's CSS
+*/.hljs{color:#c9d1d9;background:#0d1117}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#ff7b72}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#d2a8ff}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-variable,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id{color:#79c0ff}.hljs-regexp,.hljs-string,.hljs-meta .hljs-string{color:#a5d6ff}.hljs-built_in,.hljs-symbol{color:#ffa657}.hljs-comment,.hljs-code,.hljs-formula{color:#8b949e}.hljs-name,.hljs-quote,.hljs-selector-tag,.hljs-selector-pseudo{color:#7ee787}.hljs-subst{color:#c9d1d9}.hljs-section{color:#1f6feb;font-weight:700}.hljs-bullet{color:#f2cc60}.hljs-emphasis{color:#c9d1d9;font-style:italic}.hljs-strong{color:#c9d1d9;font-weight:700}.hljs-addition{color:#aff5b4;background-color:#033a16}.hljs-deletion{color:#ffdcd7;background-color:#67060c}pre code.hljs{--_code-margin: var(--code-margin, 1.5em);white-space:pre;background-color:#000;margin:var(--_code-margin) calc(var(--_code-margin) * -1);padding:var(--_code-margin);border-radius:8px}pre code.hljs>.hljs-comment{color:#999}code:not(.hljs){padding:0 .3em .1em;border-radius:5px;background-color:#0000004d}.md li{list-style:initial}.md ul,.md ol{margin:20px 0;padding:reset}.md p{text-align:justify}.md blockquote{border-left:2px solid var(--color-text);margin-left:0;padding-left:1em}.md :is(h1,h2,h3,h4,h5,h6){margin-top:.7em;margin-bottom:.3em}
+.tag-list{display:flex;gap:.5em;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+</style>
+<link rel="stylesheet" href="/_astro/_slug_.d64b408e.css" /><script type="module">CSS.paintWorklet?.addModule("/dot-mesh.js");
+</script></head><body class="astro-wb7wxecl"><script defer>
+  function closeHamburger() {
+    document.querySelector('hamburger-button')?.removeAttribute('active');
+  }
+</script><script type="module" defer>export const tagName = 'hamburger-button';
+
+export const template = `
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+
+  <style>
+    :host {
+      cursor: pointer;
+  
+      --_color: var(--color, black);
+      --_width: var(--width, 2em);
+      --_thickness: var(--thickness, 3px);
+      --_spacing: var(--spacing, 7px);
+      --_opacity: var(--opacity, 0.5);
+  
+      --translation-x: calc(var(--_thickness) + var(--_spacing));
+    }
+  
+    .bar {
+      width: var(--_width);
+      height: var(--_thickness);
+      background-color: var(--_color);
+      margin: var(--_spacing) 0;
+      opacity: var(--_opacity);
+  
+      will-change: transform, opacity;
+      transition: 0.4s;
+      transition-property: transform, opacity;
+    }
+  
+    :host(:hover) .bar {
+      opacity: 1;
+    }
+  
+    :host([active]) .bar:first-of-type {
+      transform: translate(0, var(--translation-x)) rotate(45deg);
+    }
+  
+    :host([active]) .bar:nth-child(2) {
+      opacity: 0;
+    }
+  
+    :host([active]) .bar:last-of-type {
+      transform: translate(0, calc(var(--translation-x) * -1)) rotate(-45deg);
+    }
+  </style>
+`;
+
+export class HamburgerButton extends HTMLElement {
+  #shadowRoot;
+
+  constructor() {
+    super();
+
+    this.#shadowRoot = this.attachShadow({ mode: 'open' });
+    this.#shadowRoot.innerHTML = template;
+  
+    this.bars = this.shadowRoot.querySelectorAll(".bar");
+    this.toggle = this.toggle.bind(this);
+  }
+
+  connectedCallback() {
+    this.addEventListener("click", this.toggle);
+  }
+  disconnectedCallback() {
+    this.addEventListener("click", this.toggle);
+  }
+
+  toggle() {
+    this.toggleAttribute("active");
+
+    const event = new CustomEvent('toggle', {
+      detail: {
+        active: this.hasAttribute("active")
+      }
+    });
+
+    this.dispatchEvent(event);
+  }
+}
+
+customElements.define('hamburger-button', HamburgerButton);</script><hamburger-button><template shadowrootmode="open"><!-- don't fold me  -->
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+
+  <style>
+    :host {
+      cursor: pointer;
+  
+      --_color: var(--color, black);
+      --_width: var(--width, 2em);
+      --_thickness: var(--thickness, 3px);
+      --_spacing: var(--spacing, 7px);
+      --_opacity: var(--opacity, 0.5);
+  
+      --translation-x: calc(var(--_thickness) + var(--_spacing));
+    }
+  
+    .bar {
+      width: var(--_width);
+      height: var(--_thickness);
+      background-color: var(--_color);
+      margin: var(--_spacing) 0;
+      opacity: var(--_opacity);
+  
+      will-change: transform, opacity;
+      transition: 0.4s;
+      transition-property: transform, opacity;
+    }
+  
+    :host(:hover) .bar {
+      opacity: 1;
+    }
+  
+    :host([active]) .bar:first-of-type {
+      transform: translate(0, var(--translation-x)) rotate(45deg);
+    }
+  
+    :host([active]) .bar:nth-child(2) {
+      opacity: 0;
+    }
+  
+    :host([active]) .bar:last-of-type {
+      transform: translate(0, calc(var(--translation-x) * -1)) rotate(-45deg);
+    }
+  </style>
+</template></hamburger-button><nav class="amq-header"><div class="container"><div class="internal-links"><a class="nav-link" href="#projects" onclick="closeHamburger();">Projects</a><a class="nav-link" href="#experiments" onclick="closeHamburger();">Experiments</a><a class="nav-link" href="#blog" onclick="closeHamburger();"> Blog</a><a class="nav-link" href="#talks" onclick="closeHamburger();">Talks</a><a class="nav-link" href="#career" onclick="closeHamburger();">Career</a></div><div class="external-links"><a target="_blank" href="https://github.com/amatiasq"><svg aria-label="Github icon" width="32" height="32" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd"
+        d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"
+        fill="#fff">
+    </path>
+</svg></a><a target="_blank" href="https://www.linkedin.com/in/amatiasq/"><?xml version="1.0" encoding="utf-8"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg aria-label="LinkedIn Icon" width="32" height="32" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path
+        d="M18.72 3.99997H5.37C5.19793 3.99191 5.02595 4.01786 4.86392 4.07635C4.70189 4.13484 4.55299 4.22471 4.42573 4.34081C4.29848 4.45692 4.19537 4.59699 4.12232 4.75299C4.04927 4.909 4.0077 5.07788 4 5.24997V18.63C4.01008 18.9901 4.15766 19.3328 4.41243 19.5875C4.6672 19.8423 5.00984 19.9899 5.37 20H18.72C19.0701 19.9844 19.4002 19.8322 19.6395 19.5761C19.8788 19.32 20.0082 18.9804 20 18.63V5.24997C20.0029 5.08247 19.9715 4.91616 19.9078 4.76122C19.8441 4.60629 19.7494 4.466 19.6295 4.34895C19.5097 4.23191 19.3672 4.14059 19.2108 4.08058C19.0544 4.02057 18.8874 3.99314 18.72 3.99997ZM9 17.34H6.67V10.21H9V17.34ZM7.89 9.12997C7.72741 9.13564 7.5654 9.10762 7.41416 9.04768C7.26291 8.98774 7.12569 8.89717 7.01113 8.78166C6.89656 8.66615 6.80711 8.5282 6.74841 8.37647C6.6897 8.22474 6.66301 8.06251 6.67 7.89997C6.66281 7.73567 6.69004 7.57169 6.74995 7.41854C6.80986 7.26538 6.90112 7.12644 7.01787 7.01063C7.13463 6.89481 7.2743 6.80468 7.42793 6.74602C7.58157 6.68735 7.74577 6.66145 7.91 6.66997C8.07259 6.66431 8.2346 6.69232 8.38584 6.75226C8.53709 6.8122 8.67431 6.90277 8.78887 7.01828C8.90344 7.13379 8.99289 7.27174 9.05159 7.42347C9.1103 7.5752 9.13699 7.73743 9.13 7.89997C9.13719 8.06427 9.10996 8.22825 9.05005 8.3814C8.99014 8.53456 8.89888 8.6735 8.78213 8.78931C8.66537 8.90513 8.5257 8.99526 8.37207 9.05392C8.21843 9.11259 8.05423 9.13849 7.89 9.12997ZM17.34 17.34H15V13.44C15 12.51 14.67 11.87 13.84 11.87C13.5822 11.8722 13.3313 11.9541 13.1219 12.1045C12.9124 12.2549 12.7546 12.4664 12.67 12.71C12.605 12.8926 12.5778 13.0865 12.59 13.28V17.34H10.29V10.21H12.59V11.21C12.7945 10.8343 13.0988 10.5225 13.4694 10.3089C13.84 10.0954 14.2624 9.98848 14.69 9.99997C16.2 9.99997 17.34 11 17.34 13.13V17.34Z" />
+</svg></a></div></div></nav><div class="container"><h1>Great debugging skills</h1><ul class="tag-list md-tags"></ul><article class="md"><p>Combining a broad curiosity with two decades coding blessed me with a good smell to bug-catching, I'm planning to add "Great debugging skills" to my CV but just adding a sentence there doesn't feel right. A paragraph trying to summary</p>
+<p>Let's get clear, this is the difficult part of coding. Everything works nicely until the code does something you don't expect and worse, don't want.</p>
+<p>And I have the exact story to exemplify that... this was 2009.</p>
+<h2>Background</h2>
+<p>I joined a team that was re-building a huge remote control web application (via applet), this is the high point of <code>jQuery</code>, which I managed to avoid for is, in my opinion awful, practice of hiding errors.</p>
+<p>There had been already an attempt to rewrite the app using <code>jQuery</code> but that needed 10+ seconds to open a modal. I heard the amount of methods in the return value of the <code>jQuery()</code> made each invocation expensive. That meant <code>$()</code> was also expensive since it was just an alias.</p>
+<h2>Second v2.0</h2>
+<p>I then joined a team whose aim was to rewrite it a second time with the following pattern:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Form</span>(<span class="hljs-params">url</span>) {
+  <span class="hljs-comment">// private field</span>
+  <span class="hljs-keyword">var</span> fields = [];
+  <span class="hljs-comment">// public field</span>
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">el</span> = <span class="hljs-variable language_">document</span>.<span class="hljs-title function_">createElement</span>(<span class="hljs-string">'form'</span>);
+
+  <span class="hljs-comment">// private methods</span>
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">validateFields</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-comment">// do something with fields</span>
+    <span class="hljs-comment">// remember .map() .filter() .aggregate() etc. don't exist</span>
+  }
+
+  <span class="hljs-comment">// public method</span>
+  <span class="hljs-comment">//</span>
+  <span class="hljs-comment">// we had to duplicate the name so the callstack wasn't</span>
+  <span class="hljs-comment">//      error in 'anonymous' function</span>
+  <span class="hljs-comment">// I begged for years for automatically-named arrow functions</span>
+  <span class="hljs-comment">// they weren't</span>
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">addField</span> = <span class="hljs-keyword">function</span> <span class="hljs-title function_">addField</span>(<span class="hljs-params">field</span>) {
+    <span class="hljs-comment">// semicolons were required</span>
+    <span class="hljs-comment">// sometimes we just forgot</span>
+    <span class="hljs-comment">// and no tooling fixed it for JS</span>
+    fields.<span class="hljs-title function_">push</span>(field);
+  };
+
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">el</span>.<span class="hljs-title function_">addEventListener</span>(<span class="hljs-string">'submit'</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">event</span>) {
+    event.<span class="hljs-title function_">preventDefault</span>();
+    <span class="hljs-title function_">validateFields</span>();
+    <span class="hljs-comment">// submit();</span>
+  });
+}
+
+<span class="hljs-keyword">var</span> form = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Form</span>(<span class="hljs-string">''</span>);
+<span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(form.<span class="hljs-property">el</span>);
+</code></pre>
+<p>I was amazed Javascript could allow you to do something like this, it was <em>classy</em>, but wondered if the functions were re-created on each invocation. With time we started noticing memory issues and started researching it. Everything was as any other coding experience until I met my mentor @raul.</p>
+<h2>Third v2.0</h2>
+<p>He had started a different re-writing of the application, a third Version 2.0 made from scratch with the following pattern:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Form</span>(<span class="hljs-params">action</span>) {
+  <span class="hljs-comment">// private field, just convention</span>
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">_fields</span> = [];
+  <span class="hljs-comment">// public field</span>
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">action</span> = action;
+}
+<span class="hljs-title class_">Form</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">addField</span> = <span class="hljs-keyword">function</span> <span class="hljs-title function_">addField</span>(<span class="hljs-params">field</span>) {
+  <span class="hljs-comment">// ahh simpler times</span>
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">field</span>.<span class="hljs-title function_">push</span>(field);
+};
+
+<span class="hljs-keyword">var</span> form = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Form</span>(<span class="hljs-string">''</span>);
+</code></pre>
+<p>This is where I learnt about the protype inheritance and understood that the function <code>addField</code> is a single one, shared across all instances which magically are injected on invocation via <strong>THE LAST DOT RULE</strong>.</p>
+<h2>The last dot rule</h2>
+<p>This is a simple explanation of what is <code>this</code> inside a function.
+Skip to the end to continue the story.</p>
+<p>The last dot rule, which I made up, says...</p>
+<blockquote>
+<p>Look at where line where the function is invoked. Whatever is before the last dot, right before the function name, that will be <code>this</code> inside that function, and only for that invocation.</p>
+</blockquote>
+<pre><code class="hljs language-js"><span class="hljs-comment">// in global scope `this` is the window object</span>
+<span class="hljs-variable language_">this</span>;
+
+<span class="hljs-comment">// call addEventListener and pass window as `this`</span>
+<span class="hljs-variable language_">window</span>.<span class="hljs-title function_">addEventLister</span>();
+
+<span class="hljs-comment">// call function appendChild with document.body as `this`</span>
+<span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>();
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">whatIsThis</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-comment">// this can be window, or anything before the dot</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
+}
+
+<span class="hljs-comment">// whatIsThis is invoked with no `this`</span>
+<span class="hljs-comment">// so the one from the global scope is passed</span>
+<span class="hljs-comment">// global scope is implicit before the last dot</span>
+<span class="hljs-title function_">whatIsThis</span>() === <span class="hljs-variable language_">window</span>;
+
+<span class="hljs-comment">// because every global variable belongs to the global scope</span>
+<span class="hljs-variable language_">window</span>.<span class="hljs-title function_">whatIsThis</span>() === <span class="hljs-variable language_">window</span>;
+
+<span class="hljs-keyword">var</span> container = { <span class="hljs-attr">whatIsThis</span>: whatIsThis };
+container.<span class="hljs-title function_">whatIsThis</span>() === container;
+
+<span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-property">whatIsThis</span> = whatIsThis;
+<span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">whatIsThis</span>() === <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>;
+
+<span class="hljs-comment">// What is `this` in a function?</span>
+<span class="hljs-comment">// WHATEVER IS BEFORE THE LAST DOT!</span>
+</code></pre>
+<p>This rule allows javascript to reuse the same functions on different instances. The first snippet where the functions were closures with access to the constructor internals had to be a different function for each instance of the "class".</p>
+<h2>The big refactor</h2>
+<p>Over several months and with the help of @oriol, we rewrote the whole application and I saw the internals of an infinite table running on Internet Explorer 6 written in ECMAScript 3. It rendered millions of rows dynamically loading redering only as many rows as fitted vertically on the screen + 3 for buffer simulating a virtually infinite scroll without droping a single FPS.</p>
+<p>At a given point there was this bug that gathered a mass of developers in front of a single screen. "The issue is in this class" one of them repeated showing one of the files we autored.</p>
+<h2>The bug</h2>
+<p>Let me try to reproduce it from memory, I'll make it up as <code>Rectangle</code> but it was actually some abstract internal gear of the system.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Rectangle</span>(<span class="hljs-params">paramA, paramB, paramC</span>) {
+  <span class="hljs-title function_">alert</span>(paramA);
+  <span class="hljs-title function_">prompt</span>(paramB);
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(paramC);
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">el</span> = <span class="hljs-title function_">ce</span>(<span class="hljs-string">'div'</span>);
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">someField</span> = <span class="hljs-string">''</span>;
+}
+<span class="hljs-title class_">Rectangle</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">enabled</span> = <span class="hljs-literal">true</span>;
+<span class="hljs-title class_">Rectangle</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">sides</span> = <span class="hljs-number">4</span>;
+<span class="hljs-title class_">Rectangle</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">anchor</span> = <span class="hljs-string">'center'</span>;
+<span class="hljs-title class_">Rectangle</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">styles</span> = { <span class="hljs-attr">color</span>: <span class="hljs-string">'red'</span>, <span class="hljs-attr">borderColor</span>: <span class="hljs-string">'blue'</span> };
+<span class="hljs-title class_">Rectangle</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">iAmAMethod</span> = <span class="hljs-keyword">function</span> <span class="hljs-title function_">iAmAMethod</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">someField</span> = <span class="hljs-string">'potato'</span>;
+};
+</code></pre>
+<p>Did you spot it? The styles approach was quite comon, every component with UI had it, but after spending a few hours investigating the issue a light bulb turned on in my head and I ran to my computer to isolate the bug.</p>
+<p>Setting fields in the prototype wasn't rare, I preferred to separate methods and fields by keeping the latter in the constructor but it was common to find simple ones. But this <code>styles</code> one... reminded me of those pointers that I read in a C++ book when I was just grabbing any programming book to see what to learn.</p>
+<h2>Pointers in Javascript</h2>
+<p>Pointers are a special type of variable, it contains a numbe but we don't use it as a number. We use it as an address to a different position in memory.</p>
+<pre><code class="hljs language-c"><span class="hljs-type">int</span> myInt = <span class="hljs-number">1</span>;
+<span class="hljs-comment">// ⬇ create an int pointer...</span>
+<span class="hljs-type">int</span>* myPointerToInt = &#x26;myInt;
+<span class="hljs-comment">//                    ⬆ ...that points to the address of this int</span>
+</code></pre>
+<p>In Javascript we can assume every single variable is a pointer. So when we say <code>document.body.querySelector()</code> we mean</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// read the object that `document` points to</span>
+<span class="hljs-keyword">const</span> a = <span class="hljs-variable language_">document</span>;
+<span class="hljs-comment">// and get copy it's `body` pointer</span>
+<span class="hljs-keyword">const</span> b = a.<span class="hljs-property">body</span>;
+<span class="hljs-comment">// from the object that `body` points to, get the `querySelector` pointer</span>
+<span class="hljs-keyword">const</span> c = b.<span class="hljs-property">querySelector</span>;
+<span class="hljs-comment">// and invoke that function</span>
+<span class="hljs-comment">// but pass `document.body` as `this`</span>
+<span class="hljs-comment">// and ".button" as first argument</span>
+c.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>, <span class="hljs-string">'.button'</span>);
+</code></pre>
+<p>What can be even more difficult to see is what happens when we <em>set</em> a pointer and when we modify what it points to.</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// a points to String(potato)</span>
+<span class="hljs-keyword">let</span> a = <span class="hljs-string">'potato'</span>;
+<span class="hljs-comment">// now we change the pointer, a points to a different address</span>
+a = <span class="hljs-string">'other-potato'</span>;
+
+<span class="hljs-comment">// we create an object, b points to it</span>
+<span class="hljs-keyword">const</span> b = { a };
+<span class="hljs-comment">// c points to the same object as b</span>
+<span class="hljs-keyword">const</span> c = b;
+<span class="hljs-comment">// we modify the object's a property;</span>
+b.<span class="hljs-property">a</span> = <span class="hljs-literal">null</span>;
+<span class="hljs-comment">// which is the same object c points to</span>
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(c.<span class="hljs-property">a</span>); <span class="hljs-comment">// prints null</span>
+</code></pre>
+<h2>The solution</h2>
+<p>And that was exactly what happened with that class, the <code>styles</code> property was a property of the <em>prototype</em>, so whenever an instance modified it</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> a = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Rectangle</span>();
+<span class="hljs-keyword">const</span> b = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Rectangle</span>();
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(b.<span class="hljs-property">styles</span>.<span class="hljs-property">color</span>); <span class="hljs-comment">// red</span>
+
+<span class="hljs-comment">// we're changing the object `styles` points to</span>
+<span class="hljs-comment">// `styles` is a pointer that lives in the prototype object</span>
+<span class="hljs-comment">// so all instances point to the same address in memory</span>
+<span class="hljs-comment">// changing the object in one will change it for all</span>
+a.<span class="hljs-property">styles</span>.<span class="hljs-property">color</span> = <span class="hljs-string">'purple'</span>;
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(b.<span class="hljs-property">styles</span>.<span class="hljs-property">color</span>); <span class="hljs-comment">// purple</span>
+</code></pre>
+<p>That doesn't happen if we move <code>styles</code> to the constructor because it's invoked once per instance and each instance will get it's own styles object with it's own, different, pointer.</p>
+<p>For when I confirmed that was the issue my teammates were already gone and our Version Control System didn't allow us to edit a file while another person had it open. Yep, that's how it was. So the next day I let my team know of the findings and we promptly moved <code>styles</code> to the constructor which solved the issue.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Rectangle</span>(<span class="hljs-params">paramA, paramB, paramC</span>) {
+  <span class="hljs-comment">// this is a different object for each instance</span>
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">styles</span> = { <span class="hljs-attr">color</span>: <span class="hljs-string">'red'</span>, <span class="hljs-attr">borderColor</span>: <span class="hljs-string">'blue'</span> };
+}
+<span class="hljs-title class_">Rectangle</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">enabled</span> = <span class="hljs-literal">true</span>;
+<span class="hljs-title class_">Rectangle</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">sides</span> = <span class="hljs-number">4</span>;
+<span class="hljs-title class_">Rectangle</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">anchor</span> = <span class="hljs-string">'center'</span>;
+</code></pre>
+<p>issues because when we changed them we <em>changed the pointer</em>, not the properties of the object they point to.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">const</span> a = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Rectangle</span>();
+<span class="hljs-comment">// we find the object the pointer `a` points to</span>
+<span class="hljs-comment">// and change it's `enabled` property</span>
+<span class="hljs-comment">// IT DOESN'T HAVE ONE</span>
+<span class="hljs-comment">// reading `enabled` before this line will not find it</span>
+<span class="hljs-comment">// so JS will check if the prototype has it, and return that</span>
+<span class="hljs-comment">// setting it here creates the property `enabled` at the moment</span>
+<span class="hljs-comment">// in the object `a` points to</span>
+a.<span class="hljs-property">enabled</span> = <span class="hljs-literal">false</span>;
+</code></pre>
+<p>We stopped defining "class fields" in the prototype for hygene but never spent the time to remove them all.</p>
+<h2>Pride</h2>
+<p>I was proud of myself at the time, this was among my firsts chances as a programmer and being able to see something my whole team was looking for granted me the confidence to follow my intuition when debugging, and it has come quite handy.</p>
+<p>Look at the stars.</p></article></div></body></html>

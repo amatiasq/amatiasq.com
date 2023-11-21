@@ -1,0 +1,401 @@
+<!DOCTYPE html><html lang="es" class="astro-wb7wxecl"><head><meta charset="utf-8"><!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> --><meta name="viewport" content="width=device-width"><title>A. Matías Quezada</title><style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: GitHub Dark
+  Description: Dark theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-dark
+  Current colors taken from GitHub's CSS
+*/.hljs{color:#c9d1d9;background:#0d1117}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#ff7b72}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#d2a8ff}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-variable,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id{color:#79c0ff}.hljs-regexp,.hljs-string,.hljs-meta .hljs-string{color:#a5d6ff}.hljs-built_in,.hljs-symbol{color:#ffa657}.hljs-comment,.hljs-code,.hljs-formula{color:#8b949e}.hljs-name,.hljs-quote,.hljs-selector-tag,.hljs-selector-pseudo{color:#7ee787}.hljs-subst{color:#c9d1d9}.hljs-section{color:#1f6feb;font-weight:700}.hljs-bullet{color:#f2cc60}.hljs-emphasis{color:#c9d1d9;font-style:italic}.hljs-strong{color:#c9d1d9;font-weight:700}.hljs-addition{color:#aff5b4;background-color:#033a16}.hljs-deletion{color:#ffdcd7;background-color:#67060c}pre code.hljs{--_code-margin: var(--code-margin, 1.5em);white-space:pre;background-color:#000;margin:var(--_code-margin) calc(var(--_code-margin) * -1);padding:var(--_code-margin);border-radius:8px}pre code.hljs>.hljs-comment{color:#999}code:not(.hljs){padding:0 .3em .1em;border-radius:5px;background-color:#0000004d}.md li{list-style:initial}.md ul,.md ol{margin:20px 0;padding:reset}.md p{text-align:justify}.md blockquote{border-left:2px solid var(--color-text);margin-left:0;padding-left:1em}.md :is(h1,h2,h3,h4,h5,h6){margin-top:.7em;margin-bottom:.3em}
+.tag-list{display:flex;gap:.5em;flex-wrap:wrap;list-style:none;margin:0;padding:0}
+</style>
+<link rel="stylesheet" href="/_astro/_slug_.d64b408e.css" /><script type="module">CSS.paintWorklet?.addModule("/dot-mesh.js");
+</script></head><body class="astro-wb7wxecl"><script defer>
+  function closeHamburger() {
+    document.querySelector('hamburger-button')?.removeAttribute('active');
+  }
+</script><script type="module" defer>export const tagName = 'hamburger-button';
+
+export const template = `
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+
+  <style>
+    :host {
+      cursor: pointer;
+  
+      --_color: var(--color, black);
+      --_width: var(--width, 2em);
+      --_thickness: var(--thickness, 3px);
+      --_spacing: var(--spacing, 7px);
+      --_opacity: var(--opacity, 0.5);
+  
+      --translation-x: calc(var(--_thickness) + var(--_spacing));
+    }
+  
+    .bar {
+      width: var(--_width);
+      height: var(--_thickness);
+      background-color: var(--_color);
+      margin: var(--_spacing) 0;
+      opacity: var(--_opacity);
+  
+      will-change: transform, opacity;
+      transition: 0.4s;
+      transition-property: transform, opacity;
+    }
+  
+    :host(:hover) .bar {
+      opacity: 1;
+    }
+  
+    :host([active]) .bar:first-of-type {
+      transform: translate(0, var(--translation-x)) rotate(45deg);
+    }
+  
+    :host([active]) .bar:nth-child(2) {
+      opacity: 0;
+    }
+  
+    :host([active]) .bar:last-of-type {
+      transform: translate(0, calc(var(--translation-x) * -1)) rotate(-45deg);
+    }
+  </style>
+`;
+
+export class HamburgerButton extends HTMLElement {
+  #shadowRoot;
+
+  constructor() {
+    super();
+
+    this.#shadowRoot = this.attachShadow({ mode: 'open' });
+    this.#shadowRoot.innerHTML = template;
+  
+    this.bars = this.shadowRoot.querySelectorAll(".bar");
+    this.toggle = this.toggle.bind(this);
+  }
+
+  connectedCallback() {
+    this.addEventListener("click", this.toggle);
+  }
+  disconnectedCallback() {
+    this.addEventListener("click", this.toggle);
+  }
+
+  toggle() {
+    this.toggleAttribute("active");
+
+    const event = new CustomEvent('toggle', {
+      detail: {
+        active: this.hasAttribute("active")
+      }
+    });
+
+    this.dispatchEvent(event);
+  }
+}
+
+customElements.define('hamburger-button', HamburgerButton);</script><hamburger-button><template shadowrootmode="open"><!-- don't fold me  -->
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+
+  <style>
+    :host {
+      cursor: pointer;
+  
+      --_color: var(--color, black);
+      --_width: var(--width, 2em);
+      --_thickness: var(--thickness, 3px);
+      --_spacing: var(--spacing, 7px);
+      --_opacity: var(--opacity, 0.5);
+  
+      --translation-x: calc(var(--_thickness) + var(--_spacing));
+    }
+  
+    .bar {
+      width: var(--_width);
+      height: var(--_thickness);
+      background-color: var(--_color);
+      margin: var(--_spacing) 0;
+      opacity: var(--_opacity);
+  
+      will-change: transform, opacity;
+      transition: 0.4s;
+      transition-property: transform, opacity;
+    }
+  
+    :host(:hover) .bar {
+      opacity: 1;
+    }
+  
+    :host([active]) .bar:first-of-type {
+      transform: translate(0, var(--translation-x)) rotate(45deg);
+    }
+  
+    :host([active]) .bar:nth-child(2) {
+      opacity: 0;
+    }
+  
+    :host([active]) .bar:last-of-type {
+      transform: translate(0, calc(var(--translation-x) * -1)) rotate(-45deg);
+    }
+  </style>
+</template></hamburger-button><nav class="amq-header"><div class="container"><div class="internal-links"><a class="nav-link" href="#projects" onclick="closeHamburger();">Proyectos</a><a class="nav-link" href="#experiments" onclick="closeHamburger();">Experimentos</a><a class="nav-link" href="#blog" onclick="closeHamburger();"> Blog</a><a class="nav-link" href="#talks" onclick="closeHamburger();">Charlas</a><a class="nav-link" href="#career" onclick="closeHamburger();">Experiencia</a></div><div class="external-links"><a target="_blank" href="https://github.com/amatiasq"><svg aria-label="Github icon" width="32" height="32" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd"
+        d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"
+        fill="#fff">
+    </path>
+</svg></a><a target="_blank" href="https://www.linkedin.com/in/amatiasq/"><?xml version="1.0" encoding="utf-8"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg aria-label="LinkedIn Icon" width="32" height="32" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path
+        d="M18.72 3.99997H5.37C5.19793 3.99191 5.02595 4.01786 4.86392 4.07635C4.70189 4.13484 4.55299 4.22471 4.42573 4.34081C4.29848 4.45692 4.19537 4.59699 4.12232 4.75299C4.04927 4.909 4.0077 5.07788 4 5.24997V18.63C4.01008 18.9901 4.15766 19.3328 4.41243 19.5875C4.6672 19.8423 5.00984 19.9899 5.37 20H18.72C19.0701 19.9844 19.4002 19.8322 19.6395 19.5761C19.8788 19.32 20.0082 18.9804 20 18.63V5.24997C20.0029 5.08247 19.9715 4.91616 19.9078 4.76122C19.8441 4.60629 19.7494 4.466 19.6295 4.34895C19.5097 4.23191 19.3672 4.14059 19.2108 4.08058C19.0544 4.02057 18.8874 3.99314 18.72 3.99997ZM9 17.34H6.67V10.21H9V17.34ZM7.89 9.12997C7.72741 9.13564 7.5654 9.10762 7.41416 9.04768C7.26291 8.98774 7.12569 8.89717 7.01113 8.78166C6.89656 8.66615 6.80711 8.5282 6.74841 8.37647C6.6897 8.22474 6.66301 8.06251 6.67 7.89997C6.66281 7.73567 6.69004 7.57169 6.74995 7.41854C6.80986 7.26538 6.90112 7.12644 7.01787 7.01063C7.13463 6.89481 7.2743 6.80468 7.42793 6.74602C7.58157 6.68735 7.74577 6.66145 7.91 6.66997C8.07259 6.66431 8.2346 6.69232 8.38584 6.75226C8.53709 6.8122 8.67431 6.90277 8.78887 7.01828C8.90344 7.13379 8.99289 7.27174 9.05159 7.42347C9.1103 7.5752 9.13699 7.73743 9.13 7.89997C9.13719 8.06427 9.10996 8.22825 9.05005 8.3814C8.99014 8.53456 8.89888 8.6735 8.78213 8.78931C8.66537 8.90513 8.5257 8.99526 8.37207 9.05392C8.21843 9.11259 8.05423 9.13849 7.89 9.12997ZM17.34 17.34H15V13.44C15 12.51 14.67 11.87 13.84 11.87C13.5822 11.8722 13.3313 11.9541 13.1219 12.1045C12.9124 12.2549 12.7546 12.4664 12.67 12.71C12.605 12.8926 12.5778 13.0865 12.59 13.28V17.34H10.29V10.21H12.59V11.21C12.7945 10.8343 13.0988 10.5225 13.4694 10.3089C13.84 10.0954 14.2624 9.98848 14.69 9.99997C16.2 9.99997 17.34 11 17.34 13.13V17.34Z" />
+</svg></a></div></div></nav><div class="container"><h1>Type.new()</h1><ul class="tag-list md-tags"></ul><article class="md"><blockquote>
+<p>NOTA: Este artículo está centrado en un tema que ya comenté en <a href="../construccion-de-objetos/">el post anterior</a>, pero de una forma más organizada y centrada, algunos fragmentos están extraídos del post anterior para mayor claridad.</p>
+</blockquote>
+<h2>Constructores en Javascript</h2>
+<p>He hablado antes de la limitación de los constructores javascript y sobre todo de la complejidad de extenderlos</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Person</span>(<span class="hljs-params">name</span>) {
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;
+}
+<span class="hljs-title class_">Person</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">methodA</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) { ... };
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">Employee</span>(<span class="hljs-params">name, position</span>) {
+  <span class="hljs-title class_">Person</span>.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>, name);
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">position</span> = position;
+}
+<span class="hljs-title class_">Employee</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">Person</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
+<span class="hljs-title class_">Employee</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">methodB</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) { ... };
+</code></pre>
+<p>Esto es un asunto que trae de cabeza a la mayoría de la gente que programa javascript, la dificiltad que conlleva crear una simple "clase" hasta el punto que en la siguiente versión del ECMAScript (el estándar en el que está basado Javascript) han incluído una forma más sencilla de hacer lo mismo: la palabra clave <code>class</code></p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Person</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name</span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;
+  }
+  <span class="hljs-title function_">methodA</span>(<span class="hljs-params"></span>) {}
+}
+
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Person</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name, position</span>) {
+    <span class="hljs-variable language_">super</span>(name);
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">position</span> = position;
+  }
+  <span class="hljs-title function_">methodB</span>(<span class="hljs-params"></span>) {}
+}
+</code></pre>
+<p>Pruébame</p>
+<p>Aunque he visto a mucha gente emocionada pensando que ECMAScript 6 traerá clases reales tengo que decir que este código no hace ni más ni menos que lo que hace el primer código. Y es muy importante saberlo porque aunque prezcan classes como las de Java o C++, en este caso siguen siendo objetos usando <a href="../conceptos-basicos-herencia-por-prototipos/">herencia por prototipos</a> y esconderlo solo servirá para no saber porqué el código no funciona como esperamos.</p>
+<p>En cualquier caso vemos que definir tipos en javascript es complicado y la solución propuesta por el equipo de ECMA no es, en mi opinión, la más adecuada.</p>
+<h2> Orientado a objetos</h2>
+<p>Creo que el problema se aloja en la definición que dimos en un principio a "Programación Orientada a Objetos" (Object Oriented Programming, OOP) ya que los primeros lenguajes OOP creaban objetos usando clases y otras herramientas, y aunque los objetos son la base del sistema la estructura está dada por las clases. Lo que sería Programación Orientada a Objetos con Clases.</p>
+<p>Después recibimos otros lenguajes que también se definian como "Programación Orientados a Objetos" pero enfocado de otra forma, entre ellos javascript. En este caso el lenguaje no tiene clases sino que todo son objetos y la estructura se crea mediante prototipos, todo objeto puede ser el prototipo de otro objeto y esto significa que si B prototipa a A todas las propiedades que A tenga también existirán en B. Esto es lo que llamo Programación Orientada a Objetos con Prototipos.</p>
+<p>Me he cruzado con mucha gente que piensa que la Programación Orientada a Objetos no es posible sin clases y que si Javascript no tiene clases no puede denominarse orientado a objetos. Como en todo debate entre geeks acabamos en la wikipedia:</p>
+<blockquote>
+<p>La programación orientada a objetos o POO (OOP según sus siglas en inglés) es un paradigma de programación que usa los objetos en sus interacciones, para diseñar aplicaciones y programas informáticos. Está basado en varias técnicas, incluyendo herencia, cohesión, abstracción, polimorfismo, acoplamiento y encapsulamiento.</p>
+</blockquote>
+<p>En resumen, un lenguaje orientado a objetos es el que tiene objetos (brillante conclusión) y cumple una serie de técnicas (herencia, cohesión, abstracción, polimorfismo...) que en el caso de Java se hace mediante clases y en el caso de Javascript se hace mediante prototipos.</p>
+<h2> Los inicios de Javascript</h2>
+<p>Javascript en sus inicios se llamó LiveScript, cuenta la leyenda que por aquella época Java estaba teniendo mucho éxito y por marketing se decidió llamar al nuevo lenguaje JavaScript. También cuenta que por el mismo motivo a última hora se decidió modificar el lenguaje para parecerse más a Java añadiendo, entre otras funcionalidades, el operador <code>new</code> para que pareciera tener clases.</p>
+<p>Hay algo muy curioso en los constructores Javascript, que en el fondo son simples funciones, y es que todas las funciones javascript tienen la propiedad <code>prototype</code> que por defecto trae un objeto que solo tiene una propiedad, la propiedad <code>constructor</code> que es el propio constructor.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Testing</span>(<span class="hljs-params"></span>) {}
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Testing</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">constructor</span> === <span class="hljs-title class_">Testing</span>);
+
+<span class="hljs-keyword">var</span> proto = <span class="hljs-title class_">Testing</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>;
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(proto.<span class="hljs-property">constructor</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> === proto);
+</code></pre>
+<h2> Constructores vs objetos prototipo</h2>
+<p>Esto me hace pensar que quizás la intención original de los objetos en javascript no era tener constructores que contienen prototipos sino tener prototipos que contienen constructores. Es decir: en lugar de...</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">MyType</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">id</span> = <span class="hljs-number">1</span>;
+}
+<span class="hljs-title class_">MyType</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">methodA</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) { ... }
+</code></pre>
+<p>Hacer esto...</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">MyType</span> = {
+  <span class="hljs-attr">constructor</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">id</span> = <span class="hljs-number">1</span>;
+  },
+  <span class="hljs-attr">methodA</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) { ... },
+};
+</code></pre>
+<p>Vaya! No parece una forma mucho más sencilla de declarar tipos? <a href="https://gist.github.com/amatiasq/5215294">Aquí</a> podemos comparar el mismo tipo escrito con constructores y con este paradigma y juzguen ustedes mismos. Y que pasa cuando intentamos invocar al constructor? hay que usar <code>.call()</code> o <code>.apply()</code> para pasarle this?</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> instancia = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">MyType</span>);
+instancia.<span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>);
+</code></pre>
+<p>BOOM! Constructor ya recibe this porque es invocado directamente en la instancia! No es exageradamente sencillo y lógico desde éste punto de vista?</p>
+<p>Además por accidente hemos quitado de en medio la función constructora y lo que tenemos es un simple objeto, el elemento más básico de la programación orientada a objetos. Es decir, para declarar un tipo solo tenemos que crear un objeto, para prototipar un objeto solo necesitamos un paso</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">SubType</span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">MyType</span>);
+</code></pre>
+<p>No estamos obligados, a diferenia del primer caso, a crear un nuevo constructor para crear un subtipo, por la herencia por prototipos tenemos el mismo constructor que <code>MyType</code></p>
+<pre><code class="hljs language-js"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">SubType</span>.<span class="hljs-property">constructor</span> === <span class="hljs-title class_">MyType</span>.<span class="hljs-property">constructor</span>);
+<span class="hljs-comment">// true</span>
+</code></pre>
+<p>Pruébame</p>
+<p>Y la mejor parte, que pasa si queremos crear un tipo sin constructor? No hay problema.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">MyType</span> = {};
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">MyType</span>.<span class="hljs-property">constructor</span>); <span class="hljs-comment">// Object</span>
+</code></pre>
+<p>Pruébame</p>
+<h2>ECMAScript 6</h2>
+<p>Este paradigma se parece bastante a la forma de crear clases en ECMAScript 6</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">MyType</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">id</span> = <span class="hljs-number">1</span>;
+  }
+  <span class="hljs-title function_">methodA</span>(<span class="hljs-params"></span>) { ... }
+}
+</code></pre>
+<p>Que alguno dirá, si, pero con las clases de ECMAScript 6 podemos extender clases, llamar al método padre con <code>super</code> y nos ahorramos poner <code>function</code>... Pero esas no son funcionalidades de las clases de ECMAScript 6, esas son funcionalidades <a href="https://github.com/lukehoban/es6features#enhanced-object-literals">de todos los objetos</a> en ECMAScript 6.</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// Clase ECMAScript 6</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Employee</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Person</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">name, postition</span>) {
+    <span class="hljs-variable language_">super</span>(name);
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">position</span> = postition;
+  }
+  <span class="hljs-title function_">methodA</span>(<span class="hljs-params"></span>) { ... }
+}
+
+<span class="hljs-comment">// Objeto en ECMAScript 6 estándar</span>
+<span class="hljs-keyword">var</span> <span class="hljs-title class_">Employee</span> = {
+  <span class="hljs-attr">__proto__</span>: <span class="hljs-title class_">Person</span>,
+
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">super</span>(name)
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">id</span> = <span class="hljs-number">1</span>;
+  },
+  <span class="hljs-title function_">methodA</span>(<span class="hljs-params"></span>) { ... }
+};
+</code></pre>
+<p>Las diferencias entre una clase ECMAScript 6 y un objeto en ECMAScript 6 son mínimas, pero mientras que una clase nos hace pensar que <code>Employee</code> se comportará como una clase Java cuando no es así, un objeto es simplemente eso, un objeto y todos somos capaces de entender como se comporta un objeto, no? (si no que haces leyendo esto? o.o)</p>
+<p>Pero dejemos ECMAScript 6 de lado por ahora, que aún tiene que transcurrir tiempo antes de que podamos usarlo en serio.</p>
+<h2>Instanciación</h2>
+<p>Hasta aquí era la definicion del tipo, pero como creamos una instancia? Primero tendríamos que plantearnos que es una instancia, si no tenemos clases podemos tener instancias? Según la wikipedia</p>
+<blockquote>
+<p>En el paradigma de la orientación a objetos, una instancia (en inglés, instance) se refiere a una realización específica de una clase o prototipo determinados.</p>
+</blockquote>
+<p>Pero, al menos a mi, no importa mucho la palabra; el tema es que nosotros creamos objetos para que hagan de prototipos y queremos crear "instancias" de estos prototipos. La forma de prototipar un objeto es usando <code>Object.create()</code></p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> instance = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">MyType</span>);
+</code></pre>
+<p>Pero, un momento... Esto es exactamente lo mismo que hicimos para crear un subtipo, no? Si. Entonces en que se diferencia una instancia de un subtipo? En general, nada. <strong>Una instancia ES un subtipo</strong>. Pero en la mayoría de los casos las "instancias" tienen una necesidad que los subtipos no tienen: en una instancia se invoca al constructor, en un subtipo no.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">MyType</span> = {
+  <span class="hljs-attr">constructor</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">id</span> = <span class="hljs-number">1</span>;
+  },
+};
+
+<span class="hljs-comment">// Crear sub-tipo</span>
+<span class="hljs-keyword">var</span> <span class="hljs-title class_">SubType</span> = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">MyType</span>);
+
+<span class="hljs-comment">// Crear instancia</span>
+<span class="hljs-keyword">var</span> instance = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">MyType</span>);
+instance.<span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>);
+</code></pre>
+<p>Esta similitud entre una instancia y un SubTipo nos ayuda a entender hasta que punto en el fondo Javascript es muy, muy sencillo: todo son objetos; no hay diferencia entre un tipo y una instancia porque la diferencia es conceptual.</p>
+<p>Esto es muy útil para entender la sencillez y el corazón de Javascript, pero es un poco tedioso tener que hacer dos pasos para instanciar, podríamos simplificarlo?</p>
+<h2><code>Type.new()</code> es el nuevo <code>new</code></h2>
+<p>Lo cierto es que podríamos, podemos hacer una función que haga este proceso:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">createInstance</span>(<span class="hljs-params">Type</span>) {
+  <span class="hljs-keyword">var</span> instance = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">Type</span>);
+  instance.<span class="hljs-title function_">constructor</span>(<span class="hljs-params"></span>);
+  <span class="hljs-keyword">return</span> instance;
+}
+
+<span class="hljs-keyword">var</span> <span class="hljs-title class_">Type</span> = {
+  <span class="hljs-attr">constructor</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">id</span> = <span class="hljs-number">1</span>;
+  },
+};
+
+<span class="hljs-keyword">var</span> instance1 = <span class="hljs-title function_">createInstance</span>(<span class="hljs-title class_">Type</span>);
+
+<span class="hljs-keyword">var</span> <span class="hljs-title class_">TypeWithoutConstructor</span> = {};
+<span class="hljs-keyword">var</span> instance2 = <span class="hljs-title function_">createInstance</span>(<span class="hljs-title class_">TypeWithoutConstructor</span>);
+</code></pre>
+<p>Pruébame</p>
+<p>Y que pasa si en lugar de llamarla <code>createInstance</code> la llamamos <code>$new</code> por ejemplo?</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> instance = $new(<span class="hljs-title class_">MyType</span>);
+</code></pre>
+<p>Empieza a parecer similar, solo nos faltaría cambiar la funcion <code>$new</code> para pasarle parámetros al constructor</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">$new</span>(<span class="hljs-params">Type, params</span>) {
+  <span class="hljs-keyword">var</span> instance = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">Type</span>);
+  instance.<span class="hljs-property">constructor</span>.<span class="hljs-title function_">apply</span>(instance, params);
+  <span class="hljs-keyword">return</span> instance;
+}
+
+<span class="hljs-keyword">var</span> <span class="hljs-title class_">Type</span> = {
+  <span class="hljs-attr">constructor</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;
+  },
+};
+
+<span class="hljs-keyword">var</span> instance = $new(<span class="hljs-title class_">Type</span>, [<span class="hljs-string">'bob'</span>]);
+</code></pre>
+<p>Pruébame</p>
+<p>Parece funcionar, pero solo para acabar de pulirlo, porqué no ponemos $new como método de Type? así podríamos pasarle los argumentos sin el array y como ECMAScript 5 nos permite usar palabras clave como propiedades de objeto podemos llamarlo simplemente <code>new</code>.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Type</span> = {
+  <span class="hljs-attr">new</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">var</span> instance = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-variable language_">this</span>);
+    instance.<span class="hljs-property">constructor</span>.<span class="hljs-title function_">apply</span>(instance, <span class="hljs-variable language_">arguments</span>);
+    <span class="hljs-keyword">return</span> instance;
+  },
+  <span class="hljs-attr">constructor</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">name</span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;
+  },
+};
+
+<span class="hljs-keyword">var</span> instance = <span class="hljs-title class_">Type</span>.<span class="hljs-title function_">new</span>(<span class="hljs-string">'bob'</span>);
+</code></pre>
+<p>Pruébame</p>
+<p>Y tenemos una forma que podemos usar con ECMAScript 5 para crear tipos e instancias de forma sencilla. Pero que diferencia hay entre esto y hacer un <code>new</code>? A parte de la ya mencionada simplicidad para crear y extender tipos, tiene más ventajas, principalmente porque nos permite controlar más exactamente <strong>cómo</strong> se crea un objeto que en algunos casos es conveniente cambiarlo (en la mayoría no), pero excede el alcance de éste post.</p>
+<h2> Conclusión</h2>
+<p>Después de pasarme los últimos años probando <a href="https://gist.github.com/amatiasq/4038135">mil</a> <a href="https://gist.github.com/amatiasq/5215294">y</a> <a href="https://gist.github.com/amatiasq/5254098">una</a> <a href="https://gist.github.com/amatiasq/5619166">formas</a> <a href="https://gist.github.com/amatiasq/6270563">de</a> <a href="https://github.com/amatiasq/LifeJS/blob/master/lib/animal.js">crear</a> <a href="https://github.com/amatiasq/-legacy-BRIAP/blob/master/src/core/base.js">y</a> <a href="https://github.com/amatiasq/-legacy-bio/blob/master/src/core/Base.js">extender</a> <a href="https://github.com/amatiasq/jsbase/blob/master/src/extend.js">"clases"</a> <a href="https://github.com/amatiasq/-legacy-Life/blob/master/lib/physic/Force.dart">para</a> <a href="https://github.com/amatiasq/glib/blob/master/core/base.js">encontrar</a> <a href="https://github.com/amatiasq/lulas/blob/master/src/core/extend.js">la</a> forma más sencilla, rápida y elegante, muchas de ellas registradas en este blog; me quedo con <a href="https://gist.github.com/amatiasq/7892749">ésta</a>. La lección que me dio javascript es que no es conveniente luchar contra su naturaleza, si queremos usar javascript y no morir en el intento lo más razonable es usar javascript y no tratarlo en contra de su naturaleza.</p>
+<p>Aún está por verse pero creo que este sistema incluso puede competir cara a cara con las "clases" de ECMAScript 6, pero en cualquier caso la conversión entre un tipo creado por constructor y uno creado con este sistema es muy sencilla</p>
+<p>Por ejemplo, convertir un tipo creado con este sistema a constructor para usarlo con <code>new</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">MyType</span> = {
+  <span class="hljs-attr">myMethod</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) { ... },
+};
+
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">MyConstructor</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-title class_">MyType</span>.<span class="hljs-property">constructor</span>.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span>);
+}
+<span class="hljs-title class_">MyConstructor</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = <span class="hljs-title class_">MyType</span>;
+</code></pre>
+<p>Pruébame</p>
+<p>O convertir un constructor a este paradigma:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">MyConstructor</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> = <span class="hljs-number">1</span>;
+}
+<span class="hljs-title class_">MyConstructor</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">myMethod</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) { ... };
+
+<span class="hljs-keyword">var</span> <span class="hljs-title class_">MyType</span> = <span class="hljs-title class_">MyConstructor</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>;
+<span class="hljs-comment">// y si queres añadir new...</span>
+<span class="hljs-title class_">MyType</span>.<span class="hljs-property">new</span> = $new;
+</code></pre>
+<p>Pruébame</p>
+<h2>Inicializador</h2>
+<p>Para finalizar un bonus, después de toda esta travesía me he dado cuenta que el constructor, que para javascript parece tan importante, no lo es tanto. Si nos paramos a mirar el constructor vemos que es una simple función</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">MyType</span>(<span class="hljs-params"></span>) { ... }
+</code></pre>
+<p>No tiene nada de especial, incluso podemos invocarla como una función y no construye nada. Entonces quién construye? <code>new</code>. Es el operador <code>new</code> el que crea el nuevo objeto y luego invoca el método llamado "constructor", que no se diferencia en nada de cualquier otro método que podría tener el objeto.</p>
+<p>Por como yo lo veo, la función del constructor es más inicializar que construir, debe encargarse de inicializar las propiedades del objeto, no construir. Visto así es evidente que el nombre "constructor" no es apropiado, en mi caso prefiero la denominación "initializer" o simplemente "init", como Backbone ya hace en sus objetos.</p>
+<p>Por eso en mis proyectos cuando utilizo este paradigma, prefiero que mi función <code>$new</code> invoque el método <code>init</code> en lugar de llamar al método <code>constructor</code>.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">$new</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">var</span> obj = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-variable language_">this</span>);
+  obj.<span class="hljs-property">init</span>.<span class="hljs-title function_">apply</span>(obj, <span class="hljs-variable language_">arguments</span>);
+  <span class="hljs-keyword">return</span> obj;
+}
+
+<span class="hljs-keyword">var</span> <span class="hljs-title class_">MyType</span> = {
+  <span class="hljs-attr">new</span>: $new,
+  <span class="hljs-attr">init</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> = <span class="hljs-number">1</span>;
+  },
+};
+
+<span class="hljs-keyword">var</span> instance = <span class="hljs-title class_">MyType</span>.<span class="hljs-title function_">new</span>();
+</code></pre>
+<p>Pruébame</p></article></div></body></html>
