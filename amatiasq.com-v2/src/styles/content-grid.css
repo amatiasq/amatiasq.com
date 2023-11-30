@@ -4,7 +4,7 @@
   --breakout-max-width: 70em;
 }
 
-.container-grid,
+.content-grid,
 .full-width {
   --_breakout: minmax(
     0,
@@ -15,6 +15,9 @@
     100% - (var(--content-padding) * 2),
     var(--content-max-width)
   );
+
+  /* legacy */
+  --available-width: var(--_content);
 
   display: grid;
   grid-template-columns:

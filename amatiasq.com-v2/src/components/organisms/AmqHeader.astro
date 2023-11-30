@@ -1,5 +1,4 @@
 ---
-import Container from '../atoms/Container.astro';
 import githubIcon from '../icons/Github.svg?raw';
 import linkedInIcon from '../icons/LinkedIn.svg?raw';
 import Tr from '../atoms/Tr.astro';
@@ -21,7 +20,7 @@ const { class: className } = Astro.props;
 <WebComponent src="https://components.amatiasq.com/hamburger-button.js" />
 
 <nav class:list={['amq-header', className]}>
-  <Container>
+  <div>
     <div class="internal-links">
       <a class="nav-link" href="#projects" onclick="closeHamburger();">
         <Tr en="Projects" es="Proyectos" />
@@ -46,7 +45,7 @@ const { class: className } = Astro.props;
         <Fragment set:html={linkedInIcon} />
       </a>
     </div>
-  </Container>
+  </div>
 </nav>
 
 <style is:global>
@@ -97,7 +96,7 @@ const { class: className } = Astro.props;
       z-index: 1;
       transition: left 0.3s ease-out;
 
-      & .container {
+      > div {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -150,7 +149,7 @@ const { class: className } = Astro.props;
         margin-left: 1em;
       }
 
-      & .container,
+      > div,
       & .internal-links,
       & .external-links {
         display: flex;

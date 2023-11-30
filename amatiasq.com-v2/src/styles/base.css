@@ -1,7 +1,7 @@
 @import './reset.css';
 /* @import './pico.css'; */
 @import './syntax-highlighting.css';
-/* @import './content-grid.css'; */
+@import './content-grid.css';
 
 @import './themes/blue-orange-darker.css';
 @import './fonts/IBM-plex-and-Inconsolata.css';
@@ -31,7 +31,7 @@ code {
   font-weight: var(--fontWeight-bold);
 }
 
-:is(h1, h2, h3, h4, h5, h6, p, main) {
+:not(.md) > :is(h1, h2, h3, h4, h5, h6, p, main) {
   margin: 0;
 }
 

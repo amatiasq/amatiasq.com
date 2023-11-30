@@ -28,5 +28,7 @@ const tags = entry.data.tags ?? [];
   </h1>
 
   <TagList class="md-tags" tags={tags} />
+  <slot name="article-meta" />
   <Markdown as="article" md={entry.content} />
+  <slot name="article-footer" />
 </BaseLayout>

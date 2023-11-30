@@ -28,31 +28,30 @@ function present<T extends Content>(list: T[]) {
 }
 ---
 
-<BaseDocument>
+<BaseDocument class="content-grid">
   <section id="intro">
-    <Container as="header">
-      <h1>
-        Hey there!<br />
-         I'm <AMatiasQuezada class="amq-name" /><br />
-         Turning ideas into code that works for us
-      </h1>
-      <!--
+    <h1>
+      Hey there!<br />
+       I'm <AMatiasQuezada class="amq-name" /><br />
+       Turning ideas into code that works for us
+    </h1>
+    <!--
         <p>
           I create programs that help people to achieve their goals.<br />I'm a
           self-taught developer with a passion for learning and sharing knowledge.
         </p>
       -->
-      <p>
-        Welcome to my digital garden.<br />
-         This is the corner of the internet where I list things I make.<br />
-         I hope you find something useful.
-      </p>
-    </Container>
+    <p>
+      Welcome to my digital garden.<br />
+       This is the corner of the internet where I list things I make.<br />
+       I hope you find something useful.
+    </p>
 
     <style is:global>
       section#intro {
         display: flex;
         flex-direction: column;
+        justify-content: center;
         height: calc(100dvh - var(--amq-header-height));
 
         & h1 {
@@ -87,78 +86,62 @@ function present<T extends Content>(list: T[]) {
     </style>
   </section>
 
-  <AmqHeader />
+  <AmqHeader class="full-width" />
 
   <section id="projects">
-    <Container>
-      <h2>🧑‍💻 <Tr en="Projects" es="Proyectos" /></h2>
-      <ContentCards entries={projects} max={6} viewAll="/projects" />
-    </Container>
+    <h2>🧑‍💻 <Tr en="Projects" es="Proyectos" /></h2>
+    <ContentCards entries={projects} max={6} viewAll="/projects" />
   </section>
 
   <section id="blog">
-    <Container>
-      <h2>✍️ Blog</h2>
-      <BlogPostList posts={blog.slice(0, 6)} />
-      {
-        blog.length > 6 ? (
-          <ViewAll page="/blog" remaining={blog.length - 6} />
-        ) : null
-      }
-    </Container>
+    <h2>✍️ Blog</h2>
+    <BlogPostList posts={blog.slice(0, 6)} />
+    {
+      blog.length > 6 ? (
+        <ViewAll page="/blog" remaining={blog.length - 6} />
+      ) : null
+    }
   </section>
 
   <section id="experiments">
-    <Container>
-      <h2>
-        <Tr slot="header" en="🧪 Experiments" es="🧪 Experimentos" />
-      </h2>
-      <ContentCards entries={experiments} max={6} viewAll="/experiments" />
-    </Container>
+    <h2>
+      <Tr slot="header" en="🧪 Experiments" es="🧪 Experimentos" />
+    </h2>
+    <ContentCards entries={experiments} max={6} viewAll="/experiments" />
   </section>
 
   <section id="talks">
-    <Container>
-      <h2>
-        <Tr slot="header" en="💬 Talks" es="💬 Charlas" />
-      </h2>
-      <ContentCards entries={talks} max={6} viewAll="/talks" showYear />
-    </Container>
+    <h2>
+      <Tr slot="header" en="💬 Talks" es="💬 Charlas" />
+    </h2>
+    <ContentCards entries={talks} max={6} viewAll="/talks" showYear />
   </section>
 
   <section id="career">
-    <Container>
-      <h2>
-        <Tr slot="header" en="💼 Career" es="💼 Experiencia" />
-      </h2>
-      <CareerList career={career.slice(0, 6)} />
-      {
-        career.length > 6 ? (
-          <ViewAll page="/career" remaining={career.length - 6} />
-        ) : null
-      }
-    </Container>
+    <h2>
+      <Tr slot="header" en="💼 Career" es="💼 Experiencia" />
+    </h2>
+    <CareerList career={career.slice(0, 6)} />
+    {
+      career.length > 6 ? (
+        <ViewAll page="/career" remaining={career.length - 6} />
+      ) : null
+    }
   </section>
 </BaseDocument>
 
 <style is:global>
   body {
     --gap: calc(var(--spacing) * 1.5);
-
-    display: flex;
-    flex-direction: column;
-    background-color: var(--color-background);
   }
 
   section:not(#intro) {
     margin: var(--gap) auto;
     padding-top: calc(var(--gap) * 1.5);
 
-    > .container {
-      display: flex;
-      flex-direction: column;
-      gap: var(--gap);
-    }
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
   }
 
   @media (min-width: 769px) {
