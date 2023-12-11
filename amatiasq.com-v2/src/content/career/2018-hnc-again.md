@@ -15,6 +15,10 @@ labels:
   - Bash
   - C#
   - F#
+  - Fable
+  - Elmish
+  - Feliz
+  - Sutil
   - SQL
   - Docker
   - Kubernetes
