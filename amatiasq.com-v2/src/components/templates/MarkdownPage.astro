@@ -32,3 +32,11 @@ const tags = entry.data.tags ?? [];
   <Markdown as="article" md={entry.content} />
   <slot name="article-footer" />
 </BaseLayout>
+
+<style>
+  :root {
+    /* --grid-transparent-width: calc(var(--content-max-width) * 1px); */
+    --grid-transparent-width: 960px;
+    /* --grid-opacity: (960 0.1) (1.050 1); */
+  }
+</style>
