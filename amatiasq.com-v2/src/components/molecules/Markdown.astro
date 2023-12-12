@@ -15,17 +15,22 @@ const html = await markdownToHtml(md);
 <Element class:list={['md', className]} set:html={html} />
 
 <style is:global>
-  /* .md li {
-    list-style: initial;
+  .md {
+    display: grid;
+    gap: 24px;
   }
-  .md ul,
-  .md ol {
-    margin: 20px 0;
-    padding: reset;
-  } */
+
+  .md :is(h1, h2, h3, h4, h5, h6),
+  .md li + li {
+    margin-top: 16px;
+  }
+
+  .md :is(ul, pre, code, p) {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
 
   .md p {
-    /* margin: ${cssSpace.lg} 0; */
     text-align: justify;
   }
 
@@ -33,10 +38,5 @@ const html = await markdownToHtml(md);
     border-left: 2px solid var(--color-text);
     margin-left: 0;
     padding-left: 1em;
-  }
-
-  .md :is(h1, h2, h3, h4, h5, h6) {
-    margin-top: 0.7em;
-    margin-bottom: 0.3em;
   }
 </style>
