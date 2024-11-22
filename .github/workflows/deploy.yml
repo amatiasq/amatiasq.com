@@ -1,0 +1,30 @@
+name: Deploy to Github Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: denoland/setup-deno@v1
+
+      - name: Build app
+        run: make ci
+
+      - name: Build v2
+        run: |
+          cd amatiasq.com-v2
+          npm ci
+          npm run build
+          cp -r dist ../dist/v2
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
