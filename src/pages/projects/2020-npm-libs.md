@@ -19,6 +19,8 @@ labels:
 I creted some npm libraries with chunks of code I use in my projects.
 They are all open source and available on npm.
 
+<!-- end extract -->
+
 ### [@amatiasq/scheduler](https://www.npmjs.com/package/@amatiasq/scheduler)
 When you need something to hapen N seconds after you invoked it.
 ```ts
