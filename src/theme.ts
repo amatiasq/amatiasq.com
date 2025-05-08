@@ -2,7 +2,8 @@ import { colorScheme } from './components/molecules/ColorSchemeToggle.tsx';
 import { bouncyLinkStyles } from './util/bouncyLinkTransition.ts';
 import { externalLinkStyles } from './util/externalLinkStyles.ts';
 
-const primaryColor = '#00FBFF';
+// const primaryColor = '#00FBFF';
+const primaryColor = '#73ff00';
 
 const dark = `
   --color-primary: ${primaryColor};
