@@ -6,11 +6,8 @@ all: build
 	make -j 2 watch start-server
 
 
-copy-assets:
-	@echo "Copying assets..."
-	mkdir -p ./dist
-	@cp -r ./assets/CV.pdf ./dist
-	@cp -r ./assets/img ./dist
+deploy:
+	git push # gh action
 
 
 build: copy-assets
@@ -23,6 +20,13 @@ build: copy-assets
 		--lock=lock.json \
 		--allow-net=$(NET_ACCESS) \
 		src/main.ts
+
+
+copy-assets:
+	@echo "Copying assets..."
+	mkdir -p ./dist
+	@cp -r ./assets/CV.pdf ./dist
+	@cp -r ./assets/img ./dist
 
 
 watch:
