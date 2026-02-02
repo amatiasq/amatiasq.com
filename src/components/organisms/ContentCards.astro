@@ -1,0 +1,110 @@
+---
+import Tr from '../atoms/Translation.astro';
+import Link from '../atoms/Link.astro';
+import Image from '../atoms/Image.astro';
+
+interface Props {
+  entries: any[];
+  basePath: string;
+  max?: number;
+}
+
+const { entries, basePath, max } = Astro.props;
+
+const processedEntries = entries.map((entry: any) => ({
+  ...entry,
+  href: `${basePath}/${entry.id.replace('.md', '')}`,
+}));
+
+const visible = max ? processedEntries.slice(0, max) : processedEntries;
+const hidden = max ? processedEntries.slice(max) : [];
+---
+
+<ul>
+  {
+    visible.map((entry: any) => {
+      const slug = entry.id.replace('.md', '');
+      return (
+        <li>
+          <Link page={entry.href}>
+            <span transition:name={`img-${slug}`}>
+              <Image value={entry.data.image} />
+            </span>
+            <span class="title" transition:name={`title-${slug}`}>
+              <Tr value={entry.data.title} />
+            </span>
+          </Link>
+        </li>
+      );
+    })
+  }
+</ul>
+
+{
+  hidden.length > 0 && (
+    <details>
+      <summary>{hidden.length} more</summary>
+      <ul>
+        {
+          hidden.map((entry: any) => {
+            const slug = entry.id.replace('.md', '');
+            return (
+              <li>
+                <Link page={entry.href}>
+                  <span transition:name={`img-${slug}`}>
+                    <Image value={entry.data.image} />
+                  </span>
+                  <span class="title" transition:name={`title-${slug}`}>
+                    <Tr value={entry.data.title} />
+                  </span>
+                </Link>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </details>
+  )
+}
+
+<style>
+  ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  @media (min-width: 600px) {
+    ul {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+  }
+  li {
+    text-align: center;
+  }
+  li :global(a) {
+    display: block;
+    padding: 0;
+    margin: 0;
+    background: none;
+    transition: transform 0.2s ease;
+  }
+  li :global(a:hover) {
+    transform: translateY(-4px) rotate(0);
+    background: none;
+  }
+
+  li :global(a:hover img) {
+    border-color: var(--accent);
+  }
+  li :global(img) {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    margin-bottom: 0.5rem;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+  }
+</style>

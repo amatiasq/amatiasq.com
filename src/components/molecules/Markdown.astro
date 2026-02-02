@@ -1,0 +1,124 @@
+---
+import { Marked } from 'marked';
+import { createHighlighter } from 'shiki';
+
+interface Props {
+  md: string;
+  class?: string;
+}
+
+const { md, class: className = '' } = Astro.props;
+
+const highlighter = await createHighlighter({
+  themes: ['github-dark'],
+  langs: ['javascript', 'typescript', 'html', 'css', 'json', 'bash', 'shell', 'c', 'cpp', 'csharp', 'python', 'rust', 'go', 'java', 'text', 'plaintext'],
+});
+
+const marked = new Marked({
+  async: true,
+  gfm: true,
+});
+
+marked.use({
+  renderer: {
+    code({ text, lang }) {
+      const language = lang || 'text';
+      try {
+        const html = highlighter.codeToHtml(text, {
+          lang: language,
+          theme: 'github-dark',
+        });
+        // Wrap in a container for copy button
+        return `<div class="code-block">${html}</div>`;
+      } catch {
+        return `<pre><code>${text}</code></pre>`;
+      }
+    },
+  },
+});
+
+const html = await marked.parse(md);
+---
+
+<div class={`md ${className}`} set:html={html} />
+
+<style is:global>
+  .md .code-block {
+    position: relative;
+    margin: 1.5rem 0;
+  }
+
+  .md pre {
+    padding: 1.25rem;
+    border-radius: 8px;
+    overflow-x: auto;
+    border: 1px solid oklch(28% 0 0);
+    margin: 0;
+  }
+
+  .md pre code {
+    font-family: ui-monospace, 'SF Mono', Menlo, Monaco, 'Courier New', monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+
+  .md :not(pre) > code {
+    font-family: ui-monospace, 'SF Mono', Menlo, Monaco, 'Courier New', monospace;
+    background: oklch(14% 0 0);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+    font-size: 0.9em;
+    border: 1px solid oklch(28% 0 0);
+  }
+
+  .md h2, .md h3 {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .md p {
+    margin: 1rem 0;
+  }
+
+  .md blockquote {
+    border-left: 3px solid oklch(28% 0 0);
+    margin: 1.5rem 0;
+    padding: 0.5rem 1rem;
+    background: oklch(14% 0 0);
+    border-radius: 0 8px 8px 0;
+  }
+
+  .md blockquote p {
+    margin: 0.5rem 0;
+    color: oklch(65% 0 0);
+  }
+
+  .md ul, .md ol {
+    padding-left: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .md li {
+    margin: 0.5rem 0;
+  }
+
+  .md hr {
+    border: none;
+    border-top: 1px solid oklch(28% 0 0);
+    margin: 2rem 0;
+  }
+
+  .md img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1.5rem 0;
+  }
+
+  /* Make comments green - they're messages for the reader */
+  .md pre span[style*="color:#6A737D"],
+  .md pre span[style*="color:#8b949e"] {
+    color: oklch(68% 0.15 145) !important;
+    font-style: italic;
+  }
+</style>

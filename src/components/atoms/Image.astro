@@ -1,0 +1,30 @@
+---
+import type { Translatable } from '@/i18n';
+import type { ImageDeclaration } from '../../content/_meta';
+import { t } from '../../internals/i18n';
+import { Image as AstroImage } from 'astro:assets';
+
+interface Props {
+  value: ImageDeclaration | string | undefined;
+  width?: number;
+}
+
+const { value, width = 300 } = Astro.props;
+
+const { src, alt } = (() => {
+  if (typeof value === 'string') {
+    return { src: t(value), alt: '' };
+  } else if (value && 'src' in value) {
+    return { src: t(value.src!), alt: t(value as Translatable) };
+  } else {
+    return { src: null, alt: '' };
+  }
+})();
+
+const modules = import.meta.glob('/src/assets/img/*', { eager: true });
+const assetSrc = src
+  ? (modules[`/src/assets/img/${src}`] as { default: ImageMetadata } | undefined)?.default
+  : null;
+---
+
+{assetSrc && <AstroImage src={assetSrc} alt={alt} width={width} />}

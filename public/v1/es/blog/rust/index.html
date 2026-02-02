@@ -1,0 +1,354 @@
+<!DOCTYPE html><html lang="es"><head><meta charSet="UTF-8"/><meta name="description" content="A. Matías Quezada&#x27;s personal website"/><meta http-equiv="X-UA-Compatible" content="IE=edge"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Rust | A. Matías Quezada</title><style> *, ::before, ::after { box-sizing: border-box; } html { line-sizing: normal; } body { margin: 0; } [hidden] { display: none; } h1 { font-size: 2rem; } h2 { font-size: 1.5rem; } h3 { font-size: 1.17rem; } h4 { font-size: 1.00rem; } h5 { font-size: 0.83rem; } h6 { font-size: 0.67rem; } h1 { margin: 0.67em 0; } pre { white-space: pre-wrap; } hr { border-style: solid; border-width: 1px 0 0; color: inherit; height: 0; overflow: visible; } img, svg, video, canvas, audio, iframe, embed, object { display: block; vertical-align: middle; max-width: 100%; } audio:not([controls]) { display:none; } picture { display: contents; } source { display: none; } img, svg, video, canvas { height: auto; } audio { width: 100%; } img { border-style: none; } svg { overflow: hidden; } article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section { display: block; } [type='checkbox'], [type='radio'] { box-sizing: border-box; padding: 0; } @media (prefers-reduced-motion: reduce) { *, ::before, ::after { animation-name: none !important; transition: none !important; } } </style><style>@font-face { font-family: 'Inconsolata'; font-style: normal; font-weight: 400; font-stretch: normal; font-display: swap; src: url(https://fonts.gstatic.com/s/inconsolata/v37/QldgNThLqRwH-OJ1UHjlKENVzkWGVkL3GZQmAwLYxYWI2qfdm7Lpp4U8aRo.ttf) format('truetype'); } @font-face { font-family: 'Inconsolata'; font-style: normal; font-weight: 700; font-stretch: normal; font-display: swap; src: url(https://fonts.gstatic.com/s/inconsolata/v37/QldgNThLqRwH-OJ1UHjlKENVzkWGVkL3GZQmAwLYxYWI2qfdm7Lpp2I7aRo.ttf) format('truetype'); } @font-face { font-family: 'Nunito'; font-style: normal; font-weight: 400; font-display: swap; src: url(https://fonts.gstatic.com/s/nunito/v32/XRXI3I6Li01BKofiOc5wtlZ2di8HDLshRTM.ttf) format('truetype'); } @font-face { font-family: 'Nunito'; font-style: normal; font-weight: 700; font-display: swap; src: url(https://fonts.gstatic.com/s/nunito/v32/XRXI3I6Li01BKofiOc5wtlZ2di8HDFwmRTM.ttf) format('truetype'); } @font-face { font-family: 'Nunito Sans'; font-style: normal; font-weight: 400; font-stretch: normal; font-display: swap; src: url(https://fonts.gstatic.com/s/nunitosans/v19/pe1mMImSLYBIv1o4X1M8ce2xCx3yop4tQpF_MeTm0lfGWVpNn64CL7U8upHZIbMV51Q42ptCp5F5bxqqtQ1yiU4G1ilntA.ttf) format('truetype'); } @font-face { font-family: 'Nunito Sans'; font-style: normal; font-weight: 700; font-stretch: normal; font-display: swap; src: url(https://fonts.gstatic.com/s/nunitosans/v19/pe1mMImSLYBIv1o4X1M8ce2xCx3yop4tQpF_MeTm0lfGWVpNn64CL7U8upHZIbMV51Q42ptCp5F5bxqqtQ1yiU4GMS5ntA.ttf) format('truetype'); } </style><style> html:not(.light-scheme) { --color-primary: #73ff00; --color-foreground: #FDFBF8; --color-foregroundStrong: #FFFFFF; --color-background: #263238; --color-backgroundStrong: #161b22; --color-border: #586369; } @media (prefers-color-scheme: light) { html { --color-primary: #0006B0; --color-foreground: #3a3a3a; --color-foregroundStrong: #000000; --color-background: #dae2e7; --color-backgroundStrong: #e3e7ed; --color-border: gray; } } html.light-scheme { --color-primary: #0006B0; --color-foreground: #3a3a3a; --color-foregroundStrong: #000000; --color-background: #dae2e7; --color-backgroundStrong: #e3e7ed; --color-border: gray; } body { background-color: var(--color-background); color: var(--color-foreground); font-family: Nunito Sans, sans-serif; font-size: 18px; line-height: 1.5; letter-spacing: 0.5px; } header, h1, h2, h3, h4, h5, h6 { font-family: Nunito, sans-serif; margin: 0; } a { color: var(--color-primary); text-decoration: none; } :root { --external-link: url("data:image/svg+xml;utf8, %3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='%2373ff00' stroke='COLOR' viewBox='0 0 24 24' %3E %3Cpath d='M6 17c2.269-9.881 11-11.667 11-11.667v-3.333l7 6.637-7 6.696v-3.333s-6.17-.171-11 5zm12 .145v2.855h-16v-12h6.598c.768-.787 1.561-1.449 2.339-2h-10.937v16h20v-6.769l-2 1.914z'/%3E %3C/svg%3E "); } a[href^="http"]:not([href^="https://amatiasq.com"]):not([href^="https://repos.amatiasq.com"]):not(.no-external)::after { content: ''; margin-left: 0.5em; width: 0.8em; height: 0.8em; display: inline-block; background-image: var(--external-link); background-repeat: no-repeat; background-position: center; background-size: contain; } :where(.bouncy-box, article a) { position: relative; display: inline-block; --underline-width: 1px; --padding: 8; transform: scale(1) rotate(0); transition: transform 0.3s cubic-bezier(0.25, 0.1, 0, 2.05); } :where(.bouncy-box, article a):hover { transform: scale(1.1) rotate(0); } :where(.bouncy-box, article a):before { content: ''; position: absolute; z-index: -1; border-radius: 8px; opacity: 1; background: transparents; inset: calc(100% - var(--underline-width)) 0 0 0; height: var(--underline-width); transition-property: inset, opacity, height, background; transition-duration: 0.3s; transition-timing-function: cubic-bezier(0,.5,0,1); } :where(.bouncy-box, article a):hover:before { inset: calc(var(--padding) * -1px) calc(var(--padding) * -2px); background: black; opacity: 0.8; height: calc(100% + calc(var(--padding) * 2px)); } ol { padding: 0; } li { list-style: none; } code { font-family: Inconsolata, monospace; } svg { fill: var(--color-foreground); } iframe { width: var(--available-width); height: var(--available-width); border: 2px solid var(--color-border); } summary { cursor: pointer; list-style: none; } summary::-webkit-details-marker { display: none; } .md summary { list-style: unset; } .md summary::-webkit-details-marker { display: unset; } </style><style>.css-1dwwgr5{display:none;}@media (min-width: 769px){.css-1dwwgr5{display:block;position:fixed;overflow:hidden;background-color:var(--color-primary);--size:2rem;bottom:calc(var(--size) * -1);right:calc(var(--size) * -1);height:calc(var(--size) * 2);width:calc(var(--size) * 2);border-radius:var(--size);transition-duration:0.3s;transition-timing-function:cubic-bezier(0.25, 0.1, 0, 2.05);transition-property:border-radius,bottom,right,height,width;}.css-1dwwgr5:hover,.css-1dwwgr5:focus-within{--size:6rem;}.css-1dwwgr5:hover p,.css-1dwwgr5:focus-within p{-webkit-transform:rotate(0deg);-moz-transform:rotate(0deg);-ms-transform:rotate(0deg);transform:rotate(0deg);opacity:1;}.css-1dwwgr5 input{margin-top:-10rem;margin-left:-10rem;}.css-1dwwgr5 p{opacity:0;background:rgba(0, 0, 0, 0.8);border-radius:16px;padding:0.3em 1em;position:fixed;bottom:2rem;right:7rem;color:var(--color-primary);font-weight:bold;-webkit-transform:rotate(90deg);-moz-transform:rotate(90deg);-ms-transform:rotate(90deg);transform:rotate(90deg);transform-origin:100% 1000%;-webkit-transition:-webkit-transform 0.3s,opacity 1s;transition:transform 0.3s,opacity 1s;}}
+.css-5a8vm2 .shj-inline{margin:0;padding:2px 5px;display:inline-block;border-radius:5px;}.css-5a8vm2 [class*=shj-lang-]::selection,.css-5a8vm2 [class*=shj-lang-] ::selection{background:#bdf5;}.css-5a8vm2 [class*=shj-lang-]>div{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;overflow:auto;}.css-5a8vm2 [class*=shj-lang-]>div :last-child{-webkit-flex:1;-ms-flex:1;flex:1;outline:none;}.css-5a8vm2 .shj-syn-cmnt{font-style:italic;}.css-5a8vm2 .shj-syn-err,.css-5a8vm2 .shj-syn-kwd{color:#e16;}.css-5a8vm2 .shj-syn-num,.css-5a8vm2 .shj-syn-class{color:#f60;}.css-5a8vm2 .shj-numbers,.css-5a8vm2 .shj-syn-cmnt{color:#999;}.css-5a8vm2 .shj-syn-insert,.css-5a8vm2 .shj-syn-str{color:#7d8;}.css-5a8vm2 .shj-syn-bool{color:#3bf;}.css-5a8vm2 .shj-syn-type,.css-5a8vm2 .shj-syn-oper{color:#5af;}.css-5a8vm2 .shj-syn-section,.css-5a8vm2 .shj-syn-func{color:#84f;}.css-5a8vm2 .shj-syn-deleted,.css-5a8vm2 .shj-syn-var{color:#f44;}.css-5a8vm2 .shj-oneline{padding:12px 10px;}.css-5a8vm2 .shj-lang-http.shj-oneline .shj-syn-kwd{background:#25f;color:#fff;padding:5px 7px;border-radius:5px;}.css-5a8vm2 .shj-multiline.shj-mode-header{padding:20px;}.css-5a8vm2 .shj-multiline.shj-mode-header:before{content:attr(data-lang);color:#58f;display:block;padding:10px 20px;background:#58f3;border-radius:5px;margin-bottom:20px;}.css-5a8vm2 [class*=shj-lang-]:before{color:#6f9aff;}.css-5a8vm2 .shj-syn-deleted,.css-5a8vm2 .shj-syn-err,.css-5a8vm2 .shj-syn-var{color:#e06c75;}.css-5a8vm2 .shj-syn-section,.css-5a8vm2 .shj-syn-oper,.css-5a8vm2 .shj-syn-kwd{color:#c678dd;}.css-5a8vm2 .shj-syn-class{color:#e5c07b;}.css-5a8vm2 .shj-numbers,.css-5a8vm2 .shj-syn-cmnt{color:#76839a;}.css-5a8vm2 .shj-syn-insert{color:#98c379;}.css-5a8vm2 .shj-syn-type{color:#56b6c2;}.css-5a8vm2 .shj-syn-num,.css-5a8vm2 .shj-syn-bool{color:#d19a66;}.css-5a8vm2 .shj-syn-str,.css-5a8vm2 .shj-syn-func{color:#61afef;}
+.css-h8s9dg{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif,'Apple Color Emoji','Segoe UI Emoji';}.css-h8s9dg>:first-child{margin-top:0;}.css-h8s9dg li{list-style:initial;}.css-h8s9dg ul,.css-h8s9dg ol{margin:20px 0;padding:reset;}.css-h8s9dg p{margin:20px 0;text-align:justify;}.css-h8s9dg blockquote{border-left:5px solid var(--color-border);margin-left:0;padding-left:1em;}.css-h8s9dg code:not(.code-block){background-color:var(--color-backgroundStrong);padding:4px;border-radius:4px;}.css-h8s9dg pre{--code-block-margin:3em;--code-block-padding:1em;--code-inline-padding:min(3em, var(--container-side-gap));margin:var(--code-block-margin) 0;padding:var(--code-block-padding) 0;position:relative;white-space:pre;}.css-h8s9dg pre >code{display:block;width:var(--available-width);white-space:pre;text-shadow:none;font-size:18px;line-height:24px;box-sizing:border-box;max-width:var(--available-width);overflow-x:auto;color:#abb2bf;}.css-h8s9dg pre::before{content:'';inset:calc(var(--code-block-padding) * -1) calc(var(--code-inline-padding) * -1);background:#161b22;border-radius:10px;box-shadow:0 0 5px #0001;position:absolute;z-index:-1;max-width:100vw;}
+.css-4wryw5{font-family:Nunito,sans-serif;font-weight:700;font-size:46px;}
+.css-relzm4{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-flex-direction:column;-ms-flex-direction:column;flex-direction:column;}@media (min-width: 769px){.css-relzm4{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;}}
+.css-1wcd5po{-webkit-appearance:none;-moz-appearance:none;-ms-appearance:none;appearance:none;background:none;border:none;font-size:inherit;}html:not(.light-scheme) .css-1wcd5po span:first-child{display:none;}@media (prefers-color-scheme: light){html .css-1wcd5po span:last-child{display:none;}}html.light-scheme .css-1wcd5po span:last-child{display:none;}
+.css-1mi0geu{color:var(--color-foregroundStrong);display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:baseline;-webkit-box-align:baseline;-ms-flex-align:baseline;align-items:baseline;letter-spacing:1px;white-space:nowrap;}.css-1mi0geu abbr{display:-webkit-inline-box;display:-webkit-inline-flex;display:-ms-inline-flexbox;display:inline-flex;width:0.79em;overflow:hidden;-webkit-transition:width 0.3s ease;transition:width 0.3s ease;}.css-1mi0geu abbr,.css-1mi0geu span+span{margin-left:0.4em;}.css-1mi0geu:hover abbr{width:3.3em;}.css-1mi0geu:hover .dot{display:none;}
+.css-1x2qc6k{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;gap:12px;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;margin:0;font-size:1.3em;}@media (min-width: 769px){.css-1x2qc6k{font-size:1.5em;}}
+.css-147lofe{--container-side-gap:2rem;--container-width:40rem;--container-sides-gap:calc(var(--container-side-gap) * 2);--available-width:min(
+      calc(100vw - var(--container-sides-gap)),
+      calc(var(--container-width) - var(--container-sides-gap))
+    );max-width:var(--container-width);padding-left:var(--container-side-gap);padding-right:var(--container-side-gap);margin-left:auto;margin-right:auto;}@media (min-width: 769px){.css-147lofe{--container-width:50rem;--container-side-gap:3rem;}}@media (min-width: 1200px){.css-147lofe{--container-width:60rem;}}
+.css-1134qic{cursor:pointer;font-size:var(--emoji-size);-webkit-transition:font-size 0.15s ease-in-out;transition:font-size 0.15s ease-in-out;margin-top:-5px;}
+.css-qam5gc{cursor:pointer;font-size:var(--emoji-size);-webkit-transition:font-size 0.15s ease-in-out;transition:font-size 0.15s ease-in-out;}
+.css-syhxvc{color:var(--color-primary);margin-right:12px;border-bottom:1px solid transparent;-webkit-transform:translate(0px, 0px);-moz-transform:translate(0px, 0px);-ms-transform:translate(0px, 0px);transform:translate(0px, 0px);}.css-syhxvc.parent{border-bottom:1px solid var(--color-border);}.css-syhxvc:hover{border-bottom:1px solid var(--color-primary);-webkit-transition:-webkit-transform 1s ease;transition:transform 1s ease;-webkit-transform:translate(0px, -3px);-moz-transform:translate(0px, -3px);-ms-transform:translate(0px, -3px);transform:translate(0px, -3px);}
+.css-1nl2wzu{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;white-space:nowrap;gap:12px;}
+.css-1qscrim{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;-webkit-box-pack:justify;-webkit-justify-content:space-between;justify-content:space-between;-webkit-align-items:center;-webkit-box-align:center;-ms-flex-align:center;align-items:center;-webkit-box-flex-flow:column wrap;-webkit-flex-flow:column wrap;-ms-flex-flow:column wrap;flex-flow:column wrap;gap:20px;}.css-1qscrim .not-priority{display:none;}@media (min-width: 769px){.css-1qscrim{-webkit-flex-direction:row;-ms-flex-direction:row;flex-direction:row;}}@media (min-width: 1200px){.css-1qscrim .not-priority{display:block;}}
+.css-el2kyp{--emoji-size:1.5rem;background-color:var(--color-backgroundStrong);color:var(--color-foreground);border-bottom:2px solid var(--color-border);padding:40px 0;font-size:1.2em;}@media (min-width: 769px){.css-el2kyp{--emoji-size:2rem;position:-webkit-sticky;position:sticky;top:0;z-index:1;-webkit-transition:padding 0.15s ease-in-out,font-size 0.15s ease-in-out;transition:padding 0.15s ease-in-out,font-size 0.15s ease-in-out;}.css-el2kyp.scrolled{--emoji-size:1.5rem;padding:12px 0;font-size:inherit;}}
+.css-1e8d7s{padding-bottom:4rem;}
+.css-1p4f3y5{display:grid;padding-top:20px;gap:12px;}</style><script>;(async () => {const doc = document.documentElement; const onDomLoaded = new Promise((resolve) => addEventListener('DOMContentLoaded', resolve) ); async function $(selector) { await onDomLoaded; return document.querySelector(selector); } async function $$(selector) { await onDomLoaded; return [...document.querySelectorAll(selector)]; } onDomLoaded.then(() => { $ = (selector) => Promise.resolve(document.querySelector(selector)); $$ = (selector) => Promise.resolve([...document.querySelectorAll(selector)]); }); Object.assign(window, { $, $$, doc }); })();
+;(async () => {const COLOR_SCHEME_KEY = 'amatiasq.com|color-scheme'; if (localStorage.getItem(COLOR_SCHEME_KEY)) { doc.classList.toggle('light-scheme'); } doc.addEventListener('amq-primary-color-ready', () => { if (localStorage.getItem(COLOR_SCHEME_KEY)) { primaryColorChanged(); } }); const button = await $('[data-togglecolorscheme]'); button.addEventListener('click', () => { if (doc.classList.toggle('light-scheme')) { localStorage.setItem(COLOR_SCHEME_KEY, 'light'); } else { localStorage.removeItem(COLOR_SCHEME_KEY); } primaryColorChanged ? primaryColorChanged() : null; }); button.removeAttribute('data-togglecolorscheme'); })();
+;(async () => { const getExternalLinkBackground = function anonymous(color ) { function svgToUrl(svg) { const escaped = svg.replace(/</g, '%3C').replace(/>/g, '%3E').replace(/"/g, "'").replace(/(\s|\n)+/g, ' ').replace(/#/g, '%23'); return `url("data:image/svg+xml;utf8,${escaped}")`; } const svg = ` <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="COLOR" stroke="COLOR" viewBox="0 0 24 24" > <path d="M6 17c2.269-9.881 11-11.667 11-11.667v-3.333l7 6.637-7 6.696v-3.333s-6.17-.171-11 5zm12 .145v2.855h-16v-12h6.598c.768-.787 1.561-1.449 2.339-2h-10.937v16h20v-6.769l-2 1.914z"/> </svg> `; return svgToUrl(svg.replace('COLOR', color)); }; const PRIMARY_COLOR_KEY = 'amatiasq.com|color-primary'; function changePrimaryColor(newColor) { if (!newColor) return; doc.style.setProperty('--color-primary', newColor); localStorage.setItem(PRIMARY_COLOR_KEY, newColor); primaryColorChanged(newColor); } function primaryColorChanged( newColor = getComputedStyle(doc).getPropertyValue('--color-primary') ) { const event = new CustomEvent('amq-primary-color-changed', { detail: newColor, }); doc.dispatchEvent(event); } Object.assign(window, { primaryColorChanged }); doc.addEventListener('amq-primary-color-changed', async (event) => { const newColor = event.detail; doc.style.setProperty('--external-link', getExternalLinkBackground(newColor)); const $picker = await $('#color-picker'); $picker.value = newColor.trim(); }); changePrimaryColor(localStorage.getItem(PRIMARY_COLOR_KEY)); doc.dispatchEvent(new Event('amq-primary-color-ready')); const picker = await $('#color-picker'); picker.addEventListener('input', (e) => changePrimaryColor(e.target.value)); })();</script></head><body class=" css-1e8d7s"><script type="module" defer="">;(async () => {const scrollers = (await $$('[data-scrollclass]')) .map((x) => ({ el: x, className: x.dataset.scrollclass, offset: x.dataset.scrolloffset || 0, tolerance: x.dataset.scrolltolerance || 0, })) .filter((x) => x.className); const pendingScrollers = new Set(scrollers); if (pendingScrollers.size) { addEventListener('scroll', () => { const scrolled = document.documentElement.scrollTop; for (const { el, className, offset, tolerance } of pendingScrollers) { const scrollDiff = scrolled - offset; if (Math.abs(scrollDiff) < tolerance) { return; } const hasClass = el.classList.contains(className); const shouldHaveClass = scrollDiff > 0; if (shouldHaveClass === hasClass) { return; } if (shouldHaveClass) { el.classList.add(className); } else { el.classList.remove(className); } } }); } })();</script><header class="css-el2kyp " data-scrollclass="scrolled" data-scrolloffset="50" data-scrolltolerance="50"><div class="css-1qscrim css-147lofe"><h2 class="css-1x2qc6k"><a href="../.." class="css-1mi0geu inactive"><span>{ </span><abbr>Adrian</abbr><span class="dot">.</span><span>Matías Quezada</span><span> }</span></a></h2><nav class="css-1nl2wzu"><a href=".." class="css-syhxvc parent">Blog</a><a href="../../projects" class="css-syhxvc not-priority">Proyectos</a><a href="../../career" class="css-syhxvc">CV</a><a href="../../../blog/rust" class="css-qam5gc">🇬🇧</a><button class="css-1wcd5po css-1134qic" data-togglecolorscheme="true"><span>🌒</span><span>☀️</span></button></nav></div></header><div class="css-1p4f3y5  css-147lofe"><h2 class="css-relzm4  css-4wryw5">Rust</h2><article class="md css-h8s9dg css-5a8vm2 "><p>Decidí probar <a href="https://www.rust-lang.org/">el lenguaje Rust</a> por varias razones:</p>
+
+<ul>
+<li><strong>WebAssembly</strong>: He estado buscando un lenguaje que me permita ejecutar código eficiente en el navegador como WebAssembly y Javascript / Typescript no son buenos candidatos por el tipado débil y el Colector de Basura (Garbage Collector).</li>
+<li><strong>No hay Garbage Collector</strong>: hablando del GC, me gusta ejecutar <a href="https://amatiasq.com/projects/lulas/">simulaciones en la web</a> y el colector de basura tarde o temprano se convierte en un problema haciendoo la simulación impredecible.</li>
+<li><strong>Sistema de tipado</strong>: Tuve la suerte de aprender F# y me enamoré de la forma en la que usa tipos, empiezas un programa definiendo los estados de la aplicación en forma de tipos. La idea es muy buena pero todo eso se traduce a más tipos que crear e instanciar en tiempo de ejecución que añade más carga al colector de basura. El sistema de tipos de Rust toma las mejores ideas a la vez que elimina todos los tipos en tiempo de compilación.</li>
+<li><strong>Reputación</strong>: Siguiendo las encuestas de la industria está claro que la gente que usa Rust encontró algo diferente en éste lenguaje, incluso <a href="https://www.zdnet.com/article/rust-in-the-linux-kernel-why-it-matters-and-whats-happening-next/">se está abriendo camino al kernel de Linux</a>.</li>
+</ul>
+<h2 id="el-proyecto">El proyecto</h2>
+<p>Así que porqué no empezar con algo simple como <em>crear una aplicación web que renderice un gráfico SVG</em>? 🧑‍💻</p>
+<p>Siguiendo <a href="https://www.youtube.com/playlist?list=PLZaoyhMXgBzoM9bfb5pyUOT3zjnaDdSEP">no boilerplate</a> encontré <a href="https://yew.rs/">Yew</a>, un framework para Rust inspirado en React:</p>
+
+<pre><code class="code-block shj-lang-rs">[#function_component]
+<span class="shj-syn-kwd">fn</span> <span class="shj-syn-class">MyComponent</span>(props<span class="shj-syn-oper">:</span> <span class="shj-syn-class">Props</span>) {
+  <span class="shj-syn-kwd">return</span> html<span class="shj-syn-oper">!</span>{
+    <span class="shj-syn-oper">&lt;</span>div<span class="shj-syn-oper">&gt;</span>{props<span class="shj-syn-oper">.</span>content}<span class="shj-syn-oper">&lt;/</span>div<span class="shj-syn-oper">&gt;</span>
+  };
+}
+</code></pre>
+<p>Esto promete.</p>
+<h2 id="instalaci-n">Instalación</h2>
+<p>Para instalar Rust ejecuté los siguientes comandos (para sistemas unix como Linux y Mac) como dicen en la <a href="https://yew.rs/docs/getting-started/introduction">documentación de Yew</a></p>
+
+<pre><code class="code-block shj-lang-bash"><span class="shj-syn-cmnt"># de https://rustup.rs/</span>
+curl <span class="shj-syn-oper">--</span>proto <span class="shj-syn-str">'=https'</span> <span class="shj-syn-oper">--</span>tlsv1<span class="shj-syn-num">.2</span> <span class="shj-syn-kwd">-sSf</span> https:<span class="shj-syn-oper">//</span>sh.rustup.rs <span class="shj-syn-kwd">|</span> sh
+
+<span class="shj-syn-cmnt"># esto activa el comando rustup inmediatamente</span>
+<span class="shj-syn-func">source</span> <span class="shj-syn-str">"</span><span class="shj-syn-var">$HOME</span><span class="shj-syn-str">/.cargo/env"</span>
+
+<span class="shj-syn-cmnt"># instala algo sobre soporte para webassembly... creo</span>
+rustup target <span class="shj-syn-kwd">add</span> wasm32<span class="shj-syn-kwd">-unknown</span><span class="shj-syn-kwd">-unknown</span>
+
+<span class="shj-syn-cmnt"># algunas dependencias que vamos a necesitar</span>
+cargo <span class="shj-syn-kwd">install</span> <span class="shj-syn-oper">--</span>locked trunk
+cargo <span class="shj-syn-kwd">install</span> cargo<span class="shj-syn-kwd">-generate</span>
+</code></pre>
+<p>Entonces generé un proyecto con el comando <code>cargo generate</code></p>
+
+<pre><code class="code-block shj-lang-bash">cargo generate <span class="shj-syn-oper">--</span>git https:<span class="shj-syn-oper">//</span>github.com<span class="shj-syn-oper">/</span>yewstack<span class="shj-syn-oper">/</span>yew<span class="shj-syn-kwd">-trunk</span><span class="shj-syn-kwd">-minimal</span><span class="shj-syn-kwd">-template</span>
+</code></pre>
+<h2 id="primeras-impresiones">Primeras impresiones</h2>
+<p>A primera vista el código parece familiar,</p>
+
+<pre><code class="code-block shj-lang-rs"><span class="shj-syn-cmnt">// main.rs
+</span><span class="shj-syn-kwd">mod</span> app;
+
+<span class="shj-syn-kwd">use</span> app<span class="shj-syn-oper">::</span><span class="shj-syn-class">App</span>;
+
+<span class="shj-syn-kwd">fn</span> <span class="shj-syn-func">main</span>() {
+    yew<span class="shj-syn-oper">::</span><span class="shj-syn-class">Renderer</span><span class="shj-syn-oper">::&lt;</span><span class="shj-syn-class">App</span><span class="shj-syn-oper">&gt;::</span><span class="shj-syn-func">new</span>()<span class="shj-syn-oper">.</span><span class="shj-syn-func">render</span>();
+}
+</code></pre>
+
+<pre><code class="code-block shj-lang-rs"><span class="shj-syn-cmnt">// app.rs
+</span><span class="shj-syn-kwd">use</span> yew<span class="shj-syn-oper">::</span>prelude<span class="shj-syn-oper">::*</span>;
+
+#[<span class="shj-syn-func">function_component</span>(<span class="shj-syn-class">App</span>)]
+<span class="shj-syn-kwd">pub</span> <span class="shj-syn-kwd">fn</span> <span class="shj-syn-func">app</span>() <span class="shj-syn-oper">-&gt;</span> <span class="shj-syn-class">Html</span> {
+    html<span class="shj-syn-oper">!</span> {
+        <span class="shj-syn-oper">&lt;</span>main<span class="shj-syn-oper">&gt;</span>
+            <span class="shj-syn-oper">&lt;</span>img class<span class="shj-syn-oper">=</span><span class="shj-syn-str">"logo"</span> src<span class="shj-syn-oper">=</span><span class="shj-syn-str">"https://yew.rs/img/logo.png"</span> alt<span class="shj-syn-oper">=</span><span class="shj-syn-str">"Yew logo"</span> <span class="shj-syn-oper">/&gt;</span>
+            <span class="shj-syn-oper">&lt;</span>h1<span class="shj-syn-oper">&gt;</span>{ <span class="shj-syn-str">"Hello World!"</span> }<span class="shj-syn-oper">&lt;/</span>h1<span class="shj-syn-oper">&gt;</span>
+            <span class="shj-syn-oper">&lt;</span>span class<span class="shj-syn-oper">=</span><span class="shj-syn-str">"subtitle"</span><span class="shj-syn-oper">&gt;</span>{ <span class="shj-syn-str">"from Yew with "</span> }<span class="shj-syn-oper">&lt;</span>i class<span class="shj-syn-oper">=</span><span class="shj-syn-str">"heart"</span> <span class="shj-syn-oper">/&gt;&lt;/</span>span<span class="shj-syn-oper">&gt;</span>
+        <span class="shj-syn-oper">&lt;/</span>main<span class="shj-syn-oper">&gt;</span>
+    }
+}
+</code></pre>
+<p>Sintaxis estilo C, bastante similar a Typescript para ser honesto...</p>
+
+<ul>
+<li>el <code>#[loquesea]</code> parece atributos / decoradores</li>
+<li>parece que <code>use algo</code> se usa para importar tipos y valores</li>
+<li>me gusta lo ligera que es la sintaxis de funciones: <code>fn name() -&gt; ReturnType</code></li>
+<li>a éstas alturas ya se que las funciones que terminan en <code>!</code>son meta-programación, código que genera código en tiempo de compilación</li>
+</ul>
+<p>Escuché en algún video que <strong>no poner punto y coma en la última sentencia de un bloque es un <code>return</code> implícito</strong> así que <code>app()</code> devuelve el resultado de la macro <code>html!</code>.</p>
+<h2 id="primer-archivo">Primer archivo</h2>
+<p>Los únicos tipos personalizables de Rust son</p>
+<h3 id="-struct-"><code>struct</code></h3>
+<p>Es un contenedor de propiedades. Puede ser genérico igual que en Typescript.</p>
+
+<pre><code class="code-block shj-lang-rs"><span class="shj-syn-kwd">struct</span> <span class="shj-syn-class">MyType</span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-class">T</span><span class="shj-syn-oper">&gt;</span> {
+  a<span class="shj-syn-oper">:</span> <span class="shj-syn-class">T</span><span class="shj-syn-oper">,</span>
+}
+
+<span class="shj-syn-cmnt">// los métodos pueden añadirse después
+</span><span class="shj-syn-cmnt">// incluso pueden ser añadidos por módulos ajenos
+</span><span class="shj-syn-cmnt">// podemos tener multiples blockes impl para el mismo struct
+</span><span class="shj-syn-cmnt">// parecen no ser más que funciones independientes
+</span><span class="shj-syn-cmnt">// con una sintaxis bonita para parecer métodos
+</span><span class="shj-syn-kwd">impl</span> <span class="shj-syn-class">MyType</span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-class">T</span><span class="shj-syn-oper">&gt;</span> {
+  <span class="shj-syn-cmnt">// que hace &#38; aquí? aún no lo sé 🤷
+</span>  <span class="shj-syn-kwd">fn</span> <span class="shj-syn-func">myMethod</span>(<span class="shj-syn-oper">&#38;</span><span class="shj-syn-kwd">self</span><span class="shj-syn-oper">,</span> x<span class="shj-syn-oper">:</span> i32) <span class="shj-syn-oper">-&gt;</span> bool { <span class="shj-syn-kwd">true</span> }
+}
+
+<span class="shj-syn-cmnt">// los structs pueden ser tambien tuplas
+</span><span class="shj-syn-kwd">struct</span> <span class="shj-syn-class">Vector2</span>(i32<span class="shj-syn-oper">,</span> i32);
+
+<span class="shj-syn-cmnt">// o incluso no tener items en absoluto!
+</span><span class="shj-syn-kwd">struct</span> <span class="shj-syn-class">Person</span>;
+</code></pre>
+<h3 id="-enum-"><code>enum</code></h3>
+<p>Los enums son particularmente poderosos, definen tipos &quot;uno de X&quot; y cada opción puede tener valores dentro</p>
+
+<pre><code class="code-block shj-lang-rs"><span class="shj-syn-cmnt">// este es parte de Rust
+</span><span class="shj-syn-kwd">enum</span> <span class="shj-syn-class">Option</span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-class">T</span><span class="shj-syn-oper">&gt;</span> {
+  <span class="shj-syn-class">Some</span>(<span class="shj-syn-class">T</span>)<span class="shj-syn-oper">,</span>
+  <span class="shj-syn-class">None</span><span class="shj-syn-oper">,</span>
+}
+
+<span class="shj-syn-kwd">enum</span> <span class="shj-syn-class">Event</span> {
+  <span class="shj-syn-class">Scroll</span><span class="shj-syn-oper">,</span>
+  <span class="shj-syn-class">KeyDown</span>(<span class="shj-syn-class">Key</span>)<span class="shj-syn-oper">,</span>
+  <span class="shj-syn-class">Click</span> { x<span class="shj-syn-oper">:</span> i32<span class="shj-syn-oper">,</span> y<span class="shj-syn-oper">:</span> y32 }<span class="shj-syn-oper">,</span>
+}
+
+<span class="shj-syn-cmnt">// si, pueden tener métodos también ❤️
+</span><span class="shj-syn-kwd">impl</span> <span class="shj-syn-class">Event</span> {
+  <span class="shj-syn-kwd">fn</span> <span class="shj-syn-func">something</span>(<span class="shj-syn-oper">&#38;</span><span class="shj-syn-kwd">self</span>) <span class="shj-syn-oper">-&gt;</span> i32 { <span class="shj-syn-num">0</span> }
+}
+</code></pre>
+<h3 id="de-vuelta-al-proyecto">De vuelta al proyecto</h3>
+<p>No puedo esperar para definir el estado de mi aplicación con tipos así que lo primero que hago es crear un archivo <code>types.rs</code> y crear un struct dentro, Github Copilot hace el resto por mi</p>
+
+<pre><code class="code-block shj-lang-rs"><span class="shj-syn-kwd">struct</span> <span class="shj-syn-class">Node</span> {
+  id<span class="shj-syn-oper">:</span> u64<span class="shj-syn-oper">,</span> <span class="shj-syn-cmnt">// debió usar i32
+</span>  node_type<span class="shj-syn-oper">:</span> <span class="shj-syn-class">NodeType</span><span class="shj-syn-oper">,</span>
+  name<span class="shj-syn-oper">:</span> <span class="shj-syn-class">String</span><span class="shj-syn-oper">,</span>
+}
+
+<span class="shj-syn-kwd">enum</span> <span class="shj-syn-class">NodeType</span> {
+  <span class="shj-syn-class">Person</span><span class="shj-syn-oper">,</span>
+  <span class="shj-syn-class">Place</span>
+}
+
+<span class="shj-syn-cmnt">// error: los valores globales deben ser const x: Type
+</span><span class="shj-syn-cmnt">// pero no sabré eso por un rato
+</span><span class="shj-syn-kwd">let</span> me <span class="shj-syn-oper">=</span> <span class="shj-syn-class">Node</span> {
+  id<span class="shj-syn-oper">:</span> <span class="shj-syn-num">1</span><span class="shj-syn-oper">,</span>
+  node_type<span class="shj-syn-oper">:</span> <span class="shj-syn-class">NodeType</span><span class="shj-syn-oper">::</span><span class="shj-syn-class">Person</span><span class="shj-syn-oper">,</span>
+  name<span class="shj-syn-oper">:</span> <span class="shj-syn-str">"A. Matías Quezada"</span><span class="shj-syn-oper">,</span>
+}
+</code></pre>
+<p>Esto pinta bien, ahora vamos a importar este archivo y usar este valor pero... porqué &quot;Ir a la definición&quot; no funciona en VS Code?</p>
+<h2 id="integraci-n-con-el-editor">Integración con el editor</h2>
+<p>Cambio <code>main.rs</code> a un caso más simple</p>
+
+<pre><code class="code-block shj-lang-rs"><span class="shj-syn-kwd">fn</span> <span class="shj-syn-func">test</span>() {}
+
+<span class="shj-syn-kwd">fn</span> <span class="shj-syn-func">main</span>() {
+    <span class="shj-syn-func">test</span>();
+}
+</code></pre>
+<p>Y no, VS Code no sabe donde encontrar la definición de <code>test</code> 🤦. Se por <a href="https://youtu.be/ifaLk5v3W90">mis fuentes</a> que VS Code está integrado con Rust y he instalado un par de las extensiones más populares así que porqué no funciona?</p>
+<p>Resulta que la única extensión que necesitamos para trabajar con Rust es <code>rust-analyzer</code> y la tengo instalada e incluso la documentación de <a href="https://code.visualstudio.com/docs/languages/rust">VS Code</a> dice que debe funcionar directamnete... Intenté quitando las demás extensiones de Rust, reiniciando VS Code, reiniciando la computadora, desactivando y re-activando la extensión y... espera! ahora funciona, y no se cómo.</p>
+<h2 id="importando-un-archivo">Importando un archivo</h2>
+<p>Bien, ahora vamos a importar ese archivo <code>types.rs</code>... debe ser algo como <code>use types::*</code>, cierto?</p>
+<p><a href="https://doc.rust-lang.org/book/ch07-02-defining-modules-to-control-scope-and-privacy.html">Incorrecto!</a></p>
+<p>Resulta que la palabra clave <code>use</code> solo crea un acceso directo (alias) para items ya existentes, no los importa.</p>
+<p>Entonces para importar un archivo... vale, alguien en internet dice que debemos usar <code>mod nombre_de_archivo;</code> sin la extensión <code>.rs</code> pero eso no me funciona... vamos a respirar hondo.</p>
+
+<pre><code class="code-block shj-lang-rs"><span class="shj-syn-cmnt">// main.rs
+</span><span class="shj-syn-cmnt">// en un archivo rust podemos definir un módulo interno
+</span><span class="shj-syn-kwd">mod</span> my_internal_module {
+  <span class="shj-syn-kwd">pub</span> <span class="shj-syn-kwd">fn</span> <span class="shj-syn-func">some_internal_function</span>() {}
+}
+
+my_internal_module<span class="shj-syn-oper">::</span><span class="shj-syn-func">some_internal_function</span>();
+</code></pre>
+<p>Y, en teoría deberíamos ser capaces de mover el contenido de ese módulo a un archivo llamado <code>my_internal_module.rs</code> y cambiar la instrucción <code>mod</code> a <code>mod my_internal_module;</code> y eso debería funcionar, y lo hace... una vez.</p>
+<p>Imaginemos la siguiente estructura de archivos:</p>
+
+<pre><code class="code-block shj-lang-rs"><span class="shj-syn-cmnt">// src/main.rs
+</span><span class="shj-syn-kwd">mod</span> my_internal_module;
+
+my_internal_module<span class="shj-syn-oper">::</span><span class="shj-syn-func">some_internal_function</span>();
+
+<span class="shj-syn-cmnt">// src/my_internal_module.rs
+</span><span class="shj-syn-kwd">mod</span> another_module;
+
+<span class="shj-syn-kwd">pub</span> <span class="shj-syn-kwd">fn</span> <span class="shj-syn-func">some_internal_function</span>() {
+  another_module<span class="shj-syn-oper">::</span><span class="shj-syn-func">deepest_function</span>();
+}
+
+<span class="shj-syn-cmnt">// src/another_module.rs
+</span><span class="shj-syn-kwd">pub</span> <span class="shj-syn-kwd">fn</span> <span class="shj-syn-func">deepest_function</span>() {}
+</code></pre>
+<p>En este caso Rust busca <code>another_module</code> en <code>my_internal_module/another_module.rs</code>, aparentemente no podemos encadenar <code>mod</code>de esta forma. Aunque funciona si movemos todas las instrucciones <code>mod</code> al archivo <code>main.rs</code>.</p>
+
+<pre><code class="code-block shj-lang-rs"><span class="shj-syn-cmnt">// src/main.rs
+</span><span class="shj-syn-kwd">mod</span> my_internal_module;
+<span class="shj-syn-kwd">mod</span> another_module;
+
+my_internal_module<span class="shj-syn-oper">::</span><span class="shj-syn-func">some_internal_function</span>();
+
+<span class="shj-syn-cmnt">// src/my_internal_module.rs
+</span><span class="shj-syn-kwd">pub</span> <span class="shj-syn-kwd">fn</span> <span class="shj-syn-func">some_internal_function</span>() {
+  another_module<span class="shj-syn-oper">::</span><span class="shj-syn-func">deepest_function</span>();
+}
+
+<span class="shj-syn-cmnt">// src/another_module.rs
+</span><span class="shj-syn-kwd">pub</span> <span class="shj-syn-kwd">fn</span> <span class="shj-syn-func">deepest_function</span>() {}
+</code></pre>
+<p>Así que main se comporta como un índice y raíz para importar archivos, supongo que tendré que tirar con esto hasta que aprenda más. Termino <a href="https://github.com/amatiasq/learn-rust/blob/d69a056f1cb35723d504c48c58ee75fa51feecb1/src/main.rs#L1-L3">importando todos los archivos desde <code>main.rs</code></a>.</p>
+<h2 id="primeros-errores">Primeros errores</h2>
+<h3 id="feedback">Feedback</h3>
+<p>Mientras cambio el código me doy cuenta que los errores no están en el lugar correcto y solo se actualizan cuando guardo el archivo. Claro, este no es un lenguaje interpretado, es compilado así que necesita que guarde el archivo antes de intentar entender lo que he escrito (supongo). Al estar acostumbrado al feedback inmediato del ecosistema de Typescript esto me saca un poco de mi zona.</p>
+<p>También parece que hay &quot;capas&quot; de errores, cuando resuelvo todos los errores del compilador un segundo tipo de errores aparecen inmediatamente por todo el código y cuando los soluciono un montón de advertencias que no habían salido antes aparecen de pronto por todos lados.</p>
+<p>Los errores son muy amables y explican exactamente dónde ocurrió el problema e incluso sugieren una solución lo que es todo un detalle de parte del equipo del compilador de Rust.</p>
+<h3 id="valores-globales">Valores globales</h3>
+<p>Ahora que estoy importando archivos y tanto el compilador como el editor me muestran los errores veo que no puedo simplemente <code>let me = Node {...}</code> fuera de una función. La forma correcta de hacer esto es con <code>const me: Node = Node {...}</code>. Porqué necesito escribir el tipo dos veces? no lo se, el compilador lo pidió. Hay una forma de evitar eso? si encuentras la respuesta avísame.</p>
+<h3 id="strings-are-not-str-">Strings are not <code>&amp;str</code></h3>
+<p>Ahora es cuando empiezo a encontrarme realmente perdido, en el struct <code>Node</code> declaré la propiedad como <code>name: String</code> y cuando intento instanciar la struct con <code>name: &quot;A. Matías Quezada&quot;</code> soy inmediatamente abofeteado por el error: <code>expected String, found &amp;str</code> <a href="https://youtu.be/1Z9yy0t2RGQ">WAT</a></p>
+
+<pre><code>--&gt; src/data.rs:6:11
+  |
+6 |     name: <span class="shj-syn-str">"A. Matías Quezada"</span>,
+  |           ^^^^^^^^^^^^^^^^^^^- help: try using a conversion method: `.to_string()`
+  |           |
+  |           expected struct `String`, found `&#38;str`
+</code></pre>
+<p>Copilot había añadido <code>.to_string()</code> justo ahí y lo borré porque pensé que era redundante, pero oye, estamos aquí para aprender. Lo cambié a<code>name: &quot;A. Matías Quezada&quot;.to_string()</code> de vuelta y pinta bien, todas las demás strings del archivo siguen dando error pero guardé el archivo y <em>esta línea</em> ya no da error. Procedo a añadir <code>.to_string()</code> a todos los demás strings en el archivo, guardo y...</p>
+
+<pre><code>error[E0015]: cannot call non-const fn `&lt;str as ToString&gt;::to_string` in constants
+ --&gt; src/data.rs:6:31
+  |
+6 |     name: <span class="shj-syn-str">"A. Matías Quezada"</span>.to_string(),
+</code></pre>
+<p>Vale... No se que hacer ahora... y si... solo...</p>
+
+<pre><code class="code-block shj-lang-rs"><span class="shj-syn-kwd">struct</span> <span class="shj-syn-class">Node</span> {
+    id<span class="shj-syn-oper">:</span> u64<span class="shj-syn-oper">,</span>
+    node_type<span class="shj-syn-oper">:</span> <span class="shj-syn-class">NodeType</span><span class="shj-syn-oper">,</span>
+    <span class="shj-syn-cmnt">// name: String,
+</span>    name<span class="shj-syn-oper">:</span> <span class="shj-syn-oper">&#38;</span>str<span class="shj-syn-oper">,</span>
+}
+</code></pre>
+<p>🤞</p>
+
+<pre><code>error[E0106]: missing lifetime specifier
+  --&gt; src/types.rs:19:15
+   |
+19 |     name: &#38;str,
+   |               ^ expected named lifetime parameter
+   |
+help: consider introducing a named lifetime parameter
+   |
+16 ~ struct Node&lt;'a&gt; {
+17 |     id: u64,
+18 |     node_type: NodeType,
+19 ~     name: &#38;'a str,
+   |
+
+For more information about this error, try `rustc --explain E0106`.
+</code></pre>
+<p>Bueno, al menos me está diciendo que tengo que hacer, verdad? Solo tengo que añadir un... named lifetime parameter?... lo que sea eso.</p>
+
+<pre><code class="code-block shj-lang-rs"><span class="shj-syn-kwd">struct</span> <span class="shj-syn-class">Node</span><span class="shj-syn-oper">&lt;</span><span class="shj-syn-str">'a&gt; {</span>
+    id<span class="shj-syn-oper">:</span> u64<span class="shj-syn-oper">,</span>
+    node_type<span class="shj-syn-oper">:</span> <span class="shj-syn-class">NodeType</span><span class="shj-syn-oper">,</span>
+    <span class="shj-syn-cmnt">// name: String,
+</span>    name<span class="shj-syn-oper">:</span> <span class="shj-syn-oper">&#38;</span><span class="shj-syn-str">'a str,</span>
+}
+</code></pre>
+<p>Vale esto no puede estar bien, vamos a guardar y ver...</p>
+
+<pre><code>error[E0106]: missing lifetime specifier
+  --&gt; src/types.rs:30:20
+   |
+30 |     nodes: Vec&lt;Node&gt;,
+   |                    ^^^^ expected named lifetime parameter
+   |
+help: consider introducing a named lifetime parameter
+   |
+29 ~ struct Graph&lt;'a&gt; {
+30 ~     nodes: Vec&lt;Node&lt;'a&gt;&gt;,
+   |
+
+For more information about this error, try `rustc --explain E0106`.
+</code></pre>
+<p>Hm... vale, puedo hacer eso, también tengo una función <code>create_graph()</code> que probablemente necesite ser actualizada:</p>
+
+<pre><code class="code-block shj-lang-rs"><span class="shj-syn-kwd">fn</span> create_graph<span class="shj-syn-oper">&lt;</span><span class="shj-syn-str">'a&gt;() -&gt; Graph&lt;'</span>a<span class="shj-syn-oper">&gt;</span> {
+  <span class="shj-syn-class">Graph</span> {
+    nodes<span class="shj-syn-oper">:</span> vec<span class="shj-syn-oper">!</span>[me]
+  }
+}
+</code></pre>
+<p>Bueno <a href="https://github.com/amatiasq/learn-rust/commit/1c9f5b740638eac27222a204fbec455e2cd6544a">hice algo!</a>.</p>
+<h2 id="notas-finales">Notas finales</h2>
+
+<ul>
+<li>A primera vista Rust parece simple y familiar</li>
+<li>Los errores del compilador son tan buenos como dicen</li>
+<li>No hay <code>null</code>, es así de simple</li>
+<li>La estructura de archivo se ve familiar viniendo de javascript, a primer nivel tenemos funciones exportadas y, opcionalmente, clases</li>
+<li>El el código es breve pero con muchos símbolos, no soy fan de <code>::</code> y <code>&amp;</code> por todos lados y encontré <code>&lt;&#39;a&gt;</code>  difícil de teclear</li>
+<li>Rust no permite crear lógica fuera de una función y los valores global siguen reglas especiales: tienen que ser <code>const</code> o <code>static</code> (este último es mutable)</li>
+<li>El lenguaje Rust es bastante fino y depende de librerías para la mayoría de comportamientos avanzados (async/await, http, threading...)</li>
+<li>La forma de definir métodos es perfecta, similar a los extension methods de C#, permiten extender una clase de terceros sin tener acceso al código</li>
+<li>El archivo generado no contiene tipos, repito, el binario no sabe nada sobre tipos. Los tipos son solo una herramienta para el humano y el compilador</li>
+<li>Hay muchas cosas sobre <code>lifecycle</code> que escapan mi entendimiento pero parece que podemos usar algo parecido a tipos genéricos para recibir (de quién llama a la función) cuánto tiempo debe una variable permanecer en la memoria</li>
+<li>Un <code>crate</code> es una unidad de compilación, imagínalo como una DLL, una aplicación puede contener varios crates</li>
+<li>La siguiente parada es <a href="https://doc.rust-lang.org/book/">Rust book</a></li>
+</ul>
+<p>Sobre funciones del lenguaje:</p>
+
+<ul>
+<li>Me encanta el sistema de macros que nos da maravillas como las listas <code>vec![1,2,3]</code></li>
+<li><code>mod</code> puede ser usado para crear un módulo interno de un archivo o para cargar un archivo desde <code>main.rs</code></li>
+<li><code>use</code> crea alias de namespaces y permite múltiples valores o <code>*</code>: <code>use namespace::module::{A,B,C}</code></li>
+<li>Parece que hay varios tipos de strings: <code>String</code>, <code>&amp;str</code>, más?</li>
+<li>El sistema de tipos es la mejor parte, me encanta que <code>struct</code> pueda ser una tupla o no contener ningún item</li>
+<li>No estoy seguro pero creo que las ramas de un <code>enum</code> son en realidad structs</li>
+</ul>
+
+<pre><code class="code-block shj-lang-rs"><span class="shj-syn-kwd">struct</span> <span class="shj-syn-class">MyStruct1</span> { x<span class="shj-syn-oper">:</span> i32 }
+<span class="shj-syn-kwd">struct</span> <span class="shj-syn-class">MyStruct2</span>(i32);
+<span class="shj-syn-cmnt">// esto es como una interfaz
+</span><span class="shj-syn-cmnt">// sin miembros
+</span><span class="shj-syn-kwd">struct</span> <span class="shj-syn-class">MyStruct3</span>;
+
+<span class="shj-syn-kwd">enum</span> <span class="shj-syn-class">MyEnum</span> {
+  <span class="shj-syn-cmnt">// exactamente el mismo código
+</span>  <span class="shj-syn-cmnt">// sin la palabra clave `struct`
+</span>  <span class="shj-syn-class">MyStruct1</span> { x<span class="shj-syn-oper">:</span> i32 }<span class="shj-syn-oper">,</span>
+  <span class="shj-syn-class">MyStruct2</span>(i32)<span class="shj-syn-oper">,</span>
+  <span class="shj-syn-class">MyStruct3</span><span class="shj-syn-oper">,</span>
+}
+</code></pre>
+<p>Quizás debí empezar con un proyecto con el que esté más familiarizado... alguien dijo Lulas v38.0?</p>
+<p>Come más verduras</p>
+</article></div><label for="color-picker" class="css-1dwwgr5"><input type="color" id="color-picker" value="#00ffe1"/><p>Cambia el color principal!</p></label></body></html>

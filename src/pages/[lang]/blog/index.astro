@@ -1,0 +1,29 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '@/layouts/Layout.astro';
+import { multilingualPage } from '@/i18n';
+import NavHeader from '@/components/organisms/NavHeader.astro';
+import BlogPostList from '@/components/organisms/BlogPostList.astro';
+
+const blog = await getCollection('blog');
+
+const sortedBlog = blog
+  .filter((post: any) => !post.data.draft)
+  .sort((a: any, b: any) => {
+    const aDate = new Date(a.data.published || a.id);
+    const bDate = new Date(b.data.published || b.id);
+    return bDate.getTime() - aDate.getTime();
+  });
+
+export function getStaticPaths() {
+  return multilingualPage();
+}
+---
+
+<Layout title="Blog">
+  <NavHeader />
+  <main>
+    <h1>Blog</h1>
+    <BlogPostList posts={sortedBlog} />
+  </main>
+</Layout>

@@ -1,0 +1,15 @@
+---
+import { useTranslations } from '../../i18n';
+
+interface Props {
+  page: string;
+  class?: string;
+}
+
+const { page, class: className, ...rest } = Astro.props;
+const { lang } = useTranslations(Astro.url);
+const basePath = page.startsWith('/') ? `/${lang}${page}` : `/${lang}/${page}`;
+const href = basePath.endsWith('/') ? basePath : `${basePath}/`;
+---
+
+<a href={href} class={className} {...rest}><slot /></a>

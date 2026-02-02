@@ -1,0 +1,422 @@
+---
+import Time from '../atoms/Time.astro';
+import Tr from '../atoms/Translation.astro';
+import Link from '../atoms/Link.astro';
+
+interface Props {
+  career: any[];
+}
+
+const { career } = Astro.props;
+
+/***********************************************
+ * CONFIGURACIÓN DEL TIMELINE
+ * Cambia este valor para ajustar la distancia entre años
+ ***********************************************/
+const PIXELS_PER_YEAR = 60;
+
+// Brand colors for known companies
+const brandColors: Record<string, string> = {
+  'YEGO': '#E11D48',
+  'Catch': '#9333EA',
+  'PrimerLearning': '#4A90D9',
+  'Primer': '#4A90D9',
+  'Semble': '#2ECC71',
+  'ThoughtWorks': '#A855F7',
+  'Hacker': '#F97316',
+  'Hack&Craft': '#F97316',
+  'New Relic': '#008C99',
+  'Upptalk': '#06B6D4',
+  'UppTalk': '#06B6D4',
+  'Agile Contents': '#8B5CF6',
+  'PeopleWings': '#EAB308',
+  'eyeOS': '#3B82F6',
+  'Ibermática': '#DC2626',
+  'Visual': '#14B8A6',
+  'NTR': '#10B981',
+};
+
+function getColor(org: string): string {
+  for (const [key, color] of Object.entries(brandColors)) {
+    if (org.toLowerCase().includes(key.toLowerCase())) {
+      return color;
+    }
+  }
+  let hash = 0;
+  for (let i = 0; i < org.length; i++) {
+    hash = org.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const hue = Math.abs(hash % 360);
+  return `hsl(${hue}, 60%, 50%)`;
+}
+
+// Process career data
+const processedCareer = career
+  .filter((item: any) => !item.data.hide)
+  .map((item: any) => {
+    const orgName = typeof item.data.org === 'string' ? item.data.org : item.data.org?.en || item.data.org?.es || '';
+    const fromDate = new Date(item.data.from);
+    const toDate = item.data.to ? new Date(item.data.to) : new Date();
+    return {
+      ...item,
+      color: getColor(orgName),
+      fromDate,
+      toDate,
+      fromYear: fromDate.getFullYear(),
+      fromMonth: fromDate.getMonth(),
+      toYear: toDate.getFullYear(),
+      toMonth: toDate.getMonth(),
+    };
+  })
+  .sort((a: any, b: any) => b.fromDate.getTime() - a.fromDate.getTime());
+
+// Calculate year range based on today's date
+const today = new Date();
+const allYears = processedCareer.flatMap((item: any) => [item.fromYear, item.toYear]);
+const minYear = Math.min(...allYears);
+// maxYear is today's date as a fraction (e.g., Jan 2026 = 2026.08)
+const maxYear = today.getFullYear() + (today.getMonth() + 1) / 12;
+const displayMaxYear = today.getFullYear();
+// Years to display (exclude the oldest year to avoid dangling point)
+const years = Array.from({ length: displayMaxYear - minYear }, (_, i) => displayMaxYear - i);
+
+// Pixels per year for scaling
+const pxPerYear = PIXELS_PER_YEAR;
+const totalHeight = (maxYear - minYear) * pxPerYear; // From Jan (maxYear) to Jan (minYear)
+
+// Calculate position for a date (0 = top = maxYear, 100% = bottom = minYear)
+function getYearPosition(year: number, month: number = 0): number {
+  // Convert to year fraction: Aug 2022 = 2022.67 (month 8 of 12)
+  const yearFraction = year + month / 12;
+  // Distance from maxYear (top of timeline)
+  const offset = maxYear - yearFraction;
+  return offset * pxPerYear;
+}
+
+// Minimum card height for mobile spacing
+const minCardHeight = 100;
+
+// Assign sides alternating and calculate mobile positions
+let lastMobileBottom = 0;
+const positionedCareer = processedCareer.map((item: any, index: number) => {
+  const startPos = getYearPosition(item.fromYear, item.fromMonth);
+  const endPos = getYearPosition(item.toYear, item.toMonth);
+  // endPos is smaller (closer to top) because end date is more recent
+  const top = endPos;
+  const height = startPos - endPos;
+
+  // Mobile position: ensure no overlap with previous card
+  const mobileTop = Math.max(top, lastMobileBottom + 10);
+  lastMobileBottom = mobileTop + Math.max(height, minCardHeight);
+
+  // Alternate sides: even index = right, odd index = left
+  const side = index % 2 === 0 ? 'right' : 'left';
+
+  return { ...item, top, height, mobileTop, side };
+});
+
+// Today's position
+const todayPos = getYearPosition(today.getFullYear(), today.getMonth());
+const currentYear = today.getFullYear();
+
+// Current job color (if any job has no end date)
+const currentJob = processedCareer.find((item: any) => !item.data.to);
+const todayColor = currentJob?.color || null;
+
+// Calculate where the line should start and end
+const lineStart = Math.min(todayPos, ...positionedCareer.map((item: any) => item.top));
+const lineEnd = Math.max(...positionedCareer.map((item: any) => item.top + item.height));
+const mobileLineEnd = Math.max(...positionedCareer.map((item: any) => item.mobileTop + Math.max(item.height, minCardHeight)));
+
+// Get color for a year if a job's duration covers it
+function getYearColor(year: number): string | null {
+  for (const item of processedCareer) {
+    // Job covers the year if: fromDate <= Jan of year < toDate
+    const yearStart = new Date(year, 0, 1); // Jan 1 of the year
+    if (item.fromDate <= yearStart && yearStart < item.toDate) {
+      return item.color;
+    }
+  }
+  return null;
+}
+---
+
+<div class="career-timeline">
+  <!-- Central line -->
+  <div class="central-line" style={`top: ${lineStart}px; height: ${lineEnd - lineStart}px`}></div>
+
+  <!-- Today marker -->
+  <div class="year-marker today" style={`top: ${todayPos}px`}>
+    <span class="year-dot" style={todayColor ? `background-color: ${todayColor}; border-color: ${todayColor}` : ''}></span>
+  </div>
+
+  <!-- Year markers -->
+  {years.map((year) => {
+    const yearColor = getYearColor(year);
+    const isCurrentYear = year === currentYear;
+    // Skip current year if Today is within first 2 months (too close)
+    if (isCurrentYear && today.getMonth() < 2) return null;
+    return (
+      <div class="year-marker" style={`top: ${getYearPosition(year)}px`}>
+        <span class="year-dot" style={yearColor ? `background-color: ${yearColor}; border-color: ${yearColor}` : ''}></span>
+      </div>
+    );
+  })}
+
+  <!-- Career entries -->
+  {positionedCareer.map((item: any) => {
+    const slug = item.id.replace('.md', '');
+    return (
+      <div
+        class:list={['entry', item.side]}
+        style={`top: ${item.top}px; --mobile-top: ${item.mobileTop}px; --brand: ${item.color}`}
+      >
+        <!-- Duration bar on the timeline -->
+        <div
+          class="duration-line"
+          style={`height: ${Math.max(item.height, 20)}px; background-color: ${item.color}`}
+        ></div>
+
+        <!-- Card -->
+        <Link page={`/career/${slug}`} class="entry-link">
+          <div class="entry-card">
+            <div class="card-content">
+              <div class="dates">
+                <Time date={item.data.from} omitDay /> — {item.data.to ? <Time date={item.data.to} omitDay /> : <Tr en="Current" es="Actual" />}
+              </div>
+              <span class="org" style={`color: ${item.color}`} transition:name={`title-${slug}`}>
+                <Tr value={item.data.org} />
+              </span>
+              {item.data.role && <div class="role"><Tr value={item.data.role} /></div>}
+            </div>
+          </div>
+        </Link>
+      </div>
+    );
+  })}
+
+  <style define:vars={{ totalHeight: `${totalHeight}px`, mobileHeight: `${mobileLineEnd + 50}px` }}>
+    .career-timeline {
+      position: relative;
+      width: 100%;
+      height: var(--totalHeight);
+      margin: 2rem 0;
+    }
+
+    @media (max-width: 700px) {
+      .career-timeline {
+        height: var(--mobileHeight);
+      }
+    }
+
+    /* Central vertical line */
+    .central-line {
+      position: absolute;
+      left: 50%;
+      width: 2px;
+      background-color: #475569;
+      margin-left: -1px;
+      z-index: 1;
+    }
+
+    /* Year markers */
+    .year-marker {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      z-index: 3;
+    }
+
+    .year-dot {
+      width: 12px;
+      height: 12px;
+      background-color: #1e293b;
+      border: 2px solid #475569;
+      border-radius: 50%;
+    }
+
+    .year-label {
+      font-family: ui-monospace, 'SF Mono', Menlo, Monaco, monospace;
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-top: 0.25rem;
+      background-color: rgba(10, 10, 10, 0.7);
+      padding: 0 0.25rem;
+    }
+
+    /* Entry positioning */
+    .entry {
+      position: absolute;
+      display: flex;
+      align-items: flex-start;
+      z-index: 2;
+      width: calc(50% - 1.5rem);
+    }
+
+    .entry.right {
+      left: calc(50% + 1.5rem);
+      flex-direction: row;
+    }
+
+    .entry.left {
+      right: calc(50% + 1.5rem);
+      flex-direction: row-reverse;
+    }
+
+    /* Duration bar that overlays the timeline */
+    .duration-line {
+      position: absolute;
+      width: 6px;
+      border-radius: 3px;
+      z-index: 2;
+    }
+
+    .entry.right .duration-line {
+      left: -1.5rem;
+      margin-left: -3px;
+    }
+
+    .entry.left .duration-line {
+      right: -1.5rem;
+      margin-right: -3px;
+    }
+
+    /* Entry link wrapper */
+    .entry :global(a.entry-link) {
+      text-decoration: none !important;
+      color: inherit !important;
+      display: block !important;
+      background: none !important;
+      background-color: transparent !important;
+      transform: none !important;
+      transition: transform 0.15s ease !important;
+    }
+
+    .entry :global(a.entry-link:hover) {
+      text-decoration: none !important;
+      color: inherit !important;
+      background: none !important;
+      background-color: transparent !important;
+      transform: scale(1.02) !important;
+    }
+
+    .entry :global(a.entry-link:focus),
+    .entry :global(a.entry-link:active) {
+      text-decoration: none !important;
+      color: inherit !important;
+      background: none !important;
+      background-color: transparent !important;
+      transform: scale(1.02) !important;
+    }
+
+    /* Entry card */
+    .entry-card {
+      background-color: #111111;
+      border: 1px solid var(--brand, #1e293b);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      max-width: 300px;
+      min-width: 200px;
+    }
+
+    .entry.left .card-content {
+      text-align: right;
+    }
+
+    .dates {
+      font-family: ui-monospace, 'SF Mono', Menlo, Monaco, monospace;
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-bottom: 0.25rem;
+    }
+
+    .org {
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    a.org:hover {
+      text-decoration: underline;
+      background: transparent;
+      transform: none;
+    }
+
+    .role {
+      color: #94a3b8;
+      font-size: 0.85rem;
+      margin-top: 0.125rem;
+    }
+
+    /* Connector line from card to center */
+    .entry::before {
+      content: '';
+      position: absolute;
+      top: 0.75rem;
+      width: calc(1.5rem + 2px);
+      height: 2px;
+      background-color: var(--brand, #334155);
+    }
+
+    .entry.right::before {
+      left: calc(-1.5rem - 1px);
+    }
+
+    .entry.left::before {
+      right: calc(-1.5rem - 1px);
+    }
+
+    /* Mobile: single column */
+    @media (max-width: 700px) {
+      .central-line {
+        left: 1.5rem;
+      }
+
+      .year-marker {
+        left: 1.5rem;
+      }
+
+      .entry {
+        width: calc(100% - 4rem);
+        top: var(--mobile-top) !important;
+      }
+
+      .entry,
+      .entry.left,
+      .entry.right {
+        left: 3.5rem;
+        right: auto;
+        flex-direction: row;
+      }
+
+      .entry::before,
+      .entry.left::before,
+      .entry.right::before {
+        left: -2rem;
+        right: auto;
+        width: 2rem;
+      }
+
+      .duration-line,
+      .entry.left .duration-line,
+      .entry.right .duration-line {
+        left: -2rem;
+        margin-left: -3px;
+        right: auto;
+        margin-right: 0;
+      }
+
+      .entry.left .card-content {
+        text-align: left;
+      }
+
+      .entry-card {
+        max-width: 100%;
+      }
+    }
+  </style>
+</div>

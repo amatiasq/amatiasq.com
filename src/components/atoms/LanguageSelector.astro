@@ -1,0 +1,50 @@
+---
+import { useTranslations } from '../../i18n';
+const { lang } = useTranslations(Astro.url);
+
+// Get current path and replace language
+const path = Astro.url.pathname;
+const pathWithoutLang = path.replace(/^\/(en|es)/, '');
+const otherLang = lang === 'en' ? 'es' : 'en';
+const otherPath = `/${otherLang}${pathWithoutLang}`;
+---
+
+<a href={otherPath} title={otherLang === 'en' ? 'English' : 'Español'} class="lang-switch" data-lang={otherLang}>
+  {otherLang === 'en' ? '🇬🇧' : '🇪🇸'}
+</a>
+
+<style>
+  .lang-switch {
+    font-size: 1.2rem;
+    transition: transform 0.2s ease;
+  }
+
+  .lang-switch:hover {
+    transform: scale(1.15);
+    background: transparent;
+  }
+</style>
+
+<script>
+  function updateFlag() {
+    const link = document.querySelector('.lang-switch') as HTMLAnchorElement;
+    if (!link) return;
+
+    const lang = link.dataset.lang;
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+    // Check if timezone is in America
+    const isAmerica = tz.startsWith('America/');
+
+    if (lang === 'en') {
+      link.textContent = isAmerica ? '🇺🇸' : '🇬🇧';
+      link.title = 'English';
+    } else {
+      link.textContent = isAmerica ? '🇦🇷' : '🇪🇸';
+      link.title = 'Español';
+    }
+  }
+
+  updateFlag();
+  document.addEventListener('astro:after-swap', updateFlag);
+</script>

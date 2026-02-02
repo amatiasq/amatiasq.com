@@ -1,0 +1,44 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '@/layouts/Layout.astro';
+import { languages, useTranslations } from '@/i18n';
+import NavHeader from '@/components/organisms/NavHeader.astro';
+import Tr from '@/components/atoms/Translation.astro';
+import Time from '@/components/atoms/Time.astro';
+import Markdown from '@/components/molecules/Markdown.astro';
+import Tags from '@/components/atoms/Tags.astro';
+import { parseDate } from '@/util/date';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+
+  return languages.flatMap((lang) =>
+    posts.map((post) => ({
+      params: { lang, slug: post.id.replace('.md', '') },
+      props: { post, lang },
+    }))
+  );
+}
+
+const { post, lang } = Astro.props;
+const { tr } = useTranslations(Astro.url);
+const title = tr(post.data.title);
+const content = Array.isArray(post.body) ? post.body : [post.body];
+const localizedContent = content[languages.indexOf(lang)] || content[0] || '';
+const date = post.data.published || parseDate(post.id);
+const slug = post.id.replace('.md', '');
+---
+
+<Layout title={title}>
+  <NavHeader />
+  <main>
+    <article>
+      <header>
+        <h1 transition:name={`title-${slug}`}><Tr value={post.data.title} /></h1>
+        <Time date={date} />
+        <Tags tags={post.data.tags} />
+      </header>
+      <Markdown md={localizedContent} />
+    </article>
+  </main>
+</Layout>

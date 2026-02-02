@@ -11,19 +11,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: denoland/setup-deno@v1
+
+      - uses: oven-sh/setup-bun@v2
         with:
-          deno-version: 2.1.2
+          bun-version: 1.2.0
 
-      - name: Build app
-        run: make ci
-
-      - name: Build v2
-        run: |
-          cd amatiasq.com-v2
-          npm ci
-          npm run build
-          cp -r dist ../dist/v2
+      - run: bun install
+      - run: bun run build
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3

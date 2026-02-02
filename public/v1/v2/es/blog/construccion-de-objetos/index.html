@@ -1,0 +1,459 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> --><meta name="viewport" content="width=device-width"><title>A. Matías Quezada</title><style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: GitHub Dark
+  Description: Dark theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-dark
+  Current colors taken from GitHub's CSS
+*/.hljs{color:#c9d1d9;background:#0d1117}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#ff7b72}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#d2a8ff}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-variable,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id{color:#79c0ff}.hljs-regexp,.hljs-string,.hljs-meta .hljs-string{color:#a5d6ff}.hljs-built_in,.hljs-symbol{color:#ffa657}.hljs-comment,.hljs-code,.hljs-formula{color:#8b949e}.hljs-name,.hljs-quote,.hljs-selector-tag,.hljs-selector-pseudo{color:#7ee787}.hljs-subst{color:#c9d1d9}.hljs-section{color:#1f6feb;font-weight:700}.hljs-bullet{color:#f2cc60}.hljs-emphasis{color:#c9d1d9;font-style:italic}.hljs-strong{color:#c9d1d9;font-weight:700}.hljs-addition{color:#aff5b4;background-color:#033a16}.hljs-deletion{color:#ffdcd7;background-color:#67060c}pre code.hljs{--_code-margin: var(--code-margin, 1.5em);white-space:pre;background-color:#000;margin:var(--_code-margin) calc(var(--_code-margin) * -1);padding:var(--_code-margin);border-radius:8px}pre code.hljs>.hljs-comment{color:#999}code:not(.hljs){padding:0 .3em .1em;border-radius:5px;background-color:#0000004d}.md{display:grid;gap:24px}.md :is(h1,h2,h3,h4,h5,h6),.md li+li{margin-top:16px}.md :is(ul,pre,code,p){margin-top:0!important;margin-bottom:0!important}.md p{text-align:justify}.md blockquote{border-left:2px solid var(--color-text);margin-left:0;padding-left:1em}
+.tag-list{display:flex;gap:.5em;flex-wrap:wrap;list-style:none;margin:0;padding:0}:root{--grid-transparent-width: 960px}
+</style>
+<link rel="stylesheet" href="/_astro/_slug_.6d0c3eca.css" /><script type="module">CSS.paintWorklet?.addModule("/dot-mesh.js");
+</script></head><body class="content-grid"><script defer>
+  function closeHamburger() {
+    document.querySelector('hamburger-button')?.removeAttribute('active');
+  }
+</script><script type="module" defer>export const tagName = 'hamburger-button';
+
+export const template = `
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+
+  <style>
+    :host {
+      cursor: pointer;
+  
+      --_color: var(--color, black);
+      --_width: var(--width, 2em);
+      --_thickness: var(--thickness, 3px);
+      --_spacing: var(--spacing, 7px);
+      --_opacity: var(--opacity, 0.5);
+  
+      --translation-x: calc(var(--_thickness) + var(--_spacing));
+    }
+  
+    .bar {
+      width: var(--_width);
+      height: var(--_thickness);
+      background-color: var(--_color);
+      margin: var(--_spacing) 0;
+      opacity: var(--_opacity);
+  
+      will-change: transform, opacity;
+      transition: 0.4s;
+      transition-property: transform, opacity;
+    }
+  
+    :host(:hover) .bar {
+      opacity: 1;
+    }
+  
+    :host([active]) .bar:first-of-type {
+      transform: translate(0, var(--translation-x)) rotate(45deg);
+    }
+  
+    :host([active]) .bar:nth-child(2) {
+      opacity: 0;
+    }
+  
+    :host([active]) .bar:last-of-type {
+      transform: translate(0, calc(var(--translation-x) * -1)) rotate(-45deg);
+    }
+  </style>
+`;
+
+export class HamburgerButton extends HTMLElement {
+  #shadowRoot;
+
+  constructor() {
+    super();
+
+    this.#shadowRoot = this.attachShadow({ mode: 'open' });
+    this.#shadowRoot.innerHTML = template;
+  
+    this.bars = this.shadowRoot.querySelectorAll(".bar");
+    this.toggle = this.toggle.bind(this);
+  }
+
+  connectedCallback() {
+    this.addEventListener("click", this.toggle);
+  }
+  disconnectedCallback() {
+    this.addEventListener("click", this.toggle);
+  }
+
+  toggle() {
+    this.toggleAttribute("active");
+
+    const event = new CustomEvent('toggle', {
+      detail: {
+        active: this.hasAttribute("active")
+      }
+    });
+
+    this.dispatchEvent(event);
+  }
+}
+
+customElements.define('hamburger-button', HamburgerButton);</script><hamburger-button><template shadowrootmode="open"><!-- don't fold me  -->
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+
+  <style>
+    :host {
+      cursor: pointer;
+  
+      --_color: var(--color, black);
+      --_width: var(--width, 2em);
+      --_thickness: var(--thickness, 3px);
+      --_spacing: var(--spacing, 7px);
+      --_opacity: var(--opacity, 0.5);
+  
+      --translation-x: calc(var(--_thickness) + var(--_spacing));
+    }
+  
+    .bar {
+      width: var(--_width);
+      height: var(--_thickness);
+      background-color: var(--_color);
+      margin: var(--_spacing) 0;
+      opacity: var(--_opacity);
+  
+      will-change: transform, opacity;
+      transition: 0.4s;
+      transition-property: transform, opacity;
+    }
+  
+    :host(:hover) .bar {
+      opacity: 1;
+    }
+  
+    :host([active]) .bar:first-of-type {
+      transform: translate(0, var(--translation-x)) rotate(45deg);
+    }
+  
+    :host([active]) .bar:nth-child(2) {
+      opacity: 0;
+    }
+  
+    :host([active]) .bar:last-of-type {
+      transform: translate(0, calc(var(--translation-x) * -1)) rotate(-45deg);
+    }
+  </style>
+</template></hamburger-button><nav class="amq-header full-width"><div><div class="internal-links"><a class="nav-link" href="#projects" onclick="closeHamburger();">Proyectos</a><a class="nav-link" href="#experiments" onclick="closeHamburger();">Experimentos</a><a class="nav-link" href="#blog" onclick="closeHamburger();"> Blog</a><a class="nav-link" href="#talks" onclick="closeHamburger();">Charlas</a><a class="nav-link" href="#career" onclick="closeHamburger();">Experiencia</a></div><div class="external-links"><a target="_blank" href="https://github.com/amatiasq"><svg aria-label="Github icon" width="32" height="32" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd"
+        d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"
+        fill="#fff">
+    </path>
+</svg></a><a target="_blank" href="https://www.linkedin.com/in/amatiasq/"><?xml version="1.0" encoding="utf-8"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg aria-label="LinkedIn Icon" width="32" height="32" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path
+        d="M18.72 3.99997H5.37C5.19793 3.99191 5.02595 4.01786 4.86392 4.07635C4.70189 4.13484 4.55299 4.22471 4.42573 4.34081C4.29848 4.45692 4.19537 4.59699 4.12232 4.75299C4.04927 4.909 4.0077 5.07788 4 5.24997V18.63C4.01008 18.9901 4.15766 19.3328 4.41243 19.5875C4.6672 19.8423 5.00984 19.9899 5.37 20H18.72C19.0701 19.9844 19.4002 19.8322 19.6395 19.5761C19.8788 19.32 20.0082 18.9804 20 18.63V5.24997C20.0029 5.08247 19.9715 4.91616 19.9078 4.76122C19.8441 4.60629 19.7494 4.466 19.6295 4.34895C19.5097 4.23191 19.3672 4.14059 19.2108 4.08058C19.0544 4.02057 18.8874 3.99314 18.72 3.99997ZM9 17.34H6.67V10.21H9V17.34ZM7.89 9.12997C7.72741 9.13564 7.5654 9.10762 7.41416 9.04768C7.26291 8.98774 7.12569 8.89717 7.01113 8.78166C6.89656 8.66615 6.80711 8.5282 6.74841 8.37647C6.6897 8.22474 6.66301 8.06251 6.67 7.89997C6.66281 7.73567 6.69004 7.57169 6.74995 7.41854C6.80986 7.26538 6.90112 7.12644 7.01787 7.01063C7.13463 6.89481 7.2743 6.80468 7.42793 6.74602C7.58157 6.68735 7.74577 6.66145 7.91 6.66997C8.07259 6.66431 8.2346 6.69232 8.38584 6.75226C8.53709 6.8122 8.67431 6.90277 8.78887 7.01828C8.90344 7.13379 8.99289 7.27174 9.05159 7.42347C9.1103 7.5752 9.13699 7.73743 9.13 7.89997C9.13719 8.06427 9.10996 8.22825 9.05005 8.3814C8.99014 8.53456 8.89888 8.6735 8.78213 8.78931C8.66537 8.90513 8.5257 8.99526 8.37207 9.05392C8.21843 9.11259 8.05423 9.13849 7.89 9.12997ZM17.34 17.34H15V13.44C15 12.51 14.67 11.87 13.84 11.87C13.5822 11.8722 13.3313 11.9541 13.1219 12.1045C12.9124 12.2549 12.7546 12.4664 12.67 12.71C12.605 12.8926 12.5778 13.0865 12.59 13.28V17.34H10.29V10.21H12.59V11.21C12.7945 10.8343 13.0988 10.5225 13.4694 10.3089C13.84 10.0954 14.2624 9.98848 14.69 9.99997C16.2 9.99997 17.34 11 17.34 13.13V17.34Z" />
+</svg></a></div></div></nav><h1 class="article-title astro-4sgn5e7x">Construcción de objetos</h1><ul class="tag-list md-tags astro-4sgn5e7x"></ul><article class="md astro-4sgn5e7x"><blockquote>
+<p>Este artículo quedó muy complejo y caótico, por eso voy a intentar dividirlo en partes, recomiendo leer los nuevos post en lugar de este.</p>
+<p><em>Parte 1</em>: <a href="../type-new/">Type.new()</a></p>
+</blockquote>
+<h2> TL;DR</h2>
+<p>Buscando optimizaciones para un juego en javascript encontré <a href="../construccion-de-objetos#paradigma">un paradigma de definición de tipos y creación de objetos</a> que cambió mi forma de ver el lenguaje.</p>
+<p>He hablado antes de la limitación de los constructores javascript:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Person</span>(<span class="hljs-params">name</span>) {
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> = name;
+}
+<span class="hljs-title class_">Person</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">methodA</span> = <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) { ... }
+</code></pre>
+<p>En este caso quiero referirme a las limitaciones en cuanto a memoria pero hará falta un poco de introducción</p>
+<h2>Recolector de Basura</h2>
+<p>Javascript cuenta con un recolector de basura (Garbage collector) que periódicamente busca y elimina los objetos que nuestro código ya no utiliza, en los sistemas javascript modernos están lo bastante optimizados para detectar los objetos a los que ya no podemos utilizar porque no lo tenemos en ninguna variable:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> a = {};
+a = <span class="hljs-literal">null</span>;
+</code></pre>
+<p>En la próxima pasada del recolector de basura el objeto que teníamos en la variable <code>a</code> será eliminado de la memoria.</p>
+<p>Esto es muy cómodo porque no necesitamos limpiar la memoria manualmente, pero como javascript solo tiene un hilo el recolector de basura impide que ningún código se ejecute mientras está recolectando objetos y en aplicaciones que hacen un uso intenso del procesador, como los juegos en los que debemos generar 60 fotogramas por segundo, una pasada del recolector de basura puede congelar la imagen una fracción de segundo reduciendo la jugabilidad.</p>
+<p>Podemos reducir esto intentando ahorrarle trabajo al recolector de basura, es decir, intentando no crear y abandonar demasiados objetos en memoria. Para esto podemos cambiar el código para no crear un objeto que solo usaremos en una función o podemos intentar reutilizar los objetos que ya no nos sirvan. Esto es un punto clave para conseguir un buen rendimiento</p>
+<h2>Constructores Javascript</h2>
+<p>Y aquí entran los constructores, la forma más común de crear objetos en Javascript</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Vector</span>(<span class="hljs-params">x, y</span>) {
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> = x;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">y</span> = y;
+}
+<span class="hljs-keyword">var</span> v = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Vector</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+</code></pre>
+<p>Pruébame</p>
+<p>Cuando invocamos un constructor con <code>new</code> el operador hace algo similar a esto</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">fakeNew</span>(<span class="hljs-params">Constructor, params</span>) {
+  <span class="hljs-keyword">var</span> instance = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">Constructor</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
+  <span class="hljs-title class_">Constructor</span>.<span class="hljs-title function_">apply</span>(instance, params);
+  <span class="hljs-keyword">return</span> instance;
+}
+<span class="hljs-keyword">var</span> v = <span class="hljs-title function_">fakeNew</span>(<span class="hljs-title class_">Vector</span>, [<span class="hljs-number">0</span>, <span class="hljs-number">0</span>]);
+</code></pre>
+<p>Pruébame</p>
+<p>Vemos el el constructor en sí es una función normal y corriente solo que se usa su propiedad <code>prototype</code> como prototipo del nuevo objeto y se le pasa el nuevo objeto como <code>this</code> (si no sabes lo que hace <code>apply</code> lo encontrarás <a href="../conceptos-basicos-this-call-apply/">aquí</a>).</p>
+<p>Un secreto poco conocido de los constructores es que como funciones que son pueden devolver un valor. Pero <a href="http://jsfiddle.net/amatiasq/p8Red/">haciendo pruebas</a> he encontrado que cierto tipo de valores son ignorados por new. En resumen parece ser que si el constructor devuelve un valor nativo (<code>null</code>, <code>Boolean</code>, <code>Number</code> y <code>String</code>) <code>new</code> lo ignora y devuelve la instancia recién creada, pero si es un objeto (<code>{}</code>, <code>[]</code>, <code>new Date()</code>...) devuelve ese objeto con lo que para que la función <code>fakeNew</code> funcione de forma idéntica al operador new debería ser así:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">fakeNew</span>(<span class="hljs-params">Constructor, params</span>) {
+  <span class="hljs-keyword">var</span> instance = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">Constructor</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
+  <span class="hljs-keyword">var</span> value = <span class="hljs-title class_">Constructor</span>.<span class="hljs-title function_">apply</span>(instance, params);
+
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value === <span class="hljs-string">'object'</span> &#x26;&#x26; value !== <span class="hljs-literal">null</span>) <span class="hljs-keyword">return</span> value;
+
+  <span class="hljs-keyword">return</span> instance;
+}
+</code></pre>
+<p>Pruébame</p>
+<h2>Devolviendo valores desde el constructor</h2>
+<p>Entonces sabiendo que podemos devolver un objeto desde un constructor quizás podamos usar esto para ahorrar trabajo al recolector de basura si en lugar de devolver un objeto nuevo cada vez reutilizamos antiguos, lo que en cualquier lenguaje se llama una <a href="https://en.wikipedia.org/wiki/Factory_object"><code>factory</code></a>, así que supongamos que tenemos el siguiente constructor:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">MyNumber</span>(<span class="hljs-params">value</span>) {
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> = value;
+}
+<span class="hljs-keyword">var</span> num = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyNumber</span>(<span class="hljs-number">3</span>);
+</code></pre>
+<p>Y queremos que si ya existe un objeto con ese número nos lo devuelva en lugar de crear otro pero no queremos cambiar todo el código así que la función tiene que seguir funcionando con el operador <code>new</code>.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">MyNumber</span>(<span class="hljs-params">value</span>) {
+  <span class="hljs-keyword">if</span> (<span class="hljs-title class_">MyNumber</span>.<span class="hljs-property">cache</span>[value]) <span class="hljs-keyword">return</span> <span class="hljs-title class_">MyNumber</span>.<span class="hljs-property">cache</span>[value];
+
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> = value;
+  <span class="hljs-title class_">MyNumber</span>.<span class="hljs-property">cache</span>[value] = <span class="hljs-variable language_">this</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
+}
+<span class="hljs-title class_">MyNumber</span>.<span class="hljs-property">cache</span> = {};
+
+<span class="hljs-keyword">var</span> num1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyNumber</span>(<span class="hljs-number">3</span>);
+<span class="hljs-keyword">var</span> num2 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyNumber</span>(<span class="hljs-number">3</span>);
+</code></pre>
+<p>Pruébame</p>
+<p>Y parece que hemos conseguido ahorrar trabajo al recolector de basura, en lugar de tener dos objetos iguales tenemos uno reutilizado. Pero solo en apariencia, si echamos un vistazo a la función <code>fakeNew</code> veremos que la segunda llamada a <code>MyNumber</code> si que ha creado un objeto, solo que nos ha devuelto otro, pero el objeto existe y se reservó espacio en memoria y el recolector de basura va a tener que eliminarlo.</p>
+<p>Entonces parece ser que que el operador <code>new</code> <strong>siempre</strong> crea un objeto con en consiguiente trabajo para el recolector de basura.</p>
+<h2>Alternativas</h2>
+<p>Llegado a este punto probé me di cuenta que para estas operaciones como los juegos, que hacen un uso intenso del procesador y la memoria lo más recomendable era evitar el operador <code>new</code>. Decidí probar varias alternativas, la primera y más sencilla, que cada "constructor" (ahora una simple función) creara directamente los objetos que necesita:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Vector</span>(<span class="hljs-params">x, y</span>) {
+  <span class="hljs-keyword">return</span> { <span class="hljs-attr">x</span>: x, <span class="hljs-attr">y</span>: y };
+}
+<span class="hljs-keyword">var</span> v = <span class="hljs-title class_">Vector</span>();
+</code></pre>
+<p>Pero esto tiene la desventaja que ese objeto no prototipa <code>Vector.prototype</code> así que si queremos métodos prototipados habría que probar más algo como:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Vector</span>(<span class="hljs-params">x, y</span>) {
+  <span class="hljs-keyword">var</span> instance = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">Vector</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
+  instance.<span class="hljs-property">x</span> = x;
+  instance.<span class="hljs-property">y</span> = y;
+}
+<span class="hljs-keyword">var</span> v = <span class="hljs-title class_">Vector</span>(x, y);
+</code></pre>
+<p>Pero esto era mucho código repetido en cada constructor además el hecho de repetir el nombre del constructor complicaba aún más el código.</p>
+<h2><code>Constructor.protototype</code> => <code>prototype.constructor</code></h2>
+<p>En este punto me di cuenta de un factor muy curioso, todas las funciones javascript tienen la propiedad <code>prototype</code> que a su vez tiene (por defecto) la propiedad <code>constructor</code> que es el propio constructor:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Testing</span>(<span class="hljs-params"></span>) {}
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title class_">Testing</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">constructor</span> === <span class="hljs-title class_">Testing</span>);
+
+<span class="hljs-keyword">var</span> proto = <span class="hljs-title class_">Testing</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>;
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(proto.<span class="hljs-property">constructor</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> === proto);
+</code></pre>
+<p>Pruébame</p>
+<p>Esto me hizo pensar que quizás la intención original de los objetos en javascript no era tener constructores que contienen prototipos sino tener prototipos que contienen constructores:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Vector</span> = {
+  <span class="hljs-attr">constructor</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">x, y</span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> = x;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">y</span> = y;
+  },
+  <span class="hljs-attr">toString</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'[Vector{'</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> + <span class="hljs-string">','</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">y</span> + <span class="hljs-string">'}]'</span>;
+  },
+};
+
+<span class="hljs-keyword">var</span> v = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-title class_">Vector</span>);
+v.<span class="hljs-title function_">constructor</span>(<span class="hljs-params"><span class="hljs-number">0</span>, <span class="hljs-number">0</span></span>);
+</code></pre>
+<p>Pruébame</p>
+<p>Vaya! No parece una forma mucho más sencilla de declarar tipos? <a href="http://jsfiddle.net/amatiasq/D6cJY/">Aquí</a> podemos comparar el mismo tipo escrito con constructores y con este paradigma y juzguen ustedes mismos.</p>
+<p>Desde luego no es tan bonito instanciarlos pero si declararlos, mucho más sencillo, tan sencillo que me hace preguntarme si quizás la intención inicial al diseñar el lenguaje no sería la de crear objetos de una forma similar a ésta:</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// NOT valid javascript</span>
+<span class="hljs-keyword">var</span> <span class="hljs-title class_">Vector</span> = {
+  <span class="hljs-attr">constructor</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">x, y</span>) { ... }
+};
+<span class="hljs-keyword">var</span> v = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">instanciate</span>(<span class="hljs-title class_">Vector</span>, [ <span class="hljs-number">0</span>, <span class="hljs-number">0</span> ]);
+</code></pre>
+<p>Incluso se parece bastante a la forma de escribir clases en ECMAScript6</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Vector</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">x, y</span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> = x;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">y</span> = y;
+  },
+  <span class="hljs-title function_">toString</span>(<span class="hljs-params"></span>) { ... }
+}
+</code></pre>
+<h2> Type.new() es el nuevo new!</h2>
+<p>Entonces con esto en mente decidí invertir el proceso, en lugar de crear un constructor y añadir métodos a su prototipo decidí crear un prototipo que contenga el constructor.</p>
+<p>Y ya que instanciarlo requiere cierta complejidad decidí crear también un método para instanciar, como ECMAScript5 nos permite usar palabras reservadas como propiedades de objeto la llamé <code>new</code></p>
+<p>NOTA: dentro del método <code>new</code> <code>this</code> es <code>Vector</code>, si no conoces como funcionan los contextos en javascript te recomiendo leer <a href="../conceptos-basicos-this-call-apply/">esto</a>;</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Vector</span> = {
+  <span class="hljs-attr">new</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">var</span> instance = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-variable language_">this</span>);
+    instance.<span class="hljs-property">constructor</span>.<span class="hljs-title function_">apply</span>(instance, <span class="hljs-variable language_">arguments</span>);
+    <span class="hljs-keyword">return</span> instance;
+  },
+
+  <span class="hljs-attr">constructor</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">x, y</span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> = x;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">y</span> = y;
+  },
+
+  <span class="hljs-attr">toString</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'[Vector{'</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> + <span class="hljs-string">','</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">y</span> + <span class="hljs-string">'}]'</span>;
+  },
+};
+
+<span class="hljs-keyword">var</span> v = <span class="hljs-title class_">Vector</span>.<span class="hljs-title function_">new</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+</code></pre>
+<p>Pruébame</p>
+<p>Resultó muy sencillo y agradable, lo que lo hace más fácil de mantener. Un último detalle es que todos mis tipos usaban un método <code>new</code> idéntico así que decidí hacerlo global para que cada uno de mis tipos pudiera referenciarlo</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">$new</span>(<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">var</span> instance = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-variable language_">this</span>);
+  instance.<span class="hljs-property">constructor</span>.<span class="hljs-title function_">apply</span>(instance, <span class="hljs-variable language_">arguments</span>);
+  <span class="hljs-keyword">return</span> instance;
+}
+
+<span class="hljs-keyword">var</span> <span class="hljs-title class_">Vector</span> = {
+  <span class="hljs-attr">new</span>: $new,
+  <span class="hljs-attr">constructor</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">x, y</span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> = x;
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">y</span> = y;
+  },
+  ...
+};
+
+<span class="hljs-keyword">var</span> <span class="hljs-title class_">Cell</span> = {
+  <span class="hljs-attr">new</span>: $new,
+  <span class="hljs-attr">constructor</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">row, col</span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">position</span> = row + <span class="hljs-string">'-'</span> + col;
+  }
+};
+</code></pre>
+<p>Pruébame</p>
+<p>Me encontré muy a gusto con este nuevo paradigma de definir tipos y crear objetos, incluso tiene bonus inesperados como que todos los subtipos tienen el método <code>new</code> para crear subinstancias</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> vector3D = <span class="hljs-title class_">Vector</span>.<span class="hljs-title function_">new</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);
+vector3D.<span class="hljs-property">z</span> = <span class="hljs-number">10</span>;
+
+<span class="hljs-keyword">var</span> other = vector3D.<span class="hljs-title function_">new</span>(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(other.<span class="hljs-property">z</span>); <span class="hljs-comment">// 10</span>
+</code></pre>
+<p>Pruébame</p>
+<p>Me parece un paradigma mucho más natural en javascript, más orientado a objetos (y menos a clases) a objetos que extienden de objetos. Es el paradigma que he seguido en <a href="https://github.com/amatiasq/mq/tree/master/src">mis últimas implementaciones</a> y es muy sencillo y cómodo aunque en este caso preferí usar <code>init</code> en lugar de <code>constructor</code> por ser más compacto y específico ya que no se trata de construir sino de inicializar.</p>
+<p>Personalmente recomiendo a todo javascripter probar al menos en proyectos personales este paradigma ya que es una forma de ignorar las parafernalias de los constructores y ver la naturaleza pura y sencilla de javascript que está ahí aunque hayan mil capas puestas encima.</p>
+<h2>Todo junto</h2>
+<p>Volviendo a los inicios, el recolector de basura, utilizando éste paradigma la operación de crear objetos (el operador <code>new</code> y el método <code>.new()</code>) está en nuestro control ya que podemos modificar el método <code>.new()</code> e impedir que se cree ningún objeto cuando nos haga falta sin cambiar el resto del código, si yo tengo este código</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">MyNumber</span> = {
+  <span class="hljs-attr">new</span>: $new,
+
+  <span class="hljs-attr">constructor</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> = value;
+  },
+};
+
+<span class="hljs-keyword">var</span> num1 = <span class="hljs-title class_">MyNumber</span>.<span class="hljs-title function_">new</span>(<span class="hljs-number">3</span>);
+<span class="hljs-keyword">var</span> num2 = <span class="hljs-title class_">MyNumber</span>.<span class="hljs-title function_">new</span>(<span class="hljs-number">3</span>);
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num1 === num2); <span class="hljs-comment">// false</span>
+</code></pre>
+<p>Pruébame</p>
+<p>Podemos cambiarlo para que deje de crear objetos duplicados sin que el código ajeno tenga que cambiarse, lo que demuestra una buena encapsulación</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">MyNumber</span> = {
+  <span class="hljs-attr">_cache</span>: {},
+  <span class="hljs-attr">new</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) {
+    <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">_cache</span>[value]) <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">_cache</span>[value];
+
+    <span class="hljs-keyword">var</span> instance = $new.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>);
+    <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">freeze</span>(instance);
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">_cache</span>[value] = instance;
+    <span class="hljs-keyword">return</span> instance;
+  },
+
+  <span class="hljs-attr">constructor</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params">value</span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">value</span> = value;
+  },
+};
+
+<span class="hljs-keyword">var</span> num1 = <span class="hljs-title class_">MyNumber</span>.<span class="hljs-title function_">new</span>(<span class="hljs-number">3</span>);
+<span class="hljs-keyword">var</span> num2 = <span class="hljs-title class_">MyNumber</span>.<span class="hljs-title function_">new</span>(<span class="hljs-number">3</span>);
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(num1 === num2); <span class="hljs-comment">// true</span>
+</code></pre>
+<p>Pruébame</p>
+<p>Y ahora si hemos conseguido evitar que ningún objeto se cree en la segunda llamada a <code>MyNumber.new(3)</code> reduciendo el trabajo del recolector de basura. Esta es una forma muy sencilla de evitar crear objetos duplicados que por el otro lado requiere que los objetos sean inmutables, es decir que no se puedan modificar, esto está hecho en el ejemplo mediante Object.freeze. De lo contrario si cambiamos la propiedad <code>value</code> de <code>num1</code> también cambiaríamos la pripiedad <code>value</code> de <code>num2</code> ya que son el mismo objeto. Si necesitamos otro tipo de valor podemos crear otro objeto</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Vector</span> = {
+  ...
+
+  <span class="hljs-attr">merge</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params">vector</span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-title class_">Vector</span>.<span class="hljs-title function_">new</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">x</span> + vector.<span class="hljs-property">x</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">y</span> + vector.<span class="hljs-property">y</span>);
+  },
+};
+</code></pre>
+<p>Por otro lado tenemos otro tipo de objetos que no son tan fáciles de reciclar, por ejemplo las entidades de un juego (enemigos, objetos interactuables...) que se crean y se destruyen constantemente y no hay dos iguales. Para estos casos decidí añadir el método <code>.dispose()</code> que lo que hace es pedirle al objeto que vuelva al estado de un objeto recién creado para que pueda ser reciclado la próxima vez que necesitemos otra instancia, en pocas palabras debe deshacer el trabajo del constructor.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> <span class="hljs-title class_">Enemy</span> = {
+  <span class="hljs-attr">_pool</span>: [],
+  <span class="hljs-attr">new</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">var</span> instance = <span class="hljs-variable language_">this</span>.<span class="hljs-property">_pool</span>.<span class="hljs-property">length</span> ? <span class="hljs-variable language_">this</span>.<span class="hljs-property">_pool</span>.<span class="hljs-title function_">pop</span>() : <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">create</span>(<span class="hljs-variable language_">this</span>);
+
+    instance.<span class="hljs-property">constructor</span>.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span>);
+    <span class="hljs-keyword">return</span> instance;
+  },
+
+  <span class="hljs-attr">constructor</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">this</span>.<span class="hljs-property">id</span> = <span class="hljs-title function_">createId</span>();
+  },
+
+  <span class="hljs-attr">dispose</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">delete</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">id</span>;
+    <span class="hljs-title class_">Enemy</span>.<span class="hljs-property">_pool</span>.<span class="hljs-title function_">push</span>(<span class="hljs-variable language_">this</span>);
+  },
+
+  <span class="hljs-attr">die</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'Tell my wife I love her...'</span>);
+  },
+};
+
+<span class="hljs-keyword">var</span> enemy1 = <span class="hljs-title class_">Enemy</span>.<span class="hljs-title function_">new</span>();
+enemy1.<span class="hljs-title function_">die</span>();
+enemy1.<span class="hljs-title function_">dispose</span>();
+<span class="hljs-comment">// aquí deberíamos setear enemy1 a null</span>
+<span class="hljs-comment">// porque puede ser reciclado en cualquier momento</span>
+<span class="hljs-comment">//enemy1 = null;</span>
+
+<span class="hljs-keyword">var</span> enemy2 = <span class="hljs-title class_">Enemy</span>.<span class="hljs-title function_">new</span>();
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(enemy1 === enemy2); <span class="hljs-comment">// true</span>
+</code></pre>
+<p>Pruébame</p>
+<p>Los que hayan usado C++ notarán que parece que estemos volviendo a la gestión de memoria manual pero son los extremos que hay que llegar cuando necesitamos eficiencia.</p>
+<p>Et voilà! Cambiando solo el método <code>new</code> hemos conseguido optimizar nuestro programa para reducir el trabajo del recolector de basura y conseguir más eficiencia en el código. En mi opinión las posibilidades de mejorar el comportamiento de todo el código cambiando solo una pequeña parte tiene un potencial enorme que no debe ser subestimado. Por supuesto estos son conceptos, como todas las optimizaciones, que solo deben aplicarse allí cuando y donde se encuentre un cuello de botella y no antes.</p>
+<p>De momento seguiré con mi juego usando estos patrones, en cuanto al futuro parece ser que ECMAScript6 ha puesto la mira sobre este problema, entre las nuevas funcionalidades encontramos el símbolo <code>@@create</code> que <a href="https://github.com/lukehoban/es6features">si no lo he entendido mal</a> nos permitirá re-definir la creación de objetos mediante el operador <code>new</code>, es decir, reescribiendo el método estático <code>@@create</code> podremos evitar que <code>new</code> cree un objeto</p>
+<pre><code class="hljs language-js"><span class="hljs-comment">// Source: https://github.com/lukehoban/es6features</span>
+
+<span class="hljs-comment">// Pseudo-code of Array</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Array</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">...args</span>) {
+    <span class="hljs-comment">/* ... */</span>
+  }
+  <span class="hljs-keyword">static</span> [<span class="hljs-title class_">Symbol</span>.<span class="hljs-property">create</span>]() {
+    <span class="hljs-comment">// Install special [[DefineOwnProperty]]</span>
+    <span class="hljs-comment">// to magically update 'length'</span>
+  }
+}
+
+<span class="hljs-comment">// User code of Array subclass</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">MyArray</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_ inherited__">Array</span> {
+  <span class="hljs-title function_">constructor</span>(<span class="hljs-params">...args</span>) {
+    <span class="hljs-variable language_">super</span>(...args);
+  }
+}
+
+<span class="hljs-comment">// Two-phase 'new':</span>
+<span class="hljs-comment">// 1) Call @@create to allocate object</span>
+<span class="hljs-comment">// 2) Invoke constructor on new instance</span>
+<span class="hljs-keyword">var</span> arr = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyArray</span>();
+arr[<span class="hljs-number">1</span>] = <span class="hljs-number">12</span>;
+arr.<span class="hljs-property">length</span> == <span class="hljs-number">2</span>;
+</code></pre>
+<p>Por otro lado el paradigma de crear objetos con un método <code>.new()</code> es un sistema muy agradable que facilita muchas cosas, me ha dado buenas experiencias y permite tener un código más legible (no más <code>Constructor.prototype.method</code> por todos lados) más conciso y más controlable. Creo que es algo muy recomendable.</p></article></body></html>

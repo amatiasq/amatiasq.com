@@ -1,0 +1,67 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '@/layouts/Layout.astro';
+import { multilingualPage } from '@/i18n';
+import NavHeader from '@/components/organisms/NavHeader.astro';
+import Tr from '@/components/atoms/Translation.astro';
+import ContentCards from '@/components/organisms/ContentCards.astro';
+import BlogPostList from '@/components/organisms/BlogPostList.astro';
+import CareerList from '@/components/organisms/CareerList.astro';
+
+const blog = await getCollection('blog');
+const career = await getCollection('career');
+const projects = await getCollection('projects');
+const experiments = await getCollection('experiments');
+const talks = await getCollection('talks');
+
+// Sort by date (newest first) - date is in the filename: YYYY-MM-DD-slug.md
+const sortByDate = (a: any, b: any) => b.id.localeCompare(a.id);
+
+const sortedBlog = blog
+  .filter((post: any) => !post.data.draft)
+  .sort(sortByDate);
+
+const sortedProjects = [...projects].sort(sortByDate);
+const sortedExperiments = [...experiments].sort(sortByDate);
+const sortedTalks = [...talks].sort(sortByDate);
+
+export function getStaticPaths() {
+  return multilingualPage();
+}
+---
+
+<Layout>
+  <NavHeader />
+
+  <main>
+    <Tr>
+      <p slot="es" class="intro">Bienvenido a mi jardín digital. Este es el rincón de internet donde anoto las cosas que hago. Espero que encuentres algo útil.</p>
+      <p slot="en" class="intro">Welcome to my digital garden. This is the corner of the internet where I note the things I do. I hope you find something useful.</p>
+    </Tr>
+
+    <section>
+      <h2><Tr en="Projects" es="Proyectos" /></h2>
+      <ContentCards entries={sortedProjects} basePath="/projects" max={4} />
+    </section>
+
+    <section>
+      <h2>Blog</h2>
+      <BlogPostList posts={sortedBlog} max={4} />
+    </section>
+
+    <section>
+      <h2><Tr en="Experiments" es="Experimentos" /></h2>
+      <ContentCards entries={sortedExperiments} basePath="/experiments" max={4} />
+    </section>
+
+    <section>
+      <h2><Tr en="Talks" es="Charlas" /></h2>
+      <ContentCards entries={sortedTalks} basePath="/talks" max={4} />
+    </section>
+
+    <section>
+      <h2><Tr en="Career" es="Experiencia" /></h2>
+      <CareerList career={career} max={4} />
+    </section>
+  </main>
+</Layout>

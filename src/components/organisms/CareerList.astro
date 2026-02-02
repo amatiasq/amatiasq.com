@@ -1,0 +1,92 @@
+---
+import Time from '../atoms/Time.astro';
+import Tr from '../atoms/Translation.astro';
+
+interface Props {
+  career: any[];
+  max?: number;
+}
+
+const { career, max } = Astro.props;
+
+const processedCareer = career
+  .filter((item: any) => !item.data.hide)
+  .sort((a: any, b: any) => {
+    const aDate = new Date(a.data.from);
+    const bDate = new Date(b.data.from);
+    return bDate.getTime() - aDate.getTime();
+  });
+
+const visible = max ? processedCareer.slice(0, max) : processedCareer;
+const hidden = max ? processedCareer.slice(max) : [];
+---
+
+<ul>
+  {visible.map((item: any) => (
+    <li>
+      <span class="dates"><Time date={item.data.from} omitDay /> — <Time date={item.data.to} omitDay /></span>
+      {item.data.link ? (
+        <a href={item.data.link} target="_blank" rel="noopener"><Tr value={item.data.org} /></a>
+      ) : (
+        <span><Tr value={item.data.org} /></span>
+      )}
+      {item.data.role && <em><Tr value={item.data.role} /></em>}
+    </li>
+  ))}
+</ul>
+
+{hidden.length > 0 && (
+  <details>
+    <summary>{hidden.length} more</summary>
+    <ul>
+      {hidden.map((item: any) => (
+        <li>
+          <span class="dates"><Time date={item.data.from} omitDay /> — <Time date={item.data.to} omitDay /></span>
+          {item.data.link ? (
+            <a href={item.data.link} target="_blank" rel="noopener"><Tr value={item.data.org} /></a>
+          ) : (
+            <span><Tr value={item.data.org} /></span>
+          )}
+          {item.data.role && <em><Tr value={item.data.role} /></em>}
+        </li>
+      ))}
+    </ul>
+  </details>
+)}
+
+<style>
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid oklch(15% 0 0);
+    transition: background 0.15s ease;
+  }
+
+  li:last-child {
+    border-bottom: none;
+  }
+
+  li:hover {
+    background: oklch(12% 0 0);
+    margin: 0 -0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-radius: 4px;
+  }
+
+  .dates {
+    display: block;
+    color: oklch(55% 0 0);
+  }
+
+  em {
+    display: block;
+    font-style: normal;
+    color: oklch(65% 0 0);
+    font-size: 0.9rem;
+  }
+</style>

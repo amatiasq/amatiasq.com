@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '@/layouts/Layout.astro';
+import { multilingualPage } from '@/i18n';
+import NavHeader from '@/components/organisms/NavHeader.astro';
+import Tr from '@/components/atoms/Translation.astro';
+import ContentCards from '@/components/organisms/ContentCards.astro';
+
+const projects = await getCollection('projects');
+const sorted = [...projects].sort((a, b) => b.id.localeCompare(a.id));
+
+export function getStaticPaths() {
+  return multilingualPage();
+}
+---
+
+<Layout title="Projects">
+  <NavHeader />
+  <main>
+    <h1><Tr en="Projects" es="Proyectos" /></h1>
+    <ContentCards entries={sorted} basePath="/projects" />
+  </main>
+</Layout>

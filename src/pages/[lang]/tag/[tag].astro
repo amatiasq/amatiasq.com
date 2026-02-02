@@ -1,0 +1,172 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '@/layouts/Layout.astro';
+import { languages, useTranslations } from '@/i18n';
+import NavHeader from '@/components/organisms/NavHeader.astro';
+import Tr from '@/components/atoms/Translation.astro';
+import Link from '@/components/atoms/Link.astro';
+import ContentCards from '@/components/organisms/ContentCards.astro';
+import BlogPostList from '@/components/organisms/BlogPostList.astro';
+
+// Helper to get localized tag
+function getLocalizedTag(tag: string | { en: string; es: string }, lang: string): string {
+  if (typeof tag === 'string') return tag;
+  return lang === 'es' ? tag.es : tag.en;
+}
+
+export async function getStaticPaths() {
+  // Helper to normalize tag to string for comparison
+  const tagToString = (tag: string | { en: string; es: string }): string => {
+    return typeof tag === 'string' ? tag : tag.en;
+  };
+
+  const [projects, blog, experiments, talks, career] = await Promise.all([
+    getCollection('projects'),
+    getCollection('blog'),
+    getCollection('experiments'),
+    getCollection('talks'),
+    getCollection('career'),
+  ]);
+
+  // Collect all unique tags
+  const allTags = new Map<string, string | { en: string; es: string }>();
+
+  const addTags = (items: any[]) => {
+    for (const item of items) {
+      if (item.data.tags) {
+        for (const tag of item.data.tags) {
+          const key = tagToString(tag).toLowerCase();
+          if (!allTags.has(key)) {
+            allTags.set(key, tag);
+          }
+        }
+      }
+    }
+  };
+
+  addTags(projects);
+  addTags(blog);
+  addTags(experiments);
+  addTags(talks);
+  addTags(career);
+
+  // Generate paths for each language and tag
+  return languages.flatMap((lang) =>
+    Array.from(allTags.entries()).map(([tagKey, tag]) => ({
+      params: { lang, tag: tagKey },
+      props: {
+        tagKey,
+        tag,
+        lang,
+        projects: projects.filter(p => p.data.tags?.some((t: any) => tagToString(t).toLowerCase() === tagKey)),
+        blog: blog.filter(p => p.data.tags?.some((t: any) => tagToString(t).toLowerCase() === tagKey)),
+        experiments: experiments.filter(p => p.data.tags?.some((t: any) => tagToString(t).toLowerCase() === tagKey)),
+        talks: talks.filter(p => p.data.tags?.some((t: any) => tagToString(t).toLowerCase() === tagKey)),
+        career: career.filter(p => !p.data.hide && p.data.tags?.some((t: any) => tagToString(t).toLowerCase() === tagKey)),
+      },
+    }))
+  );
+}
+
+const { tagKey, tag, lang, projects, blog, experiments, talks, career } = Astro.props;
+const { tr } = useTranslations(Astro.url);
+const tagName = getLocalizedTag(tag, lang);
+---
+
+<Layout title={tagName}>
+  <NavHeader />
+  <main>
+    <header class="tag-header">
+      <span class="tag-label"><Tr en="Tag:" es="Etiqueta:" /></span>
+      <span class="tag-chip" transition:name={`tag-${tagKey}`}>{tagName}</span>
+    </header>
+
+    {projects.length > 0 && (
+      <section>
+        <h2><Tr en="Projects" es="Proyectos" /></h2>
+        <ContentCards entries={projects} basePath="/projects" />
+      </section>
+    )}
+
+    {blog.length > 0 && (
+      <section>
+        <h2>Blog</h2>
+        <BlogPostList posts={blog} />
+      </section>
+    )}
+
+    {experiments.length > 0 && (
+      <section>
+        <h2><Tr en="Experiments" es="Experimentos" /></h2>
+        <ContentCards entries={experiments} basePath="/experiments" />
+      </section>
+    )}
+
+    {talks.length > 0 && (
+      <section>
+        <h2><Tr en="Talks" es="Charlas" /></h2>
+        <ContentCards entries={talks} basePath="/talks" />
+      </section>
+    )}
+
+    {career.length > 0 && (
+      <section>
+        <h2><Tr en="Career" es="Experiencia" /></h2>
+        <ul class="career-list">
+          {career.map((job: any) => (
+            <li>
+              <Link page={`/career/${job.id.replace('.md', '')}`}>
+                <Tr value={job.data.org} />
+                {job.data.role && <span class="role"> — <Tr value={job.data.role} /></span>}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </main>
+</Layout>
+
+<style>
+  .tag-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .tag-label {
+    color: oklch(60% 0 0);
+    font-size: 1rem;
+  }
+
+  .tag-chip {
+    background: oklch(18% 0 0);
+    border: 1px solid oklch(28% 0 0);
+    border-radius: 4px;
+    padding: 0.2rem 0.6rem;
+    font-size: 0.8rem;
+    color: oklch(70% 0 0);
+    display: inline-block;
+  }
+
+  .career-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .career-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid oklch(15% 0 0);
+  }
+
+  .career-list li:last-child {
+    border-bottom: none;
+  }
+
+  .role {
+    color: oklch(60% 0 0);
+  }
+</style>

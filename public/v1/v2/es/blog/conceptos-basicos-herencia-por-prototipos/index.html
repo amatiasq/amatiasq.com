@@ -1,0 +1,269 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> --><meta name="viewport" content="width=device-width"><title>A. Matías Quezada</title><style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: GitHub Dark
+  Description: Dark theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-dark
+  Current colors taken from GitHub's CSS
+*/.hljs{color:#c9d1d9;background:#0d1117}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#ff7b72}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#d2a8ff}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-variable,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id{color:#79c0ff}.hljs-regexp,.hljs-string,.hljs-meta .hljs-string{color:#a5d6ff}.hljs-built_in,.hljs-symbol{color:#ffa657}.hljs-comment,.hljs-code,.hljs-formula{color:#8b949e}.hljs-name,.hljs-quote,.hljs-selector-tag,.hljs-selector-pseudo{color:#7ee787}.hljs-subst{color:#c9d1d9}.hljs-section{color:#1f6feb;font-weight:700}.hljs-bullet{color:#f2cc60}.hljs-emphasis{color:#c9d1d9;font-style:italic}.hljs-strong{color:#c9d1d9;font-weight:700}.hljs-addition{color:#aff5b4;background-color:#033a16}.hljs-deletion{color:#ffdcd7;background-color:#67060c}pre code.hljs{--_code-margin: var(--code-margin, 1.5em);white-space:pre;background-color:#000;margin:var(--_code-margin) calc(var(--_code-margin) * -1);padding:var(--_code-margin);border-radius:8px}pre code.hljs>.hljs-comment{color:#999}code:not(.hljs){padding:0 .3em .1em;border-radius:5px;background-color:#0000004d}.md{display:grid;gap:24px}.md :is(h1,h2,h3,h4,h5,h6),.md li+li{margin-top:16px}.md :is(ul,pre,code,p){margin-top:0!important;margin-bottom:0!important}.md p{text-align:justify}.md blockquote{border-left:2px solid var(--color-text);margin-left:0;padding-left:1em}
+.tag-list{display:flex;gap:.5em;flex-wrap:wrap;list-style:none;margin:0;padding:0}:root{--grid-transparent-width: 960px}
+</style>
+<link rel="stylesheet" href="/_astro/_slug_.6d0c3eca.css" /><script type="module">CSS.paintWorklet?.addModule("/dot-mesh.js");
+</script></head><body class="content-grid"><script defer>
+  function closeHamburger() {
+    document.querySelector('hamburger-button')?.removeAttribute('active');
+  }
+</script><script type="module" defer>export const tagName = 'hamburger-button';
+
+export const template = `
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+
+  <style>
+    :host {
+      cursor: pointer;
+  
+      --_color: var(--color, black);
+      --_width: var(--width, 2em);
+      --_thickness: var(--thickness, 3px);
+      --_spacing: var(--spacing, 7px);
+      --_opacity: var(--opacity, 0.5);
+  
+      --translation-x: calc(var(--_thickness) + var(--_spacing));
+    }
+  
+    .bar {
+      width: var(--_width);
+      height: var(--_thickness);
+      background-color: var(--_color);
+      margin: var(--_spacing) 0;
+      opacity: var(--_opacity);
+  
+      will-change: transform, opacity;
+      transition: 0.4s;
+      transition-property: transform, opacity;
+    }
+  
+    :host(:hover) .bar {
+      opacity: 1;
+    }
+  
+    :host([active]) .bar:first-of-type {
+      transform: translate(0, var(--translation-x)) rotate(45deg);
+    }
+  
+    :host([active]) .bar:nth-child(2) {
+      opacity: 0;
+    }
+  
+    :host([active]) .bar:last-of-type {
+      transform: translate(0, calc(var(--translation-x) * -1)) rotate(-45deg);
+    }
+  </style>
+`;
+
+export class HamburgerButton extends HTMLElement {
+  #shadowRoot;
+
+  constructor() {
+    super();
+
+    this.#shadowRoot = this.attachShadow({ mode: 'open' });
+    this.#shadowRoot.innerHTML = template;
+  
+    this.bars = this.shadowRoot.querySelectorAll(".bar");
+    this.toggle = this.toggle.bind(this);
+  }
+
+  connectedCallback() {
+    this.addEventListener("click", this.toggle);
+  }
+  disconnectedCallback() {
+    this.addEventListener("click", this.toggle);
+  }
+
+  toggle() {
+    this.toggleAttribute("active");
+
+    const event = new CustomEvent('toggle', {
+      detail: {
+        active: this.hasAttribute("active")
+      }
+    });
+
+    this.dispatchEvent(event);
+  }
+}
+
+customElements.define('hamburger-button', HamburgerButton);</script><hamburger-button><template shadowrootmode="open"><!-- don't fold me  -->
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+
+  <style>
+    :host {
+      cursor: pointer;
+  
+      --_color: var(--color, black);
+      --_width: var(--width, 2em);
+      --_thickness: var(--thickness, 3px);
+      --_spacing: var(--spacing, 7px);
+      --_opacity: var(--opacity, 0.5);
+  
+      --translation-x: calc(var(--_thickness) + var(--_spacing));
+    }
+  
+    .bar {
+      width: var(--_width);
+      height: var(--_thickness);
+      background-color: var(--_color);
+      margin: var(--_spacing) 0;
+      opacity: var(--_opacity);
+  
+      will-change: transform, opacity;
+      transition: 0.4s;
+      transition-property: transform, opacity;
+    }
+  
+    :host(:hover) .bar {
+      opacity: 1;
+    }
+  
+    :host([active]) .bar:first-of-type {
+      transform: translate(0, var(--translation-x)) rotate(45deg);
+    }
+  
+    :host([active]) .bar:nth-child(2) {
+      opacity: 0;
+    }
+  
+    :host([active]) .bar:last-of-type {
+      transform: translate(0, calc(var(--translation-x) * -1)) rotate(-45deg);
+    }
+  </style>
+</template></hamburger-button><nav class="amq-header full-width"><div><div class="internal-links"><a class="nav-link" href="#projects" onclick="closeHamburger();">Proyectos</a><a class="nav-link" href="#experiments" onclick="closeHamburger();">Experimentos</a><a class="nav-link" href="#blog" onclick="closeHamburger();"> Blog</a><a class="nav-link" href="#talks" onclick="closeHamburger();">Charlas</a><a class="nav-link" href="#career" onclick="closeHamburger();">Experiencia</a></div><div class="external-links"><a target="_blank" href="https://github.com/amatiasq"><svg aria-label="Github icon" width="32" height="32" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd"
+        d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"
+        fill="#fff">
+    </path>
+</svg></a><a target="_blank" href="https://www.linkedin.com/in/amatiasq/"><?xml version="1.0" encoding="utf-8"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg aria-label="LinkedIn Icon" width="32" height="32" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path
+        d="M18.72 3.99997H5.37C5.19793 3.99191 5.02595 4.01786 4.86392 4.07635C4.70189 4.13484 4.55299 4.22471 4.42573 4.34081C4.29848 4.45692 4.19537 4.59699 4.12232 4.75299C4.04927 4.909 4.0077 5.07788 4 5.24997V18.63C4.01008 18.9901 4.15766 19.3328 4.41243 19.5875C4.6672 19.8423 5.00984 19.9899 5.37 20H18.72C19.0701 19.9844 19.4002 19.8322 19.6395 19.5761C19.8788 19.32 20.0082 18.9804 20 18.63V5.24997C20.0029 5.08247 19.9715 4.91616 19.9078 4.76122C19.8441 4.60629 19.7494 4.466 19.6295 4.34895C19.5097 4.23191 19.3672 4.14059 19.2108 4.08058C19.0544 4.02057 18.8874 3.99314 18.72 3.99997ZM9 17.34H6.67V10.21H9V17.34ZM7.89 9.12997C7.72741 9.13564 7.5654 9.10762 7.41416 9.04768C7.26291 8.98774 7.12569 8.89717 7.01113 8.78166C6.89656 8.66615 6.80711 8.5282 6.74841 8.37647C6.6897 8.22474 6.66301 8.06251 6.67 7.89997C6.66281 7.73567 6.69004 7.57169 6.74995 7.41854C6.80986 7.26538 6.90112 7.12644 7.01787 7.01063C7.13463 6.89481 7.2743 6.80468 7.42793 6.74602C7.58157 6.68735 7.74577 6.66145 7.91 6.66997C8.07259 6.66431 8.2346 6.69232 8.38584 6.75226C8.53709 6.8122 8.67431 6.90277 8.78887 7.01828C8.90344 7.13379 8.99289 7.27174 9.05159 7.42347C9.1103 7.5752 9.13699 7.73743 9.13 7.89997C9.13719 8.06427 9.10996 8.22825 9.05005 8.3814C8.99014 8.53456 8.89888 8.6735 8.78213 8.78931C8.66537 8.90513 8.5257 8.99526 8.37207 9.05392C8.21843 9.11259 8.05423 9.13849 7.89 9.12997ZM17.34 17.34H15V13.44C15 12.51 14.67 11.87 13.84 11.87C13.5822 11.8722 13.3313 11.9541 13.1219 12.1045C12.9124 12.2549 12.7546 12.4664 12.67 12.71C12.605 12.8926 12.5778 13.0865 12.59 13.28V17.34H10.29V10.21H12.59V11.21C12.7945 10.8343 13.0988 10.5225 13.4694 10.3089C13.84 10.0954 14.2624 9.98848 14.69 9.99997C16.2 9.99997 17.34 11 17.34 13.13V17.34Z" />
+</svg></a></div></div></nav><h1 class="article-title astro-4sgn5e7x">Conceptos Básicos Javascript: Herencia por prototipos</h1><ul class="tag-list md-tags astro-4sgn5e7x"></ul><article class="md astro-4sgn5e7x"><p>Llegó la hora de entrar el en tema que realmente confunde a los recién llegados a Javascript, principalmente para quienes vienen de lenguajes que implementan la orientación a objetos mediante clases, que son la gran mayoría.</p>
+<h3>Orientación a Objetos</h3>
+<p>Primero deberemos aclarar que significa Programación Orientada a Objetos (POO u OOP en ingés).</p>
+<p><a href="https://es.wikipedia.org/wiki/Programaci%C3%B3n_orientada_a_objetos">Según la Wikipedia</a>, la descripción es:</p>
+<blockquote>
+<p>es un paradigma de programación que usa objetos y sus interacciones, para diseñar aplicaciones y programas informáticos. Está basado en varias técnicas, incluyendo herencia, abstracción, polimorfismo y encapsulamiento.</p>
+</blockquote>
+<p>Como vemos un lenguaje orientado a objetos <strong>no necesariamente tiene que implementarse mediante clases</strong>, cualquier sistema que proporcione <a href="https://es.wikipedia.org/wiki/Herencia_(programaci%C3%B3n_orientada_a_objetos)">herencia</a>, <a href="https://es.wikipedia.org/wiki/Abstracci%C3%B3n_(programaci%C3%B3n_orientada_a_objetos)">abstracción</a>, <a href="https://es.wikipedia.org/wiki/Polimorfismo_(programaci%C3%B3n_orientada_a_objetos)">polimorfismo</a> y <a href="https://es.wikipedia.org/wiki/Encapsulamiento_(programaci%C3%B3n_orientada_a_objetos)">encapsulamiento</a> es una implementación de orientación a objetos válida. Como ya dijimos, el sistema de clases es el más extendido, utilizado por C++, Java, C#, PHP, Python, ActionScript3, Perl, Objective-C, Ruby, etc... <strong>Javascript no tiene clases, utiliza el sistema de herencia por prototipos</strong>, veamos la diferencia:</p>
+<p><strong>En un lenguaje basado en clases</strong> tenemos dos tipos de conceptos, los objetos en sí, referencias que pueden ser almacenadas, modificadas y pasadas como argumentos. Y por otro lado <strong>las clases, objetos intangibles, no podemos guardarlos en variables ni pasar como argumento</strong>, no podemos manipularlos ni comprobar si existen excepto por reflexión, que consiste en herramientas del lenguaje para obtener objetos (tangibles, del tipo anterior) que <strong>representan a las clases</strong> a las que no podemos acceder. En un lenguaje de éste tipo las clases están una capa por encima de los objetos y definen la herencia, abstracción, encapsulamiento y polimorfismo de los objetos que se obtendrán a partir de ellas, tienen una función de plantillas para crear objetos definidas antes de ejecutarse el código del programa.</p>
+<p><strong>En un lenguaje orientado a prototipos</strong> no hay clases que definan la herencia, los objetos mismos heredan de otros objetos. No hay clases cuando el programa se inicia, sino que se crean objetos y se le ordena a otros objetos que hereden de ellos. Por ejemplo, si tenemos un objeto eventEmitter y queremos crear instancias creamos nuevos objetos y hacemos que hereden de eventEmitter.</p>
+<h3>[[Prototype]]</h3>
+<p>Una vez entendido el concepto podemos pasar a la práctica, sabemos que para crear instancias de clases hacemos <code>new MyClass()</code> pero cómo hacemos que objetos hereden de objetos? Aquí entran los prototipos. <strong>Todos los objetos Javascript tienen una propiedad oculta que llamaremos <code>[[Prototype]]</code></strong>, con corchetes (aunque en algunos navegadores es posible acceder a ella mediante la propiedad <code>.__proto__</code>, con dos barras bajas a cada lado, pero no es estándar) <strong>que es un puntero al objeto del cual hereda</strong>. Y que significa que hereda? Podríamos resumir la herencia en que un objeto tiene las mismas propiedades que otro.</p>
+<p>Con ésto nos ahorramos tener que poner las mismas propiedades en más de un objeto. Esto trae un nuevo concepto que puede confundir a muchos: <strong>en Javascript todo es una instancia, y cuando heredamos de un objeto también se puede decir que estamos creando una instancia de ése objeto</strong>, para evitar confunsiones <strong>suele decirse que un objeto "extiende" otro</strong>. Imaginemos que tenemos un objeto perro que hereda de animal. Que significa ésto? que la propiedad <code>[[Prototype]]</code> de perro es animal, o lo que es lo mismo:</p>
+<pre><code class="hljs language-js">perro.<span class="hljs-property">__proto__</span> == animal; <span class="hljs-comment">// true</span>
+</code></pre>
+<p>El código de ejemplo es el siguiente:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> animal = {};
+animal.<span class="hljs-property">estaVivo</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+};
+
+<span class="hljs-keyword">var</span> perro = {};
+perro.<span class="hljs-property">__proto__</span> = animal;
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(perro.<span class="hljs-property">estaVivo</span>);
+</code></pre>
+<p>Pruébame</p>
+<p>Vemos que <code>perro.estaVivo</code> es la función que asignamos a <code>animal</code> cómo puede ser ésto? Por la herencia por prototipos. <strong>Javascript ha buscado la propiedad <code>estaVivo</code> en <code>perro</code> pero no la ha encontrado, entonces accede a su propiedad <code>[[Prototype]]</code> (o <code>__proto__</code>)</strong> donde nosotros guardamos <code>animal</code>. Entonces busca <code>estaVivo</code> en <code>animal</code> y lo encuentra. Por eso <code>perro.estaVivo</code> nos devuelve el método de <code>animal</code>. Podríamos representarlo así:</p>
+<p><img src="/wp-content/uploads/2012/01/prototype.png" alt="Diagrama"></p>
+<p>Y si animal no hubiese tenido la propiedad <code>estaVivo</code>? En ese caso debemos tener en cuenta que animal también es un objeto y que todos los objetos tienen prototipo, en caso de que no le asignemos ninguno su prototipo es <code>Object.prototype</code>. Es otra forma de decir que <strong>en Javascript todos los objetos extienden <code>Object.prototype</code></strong>. <code>Object.prototype</code> es el equivalente a la clase <code>Object</code> de Java o C#.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> animal = {};
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(animal.<span class="hljs-property">__proto__</span> === <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
+</code></pre>
+<p>Pruébame</p>
+<p>Y si tampoco encuentra la propiedad en <code>Object.prototype</code>? lo busca en el <code>[[Prototype]]</code> de <code>Object.prototype</code> pero sorpresa! <strong><code>Object.prototype.__proto__</code> es <code>null</code></strong>. Eso significa que <strong>es el último objeto de la jerarquía de herencia</strong>, si llegado a éste punto Javascript no encuentra la propiedad que le pedimos devuelve <code>undefined</code>.</p>
+<p>Esta jerarquía de prototipos suele llamarse <strong>cadena de prototipos</strong> del objeto. Por ejemplo, <code>Object.prototype</code> tiene la propiedad <code>.toString()</code>, entonces si volvemos a crear <code>perro</code> heredando de <code>animal</code>, su propiedad <code>.toString()</code> que será? Javascript recorrerá la jerarquía de prototipos de <code>perro</code> hasta encontrar <code>.toString()</code> que está en <code>Object.prototype</code>.</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> animal = {};
+animal.<span class="hljs-property">estaVivo</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+};
+
+<span class="hljs-keyword">var</span> perro = {};
+perro.<span class="hljs-property">__proto__</span> = animal;
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(perro.<span class="hljs-property">toString</span> === <span class="hljs-title class_">Object</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">toString</span>);
+</code></pre>
+<p>Pruébame</p>
+<h3>Como modificar una propidad inaccesible?</h3>
+<p>Bien, la teoría ha ido correctamente, pero como ya dijimos, <strong><code>__proto__</code> no es estándar</strong>, y por lo tanto no podemos contar con que funcione en cualquier motor de Javascript, <strong>entonces cómo se supone que vamos a implementar herencia en Javascript?</strong> Para ello Javascript provee de una funcionalidad un tanto difícil de entender así que intentaremos ir poco a poco.</p>
+<p><strong>Toda función, creada en Javascript tiene una propiedad llamada <code>.prototype</code> que no debe confundirse con <code>[[Prototype]]</code></strong>, el <code>[[Prototype]]</code> de las funciones apunta a <code>Function.prototype</code> que es un objeto que tiene funciones como <code>.call()</code>, <code>.apply()</code> y <code>.bind()</code>. No, en éste caso nos referimos a que todas las funciones tienen una propiedad llamada <code>prototype</code> que es un objeto vacío. Y porqué se llama <code>prototype</code> si no tiene nada que ver con el <code>[[Prototype]]</code> de la función? <strong>Porque los objetos que creemos llamando a ésa función con <code>new</code> tendrán su <code>[[Prototype]]</code> apuntando a la propiedad <code>prototype</code> de la función:</strong></p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">myFunct</span>(<span class="hljs-params"></span>) {}
+<span class="hljs-keyword">var</span> obj = <span class="hljs-keyword">new</span> <span class="hljs-title function_">myFunct</span>();
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(obj.<span class="hljs-property">__proto__</span> === myFunct.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>);
+</code></pre>
+<p>Pruébame</p>
+<p>Sorpresa! <strong>Hemos modificado la propiedad oculta <code>[[Prototype]]</code> de <code>obj</code>!</strong> Quizás te preguntes porqué no se estandariza la propiedad accesible <code>__proto__</code>? Porque con el sistema de las funciones el lenguaje se asegura que <strong>sólo podemos modificar la propiedad <code>[[Prototype]]</code> de objetos nuevos</strong>, no de existentes. De ésta forma, en las implementaciones estándar donde no podemos acceder a la propiedad <code>__proto__</code> no podemos modificar el prototipo de una función o de <code>Object.prototype</code> ni podemos evitar que un objeto extienda de <code>Object.prototype</code>, poniendo su propiedad <code>__proto__</code> a <code>null</code> romperíamos ésta regla del lenguaje.</p>
+<p>Pero <strong>entonces <code>myFunct</code> es una clase? Podría decirse que si, pero no es una clase como las que estamos acostumbrados a ver, es una función, es un objeto y es tangible</strong>, el hecho de crear nuevos objetos con <code>new</code> seguido de una función es solo una sintaxis que se añadió a Javascript para parecerse a Java, lenguaje en plena expansión cuando Javascript fue diseñado. Ahora que entendemos que <code>myFunct.prototype</code> es igual al <code>[[Prototype]]</code> de los objetos que creemos con la función podemos crear objetos que extiendan del mismo objeto:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">myFunct</span>(<span class="hljs-params"></span>) {}
+myFunct.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = {
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'Alice'</span>,
+  <span class="hljs-attr">lastname</span>: <span class="hljs-string">'Smith'</span>,
+  <span class="hljs-attr">fullname</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> + <span class="hljs-string">' '</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">lastname</span>;
+  },
+};
+
+<span class="hljs-keyword">var</span> instancia1 = <span class="hljs-keyword">new</span> <span class="hljs-title function_">myFunct</span>();
+<span class="hljs-keyword">var</span> instancia2 = <span class="hljs-keyword">new</span> <span class="hljs-title function_">myFunct</span>();
+
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(instancia1.<span class="hljs-title function_">fullname</span>() + <span class="hljs-string">'n'</span> + instancia2.<span class="hljs-title function_">fullname</span>());
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(instancia1.<span class="hljs-property">__proto__</span> == instancia2.<span class="hljs-property">__proto__</span>);
+</code></pre>
+<p>Pruébame</p>
+<p>E incluso podemos crear un objeto que extienda de una instancia de myFunct!</p>
+<pre><code class="hljs language-js">instancia1.<span class="hljs-property">name</span> = <span class="hljs-string">'Bob'</span>;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">extenderInstancia1</span>(<span class="hljs-params"></span>) {}
+extenderInstancia1.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = instancia1;
+<span class="hljs-keyword">var</span> subInstancia = <span class="hljs-keyword">new</span> <span class="hljs-title function_">extenderInstancia1</span>();
+
+<span class="hljs-keyword">var</span> texto = <span class="hljs-string">'Fullname: '</span> + subInstancia.<span class="hljs-title function_">fullname</span>() + <span class="hljs-string">'n'</span>;
+texto += <span class="hljs-string">'Es instancia de extenderInstancia1? '</span> + (subInstancia <span class="hljs-keyword">instanceof</span> extenderInstancia1) + <span class="hljs-string">'n'</span>;
+texto += <span class="hljs-string">'Es instancia de myFunct? '</span> + (subInstancia <span class="hljs-keyword">instanceof</span> myFunct) + <span class="hljs-string">'n'</span>;
+texto += <span class="hljs-string">'Es instancia de Object? '</span> + (subInstancia <span class="hljs-keyword">instanceof</span> <span class="hljs-title class_">Object</span>);
+
+<span class="hljs-title function_">alert</span>(texto);
+</code></pre>
+<p>Pruébame</p>
+<h3><code>extend()</code></h3>
+<p>Pero éste lío de tener funciones que parecen clases pero no son clases exactamente y crean instancias y tener que crear funciones para extender es bastante confuso, por ello, los defensores de no mezclar la herencia por prototipos con éstas falsas clases proponen usar la función <code>extend</code>:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">extend</span>(<span class="hljs-params">proto</span>) {
+  <span class="hljs-keyword">function</span> <span class="hljs-title function_">intermediario</span>(<span class="hljs-params"></span>) {}
+  intermediario.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span> = proto;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title function_">intermediario</span>();
+}
+</code></pre>
+<p>Y con ésta función podemos extender objetos sin necesidad de crear funciones intermedias:</p>
+<pre><code class="hljs language-js"><span class="hljs-keyword">var</span> base = {
+  <span class="hljs-attr">name</span>: <span class="hljs-string">'Alice'</span>,
+  <span class="hljs-attr">lastname</span>: <span class="hljs-string">'Smith'</span>,
+  <span class="hljs-attr">fullname</span>: <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) {
+    <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>.<span class="hljs-property">name</span> + <span class="hljs-string">' '</span> + <span class="hljs-variable language_">this</span>.<span class="hljs-property">lastname</span>;
+  },
+};
+
+<span class="hljs-keyword">var</span> instancia1 = <span class="hljs-title function_">extend</span>(base);
+<span class="hljs-keyword">var</span> instancia2 = <span class="hljs-title function_">extend</span>(base);
+
+instancia1.<span class="hljs-property">name</span> = <span class="hljs-string">'Bob'</span>;
+<span class="hljs-keyword">var</span> subInstancia = <span class="hljs-title function_">extend</span>(instancia1);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(subInstancia.<span class="hljs-title function_">fullname</span>());
+</code></pre>
+<p>Pruébame</p>
+<p>Como vemos, el código queda bastante más claro, es por ésto que en la 5ª edición de ECMAScript (el estándar en el que está basado Javascript), se decidió añadir <code>Object.create()</code> que <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Object/create">cumple la misma funcionalidad</a> que la función <code>extend()</code> que hemos creado.</p>
+<h3>Resumen</h3>
+<p>Es un camino duro pasar de un lenguaje basado en clases a uno basado en prototipos, requiere mucha práctica, una mente abierta y muchas ganas de aprender. Pero las ganancias son grandes, incluso para desarrolladores que no necesiten tocar Javascript considero que aprender éste patrón aporta ventajas porque <strong>entender ambos patrones en mente nos abre a nuevas ideas, nos ayuda a tener siempre presente que las cosas no tienen porque ser como estamos acostumbrados a que sean, y a buscar nuevas soluciones a nuevos problemas y por último pero no menos importante, nos mantiene activos</strong>. Espero que sea fácil seguir el post aunque se que ha crecido más allá de lo deseado, pido comprensión ya que escribir no es mi punto fuerte, pero para eso está la práctica, para mejorar ;)</p></article></body></html>

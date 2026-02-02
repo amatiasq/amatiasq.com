@@ -1,0 +1,123 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '@/layouts/Layout.astro';
+import { languages, useTranslations } from '@/i18n';
+import NavHeader from '@/components/organisms/NavHeader.astro';
+import Tr from '@/components/atoms/Translation.astro';
+import Markdown from '@/components/molecules/Markdown.astro';
+import Image from '@/components/atoms/Image.astro';
+import Tags from '@/components/atoms/Tags.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+
+  return languages.flatMap((lang) =>
+    projects.map((project) => ({
+      params: { lang, slug: project.id.replace('.md', '') },
+      props: { project, lang },
+    }))
+  );
+}
+
+const { project, lang } = Astro.props;
+const { tr } = useTranslations(Astro.url);
+const title = tr(project.data.title);
+const content = Array.isArray(project.body) ? project.body : [project.body];
+const localizedContent = content[languages.indexOf(lang)] || content[0] || '';
+const iframeSrc = project.data.iframe && project.data.links?.live ? tr(project.data.links.live) : null;
+const slug = project.id.replace('.md', '');
+---
+
+<Layout title={title}>
+  <NavHeader />
+  <main>
+    <article>
+      <h1 transition:name={`title-${slug}`}><Tr value={project.data.title} /></h1>
+
+      {project.data.links && (
+        <nav class="project-links">
+          {project.data.links.live && <a href={tr(project.data.links.live)} target="_blank" rel="noopener">Demo</a>}
+          {project.data.links.github && <a href={project.data.links.github} target="_blank" rel="noopener">GitHub</a>}
+        </nav>
+      )}
+
+      <Tags tags={project.data.tags} />
+
+      {iframeSrc ? (
+        <div class="iframe-container" transition:name={`img-${slug}`}>
+          <iframe src={iframeSrc} data-src={iframeSrc} frameborder="0" allowfullscreen />
+          <button class="pause-btn" title="Pause/Play">⏸</button>
+        </div>
+      ) : project.data.image && (
+        <div class="hero-image" transition:name={`img-${slug}`}>
+          <Image value={project.data.image} width={800} />
+        </div>
+      )}
+
+      <Markdown md={localizedContent} />
+    </article>
+  </main>
+</Layout>
+
+<style>
+  .hero-image {
+    margin: 1.5rem 0;
+  }
+
+  .hero-image :global(img) {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid oklch(28% 0 0);
+  }
+
+  .iframe-container {
+    position: relative;
+    margin: 1.5rem 0;
+  }
+
+  iframe {
+    width: 100%;
+    border: 1px solid oklch(28% 0 0);
+    border-radius: 8px;
+    aspect-ratio: 16 / 9;
+  }
+
+  .pause-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: oklch(20% 0 0 / 0.8);
+    border: 1px solid oklch(40% 0 0);
+    border-radius: 4px;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .iframe-container:hover .pause-btn {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.iframe-container').forEach(container => {
+    const iframe = container.querySelector('iframe') as HTMLIFrameElement;
+    const btn = container.querySelector('.pause-btn') as HTMLButtonElement;
+    let paused = false;
+
+    btn?.addEventListener('click', () => {
+      if (paused) {
+        iframe.src = iframe.dataset.src || '';
+        btn.textContent = '⏸';
+      } else {
+        iframe.src = 'about:blank';
+        btn.textContent = '▶';
+      }
+      paused = !paused;
+    });
+  });
+</script>

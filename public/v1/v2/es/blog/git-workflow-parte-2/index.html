@@ -1,0 +1,217 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><!-- <link rel="icon" type="image/svg+xml" href="/favicon.svg" /> --><meta name="viewport" content="width=device-width"><title>A. Matías Quezada</title><style>pre code.hljs{display:block;overflow-x:auto;padding:1em}code.hljs{padding:3px 5px}/*!
+  Theme: GitHub Dark
+  Description: Dark theme as seen on github.com
+  Author: github.com
+  Maintainer: @Hirse
+  Updated: 2021-05-15
+
+  Outdated base version: https://github.com/primer/github-syntax-dark
+  Current colors taken from GitHub's CSS
+*/.hljs{color:#c9d1d9;background:#0d1117}.hljs-doctag,.hljs-keyword,.hljs-meta .hljs-keyword,.hljs-template-tag,.hljs-template-variable,.hljs-type,.hljs-variable.language_{color:#ff7b72}.hljs-title,.hljs-title.class_,.hljs-title.class_.inherited__,.hljs-title.function_{color:#d2a8ff}.hljs-attr,.hljs-attribute,.hljs-literal,.hljs-meta,.hljs-number,.hljs-operator,.hljs-variable,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id{color:#79c0ff}.hljs-regexp,.hljs-string,.hljs-meta .hljs-string{color:#a5d6ff}.hljs-built_in,.hljs-symbol{color:#ffa657}.hljs-comment,.hljs-code,.hljs-formula{color:#8b949e}.hljs-name,.hljs-quote,.hljs-selector-tag,.hljs-selector-pseudo{color:#7ee787}.hljs-subst{color:#c9d1d9}.hljs-section{color:#1f6feb;font-weight:700}.hljs-bullet{color:#f2cc60}.hljs-emphasis{color:#c9d1d9;font-style:italic}.hljs-strong{color:#c9d1d9;font-weight:700}.hljs-addition{color:#aff5b4;background-color:#033a16}.hljs-deletion{color:#ffdcd7;background-color:#67060c}pre code.hljs{--_code-margin: var(--code-margin, 1.5em);white-space:pre;background-color:#000;margin:var(--_code-margin) calc(var(--_code-margin) * -1);padding:var(--_code-margin);border-radius:8px}pre code.hljs>.hljs-comment{color:#999}code:not(.hljs){padding:0 .3em .1em;border-radius:5px;background-color:#0000004d}.md{display:grid;gap:24px}.md :is(h1,h2,h3,h4,h5,h6),.md li+li{margin-top:16px}.md :is(ul,pre,code,p){margin-top:0!important;margin-bottom:0!important}.md p{text-align:justify}.md blockquote{border-left:2px solid var(--color-text);margin-left:0;padding-left:1em}
+.tag-list{display:flex;gap:.5em;flex-wrap:wrap;list-style:none;margin:0;padding:0}:root{--grid-transparent-width: 960px}
+</style>
+<link rel="stylesheet" href="/_astro/_slug_.6d0c3eca.css" /><script type="module">CSS.paintWorklet?.addModule("/dot-mesh.js");
+</script></head><body class="content-grid"><script defer>
+  function closeHamburger() {
+    document.querySelector('hamburger-button')?.removeAttribute('active');
+  }
+</script><script type="module" defer>export const tagName = 'hamburger-button';
+
+export const template = `
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+
+  <style>
+    :host {
+      cursor: pointer;
+  
+      --_color: var(--color, black);
+      --_width: var(--width, 2em);
+      --_thickness: var(--thickness, 3px);
+      --_spacing: var(--spacing, 7px);
+      --_opacity: var(--opacity, 0.5);
+  
+      --translation-x: calc(var(--_thickness) + var(--_spacing));
+    }
+  
+    .bar {
+      width: var(--_width);
+      height: var(--_thickness);
+      background-color: var(--_color);
+      margin: var(--_spacing) 0;
+      opacity: var(--_opacity);
+  
+      will-change: transform, opacity;
+      transition: 0.4s;
+      transition-property: transform, opacity;
+    }
+  
+    :host(:hover) .bar {
+      opacity: 1;
+    }
+  
+    :host([active]) .bar:first-of-type {
+      transform: translate(0, var(--translation-x)) rotate(45deg);
+    }
+  
+    :host([active]) .bar:nth-child(2) {
+      opacity: 0;
+    }
+  
+    :host([active]) .bar:last-of-type {
+      transform: translate(0, calc(var(--translation-x) * -1)) rotate(-45deg);
+    }
+  </style>
+`;
+
+export class HamburgerButton extends HTMLElement {
+  #shadowRoot;
+
+  constructor() {
+    super();
+
+    this.#shadowRoot = this.attachShadow({ mode: 'open' });
+    this.#shadowRoot.innerHTML = template;
+  
+    this.bars = this.shadowRoot.querySelectorAll(".bar");
+    this.toggle = this.toggle.bind(this);
+  }
+
+  connectedCallback() {
+    this.addEventListener("click", this.toggle);
+  }
+  disconnectedCallback() {
+    this.addEventListener("click", this.toggle);
+  }
+
+  toggle() {
+    this.toggleAttribute("active");
+
+    const event = new CustomEvent('toggle', {
+      detail: {
+        active: this.hasAttribute("active")
+      }
+    });
+
+    this.dispatchEvent(event);
+  }
+}
+
+customElements.define('hamburger-button', HamburgerButton);</script><hamburger-button><template shadowrootmode="open"><!-- don't fold me  -->
+  <div class="bar"></div>
+  <div class="bar"></div>
+  <div class="bar"></div>
+
+  <style>
+    :host {
+      cursor: pointer;
+  
+      --_color: var(--color, black);
+      --_width: var(--width, 2em);
+      --_thickness: var(--thickness, 3px);
+      --_spacing: var(--spacing, 7px);
+      --_opacity: var(--opacity, 0.5);
+  
+      --translation-x: calc(var(--_thickness) + var(--_spacing));
+    }
+  
+    .bar {
+      width: var(--_width);
+      height: var(--_thickness);
+      background-color: var(--_color);
+      margin: var(--_spacing) 0;
+      opacity: var(--_opacity);
+  
+      will-change: transform, opacity;
+      transition: 0.4s;
+      transition-property: transform, opacity;
+    }
+  
+    :host(:hover) .bar {
+      opacity: 1;
+    }
+  
+    :host([active]) .bar:first-of-type {
+      transform: translate(0, var(--translation-x)) rotate(45deg);
+    }
+  
+    :host([active]) .bar:nth-child(2) {
+      opacity: 0;
+    }
+  
+    :host([active]) .bar:last-of-type {
+      transform: translate(0, calc(var(--translation-x) * -1)) rotate(-45deg);
+    }
+  </style>
+</template></hamburger-button><nav class="amq-header full-width"><div><div class="internal-links"><a class="nav-link" href="#projects" onclick="closeHamburger();">Proyectos</a><a class="nav-link" href="#experiments" onclick="closeHamburger();">Experimentos</a><a class="nav-link" href="#blog" onclick="closeHamburger();"> Blog</a><a class="nav-link" href="#talks" onclick="closeHamburger();">Charlas</a><a class="nav-link" href="#career" onclick="closeHamburger();">Experiencia</a></div><div class="external-links"><a target="_blank" href="https://github.com/amatiasq"><svg aria-label="Github icon" width="32" height="32" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd"
+        d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"
+        fill="#fff">
+    </path>
+</svg></a><a target="_blank" href="https://www.linkedin.com/in/amatiasq/"><?xml version="1.0" encoding="utf-8"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+<svg aria-label="LinkedIn Icon" width="32" height="32" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg">
+    <path
+        d="M18.72 3.99997H5.37C5.19793 3.99191 5.02595 4.01786 4.86392 4.07635C4.70189 4.13484 4.55299 4.22471 4.42573 4.34081C4.29848 4.45692 4.19537 4.59699 4.12232 4.75299C4.04927 4.909 4.0077 5.07788 4 5.24997V18.63C4.01008 18.9901 4.15766 19.3328 4.41243 19.5875C4.6672 19.8423 5.00984 19.9899 5.37 20H18.72C19.0701 19.9844 19.4002 19.8322 19.6395 19.5761C19.8788 19.32 20.0082 18.9804 20 18.63V5.24997C20.0029 5.08247 19.9715 4.91616 19.9078 4.76122C19.8441 4.60629 19.7494 4.466 19.6295 4.34895C19.5097 4.23191 19.3672 4.14059 19.2108 4.08058C19.0544 4.02057 18.8874 3.99314 18.72 3.99997ZM9 17.34H6.67V10.21H9V17.34ZM7.89 9.12997C7.72741 9.13564 7.5654 9.10762 7.41416 9.04768C7.26291 8.98774 7.12569 8.89717 7.01113 8.78166C6.89656 8.66615 6.80711 8.5282 6.74841 8.37647C6.6897 8.22474 6.66301 8.06251 6.67 7.89997C6.66281 7.73567 6.69004 7.57169 6.74995 7.41854C6.80986 7.26538 6.90112 7.12644 7.01787 7.01063C7.13463 6.89481 7.2743 6.80468 7.42793 6.74602C7.58157 6.68735 7.74577 6.66145 7.91 6.66997C8.07259 6.66431 8.2346 6.69232 8.38584 6.75226C8.53709 6.8122 8.67431 6.90277 8.78887 7.01828C8.90344 7.13379 8.99289 7.27174 9.05159 7.42347C9.1103 7.5752 9.13699 7.73743 9.13 7.89997C9.13719 8.06427 9.10996 8.22825 9.05005 8.3814C8.99014 8.53456 8.89888 8.6735 8.78213 8.78931C8.66537 8.90513 8.5257 8.99526 8.37207 9.05392C8.21843 9.11259 8.05423 9.13849 7.89 9.12997ZM17.34 17.34H15V13.44C15 12.51 14.67 11.87 13.84 11.87C13.5822 11.8722 13.3313 11.9541 13.1219 12.1045C12.9124 12.2549 12.7546 12.4664 12.67 12.71C12.605 12.8926 12.5778 13.0865 12.59 13.28V17.34H10.29V10.21H12.59V11.21C12.7945 10.8343 13.0988 10.5225 13.4694 10.3089C13.84 10.0954 14.2624 9.98848 14.69 9.99997C16.2 9.99997 17.34 11 17.34 13.13V17.34Z" />
+</svg></a></div></div></nav><h1 class="article-title astro-4sgn5e7x">GIT Workflow 2</h1><ul class="tag-list md-tags astro-4sgn5e7x"></ul><article class="md astro-4sgn5e7x"><p>Continuando con <a href="http://www.amatiasq.com/2012/12/git-workflow-flujo-de-trabajo-parte-1/" title="GIT Workflow (Flujo de trabajo) (Parte 1)">mi último artículo</a>, llegó la hora de hablar del gran <em>Github Flow</em>:</p>
+<h3>Github Flow</h3>
+<p>Y finalmente <a href="http://scottchacon.com/2011/08/31/github-flow.html">el artículo</a> que ha inspirado éste. Después de probar el Git Flow (el modelo, no la herramienta) en productos profesionales y a modo de prueba en <a href="https://github.com/amatiasq/jsbase">pequeñas librerías</a> propias y <strong>aunque para proyectos grandes donde una release se planea durante semanas va bien, en pequeños proyectos, y en proyectos SaaS no acaba de encajar</strong>.</p>
+<p>Para empezar en pequeños proyectos no hay necesidad de planificar con antelación una release, <strong>un proyecto pequeño necesita mucha actividad y poca burocracia para crecer</strong>, por otro lado, en proyectos SaaS (Software as a Serivce), es decir, productos que están disponibles online y todos los usuarios tienen la última versión y reciben los cambios inmediatamente **las versiones y releases pierden fuerza. **Porqué retrasar el lanzamiento de una nueva funcionalidad cuando todos los usuarios podrían tenerla mañana sin ningún coste? en un producto clásico las funcionalidades se empaquetan para entregar al usuario la actualización un paquete cerrado y pasar el proceso de actualización la menor cantidad de veces posibles, pero <strong>en un SaaS para el usuario no tiene ningún coste (en esfuerzo) una actualización</strong>, simplemente la próxima vez que abra el programa tendrá la funcionalidad.</p>
+<p>Un ejemplo de SaaS es Gmail (que estuvo más de 5 años en fase Beta por éste motivo), twitter o github. Y es éste último quién, como no podía ser de otra forma, utiliza <strong>un flujo de trabajo de GIT que parece encajar bastante bien con la filosofía SaaS</strong> de release constantes. Lo que ellos llaman <strong><code>Github Flow</code></strong>.</p>
+<p>Como ellos mismos dicen después de mentar las ventajas de git-flow, "One of the bigger issues for me is that it’s more complicated than I think most developers and development teams actually require" (Uno de sus mayores problemas para mi es que <strong>[git-flow] es más complicado de lo que creo que muchos equipos de desarrollo realmente necesitan</strong>)</p>
+<blockquote>
+<p>So, why don’t we use git-flow at GitHub? Well, the main issue is that we deploy all the time." (Porqué no usamos git-flow en Github? Bueno, el mayor problema es que <strong>nosotros hacemos releases todo el tiempo</strong>).</p>
+</blockquote>
+<p>Básicamente utilizan un flujo de trabajo que combina la potencia de GIT con las geniales herramientas de Github por lo que es aplicable tal cual a los proyectos alojados en Github.com:</p>
+<ul>
+<li>El contenido en <code>master</code> es una versión lista para ser utilizada, lo mismo que en git-flow.</li>
+<li>Crear ramas descriptivas a partir de <code>master</code> en el repositorio y hacer push constantemente.</li>
+<li>Abrir "Pull Request" en Github en cualquier momento</li>
+<li><strong>Hacer merge a <code>master</code> solo después de una revisión del "Pull Request"</strong></li>
+<li>Enviar el código a producción inmediatamente después del merge (es decir, enviar a los clientes)</li>
+</ul>
+<p>Igual que en git-flow, <code>master</code> tiene que ser código estable listo para poner en producción, pero en éste Workflow además debe ser la rama a partir de la cual crear el resto de ramas. En resumen, <strong>cualquier desarrollador puede crear una rama partiendo de <code>master</code> mientras tenga un nombre claro y coherente</strong>, bien sea para corregir un bug o implementar una nueva funcionalidad. A partir de entonces el desarrollador puede hacer todos los commits que necesite y hacer <code>push</code> a la rama en el repositorio constantemente.</p>
+<p>En Github mencionan muchas ventajas de ésta fase, en primer lugar, que al hacer pull cada desarrollador recibe información de las ramas en las que hay actividad, y si su nombre es descriptivo es sencillo de analizar. Además <strong>en la página de Github del repositorio podemos consultar las ramas actuales y cuánto se ha avanzado en cada una</strong>, como si de una lista de futuras funcionalidades se tratara (ver imagen artículo original). Por otro lado, los push constantes da visibilidad al resto del equipo de la actividad y garantiza la copia de seguridad de nuestros cambios. Y por fin mi parte favorita, mi descubrimiento del día, los Pull Request de Github.</p>
+<p><strong>Un Pull Request consiste en que después de hacer commits y push en una rama, dejamos una notificación de intención de hacer merge a <code>master</code></strong>. Al hacer un Pull Request, en la página de Github del repositorio aparece nuestra notificación con la lista de commits que hemos hecho, y todos los cambios que hemos hecho (en rojo líneas borradas y en verde líneas añadidas). Esto es muy utilizado para ofrecer al dueño de un repositorio un parche o una mejora para que sea aplicado en <code>master</code>, lo que me sorprendió es el uso que le da Github.</p>
+<p>A partir de aquí <strong>cualquier usuario puede añadir comentarios a una línea específica del código modificado en los commits</strong>, o un comentario general y abrir debate. Lo que a nivel profesional se conoce como <strong><code>code review</code></strong> (repaso del código) en el que un tercero nos ayuda a repasar nuestros cambios. Esto siempre que se enfoque con una actitud positiva por ambas partes, permite <strong>extender el conocimiento de esa sección del código y detectar bugs con antelación</strong>, simplemente porque cuatro ojos ven más que dos.</p>
+<blockquote>
+<p>Actually, we use it more as a branch conversation view more than a pull request (En realidad, <strong>[los Pull Request] los usamos más como página de conversación sobre la rama que como petición de pull</strong>).</p>
+</blockquote>
+<p>Según el <em>Github Flow</em> cuando hayamos acabado el desarrollo de la rama o simplemente nos hayamos atascado o necesitamos que un diseñador de el visto bueno al resultado (ya que se pueden adjuntar imágenes a los comentarios con <a href="http://es.wikipedia.org/wiki/Markdown">Markdown</a>), abrimos un Pull Request y <strong>escribiendo @ en el comentario esa persona recibirá una notificación de nuestro Pull Request</strong>. En Github recomiendan usar "/cc @" para poner "En copia" a los interesados. A medida que recibimos opiniones y recomendaciones de otros usuarios mediante el Pull Request <strong>podemos seguir haciendo commits que automáticamente se añadirán al Pull Request</strong>.</p>
+<p>Una vez el trabajo está hecho y hemos pasado el <em>code review</em> esperamos (solicitamos) recibir el visto bueno de algún o varios compañeros</p>
+<blockquote>
+<p>This is generally a +1 or emoji or “:shipit:”" (Esto suele ser un +1 o el emoticono “:shipit:”)</p>
+</blockquote>
+<p><strong>Y hayamos pasado los tests, podemos hacer el merge a <code>master</code> nosotros mismos</strong>, cuando hagamos push de <code>master</code> con los cambios aplicados el Pull Request se cerrará automáticamente. Finalmente, inmediatamente después de hacer el merge a <code>master</code> <strong>debemos enviar el código a producción</strong>, que en el caso de Github lo hacen mediante un comando enviado por chat, pero debemos enviar el código inmediatamente a producción para poder detectar posibles bugs con la máxima antelación posible porque si algo nos da mala imagen como desarrolladores es que el trabajo de otra persona falle al ser enviado a producción por algo que nosotros cambiamos y no enviamos. En el artículo original se puede ver una imagen en la que <strong>un solo día se actualizó el código de producción nada menos que 24 veces</strong>. El mismo código que recibimos nosotros al entrar a Github.com</p>
+<p>Ha sido largo de explicar, pero quise hacer mucho énfasis en los Pull Request ya que es un uso innovador (al menos para mi) traído de la mano de sus creadores que lo usan activamente por lo que está más que garantizada su fiabilidad. En mi opinión es <strong>el mejor flujo de trabajo para desarrollar productos SaaS</strong>, permitiendo lanzar funcionalidades constante e inmediatamente.</p>
+<p>Sin embargo, como todas las grandes metodologías, creo que es muy importante la implicación de todo el equipo en el Workflow. <strong>El Workflow está basado en que un desarrollador sabe esperar a revisar el código a fondo</strong> y recibir feedback antes de hacer el merge a master, y creo que es bastante más complicado de lo que parece superar la tentación de tener el "trabajo hecho" pero sin revisar.</p>
+<h3>Conclusión A la fecha me encuentro con tres Workflows para trabajar con GIT:</h3>
+<p><strong>Git-flow</strong> - Bastante genérico, en mi opinión si parte del equipo ya conoce ésta metodología es la que utilizaría "por defecto" al empezar un proyecto profesional. Y aunque suene evidente, no está de más decir que para pequeños proyectos puede resultar excesivo.</p>
+<h5>Pros</h5>
+<ul>
+<li><strong>Estándar</strong> - muy conocido en la comunidad GIT</li>
+<li><strong>Genérico</strong> - en mi opinión es fácil adaptar ésta metodología a medida que avanza el proyecto</li>
+</ul>
+<h5>Cons</h5>
+<ul>
+<li><strong>Complejo</strong> - Para una persona comenzando en GIT puede resultar demasiado aprender la secuencia necesaria para cada fase</li>
+</ul>
+<p><strong>Git-flow con ramas por release</strong> - No muy recomendable por añadir una complejidad excesiva, pero para los proyectos elefante en los que tenemos tres clientes con versiones distinta puede ahorrarnos tiempo y esfuerzo.</p>
+<h5>Pros</h5>
+<ul>
+<li><strong>Utilidad clara</strong> - personalmente saber con precisión dónde es útil es una ventaja a la hora de tenerla en considerarlo</li>
+</ul>
+<h5>Cons</h5>
+<ul>
+<li><strong>Rebuscado</strong> - hay que tener cierta experiencia para evitar que ésta metodología se descontrole</li>
+</ul>
+<p><strong>Github Flow</strong> - En mi opinión la solución perfecta para un producto SaaS.</p>
+<h5>Pros</h5>
+<ul>
+<li><strong>Probado</strong> - que éste sistema esté en marcha en Github da mucha confianza, máxime siendo ellos los creadores de una de las mejores herramientas para GIT</li>
+</ul>
+<h5>Cons</h5>
+<ul>
+<li><strong>Equipo conscienciado</strong> - éste Workflow requiere mucha atención ya que constantemente estaremos aplicando código en producción con los riesgos que conlleva para nuestros clientes</li>
+</ul></article></body></html>

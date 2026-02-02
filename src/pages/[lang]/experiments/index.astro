@@ -1,0 +1,23 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '@/layouts/Layout.astro';
+import { multilingualPage } from '@/i18n';
+import NavHeader from '@/components/organisms/NavHeader.astro';
+import Tr from '@/components/atoms/Translation.astro';
+import ContentCards from '@/components/organisms/ContentCards.astro';
+
+const experiments = await getCollection('experiments');
+const sorted = [...experiments].sort((a, b) => b.id.localeCompare(a.id));
+
+export function getStaticPaths() {
+  return multilingualPage();
+}
+---
+
+<Layout title="Experiments">
+  <NavHeader />
+  <main>
+    <h1><Tr en="Experiments" es="Experimentos" /></h1>
+    <ContentCards entries={sorted} basePath="/experiments" />
+  </main>
+</Layout>

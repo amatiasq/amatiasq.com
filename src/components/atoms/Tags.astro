@@ -1,0 +1,60 @@
+---
+import Tr from './Translation.astro';
+import Link from './Link.astro';
+
+interface Props {
+  tags: (string | { en: string; es: string })[] | undefined;
+}
+
+const { tags } = Astro.props;
+
+function tagToKey(tag: string | { en: string; es: string }): string {
+  const text = typeof tag === 'string' ? tag : tag.en;
+  return text.toLowerCase();
+}
+---
+
+{tags && tags.length > 0 && (
+  <ul class="tags">
+    {tags.map((tag) => (
+      <li>
+        <Link page={`/tag/${tagToKey(tag)}`} class="tag-link">
+          <span transition:name={`tag-${tagToKey(tag)}`}>
+            <Tr value={tag} />
+          </span>
+        </Link>
+      </li>
+    ))}
+  </ul>
+)}
+
+<style>
+  .tags {
+    list-style: none;
+    padding: 0;
+    margin: 1rem 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  li :global(.tag-link) {
+    background: oklch(18% 0 0);
+    border: 1px solid oklch(28% 0 0);
+    border-radius: 4px;
+    padding: 0.2rem 0.6rem;
+    margin: 0;
+    font-size: 0.8rem;
+    color: oklch(70% 0 0);
+    text-decoration: none;
+    transition: all 0.15s ease;
+    display: inline-block;
+  }
+
+  li :global(.tag-link:hover) {
+    background: oklch(25% 0 0);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: none;
+  }
+</style>

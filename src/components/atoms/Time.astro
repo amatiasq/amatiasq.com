@@ -1,0 +1,26 @@
+---
+import { printDate, type StringifiedDate } from '../../util/date.ts';
+import { useTranslations } from '../../i18n.ts';
+
+interface Props {
+  date: Date | StringifiedDate | null;
+  yearOnly?: boolean;
+  omitDay?: boolean;
+}
+
+const { date, yearOnly = false, omitDay = false } = Astro.props;
+
+if (date == null) return null;
+
+const {lang} = useTranslations(Astro.url);
+const datetime = typeof date === 'string' ? date : new Date(date).toISOString();
+---
+
+<time datetime={datetime}>{printDate(lang, date, { omitDay, yearOnly })}</time>
+
+<style>
+  time {
+    font-family: ui-monospace, 'SF Mono', Menlo, Monaco, 'Courier New', monospace;
+    font-size: 0.9em;
+  }
+</style>

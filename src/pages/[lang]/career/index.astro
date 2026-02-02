@@ -1,0 +1,35 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '@/layouts/Layout.astro';
+import { multilingualPage } from '@/i18n';
+import NavHeader from '@/components/organisms/NavHeader.astro';
+import Tr from '@/components/atoms/Translation.astro';
+import CareerTimeline from '@/components/organisms/CareerTimeline.astro';
+
+const career = await getCollection('career');
+
+export function getStaticPaths() {
+  return multilingualPage();
+}
+---
+
+<Layout title="Career">
+  <NavHeader />
+  <main class="career-page">
+    <h1><Tr en="Career" es="Experiencia" /></h1>
+    <CareerTimeline career={career} />
+  </main>
+</Layout>
+
+<style>
+  .career-page {
+    max-width: 100%;
+    overflow: visible;
+  }
+
+  .career-page h1 {
+    text-align: center;
+    border-bottom: none;
+    margin-bottom: 2rem;
+  }
+</style>

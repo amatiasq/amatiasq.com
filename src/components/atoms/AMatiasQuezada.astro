@@ -1,0 +1,42 @@
+---
+export interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+---
+
+<span class:list={['a-matias-quezada', className]}>
+  <abbr>Adrian</abbr>
+  <span class="dot">.</span>
+  <span>Matías Quezada</span>
+</span>
+
+<style>
+  .a-matias-quezada {
+    white-space: nowrap;
+  }
+
+  .a-matias-quezada > abbr {
+    display: inline-flex;
+    width: 0.65em;
+    overflow: hidden;
+    transition: width 0.2s ease;
+    text-decoration: none;
+  }
+
+  .a-matias-quezada > .dot {
+    display: inline-block;
+    width: 0.3em;
+    transition: opacity 0.15s ease, width 0.15s ease;
+  }
+
+  .a-matias-quezada:hover > abbr {
+    width: 3.3em;
+  }
+
+  .a-matias-quezada:hover > .dot {
+    opacity: 0;
+    width: 0;
+  }
+</style>

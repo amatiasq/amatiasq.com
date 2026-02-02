@@ -1,0 +1,99 @@
+---
+import Time from '../atoms/Time.astro';
+import Tr from '../atoms/Translation.astro';
+import Link from '../atoms/Link.astro';
+import { parseDate } from '../../util/date';
+
+interface Props {
+  posts: any[];
+  max?: number;
+}
+
+const { posts, max } = Astro.props;
+
+const processedPosts = posts.map((post: any) => ({
+  ...post,
+  href: `/blog/${post.id.replace('.md', '')}`,
+  date: post.data.published || parseDate(post.id),
+}));
+
+const visible = max ? processedPosts.slice(0, max) : processedPosts;
+const hidden = max ? processedPosts.slice(max) : [];
+---
+
+<ul>
+  {
+    visible.map((post: any) => {
+      const slug = post.id.replace('.md', '');
+      return (
+        <li>
+          <Time date={post.date} />
+          <Link page={post.href}>
+            <span transition:name={`title-${slug}`}>
+              <Tr value={post.data.title} />
+            </span>
+          </Link>
+        </li>
+      );
+    })
+  }
+</ul>
+
+{
+  hidden.length > 0 && (
+    <details>
+      <summary>{hidden.length} more</summary>
+      <ul>
+        {
+          hidden.map((post: any) => {
+            const slug = post.id.replace('.md', '');
+            return (
+              <li>
+                <Time date={post.date} />
+                <Link page={post.href}>
+                  <span transition:name={`title-${slug}`}>
+                    <Tr value={post.data.title} />
+                  </span>
+                </Link>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </details>
+  )
+}
+
+<style>
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid oklch(15% 0 0);
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    transition: background 0.15s ease;
+  }
+
+  li:last-child {
+    border-bottom: none;
+  }
+
+  li :global(time) {
+    flex-shrink: 0;
+    opacity: 0.6;
+    min-width: 7ch;
+  }
+
+  li:hover {
+    background: oklch(12% 0 0);
+    margin: 0 -0.5rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    border-radius: 4px;
+  }
+</style>
