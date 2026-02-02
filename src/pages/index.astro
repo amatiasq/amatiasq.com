@@ -1,4 +1,7 @@
 ---
 ---
 
-<a href="/en/">HOME</a>
+<script>
+  const lang = navigator.language.startsWith('es') ? 'es' : 'en';
+  location.replace('/' + lang + '/');
+</script>
