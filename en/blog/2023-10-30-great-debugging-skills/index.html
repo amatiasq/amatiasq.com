@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#121212">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Great debugging skills | A. Matías Quezada</title>
+    
+<meta name="astro-view-transitions-enabled" content="true">
+<meta name="astro-view-transitions-fallback" content="animate">
+<script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.rasoniT7.js"></script>
+  <link rel="stylesheet" href="/_astro/_slug_.eUhtq0iF.css">
+<style>time:where(.astro-zcsldidg){font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.9em}
+.md .code-block{position:relative;margin:1.5rem 0}.md pre{padding:1.25rem;border-radius:8px;overflow-x:auto;border:1px solid oklch(28% 0 0);margin:0}.md pre code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.875rem;line-height:1.6}.md :not(pre)>code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;background:#090909;padding:.2em .4em;border-radius:4px;font-size:.9em;border:1px solid oklch(28% 0 0)}.md h2,.md h3{margin-top:2.5rem;margin-bottom:1rem}.md p{margin:1rem 0}.md blockquote{border-left:3px solid oklch(28% 0 0);margin:1.5rem 0;padding:.5rem 1rem;background:#090909;border-radius:0 8px 8px 0}.md blockquote p{margin:.5rem 0;color:#8f8f8f}.md ul,.md ol{padding-left:1.5rem;margin:1rem 0}.md li{margin:.5rem 0}.md hr{border:none;border-top:1px solid oklch(28% 0 0);margin:2rem 0}.md img{max-width:100%;height:auto;display:block;margin:1.5rem 0}.md pre span[style*="color:#6A737D"],.md pre span[style*="color:#8b949e"]{color:#54b05a!important;font-style:italic}.tags:where(.astro-hfj6urh3){list-style:none;padding:0;margin:1rem 0;display:flex;flex-wrap:wrap;gap:.5rem}li:where(.astro-hfj6urh3) .tag-link{background:#121212;border:1px solid oklch(28% 0 0);border-radius:4px;padding:.2rem .6rem;margin:0;font-size:.8rem;color:#9e9e9e;text-decoration:none;transition:all .15s ease;display:inline-block}li:where(.astro-hfj6urh3) .tag-link:hover{background:#222;border-color:var(--accent);color:var(--accent);transform:none}
+@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-dsji2kxr-1"] { view-transition-name: title-2023-10-30-great-debugging-skills; }@layer astro { ::view-transition-old(title-2023-10-30-great-debugging-skills) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(title-2023-10-30-great-debugging-skills) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(title-2023-10-30-great-debugging-skills) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(title-2023-10-30-great-debugging-skills) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-vpr6a7he-2"] { view-transition-name: tag-javascript; }@layer astro { ::view-transition-old(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head>
+  <body>
+    
+  <header class="astro-np5jgbit">
+  <a href="/en/" class="site-title astro-np5jgbit"><span class="a-matias-quezada astro-np5jgbit astro-2dpizvyk">
+  <abbr class="astro-2dpizvyk">Adrian</abbr>
+  <span class="dot astro-2dpizvyk">.</span>
+  <span class="astro-2dpizvyk">Matías Quezada</span>
+</span></a>
+  <nav class="astro-np5jgbit">
+    <a href="/en/projects/" class="astro-np5jgbit">Projects</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/blog/" class="astro-np5jgbit">Blog</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/experiments/" class="astro-np5jgbit">Experiments</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/talks/" class="astro-np5jgbit">Talks</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/career/" class="astro-np5jgbit">Career</a>
+    <span class="sep astro-np5jgbit">|</span>
+    <a href="https://github.com/amatiasq" title="GitHub" class="icon-link astro-np5jgbit">
+      <svg aria-label="GitHub" width="20" height="20" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg" class="astro-np5jgbit">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="currentColor" class="astro-np5jgbit"></path>
+      </svg>
+    </a>
+    <a href="/es/blog/2023-10-30-great-debugging-skills/" title="Español" class="lang-switch astro-bzi5jpwk" data-lang="es">
+  🇪🇸
+</a>
+
+
+
+<script type="module">function n(){const t=document.querySelector(".lang-switch");if(!t)return;const a=t.dataset.lang,e=Intl.DateTimeFormat().resolvedOptions().timeZone.startsWith("America/");a==="en"?(t.textContent=e?"🇺🇸":"🇬🇧",t.title="English"):(t.textContent=e?"🇦🇷":"🇪🇸",t.title="Español")}n();document.addEventListener("astro:after-swap",n);</script>
+  </nav>
+</header>
+<hr class="astro-np5jgbit">
+  <main>
+    <article>
+      <header>
+        <h1 data-astro-transition-scope="astro-dsji2kxr-1">Great debugging skills</h1>
+        <time datetime="2023-10-30" class="astro-zcsldidg">Oct 30, 2023</time>
+        <ul class="tags astro-hfj6urh3">
+    <li class="astro-hfj6urh3">
+        <a href="/en/tag/javascript/" class="tag-link astro-hfj6urh3">
+          <span class="astro-hfj6urh3" data-astro-transition-scope="astro-vpr6a7he-2">
+            Javascript
+          </span>
+        </a>
+      </li>
+  </ul>
+
+
+      </header>
+      <div class="md "><p>Combining a broad curiosity with two decades coding blessed me with a good smell to bug-catching, I&#39;m planning to add &quot;Great debugging skills&quot; to my CV but just adding a sentence there doesn&#39;t feel right. A paragraph trying to summary</p>
+<p>Let&#39;s get clear, this is the difficult part of coding. Everything works nicely until the code does something you don&#39;t expect and worse, don&#39;t want.</p>
+<p>And I have the exact story to exemplify that... this was 2009.</p>
+<h2>Background</h2>
+<p>I joined a team that was re-building a huge remote control web application (via applet), this is the high point of <code>jQuery</code>, which I managed to avoid for is, in my opinion awful, practice of hiding errors.</p>
+<p>There had been already an attempt to rewrite the app using <code>jQuery</code> but that needed 10+ seconds to open a modal. I heard the amount of methods in the return value of the <code>jQuery()</code> made each invocation expensive. That meant <code>$()</code> was also expensive since it was just an alias.</p>
+<h2>Second v2.0</h2>
+<p>I then joined a team whose aim was to rewrite it a second time with the following pattern:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> Form</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">url</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#6A737D">  // private field</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> fields </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [];</span></span>
+<span class="line"><span style="color:#6A737D">  // public field</span></span>
+<span class="line"><span style="color:#79B8FF">  this</span><span style="color:#E1E4E8">.el </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> document.</span><span style="color:#B392F0">createElement</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'form'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // private methods</span></span>
+<span class="line"><span style="color:#F97583">  function</span><span style="color:#B392F0"> validateFields</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#6A737D">    // do something with fields</span></span>
+<span class="line"><span style="color:#6A737D">    // remember .map() .filter() .aggregate() etc. don't exist</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // public method</span></span>
+<span class="line"><span style="color:#6A737D">  //</span></span>
+<span class="line"><span style="color:#6A737D">  // we had to duplicate the name so the callstack wasn't</span></span>
+<span class="line"><span style="color:#6A737D">  //      error in 'anonymous' function</span></span>
+<span class="line"><span style="color:#6A737D">  // I begged for years for automatically-named arrow functions</span></span>
+<span class="line"><span style="color:#6A737D">  // they weren't</span></span>
+<span class="line"><span style="color:#79B8FF">  this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">addField</span><span style="color:#F97583"> =</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> addField</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">field</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#6A737D">    // semicolons were required</span></span>
+<span class="line"><span style="color:#6A737D">    // sometimes we just forgot</span></span>
+<span class="line"><span style="color:#6A737D">    // and no tooling fixed it for JS</span></span>
+<span class="line"><span style="color:#E1E4E8">    fields.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">(field);</span></span>
+<span class="line"><span style="color:#E1E4E8">  };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">  this</span><span style="color:#E1E4E8">.el.</span><span style="color:#B392F0">addEventListener</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'submit'</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">event</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">    event.</span><span style="color:#B392F0">preventDefault</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#B392F0">    validateFields</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#6A737D">    // submit();</span></span>
+<span class="line"><span style="color:#E1E4E8">  });</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> form </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Form</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">''</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">document.body.</span><span style="color:#B392F0">appendChild</span><span style="color:#E1E4E8">(form.el);</span></span></code></pre></div><p>I was amazed Javascript could allow you to do something like this, it was <em>classy</em>, but wondered if the functions were re-created on each invocation. With time we started noticing memory issues and started researching it. Everything was as any other coding experience until I met my mentor @raul.</p>
+<h2>Third v2.0</h2>
+<p>He had started a different re-writing of the application, a third Version 2.0 made from scratch with the following pattern:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> Form</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">action</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#6A737D">  // private field, just convention</span></span>
+<span class="line"><span style="color:#79B8FF">  this</span><span style="color:#E1E4E8">._fields </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [];</span></span>
+<span class="line"><span style="color:#6A737D">  // public field</span></span>
+<span class="line"><span style="color:#79B8FF">  this</span><span style="color:#E1E4E8">.action </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> action;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#79B8FF">Form</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">addField</span><span style="color:#F97583"> =</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> addField</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">field</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#6A737D">  // ahh simpler times</span></span>
+<span class="line"><span style="color:#79B8FF">  this</span><span style="color:#E1E4E8">.field.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">(field);</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> form </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Form</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">''</span><span style="color:#E1E4E8">);</span></span></code></pre></div><p>This is where I learnt about the protype inheritance and understood that the function <code>addField</code> is a single one, shared across all instances which magically are injected on invocation via <strong>THE LAST DOT RULE</strong>.</p>
+<h2>The last dot rule</h2>
+<p>This is a simple explanation of what is <code>this</code> inside a function.
+Skip to the end to continue the story.</p>
+<p>The last dot rule, which I made up, says...</p>
+<blockquote>
+<p>Look at where line where the function is invoked. Whatever is before the last dot, right before the function name, that will be <code>this</code> inside that function, and only for that invocation.</p>
+</blockquote>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">// in global scope `this` is the window object</span></span>
+<span class="line"><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// call addEventListener and pass window as `this`</span></span>
+<span class="line"><span style="color:#E1E4E8">window.</span><span style="color:#B392F0">addEventLister</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// call function appendChild with document.body as `this`</span></span>
+<span class="line"><span style="color:#E1E4E8">document.body.</span><span style="color:#B392F0">appendChild</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> whatIsThis</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#6A737D">  // this can be window, or anything before the dot</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// whatIsThis is invoked with no `this`</span></span>
+<span class="line"><span style="color:#6A737D">// so the one from the global scope is passed</span></span>
+<span class="line"><span style="color:#6A737D">// global scope is implicit before the last dot</span></span>
+<span class="line"><span style="color:#B392F0">whatIsThis</span><span style="color:#E1E4E8">() </span><span style="color:#F97583">===</span><span style="color:#E1E4E8"> window;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// because every global variable belongs to the global scope</span></span>
+<span class="line"><span style="color:#E1E4E8">window.</span><span style="color:#B392F0">whatIsThis</span><span style="color:#E1E4E8">() </span><span style="color:#F97583">===</span><span style="color:#E1E4E8"> window;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> container </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> { whatIsThis: whatIsThis };</span></span>
+<span class="line"><span style="color:#E1E4E8">container.</span><span style="color:#B392F0">whatIsThis</span><span style="color:#E1E4E8">() </span><span style="color:#F97583">===</span><span style="color:#E1E4E8"> container;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">document.body.whatIsThis </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> whatIsThis;</span></span>
+<span class="line"><span style="color:#E1E4E8">document.body.</span><span style="color:#B392F0">whatIsThis</span><span style="color:#E1E4E8">() </span><span style="color:#F97583">===</span><span style="color:#E1E4E8"> document.body;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// What is `this` in a function?</span></span>
+<span class="line"><span style="color:#6A737D">// WHATEVER IS BEFORE THE LAST DOT!</span></span></code></pre></div><p>This rule allows javascript to reuse the same functions on different instances. The first snippet where the functions were closures with access to the constructor internals had to be a different function for each instance of the &quot;class&quot;.</p>
+<h2>The big refactor</h2>
+<p>Over several months and with the help of @oriol, we rewrote the whole application and I saw the internals of an infinite table running on Internet Explorer 6 written in ECMAScript 3. It rendered millions of rows dynamically loading redering only as many rows as fitted vertically on the screen + 3 for buffer simulating a virtually infinite scroll without droping a single FPS.</p>
+<p>At a given point there was this bug that gathered a mass of developers in front of a single screen. &quot;The issue is in this class&quot; one of them repeated showing one of the files we autored.</p>
+<h2>The bug</h2>
+<p>Let me try to reproduce it from memory, I&#39;ll make it up as <code>Rectangle</code> but it was actually some abstract internal gear of the system.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> Rectangle</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">paramA</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">paramB</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">paramC</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#B392F0">  alert</span><span style="color:#E1E4E8">(paramA);</span></span>
+<span class="line"><span style="color:#B392F0">  prompt</span><span style="color:#E1E4E8">(paramB);</span></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(paramC);</span></span>
+<span class="line"><span style="color:#79B8FF">  this</span><span style="color:#E1E4E8">.el </span><span style="color:#F97583">=</span><span style="color:#B392F0"> ce</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'div'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#79B8FF">  this</span><span style="color:#E1E4E8">.someField </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> ''</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#79B8FF">Rectangle</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#E1E4E8">.enabled </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> true</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">Rectangle</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#E1E4E8">.sides </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 4</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">Rectangle</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#E1E4E8">.anchor </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'center'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">Rectangle</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#E1E4E8">.styles </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> { color: </span><span style="color:#9ECBFF">'red'</span><span style="color:#E1E4E8">, borderColor: </span><span style="color:#9ECBFF">'blue'</span><span style="color:#E1E4E8"> };</span></span>
+<span class="line"><span style="color:#79B8FF">Rectangle</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">iAmAMethod</span><span style="color:#F97583"> =</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> iAmAMethod</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#79B8FF">  this</span><span style="color:#E1E4E8">.someField </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'potato'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre></div><p>Did you spot it? The styles approach was quite comon, every component with UI had it, but after spending a few hours investigating the issue a light bulb turned on in my head and I ran to my computer to isolate the bug.</p>
+<p>Setting fields in the prototype wasn&#39;t rare, I preferred to separate methods and fields by keeping the latter in the constructor but it was common to find simple ones. But this <code>styles</code> one... reminded me of those pointers that I read in a C++ book when I was just grabbing any programming book to see what to learn.</p>
+<h2>Pointers in Javascript</h2>
+<p>Pointers are a special type of variable, it contains a numbe but we don&#39;t use it as a number. We use it as an address to a different position in memory.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">int</span><span style="color:#E1E4E8"> myInt </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#6A737D">// ⬇ create an int pointer...</span></span>
+<span class="line"><span style="color:#F97583">int*</span><span style="color:#E1E4E8"> myPointerToInt </span><span style="color:#F97583">=</span><span style="color:#F97583"> &#x26;</span><span style="color:#E1E4E8">myInt;</span></span>
+<span class="line"><span style="color:#6A737D">//                    ⬆ ...that points to the address of this int</span></span></code></pre></div><p>In Javascript we can assume every single variable is a pointer. So when we say <code>document.body.querySelector()</code> we mean</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">// read the object that `document` points to</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> a</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> document;</span></span>
+<span class="line"><span style="color:#6A737D">// and get copy it's `body` pointer</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> b</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> a.body;</span></span>
+<span class="line"><span style="color:#6A737D">// from the object that `body` points to, get the `querySelector` pointer</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> c</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> b.querySelector;</span></span>
+<span class="line"><span style="color:#6A737D">// and invoke that function</span></span>
+<span class="line"><span style="color:#6A737D">// but pass `document.body` as `this`</span></span>
+<span class="line"><span style="color:#6A737D">// and ".button" as first argument</span></span>
+<span class="line"><span style="color:#E1E4E8">c.</span><span style="color:#B392F0">call</span><span style="color:#E1E4E8">(document.body, </span><span style="color:#9ECBFF">'.button'</span><span style="color:#E1E4E8">);</span></span></code></pre></div><p>What can be even more difficult to see is what happens when we <em>set</em> a pointer and when we modify what it points to.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">// a points to String(potato)</span></span>
+<span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> a </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'potato'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#6A737D">// now we change the pointer, a points to a different address</span></span>
+<span class="line"><span style="color:#E1E4E8">a </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'other-potato'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// we create an object, b points to it</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> b</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> { a };</span></span>
+<span class="line"><span style="color:#6A737D">// c points to the same object as b</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> c</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> b;</span></span>
+<span class="line"><span style="color:#6A737D">// we modify the object's a property;</span></span>
+<span class="line"><span style="color:#E1E4E8">b.a </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> null</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#6A737D">// which is the same object c points to</span></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(c.a); </span><span style="color:#6A737D">// prints null</span></span></code></pre></div><h2>The solution</h2>
+<p>And that was exactly what happened with that class, the <code>styles</code> property was a property of the <em>prototype</em>, so whenever an instance modified it</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> a</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Rectangle</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> b</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Rectangle</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(b.styles.color); </span><span style="color:#6A737D">// red</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// we're changing the object `styles` points to</span></span>
+<span class="line"><span style="color:#6A737D">// `styles` is a pointer that lives in the prototype object</span></span>
+<span class="line"><span style="color:#6A737D">// so all instances point to the same address in memory</span></span>
+<span class="line"><span style="color:#6A737D">// changing the object in one will change it for all</span></span>
+<span class="line"><span style="color:#E1E4E8">a.styles.color </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'purple'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(b.styles.color); </span><span style="color:#6A737D">// purple</span></span></code></pre></div><p>That doesn&#39;t happen if we move <code>styles</code> to the constructor because it&#39;s invoked once per instance and each instance will get it&#39;s own styles object with it&#39;s own, different, pointer.</p>
+<p>For when I confirmed that was the issue my teammates were already gone and our Version Control System didn&#39;t allow us to edit a file while another person had it open. Yep, that&#39;s how it was. So the next day I let my team know of the findings and we promptly moved <code>styles</code> to the constructor which solved the issue.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> Rectangle</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">paramA</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">paramB</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">paramC</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#6A737D">  // this is a different object for each instance</span></span>
+<span class="line"><span style="color:#79B8FF">  this</span><span style="color:#E1E4E8">.styles </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> { color: </span><span style="color:#9ECBFF">'red'</span><span style="color:#E1E4E8">, borderColor: </span><span style="color:#9ECBFF">'blue'</span><span style="color:#E1E4E8"> };</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#79B8FF">Rectangle</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#E1E4E8">.enabled </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> true</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">Rectangle</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#E1E4E8">.sides </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 4</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#79B8FF">Rectangle</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#E1E4E8">.anchor </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'center'</span><span style="color:#E1E4E8">;</span></span></code></pre></div><p>issues because when we changed them we <em>changed the pointer</em>, not the properties of the object they point to.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> a</span><span style="color:#F97583"> =</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Rectangle</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#6A737D">// we find the object the pointer `a` points to</span></span>
+<span class="line"><span style="color:#6A737D">// and change it's `enabled` property</span></span>
+<span class="line"><span style="color:#6A737D">// IT DOESN'T HAVE ONE</span></span>
+<span class="line"><span style="color:#6A737D">// reading `enabled` before this line will not find it</span></span>
+<span class="line"><span style="color:#6A737D">// so JS will check if the prototype has it, and return that</span></span>
+<span class="line"><span style="color:#6A737D">// setting it here creates the property `enabled` at the moment</span></span>
+<span class="line"><span style="color:#6A737D">// in the object `a` points to</span></span>
+<span class="line"><span style="color:#E1E4E8">a.enabled </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> false</span><span style="color:#E1E4E8">;</span></span></code></pre></div><p>We stopped defining &quot;class fields&quot; in the prototype for hygene but never spent the time to remove them all.</p>
+<h2>Pride</h2>
+<p>I was proud of myself at the time, this was among my firsts chances as a programmer and being able to see something my whole team was looking for granted me the confidence to follow my intuition when debugging, and it has come quite handy.</p>
+<p>Look at the stars.</p>
+</div>
+    </article>
+  </main>
+
+  </body></html>

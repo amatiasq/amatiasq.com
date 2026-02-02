@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#121212">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>ECMAScript 5 _.extend (spanish) | A. Matías Quezada</title>
+    
+<meta name="astro-view-transitions-enabled" content="true">
+<meta name="astro-view-transitions-fallback" content="animate">
+<script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.rasoniT7.js"></script>
+  <link rel="stylesheet" href="/_astro/_slug_.eUhtq0iF.css">
+<style>time:where(.astro-zcsldidg){font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.9em}
+.md .code-block{position:relative;margin:1.5rem 0}.md pre{padding:1.25rem;border-radius:8px;overflow-x:auto;border:1px solid oklch(28% 0 0);margin:0}.md pre code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.875rem;line-height:1.6}.md :not(pre)>code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;background:#090909;padding:.2em .4em;border-radius:4px;font-size:.9em;border:1px solid oklch(28% 0 0)}.md h2,.md h3{margin-top:2.5rem;margin-bottom:1rem}.md p{margin:1rem 0}.md blockquote{border-left:3px solid oklch(28% 0 0);margin:1.5rem 0;padding:.5rem 1rem;background:#090909;border-radius:0 8px 8px 0}.md blockquote p{margin:.5rem 0;color:#8f8f8f}.md ul,.md ol{padding-left:1.5rem;margin:1rem 0}.md li{margin:.5rem 0}.md hr{border:none;border-top:1px solid oklch(28% 0 0);margin:2rem 0}.md img{max-width:100%;height:auto;display:block;margin:1.5rem 0}.md pre span[style*="color:#6A737D"],.md pre span[style*="color:#8b949e"]{color:#54b05a!important;font-style:italic}.tags:where(.astro-hfj6urh3){list-style:none;padding:0;margin:1rem 0;display:flex;flex-wrap:wrap;gap:.5rem}li:where(.astro-hfj6urh3) .tag-link{background:#121212;border:1px solid oklch(28% 0 0);border-radius:4px;padding:.2rem .6rem;margin:0;font-size:.8rem;color:#9e9e9e;text-decoration:none;transition:all .15s ease;display:inline-block}li:where(.astro-hfj6urh3) .tag-link:hover{background:#222;border-color:var(--accent);color:var(--accent);transform:none}
+@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-dsji2kxr-1"] { view-transition-name: title-2013-04-30-ecmascript5-extend; }@layer astro { ::view-transition-old(title-2013-04-30-ecmascript5-extend) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(title-2013-04-30-ecmascript5-extend) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(title-2013-04-30-ecmascript5-extend) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(title-2013-04-30-ecmascript5-extend) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-vpr6a7he-2"] { view-transition-name: tag-javascript; }@layer astro { ::view-transition-old(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head>
+  <body>
+    
+  <header class="astro-np5jgbit">
+  <a href="/en/" class="site-title astro-np5jgbit"><span class="a-matias-quezada astro-np5jgbit astro-2dpizvyk">
+  <abbr class="astro-2dpizvyk">Adrian</abbr>
+  <span class="dot astro-2dpizvyk">.</span>
+  <span class="astro-2dpizvyk">Matías Quezada</span>
+</span></a>
+  <nav class="astro-np5jgbit">
+    <a href="/en/projects/" class="astro-np5jgbit">Projects</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/blog/" class="astro-np5jgbit">Blog</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/experiments/" class="astro-np5jgbit">Experiments</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/talks/" class="astro-np5jgbit">Talks</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/career/" class="astro-np5jgbit">Career</a>
+    <span class="sep astro-np5jgbit">|</span>
+    <a href="https://github.com/amatiasq" title="GitHub" class="icon-link astro-np5jgbit">
+      <svg aria-label="GitHub" width="20" height="20" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg" class="astro-np5jgbit">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="currentColor" class="astro-np5jgbit"></path>
+      </svg>
+    </a>
+    <a href="/es/blog/2013-04-30-ecmascript5-extend/" title="Español" class="lang-switch astro-bzi5jpwk" data-lang="es">
+  🇪🇸
+</a>
+
+
+
+<script type="module">function n(){const t=document.querySelector(".lang-switch");if(!t)return;const a=t.dataset.lang,e=Intl.DateTimeFormat().resolvedOptions().timeZone.startsWith("America/");a==="en"?(t.textContent=e?"🇺🇸":"🇬🇧",t.title="English"):(t.textContent=e?"🇦🇷":"🇪🇸",t.title="Español")}n();document.addEventListener("astro:after-swap",n);</script>
+  </nav>
+</header>
+<hr class="astro-np5jgbit">
+  <main>
+    <article>
+      <header>
+        <h1 data-astro-transition-scope="astro-dsji2kxr-1">ECMAScript 5 _.extend (spanish)</h1>
+        <time datetime="2013-04-30T00:00:00.000Z" class="astro-zcsldidg">Apr 30, 2013</time>
+        <ul class="tags astro-hfj6urh3">
+    <li class="astro-hfj6urh3">
+        <a href="/en/tag/javascript/" class="tag-link astro-hfj6urh3">
+          <span class="astro-hfj6urh3" data-astro-transition-scope="astro-vpr6a7he-2">
+            Javascript
+          </span>
+        </a>
+      </li>
+  </ul>
+
+
+      </header>
+      <div class="md "><p>A algunos ya os he comentado los problemas que <a href="http://www.nczonline.net/blog/2012/12/11/are-your-mixins-ecmascript-5-compatible/">NC Zakas comenta</a> con el <code>_.extend</code> de underscore y los getters:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> a </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">  init</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.list </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [];</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  get</span><span style="color:#B392F0"> first</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.list[</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">];</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre></div><!-- end extract -->
+
+<p>O</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> a </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">  init</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.list </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [];</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">Object.</span><span style="color:#B392F0">defineProperty</span><span style="color:#E1E4E8">(a, </span><span style="color:#9ECBFF">'first'</span><span style="color:#E1E4E8">, {</span></span>
+<span class="line"><span style="color:#B392F0">  get</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.list[</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">];</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre></div><p>Y que si hacemos <code>_.extend(a)</code> va a fallar porque intentará hacer <code>result.first = a.first</code> ejecutando el getter. Pero como aún no hemos llamado al <code>.init()</code> en <code>a</code> porque solo es un prototipo, la propiedad <code>.list</code> es undefined produciendo un error.</p>
+<p>Pues bien, yo creía que esto se solucionaba extrayendo el descriptor de la propiedad y usando ese mismo descriptor para copiar la propiedad al nuevo objeto:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> extend</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">obj</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> result </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {};</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> properties </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Object.</span><span style="color:#B392F0">keys</span><span style="color:#E1E4E8">(obj);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  properties.</span><span style="color:#B392F0">forEach</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">prop</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">    var</span><span style="color:#E1E4E8"> descriptor </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Object.</span><span style="color:#B392F0">getOwnPropertyDescriptor</span><span style="color:#E1E4E8">(obj, prop);</span></span>
+<span class="line"><span style="color:#E1E4E8">    Object.</span><span style="color:#B392F0">defineProperty</span><span style="color:#E1E4E8">(result, prop, descriptor);</span></span>
+<span class="line"><span style="color:#E1E4E8">  });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> result;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>Pero he usado esto en la librería de promises y me he dado cuenta que solo hereda las propiedades directas, tanto <code>Object.keys</code> como <code>Object.getOwnPropertyDescriptor</code> solo funcionan si la propiedad está directamente declarada en el objeto y no en ninguno de sus prototipos. Y no hay ninguna forma de decir <code>Object.getPropertyDescriptorFromHimOrHisPrototypes()</code> así que la única forma es recorrer todos los prototipos.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> extend</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">obj</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> result </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {};</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> proto </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> obj;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  while</span><span style="color:#E1E4E8"> (proto) {</span></span>
+<span class="line"><span style="color:#E1E4E8">    Object.</span><span style="color:#B392F0">keys</span><span style="color:#E1E4E8">(proto).</span><span style="color:#B392F0">forEach</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">prop</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">      var</span><span style="color:#E1E4E8"> descriptor </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Object.</span><span style="color:#B392F0">getOwnPropertyDescriptor</span><span style="color:#E1E4E8">(proto, prop);</span></span>
+<span class="line"><span style="color:#E1E4E8">      Object.</span><span style="color:#B392F0">defineProperty</span><span style="color:#E1E4E8">(result, prop, descriptor);</span></span>
+<span class="line"><span style="color:#E1E4E8">    });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    proto </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Object.</span><span style="color:#B392F0">getPrototypeOf</span><span style="color:#E1E4E8">(proto);</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> result;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>Pero eso tampoco funciona del todo bien porque las propiedades de los ancestros se impondrían sobre las propiedades propias del objeto. Así que primero hay que empezar por el último prototipo y acabar por el propio objeto</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> extend</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">obj</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> result </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {};</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> proto </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> obj;</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> protos </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  while</span><span style="color:#E1E4E8"> (proto) {</span></span>
+<span class="line"><span style="color:#E1E4E8">    protos.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">(proto);</span></span>
+<span class="line"><span style="color:#E1E4E8">    proto </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Object.</span><span style="color:#B392F0">getPrototypeOf</span><span style="color:#E1E4E8">(proto);</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  protos.</span><span style="color:#B392F0">reverse</span><span style="color:#E1E4E8">().</span><span style="color:#B392F0">forEach</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">ancestor</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">    Object.</span><span style="color:#B392F0">keys</span><span style="color:#E1E4E8">(ancestor).</span><span style="color:#B392F0">forEach</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">prop</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">      var</span><span style="color:#E1E4E8"> descriptor </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Object.</span><span style="color:#B392F0">getOwnPropertyDescriptor</span><span style="color:#E1E4E8">(ancestor, prop);</span></span>
+<span class="line"><span style="color:#E1E4E8">      Object.</span><span style="color:#B392F0">defineProperty</span><span style="color:#E1E4E8">(result, prop, descriptor);</span></span>
+<span class="line"><span style="color:#E1E4E8">    });</span></span>
+<span class="line"><span style="color:#E1E4E8">  });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> result;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>Y esto ya funciona, pero le falta un detallito, mediante el property descriptor se puede poner que una propiedad no sea enumerable por lo que no se interará sobre ella con un <code>for .. in ..</code> ni con <code>Object.keys</code> pero si las podemos obtener si utilizamos <code>Object.getOwnPropertyNames</code> (Fuente: <a href="https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Object/getOwnPropertyNames">MDN</a>). Así que remplazando <code>Object.keys</code> con <code>Object.getOwnPropertyNames</code> esta vez si (espero, rezo, suplico -.-) tenemos una función que crea una copia de todas las propiedades propias y heredadas de un objeto.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> ecma5extend</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">obj</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> proto </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> obj;</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> protos </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [];</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> result </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  while</span><span style="color:#E1E4E8"> (proto) {</span></span>
+<span class="line"><span style="color:#E1E4E8">    protos.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">(proto);</span></span>
+<span class="line"><span style="color:#E1E4E8">    proto </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Object.</span><span style="color:#B392F0">getPrototypeOf</span><span style="color:#E1E4E8">(proto);</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  protos.</span><span style="color:#B392F0">reverse</span><span style="color:#E1E4E8">().</span><span style="color:#B392F0">forEach</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">ancestor</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">    Object.</span><span style="color:#B392F0">getOwnPropertyNames</span><span style="color:#E1E4E8">(ancestor).</span><span style="color:#B392F0">forEach</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">prop</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">      var</span><span style="color:#E1E4E8"> descriptor </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Object.</span><span style="color:#B392F0">getOwnPropertyDescriptor</span><span style="color:#E1E4E8">(ancestor, prop);</span></span>
+<span class="line"><span style="color:#E1E4E8">      Object.</span><span style="color:#B392F0">defineProperty</span><span style="color:#E1E4E8">(result, prop, descriptor);</span></span>
+<span class="line"><span style="color:#E1E4E8">    });</span></span>
+<span class="line"><span style="color:#E1E4E8">  });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> result;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>Como al final el código ha quedado bastante más complejo de lo que me gustaría lo he apuntado en <a href="https://gist.github.com/amatiasq/5492466">un Gist</a> que podría venirles bien.</p>
+</div>
+    </article>
+  </main>
+
+  </body></html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#121212">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Experiment: Per-instance privacy (spanish) | A. Matías Quezada</title>
+    
+<meta name="astro-view-transitions-enabled" content="true">
+<meta name="astro-view-transitions-fallback" content="animate">
+<script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.rasoniT7.js"></script>
+  <link rel="stylesheet" href="/_astro/_slug_.eUhtq0iF.css">
+<style>time:where(.astro-zcsldidg){font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.9em}
+.md .code-block{position:relative;margin:1.5rem 0}.md pre{padding:1.25rem;border-radius:8px;overflow-x:auto;border:1px solid oklch(28% 0 0);margin:0}.md pre code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.875rem;line-height:1.6}.md :not(pre)>code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;background:#090909;padding:.2em .4em;border-radius:4px;font-size:.9em;border:1px solid oklch(28% 0 0)}.md h2,.md h3{margin-top:2.5rem;margin-bottom:1rem}.md p{margin:1rem 0}.md blockquote{border-left:3px solid oklch(28% 0 0);margin:1.5rem 0;padding:.5rem 1rem;background:#090909;border-radius:0 8px 8px 0}.md blockquote p{margin:.5rem 0;color:#8f8f8f}.md ul,.md ol{padding-left:1.5rem;margin:1rem 0}.md li{margin:.5rem 0}.md hr{border:none;border-top:1px solid oklch(28% 0 0);margin:2rem 0}.md img{max-width:100%;height:auto;display:block;margin:1.5rem 0}.md pre span[style*="color:#6A737D"],.md pre span[style*="color:#8b949e"]{color:#54b05a!important;font-style:italic}.tags:where(.astro-hfj6urh3){list-style:none;padding:0;margin:1rem 0;display:flex;flex-wrap:wrap;gap:.5rem}li:where(.astro-hfj6urh3) .tag-link{background:#121212;border:1px solid oklch(28% 0 0);border-radius:4px;padding:.2rem .6rem;margin:0;font-size:.8rem;color:#9e9e9e;text-decoration:none;transition:all .15s ease;display:inline-block}li:where(.astro-hfj6urh3) .tag-link:hover{background:#222;border-color:var(--accent);color:var(--accent);transform:none}
+@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-dsji2kxr-1"] { view-transition-name: title-2012-03-03-experimento-privacidad-por-instancias; }@layer astro { ::view-transition-old(title-2012-03-03-experimento-privacidad-por-instancias) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(title-2012-03-03-experimento-privacidad-por-instancias) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(title-2012-03-03-experimento-privacidad-por-instancias) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(title-2012-03-03-experimento-privacidad-por-instancias) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-vpr6a7he-2"] { view-transition-name: tag-javascript; }@layer astro { ::view-transition-old(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head>
+  <body>
+    
+  <header class="astro-np5jgbit">
+  <a href="/en/" class="site-title astro-np5jgbit"><span class="a-matias-quezada astro-np5jgbit astro-2dpizvyk">
+  <abbr class="astro-2dpizvyk">Adrian</abbr>
+  <span class="dot astro-2dpizvyk">.</span>
+  <span class="astro-2dpizvyk">Matías Quezada</span>
+</span></a>
+  <nav class="astro-np5jgbit">
+    <a href="/en/projects/" class="astro-np5jgbit">Projects</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/blog/" class="astro-np5jgbit">Blog</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/experiments/" class="astro-np5jgbit">Experiments</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/talks/" class="astro-np5jgbit">Talks</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/career/" class="astro-np5jgbit">Career</a>
+    <span class="sep astro-np5jgbit">|</span>
+    <a href="https://github.com/amatiasq" title="GitHub" class="icon-link astro-np5jgbit">
+      <svg aria-label="GitHub" width="20" height="20" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg" class="astro-np5jgbit">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="currentColor" class="astro-np5jgbit"></path>
+      </svg>
+    </a>
+    <a href="/es/blog/2012-03-03-experimento-privacidad-por-instancias/" title="Español" class="lang-switch astro-bzi5jpwk" data-lang="es">
+  🇪🇸
+</a>
+
+
+
+<script type="module">function n(){const t=document.querySelector(".lang-switch");if(!t)return;const a=t.dataset.lang,e=Intl.DateTimeFormat().resolvedOptions().timeZone.startsWith("America/");a==="en"?(t.textContent=e?"🇺🇸":"🇬🇧",t.title="English"):(t.textContent=e?"🇦🇷":"🇪🇸",t.title="Español")}n();document.addEventListener("astro:after-swap",n);</script>
+  </nav>
+</header>
+<hr class="astro-np5jgbit">
+  <main>
+    <article>
+      <header>
+        <h1 data-astro-transition-scope="astro-dsji2kxr-1">Experiment: Per-instance privacy (spanish)</h1>
+        <time datetime="2012-03-03T00:00:00.000Z" class="astro-zcsldidg">Mar 03, 2012</time>
+        <ul class="tags astro-hfj6urh3">
+    <li class="astro-hfj6urh3">
+        <a href="/en/tag/javascript/" class="tag-link astro-hfj6urh3">
+          <span class="astro-hfj6urh3" data-astro-transition-scope="astro-vpr6a7he-2">
+            Javascript
+          </span>
+        </a>
+      </li>
+  </ul>
+
+
+      </header>
+      <div class="md "><blockquote>
+<p>Actualización 19/3/2014: Sorprendentemente parece que una propuesta del ECMAScript 6 sigue mismo el patrón descrito en este post, y yo que pensaba que era demasiado rebuscado...</p>
+<p><a href="http://wiki.ecmascript.org/doku.php?id=harmony:classes">http://wiki.ecmascript.org/doku.php?id=harmony:classes</a></p>
+</blockquote>
+<p>Como ya comenté, la privacidad en Javascript es un tema peliagudo, <strong>el lenguaje no nos ofrece ninguna herramienta para gestionar la privacidad</strong> automáticamente, tenemos que aprovechar el scope de <strong>los closures para ocultar información</strong> que el usuario de nuestra librería no necesita saber, <strong>pero ocultar propiedades de una instancia es mucho más complicado</strong>. Hace algunos años me empeñé en buscar una forma de conseguir privacidad por instancias que no fuera mediante el constructor, como ya expliqué en el <a href="http://www.amatiasq.com/2012/02/conceptos-basicos-javascript-privacidad/" title="Conceptos Básicos Javascript: Privacidad">post anterior</a>.</p>
+<!-- end extract -->
+
+<p>Para empezar está claro que es necesario tener un closure, para ocultar las variables desde fuera:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">// función de ejecución inmediata</span></span>
+<span class="line"><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">global</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#6A737D">  // Contenido oculto</span></span>
+<span class="line"><span style="color:#E1E4E8">})(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">);</span></span></code></pre></div><p>Dentro de éste closure definiría la clase:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">global</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  function</span><span style="color:#B392F0"> Persona</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">    var</span><span style="color:#E1E4E8"> secreto;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">  Persona</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    guardarSecreto</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">susurro</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">      secreto </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> susurro;</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#B392F0">    revelarSecreto</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#E1E4E8"> secreto;</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">  };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  global.Persona </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Persona;</span></span>
+<span class="line"><span style="color:#E1E4E8">})(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">);</span></span></code></pre></div><p>Evidentemente es imposible acceder a la variable <code>secreto</code> desde los métodos porque <code>secreto</code> <strong>está encerrada en el constructor y no se puede acceder ella desde fuera</strong> del constructor. Así que si quiero privacidad sin meter los métodos en el constructor por los métodos que <a href="http://www.amatiasq.com/?p=174" title="Conceptos Básicos Javascript: Privacidad">ya expliqué</a> la solución pasa por sacar la variable del constructor:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">global</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> secreto;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  function</span><span style="color:#B392F0"> Persona</span><span style="color:#E1E4E8">() {}</span></span>
+<span class="line"><span style="color:#79B8FF">  Persona</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    guardarSecreto</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">susurro</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">      secreto </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> susurro;</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#B392F0">    revelarSecreto</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#E1E4E8"> secreto;</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">  };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  global.Persona </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Persona;</span></span>
+<span class="line"><span style="color:#E1E4E8">})(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> pepe </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Persona</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> maria </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Persona</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">pepe.</span><span style="color:#B392F0">guardarSecreto</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'estás en matrix'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(maria.</span><span style="color:#B392F0">revelarSecreto</span><span style="color:#E1E4E8">());</span></span></code></pre></div><p><a href="http://jsfiddle.net/amatiasq/eXfkL/" target="_blank">Pruébame</a></p>
+<p>Bien, ahora <code>secreto</code> está fuera del constructor, pero tenemos otro problema, <strong>todas las instancias de <code>Persona</code> comparten la misma variable!</strong> Hay que buscar la forma de contar un secreto a <code>pepe</code> sin que <code>maria</code> se entere, dicho de otra forma, de guardar un valor en una instancia sin modificar la otra. En Javascript es muy sencillo trabajar con mappings así que porqué no guardamos en un mapping la relación instancia-valor? Así cada instancia podrá tener su valor guardado en la variable secreto sin interferir con el valor de otra instancia.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">global</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> secreto </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  function</span><span style="color:#B392F0"> Persona</span><span style="color:#E1E4E8">() {}</span></span>
+<span class="line"><span style="color:#79B8FF">  Persona</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    guardarSecreto</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">susurro</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">      secreto[</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> susurro;</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#B392F0">    revelarSecreto</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#E1E4E8"> secreto[</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">];</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">  };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  global.Persona </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Persona;</span></span>
+<span class="line"><span style="color:#E1E4E8">})(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> pepe </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Persona</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> maria </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Persona</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">pepe.</span><span style="color:#B392F0">guardarSecreto</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'estás en matrix'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(maria.</span><span style="color:#B392F0">revelarSecreto</span><span style="color:#E1E4E8">());</span></span></code></pre></div><p><a href="http://jsfiddle.net/amatiasq/NaphB/" target="_blank">Pruébame</a></p>
+<p>Esto tampoco funciona, porqué? Para entender ésto hay que investigar un poco, <strong>los índices de los arrays y los mappings en Javascript son <code>strings</code></strong>, y si intentas poner un índice de otro tipo lo convierte a <code>string</code> con el método <code>.toString()</code></p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> array </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [];</span></span>
+<span class="line"><span style="color:#E1E4E8">array[</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'Hola!'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">var</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> array) {</span></span>
+<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (array.</span><span style="color:#B392F0">hasOwnProperty</span><span style="color:#E1E4E8">(i)) {</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#9ECBFF">      'Array tiene la propiedad --['</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> ']-- del tipo --['</span><span style="color:#F97583"> +</span><span style="color:#F97583"> typeof</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> ']-- con el valor --['</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> array[i] </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> ']--'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    );</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> mapping </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {};</span></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> indice </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {};</span></span>
+<span class="line"><span style="color:#E1E4E8">mapping[indice] </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'Mundo!'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">var</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> mapping) {</span></span>
+<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (mapping.</span><span style="color:#B392F0">hasOwnProperty</span><span style="color:#E1E4E8">(i)) {</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#9ECBFF">      'Mapping tiene la propiedad --['</span><span style="color:#F97583"> +</span></span>
+<span class="line"><span style="color:#E1E4E8">        i </span><span style="color:#F97583">+</span></span>
+<span class="line"><span style="color:#9ECBFF">        ']-- del tipo --['</span><span style="color:#F97583"> +</span></span>
+<span class="line"><span style="color:#F97583">        typeof</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">+</span></span>
+<span class="line"><span style="color:#9ECBFF">        ']-- con el valor --['</span><span style="color:#F97583"> +</span></span>
+<span class="line"><span style="color:#E1E4E8">        mapping[i] </span><span style="color:#F97583">+</span></span>
+<span class="line"><span style="color:#9ECBFF">        ']--'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    );</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p><a href="http://jsfiddle.net/amatiasq/cQZmS/" target="_blank">Pruébame</a></p>
+<p>Entonces <strong>tanto <code>pepe</code> como <code>maria</code> se convierten a <code>[object Object]</code> cuando los utilizo como índices</strong> del mapping. Y hasta aquí había llegado hasta que descubrí los <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/WeakMap" title="WeakMap"><code>WeakMap</code> de Firefox</a>. Consiste básicamente en una clase con métodos <code>.set(id, valor);</code> y <code>.get(id);</code> por lo que cumple la misma funcionalidad que un mapping, con la diferencia de que si el único punto del programa en el que se usa una referencia es un <code>WeakMap</code>, <strong>el recolector de basura la puede borrar</strong>. Es una funcionalidad que es necesaria en Javascript por motivos que no voy a enumerar ahora, pero para mi trae un éxtra: &quot;WeakMaps are key/value maps in which <strong>keys are objects</strong>&quot; (Los WeakMaps son mappings clave/valor donde <strong>las claves son objetos</strong>). Sorpresa! Los <code>WeakMap</code> a diferencia de los mappings comunes no usan strings como claves, sino objetos. Esto haría viable la implementación anterior:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">global</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> secreto </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> WeakMap</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  function</span><span style="color:#B392F0"> Persona</span><span style="color:#E1E4E8">() {}</span></span>
+<span class="line"><span style="color:#79B8FF">  Persona</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    guardarSecreto</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">susurro</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">      secreto.</span><span style="color:#B392F0">set</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">, susurro);</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#B392F0">    revelarSecreto</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#6A737D">      // Si no tenemos ningún secreto</span></span>
+<span class="line"><span style="color:#F97583">      if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">secreto.</span><span style="color:#B392F0">has</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">)) </span><span style="color:#F97583">return</span><span style="color:#9ECBFF"> 'Nada'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">      else</span><span style="color:#F97583"> return</span><span style="color:#E1E4E8"> secreto.</span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">  };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  global.Persona </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Persona;</span></span>
+<span class="line"><span style="color:#E1E4E8">})(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> pepe </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Persona</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> maria </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Persona</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">pepe.</span><span style="color:#B392F0">guardarSecreto</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'estás en matrix'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Secreto de María: '</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> maria.</span><span style="color:#B392F0">revelarSecreto</span><span style="color:#E1E4E8">());</span></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Secreto de Pepe: '</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> pepe.</span><span style="color:#B392F0">revelarSecreto</span><span style="color:#E1E4E8">());</span></span></code></pre></div><p><a href="http://jsfiddle.net/amatiasq/dAzjx/" target="_blank">Pruébame</a></p>
+<p><strong>Nota</strong>: Aunque los WeakMap solo están en Firefox, ésto funcionará en todos los navegadores porque he creado una clase que se comporta de forma similar, pero que no permite al recolector de basura eliminar los objetos, la implementación puede verse al final del artículo.</p>
+<p>Funciona! Hemos conseguido guardar una variable privada por instancia con un closure por clase. Ahora llémoslo un poco más allá, que pasa si <strong>en lugar de guardar una variable guardamos un objeto donde podremos tener todas las variables que queramos</strong> para ésa instancia?</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">global</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> privadas </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> WeakMap</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  function</span><span style="color:#B392F0"> Persona</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#6A737D">    // Inicializamos el objeto</span></span>
+<span class="line"><span style="color:#E1E4E8">    privadas.</span><span style="color:#B392F0">set</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">, {});</span></span>
+<span class="line"><span style="color:#E1E4E8">    privadas.</span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">).otraPrivada </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'Variable inaccesible desde fuera'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">  Persona</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    guardarSecreto</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">susurro</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">      privadas.</span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">).secreto </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> susurro;</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#B392F0">    revelarSecreto</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#E1E4E8"> privadas.</span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">).secreto;</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">  };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  global.Persona </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Persona;</span></span>
+<span class="line"><span style="color:#E1E4E8">})(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> pepe </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Persona</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> maria </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Persona</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">pepe.</span><span style="color:#B392F0">guardarSecreto</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'estás en matrix'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Secreto de María: '</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> maria.</span><span style="color:#B392F0">revelarSecreto</span><span style="color:#E1E4E8">());</span></span></code></pre></div><p><a href="http://jsfiddle.net/amatiasq/RzDAE/" target="_blank">Pruébame</a></p>
+<!-- TODO: This causes error `Expected "=>" but found end of file` -->
+<!-- Perfecto, pero es un poco raro y repetitivo tener que hacer `privadas.set(this, {});` en el constructor y `privadas.get(this)` pra acceder a las privadas, podríamos encapsular ésto en una función: -->
+
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> privadas</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> map </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> WeakMap</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#F97583"> function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">clave</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">map.</span><span style="color:#B392F0">has</span><span style="color:#E1E4E8">(clave)) map.</span><span style="color:#B392F0">set</span><span style="color:#E1E4E8">(clave, {});</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> map.</span><span style="color:#B392F0">get</span><span style="color:#E1E4E8">(clave);</span></span>
+<span class="line"><span style="color:#E1E4E8">  };</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>Y ahora ésta funcion nos devuelve otra función que podremos llamar cuando queramos con la instancia para obtener las privadas. Nuestra clase queda:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">global</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> p </span><span style="color:#F97583">=</span><span style="color:#B392F0"> privadas</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  function</span><span style="color:#B392F0"> Persona</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#B392F0">    p</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">).secreto </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'Nada'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#B392F0">    p</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">).otraPrivada </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'Variable inaccesible desde fuera'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">  Persona</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    guardarSecreto</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">susurro</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#B392F0">      p</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">).secreto </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> susurro;</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#B392F0">    revelarSecreto</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#B392F0"> p</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">).secreto;</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">  };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  global.Persona </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Persona;</span></span>
+<span class="line"><span style="color:#E1E4E8">})(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> pepe </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Persona</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> maria </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Persona</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">pepe.</span><span style="color:#B392F0">guardarSecreto</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'estás en matrix'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Secreto de María: '</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> maria.</span><span style="color:#B392F0">revelarSecreto</span><span style="color:#E1E4E8">());</span></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Secreto de Pepe: '</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> pepe.</span><span style="color:#B392F0">revelarSecreto</span><span style="color:#E1E4E8">());</span></span></code></pre></div><p><a href="http://jsfiddle.net/amatiasq/XmKCH/" target="_blank">Pruébame</a></p>
+<p>Y voilá! Tenemos privadas por clases sin crear más de un closure. :D</p>
+<h3>Resumen</h3>
+<p>Está claro que <strong>es aberrante pensar en crear una arquitectura basada en éste sistema</strong>, incluso dejando de lado lo extraño de la sintaxis (<code>p(this)</code> para acceder a las privadas), <strong>sería peligroso</strong> porque aunque Firefox nos ofrezca <code>WeakMap</code> en el resto de navegadores tendríamos que crear una funcionalidad similiar y no podríamos evitar tener una referencia a las instancias si queremos que el sistema sea irrompible, lo que haría que el recolector de basura no pudiera borrar las instancias que ya no utilizemos con <strong>riesgo de llenar la memoria RAM disponible</strong>.</p>
+<p>Como ya he dicho muchas veces, la gracia de <strong>esto no es forzar Javascript a su límite, sino forzar la mente</strong>, si hoy forzamos la imaginación hasta sus límites mañana podremos sobrepasarlos. La idea es ejercitar y mejorar la capacidad de buscar soluciones creativas y funcionales por extrañas o imposibles que parezcan.</p>
+<p>Finalmente, como expliqué en la nota, aquí está la implementación que usé para que los ejemplos funcionen en navegadores que no sean Firefox, guarda en los objetos la propiedad <em>$$ID</em> para no tener que buscar en todo el array de claves el índice del objeto:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">typeof</span><span style="color:#E1E4E8"> WeakMap </span><span style="color:#F97583">===</span><span style="color:#9ECBFF"> 'undefined'</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">  window.</span><span style="color:#B392F0">WeakMap</span><span style="color:#F97583"> =</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> WeakMap</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.keys </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [];</span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.values </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [];</span></span>
+<span class="line"><span style="color:#E1E4E8">  };</span></span>
+<span class="line"><span style="color:#79B8FF">  WeakMap</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    constructor: WeakMap,</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">    set</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">key</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">value</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">      var</span><span style="color:#E1E4E8"> id </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> (key.$$ID </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.keys.</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#79B8FF">      this</span><span style="color:#E1E4E8">.keys[id] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> key;</span></span>
+<span class="line"><span style="color:#79B8FF">      this</span><span style="color:#E1E4E8">.values[id] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> value;</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">    get</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">key</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">      var</span><span style="color:#E1E4E8"> id </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> key.$$ID;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">      // Si el índice del objeto no se corresponde</span></span>
+<span class="line"><span style="color:#6A737D">      // con su posición en la lista de claves</span></span>
+<span class="line"><span style="color:#6A737D">      // Es que ha sido modificado, debemos corregirlo.</span></span>
+<span class="line"><span style="color:#F97583">      if</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.keys[id] </span><span style="color:#F97583">!==</span><span style="color:#E1E4E8"> key) id </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">_fixIndex</span><span style="color:#E1E4E8">(key);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.values[id];</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">    has</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">key</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">_fixIndex</span><span style="color:#E1E4E8">(key) </span><span style="color:#F97583">!==</span><span style="color:#79B8FF"> null</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">    _fixIndex</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">key</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">      for</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">var</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.keys.</span><span style="color:#79B8FF">length</span><span style="color:#E1E4E8">; i</span><span style="color:#F97583">--</span><span style="color:#E1E4E8">; ) </span><span style="color:#F97583">if</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.keys[i] </span><span style="color:#F97583">===</span><span style="color:#E1E4E8"> key) </span><span style="color:#F97583">return</span><span style="color:#E1E4E8"> (key.$$ID </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> i);</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#79B8FF"> null</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">  };</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div></div>
+    </article>
+  </main>
+
+  </body></html>

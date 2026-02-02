@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#121212">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Asynchrony and the Event Loop (spanish) | A. Matías Quezada</title>
+    
+<meta name="astro-view-transitions-enabled" content="true">
+<meta name="astro-view-transitions-fallback" content="animate">
+<script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.rasoniT7.js"></script>
+  <link rel="stylesheet" href="/_astro/_slug_.eUhtq0iF.css">
+<style>time:where(.astro-zcsldidg){font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.9em}
+.md .code-block{position:relative;margin:1.5rem 0}.md pre{padding:1.25rem;border-radius:8px;overflow-x:auto;border:1px solid oklch(28% 0 0);margin:0}.md pre code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.875rem;line-height:1.6}.md :not(pre)>code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;background:#090909;padding:.2em .4em;border-radius:4px;font-size:.9em;border:1px solid oklch(28% 0 0)}.md h2,.md h3{margin-top:2.5rem;margin-bottom:1rem}.md p{margin:1rem 0}.md blockquote{border-left:3px solid oklch(28% 0 0);margin:1.5rem 0;padding:.5rem 1rem;background:#090909;border-radius:0 8px 8px 0}.md blockquote p{margin:.5rem 0;color:#8f8f8f}.md ul,.md ol{padding-left:1.5rem;margin:1rem 0}.md li{margin:.5rem 0}.md hr{border:none;border-top:1px solid oklch(28% 0 0);margin:2rem 0}.md img{max-width:100%;height:auto;display:block;margin:1.5rem 0}.md pre span[style*="color:#6A737D"],.md pre span[style*="color:#8b949e"]{color:#54b05a!important;font-style:italic}.tags:where(.astro-hfj6urh3){list-style:none;padding:0;margin:1rem 0;display:flex;flex-wrap:wrap;gap:.5rem}li:where(.astro-hfj6urh3) .tag-link{background:#121212;border:1px solid oklch(28% 0 0);border-radius:4px;padding:.2rem .6rem;margin:0;font-size:.8rem;color:#9e9e9e;text-decoration:none;transition:all .15s ease;display:inline-block}li:where(.astro-hfj6urh3) .tag-link:hover{background:#222;border-color:var(--accent);color:var(--accent);transform:none}
+@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-dsji2kxr-1"] { view-transition-name: title-2014-04-14-asincronia-y-el-eventloop; }@layer astro { ::view-transition-old(title-2014-04-14-asincronia-y-el-eventloop) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(title-2014-04-14-asincronia-y-el-eventloop) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(title-2014-04-14-asincronia-y-el-eventloop) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(title-2014-04-14-asincronia-y-el-eventloop) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-vpr6a7he-2"] { view-transition-name: tag-javascript; }@layer astro { ::view-transition-old(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head>
+  <body>
+    
+  <header class="astro-np5jgbit">
+  <a href="/en/" class="site-title astro-np5jgbit"><span class="a-matias-quezada astro-np5jgbit astro-2dpizvyk">
+  <abbr class="astro-2dpizvyk">Adrian</abbr>
+  <span class="dot astro-2dpizvyk">.</span>
+  <span class="astro-2dpizvyk">Matías Quezada</span>
+</span></a>
+  <nav class="astro-np5jgbit">
+    <a href="/en/projects/" class="astro-np5jgbit">Projects</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/blog/" class="astro-np5jgbit">Blog</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/experiments/" class="astro-np5jgbit">Experiments</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/talks/" class="astro-np5jgbit">Talks</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/career/" class="astro-np5jgbit">Career</a>
+    <span class="sep astro-np5jgbit">|</span>
+    <a href="https://github.com/amatiasq" title="GitHub" class="icon-link astro-np5jgbit">
+      <svg aria-label="GitHub" width="20" height="20" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg" class="astro-np5jgbit">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="currentColor" class="astro-np5jgbit"></path>
+      </svg>
+    </a>
+    <a href="/es/blog/2014-04-14-asincronia-y-el-eventloop/" title="Español" class="lang-switch astro-bzi5jpwk" data-lang="es">
+  🇪🇸
+</a>
+
+
+
+<script type="module">function n(){const t=document.querySelector(".lang-switch");if(!t)return;const a=t.dataset.lang,e=Intl.DateTimeFormat().resolvedOptions().timeZone.startsWith("America/");a==="en"?(t.textContent=e?"🇺🇸":"🇬🇧",t.title="English"):(t.textContent=e?"🇦🇷":"🇪🇸",t.title="Español")}n();document.addEventListener("astro:after-swap",n);</script>
+  </nav>
+</header>
+<hr class="astro-np5jgbit">
+  <main>
+    <article>
+      <header>
+        <h1 data-astro-transition-scope="astro-dsji2kxr-1">Asynchrony and the Event Loop (spanish)</h1>
+        <time datetime="2014-04-14T00:00:00.000Z" class="astro-zcsldidg">Apr 14, 2014</time>
+        <ul class="tags astro-hfj6urh3">
+    <li class="astro-hfj6urh3">
+        <a href="/en/tag/javascript/" class="tag-link astro-hfj6urh3">
+          <span class="astro-hfj6urh3" data-astro-transition-scope="astro-vpr6a7he-2">
+            Javascript
+          </span>
+        </a>
+      </li>
+  </ul>
+
+
+      </header>
+      <div class="md "><p>Me gustaría hacer un repaso al tema de la asincronía en Javascript porque me llama la atención que pese a tener casi 20 años es un tema que sigue madurando y he visto surgir buenas ideas recientemente.</p>
+<h3>El event loop</h3>
+<p>Primero lo primero, de donde sale la asincronía. Javascript es un lenguaje cuya ejecución se basa en lo que se llama <strong>event loop</strong> (bucle de eventos). El <em>event loop</em> es una cola donde se van añadiendo los bloques de código que quieren ejecutarse, por ejemplo: cuando el navegador está renderizando el HTML de una página y se encuentra un tag <code>&lt;script&gt;</code> el contenido de ese elemento se añade al <em>event loop</em> para que sea ejecutado tan pronto como sea posible.</p>
+<!-- end extract -->
+
+<p>Lo mismo ocurre cuando la página ya está cargada y el usuario hace click. Si tenemos una función listener (también llamado callback) escuchando los eventos click de un objeto esa función se añade a la cola del <em>event loop</em> para que el sistema lo ejecute tan pronto como sea posible.</p>
+<p>De esta forma todos los bloques de código que se ejecutan en javascript han sido bloques de código que entraron a la cola del <em>event loop</em> y cuando llegó su turno fueron ejecutados. Podemos entenderlo más fácilmente si implementamos un falso event loop en Javascript:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> eventLoop </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  _queue: [],</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  add</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">fn</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#6A737D">    // añadimos la función a la cola</span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">._queue.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">(fn);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    // si está desocupado ejecutar la función</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.running) </span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">executeNext</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  executeNext</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.running </span><span style="color:#F97583">||</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">._queue.</span><span style="color:#79B8FF">length</span><span style="color:#F97583"> ===</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">return</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.running </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> true</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">    var</span><span style="color:#E1E4E8"> block </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">._queue.</span><span style="color:#B392F0">shift</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#B392F0">    block</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.running </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> false</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">executeNext</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre></div><p><a target="_black" href="http://jsfiddle.net/amatiasq/k9ebk/">Pruébame</a></p>
+<p>Esto significa que mientras un bloque esté ejecutándose ningún otro bloque de código puede estar ejecutándose a la vez. Pero si un proceso tarda mucho (como leer el disco, comunicarse con el servidor, esperar una determinada cantidad de tiempo...) lo que hacemos es pasarles una función que será añadida al <em>event loop</em> cuando el proceso acabe.</p>
+<p>Cada &quot;bloque&quot; que el <em>event loop</em> ejecuta se llama &quot;un tick del event loop&quot;, de ahí el nombre de la función <code>process.nextTick</code> de NodeJS.</p>
+<p>Una forma sencilla de controlar el <em>event loop</em> es mediante <code>setTimeout</code>, <code>setInterval</code> y <code>setImmediate</code>, podemos crear funciones similares que hagan la misma funcionalidad (simplificada) pero para nuestro <code>eventLoop</code>:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> mySetImmediate</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">fn</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">  eventLoop.</span><span style="color:#B392F0">add</span><span style="color:#E1E4E8">(fn);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> mySetTimeout</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">fn</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">milliseconds</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#6A737D">  // la unica forma de dejar pasar el tiempo</span></span>
+<span class="line"><span style="color:#6A737D">  // es mediante el VERDADERO setTimeout ;)</span></span>
+<span class="line"><span style="color:#B392F0">  setTimeout</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#B392F0">    mySetImmediate</span><span style="color:#E1E4E8">(fn);</span></span>
+<span class="line"><span style="color:#E1E4E8">  }, milliseconds);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> mySetInterval</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">fn</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">milliseconds</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  function</span><span style="color:#B392F0"> execute</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#B392F0">    fn</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#B392F0">    mySetTimeout</span><span style="color:#E1E4E8">(execute, milliseconds);</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  mySetTimeout</span><span style="color:#E1E4E8">(execute, milliseconds);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>Como se puede ver tanto setTimeout como setInterval esperan la cantidad de milisegundos definida y <strong>entonces añaden</strong> el bloque al <em>event loop</em>, si el <em>event loop</em> está ocupado en ese momento puede tardar un poco más de lo esperado en ejecutarse nuestra función.</p>
+<p>Entiendiendo esto es más fácil entender porqué Javascript funciona de la forma que funciona.</p>
+<ul>
+<li>Solo hay un bloque de código ejecutandose en cada momento</li>
+<li>Los bloques se encolan</li>
+<li>Se considera asíncrono a una sección de código que será ejecutada en un &quot;tick&quot; distinto</li>
+</ul>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> a </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#B392F0">setTimeout</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#6A737D">  // esta función es asíncrona porque el tick que llama a setTimeout</span></span>
+<span class="line"><span style="color:#6A737D">  // tiene que acabar antes que esta función sea invocada.</span></span>
+<span class="line"><span style="color:#E1E4E8">  a </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 2</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}, </span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">);</span></span></code></pre></div><p>En el caso de javascript para el navegador además nos encontramos con que el <em>event loop</em> es compartido por Javascript y el motor de renderizado del navegador. Como el <em>event loop</em> solo puede ejecutar un bloque por vez resulta que si estamos ejecutando Javascript el navegador no puede renderizar la página y vice versa, si la página tarda mucho en renderizarse retrasará la ejecución del Javascript. Esto es así porque desde Javascript podemos modificar el DOM y si el navegador intenta renderizar la página mientras nosotros la modificamos tendríamos otro tipo de problemas peores.</p>
+<p>Pero es importante tener esto en cuenta ya que un proceso Javascript que tarde demasiado &quot;congelará&quot; la página, no funcionarán los clicks, scroll, ni siquiera los <code>:hover</code>.</p>
+<h3>Un poco de historia</h3>
+<p>Cuando Javascript fue desarrollado la comunicación asíncrona con el DOM se solucionó mediante eventos y tiene todo el sentido del mundo. Quieres saber cuando el usuario hace click en un elemento? Registra el evento y el navegador te avisará, quieres saber cuando el usuario haga scroll? registra el evento!</p>
+<p>El problema empezó cuando empezamos a usar eventos para cosas no tan claras, como eventos puntuales que solo se disparaban una vez:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">window.</span><span style="color:#B392F0">addEventListener</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'load'</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">function</span><span style="color:#E1E4E8">() { </span><span style="color:#F97583">...</span><span style="color:#E1E4E8"> });</span></span>
+<span class="line"><span style="color:#B392F0">someAjax</span><span style="color:#E1E4E8">().</span><span style="color:#B392F0">onready</span><span style="color:#F97583"> =</span><span style="color:#F97583"> function</span><span style="color:#E1E4E8">() { </span><span style="color:#F97583">...</span><span style="color:#E1E4E8"> };</span></span></code></pre></div><p>Incluso para controlar errores</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">xhr.</span><span style="color:#B392F0">onerror</span><span style="color:#F97583"> =</span><span style="color:#F97583"> function</span><span style="color:#E1E4E8">() { </span><span style="color:#F97583">...</span><span style="color:#E1E4E8"> };</span></span>
+<span class="line"><span style="color:#E1E4E8">document.</span><span style="color:#B392F0">querySelector</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"script"</span><span style="color:#E1E4E8">).</span><span style="color:#B392F0">onerror</span><span style="color:#F97583"> =</span><span style="color:#F97583"> function</span><span style="color:#E1E4E8">() { </span><span style="color:#F97583">...</span><span style="color:#E1E4E8"> };</span></span></code></pre></div><p>Hasta para controlar un progreso (en APIs modernas incluso)</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> reader </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> FileReader</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">reader.</span><span style="color:#B392F0">onprogress</span><span style="color:#F97583"> =</span><span style="color:#F97583"> function</span><span style="color:#E1E4E8">() { </span><span style="color:#F97583">...</span><span style="color:#E1E4E8"> };</span></span></code></pre></div><p>Pero al no estar acostumbrados a trabajar con asincronía de esta forma no fuimos capaces de ver que estabamos usando una herramienta para todo, como dicen por ahí &quot;para un hombre con un martillo todo es un clavo&quot;.</p>
+<p>En node decidieron adaptar el patrón &quot;Continuous Passing Style&quot;, que consiste en pasar callbacks a funciones asíncronas</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">fs.</span><span style="color:#B392F0">readFile</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"foo"</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">function</span><span style="color:#E1E4E8">() { </span><span style="color:#F97583">...</span><span style="color:#E1E4E8"> });</span></span></code></pre></div><p>Y por suerte integraron <code>EventEmitter</code>, que permitió crear APIs que usaran eventos sin más complejidad. Y lo que es mejor, incluyeron los streams, una forma de gestión de asincronía creada para que podamos acceder a un recurso por partes. Con el tiempo llegaron los promises que fue lo primero que me hizo plantearme si estábamos enfocando la asincronía de forma coherente.</p>
+<p>En total he llegado a resumir los distintos tipos de asincronía en dos, ambos con la característica de que necesitan gestionar también errores:</p>
+<ul>
+<li><strong>Valor asíncrono</strong>: el callback se invoca una sola vez en el futuro</li>
+<li><strong>Collección asíncrona</strong>: el callback se invoca una vez por cada elemento en la colección</li>
+</ul>
+<h3>Valor asíncrono</h3>
+<p>En el primer caso tenemos un valor asíncrono, puede ser el valor devuelto por una función asíncrona o el valor puede ser nulo en cuyo caso simplemente funcionaría para detectar cuando el proceso ha finalizado. Este caso está cubierto por los Promises.</p>
+<p>Desde mi punto de vista se trata de una especie de meta-programación, tenemos un valor (el promise) que sustituye al valor real para que podamos seguir con nuestra ejecución síncrona.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> contentPromise </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> file.</span><span style="color:#B392F0">readContent</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">return</span><span style="color:#E1E4E8"> contentPromise;</span></span></code></pre></div><h3>Colección asíncrona</h3>
+<p>Podemos verlo como un array asíncrono, que a medida que se le van añadiendo elementos va invocando a su callback. En este grupo metería a todo componente asíncrono que invoque a su callback más de una vez:</p>
+<ul>
+<li>Flujo de datos</li>
+<li>Progreso</li>
+<li>Eventos</li>
+</ul>
+<p>Una de las funcionalidades que más me gustan de <a href="https://www.dartlang.org/">Dart</a> es que <a href="https://www.dartlang.org/articles/improving-the-dom/#events">han sustituído los eventos DOM por streams</a>, un pequeño detalle pero que es todo un cambio de concepto, los eventos DOM son una lista de tamaño indeterminado. Cada vez que el usuario hace click es como añadir ese evento al stream de eventos click de ese elemento. Al ser un stream podemos escucharlo, filtrarlo, manipularlo... de la misma forma que hacemos con una colección. Incluso hay implementaciones que tienen métodos <code>.forEach</code> y <code>.filter</code> y <code>.map</code> cumpliendo la misma interfaz que el resto de colecciones.</p>
+<p>Por otro lado los streams siguen siendo útiles para su funcionalidad primera, entregarnos un contenido que vamos recibiendo por partes, es decir; en lugar de cargar un achivo de 1Gb en memoria, un stream nos lo va entregando en bloques más pequeños así podemos trabajarlos y liberar memoria. Además en casos como medidores de progresos encajan perfectamente, siendo cada actualización del progreso un elemento del stream.</p>
+<h3>Y todo junto</h3>
+<blockquote>
+<p>Nota: el código a continuación es adaptado de otros lenguajes y no existe en Javascript</p>
+</blockquote>
+<p>Incluso hay implementaciones muy completas que integran perfectamente los stream y los promises, podemos hacer de forma sencilla cosas como capturar el primer click en la pagina</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">// window.onClick instanceof Stream</span></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> firstClick </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> window.onClick.first;</span></span>
+<span class="line"><span style="color:#E1E4E8">firstClick.</span><span style="color:#B392F0">then</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8">() { </span><span style="color:#F97583">...</span><span style="color:#E1E4E8"> });</span></span></code></pre></div><p>Comprobar si las primeras diez teclas han sido &quot;flecha derecha&quot;</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> firstTenKeys </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> input.onKeyDown.</span><span style="color:#B392F0">take</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">10</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> keyRightTenTimes </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> firstTenKeys.</span><span style="color:#B392F0">every</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">event</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> event.keyCode </span><span style="color:#F97583">===</span><span style="color:#79B8FF"> 39</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span>
+<span class="line"><span style="color:#E1E4E8">keyRightTenTimes.</span><span style="color:#B392F0">then</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">value</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  if</span><span style="color:#E1E4E8"> (value) console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'You like left arrow! :D'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre></div><p>Capturar solo el tercer click en la página</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> thirdClick </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> input.onKeyDown.</span><span style="color:#B392F0">elementAt</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">thirdClick.</span><span style="color:#B392F0">then</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">event</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'You clicked three times :)'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre></div><p>Obtener todo el contenido del archivo desde el stream, no hace falta un método especial</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> stream </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> file.</span><span style="color:#B392F0">getReadStream</span><span style="color:#E1E4E8">()</span></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> fileContent </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> stream.</span><span style="color:#B392F0">join</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">''</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">fileContent.</span><span style="color:#B392F0">then</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">content</span><span style="color:#E1E4E8">) { </span><span style="color:#F97583">...</span><span style="color:#E1E4E8"> });</span></span></code></pre></div><p>O detectar el primer evento <code>readystatechange</code> en que el <code>readyState</code> sea <code>4</code>, convertirlo en promise y devolver la respuesta</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">return</span><span style="color:#E1E4E8"> xhr.onReadyStateChange</span></span>
+<span class="line"><span style="color:#E1E4E8">  .</span><span style="color:#B392F0">filter</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">event</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> xhr.readyState </span><span style="color:#F97583">===</span><span style="color:#79B8FF"> 4</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  })</span></span>
+<span class="line"><span style="color:#E1E4E8">  .first.</span><span style="color:#B392F0">then</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> xhr.responseText;</span></span>
+<span class="line"><span style="color:#E1E4E8">  });</span></span></code></pre></div><p>Unificar varias operaciones</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">// readFile returns promise</span></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> concat </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Stream</span><span style="color:#E1E4E8">([</span><span style="color:#B392F0">readFile</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'./header.html'</span><span style="color:#E1E4E8">), </span><span style="color:#B392F0">readFile</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'./content.html'</span><span style="color:#E1E4E8">), </span><span style="color:#B392F0">readFile</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'./footer.html'</span><span style="color:#E1E4E8">)]);</span></span>
+<span class="line"><span style="color:#E1E4E8">stream.</span><span style="color:#B392F0">listen</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">chunk</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">  response.</span><span style="color:#B392F0">write</span><span style="color:#E1E4E8">(chunk);</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre></div><p>Incluso cosas más complejas como detectar la primera acción del usuario en la página</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">// Promise.race devuelve un promise que se completará</span></span>
+<span class="line"><span style="color:#6A737D">// cuando el primer promise de la lista se complete</span></span>
+<span class="line"><span style="color:#79B8FF">Promise</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">race</span><span style="color:#E1E4E8">([window.onClick.first, window.onKeyDown.first, window.onMouseMove.first]).</span><span style="color:#B392F0">then</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">event</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'El usuario ha disparado el evento '</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> event.type);</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre></div><p>Y hasta capturar el evento <code>load</code> de window aunque ya haya pasado:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#B392F0">setTimeout</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#E1E4E8">  window.onLoad.</span><span style="color:#B392F0">first</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#6A737D">    // Me van a invocar aunque el evento</span></span>
+<span class="line"><span style="color:#6A737D">    // ya haya pasado :)</span></span>
+<span class="line"><span style="color:#E1E4E8">  });</span></span>
+<span class="line"><span style="color:#E1E4E8">}, </span><span style="color:#79B8FF">1000</span><span style="color:#F97583"> *</span><span style="color:#79B8FF"> 60</span><span style="color:#F97583"> *</span><span style="color:#79B8FF"> 60</span><span style="color:#E1E4E8">); </span><span style="color:#6A737D">// una hora</span></span></code></pre></div><h3>Resumen</h3>
+<p>La gestión de la asincronía, que siempre ha sido un caos, se simplifica de forma radical gracias a una buena combinación de Stream/Promises. Espero poder actualizar la entrada de los promises con los nuevos promises estándard de ECMAScript 6 :)</p>
+<p>Conocen más patrones de gestión de asincronía?</p>
+</div>
+    </article>
+  </main>
+
+  </body></html>

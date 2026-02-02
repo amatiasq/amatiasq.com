@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#121212">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>GIT Workflow 2 | A. Matías Quezada</title>
+    
+<meta name="astro-view-transitions-enabled" content="true">
+<meta name="astro-view-transitions-fallback" content="animate">
+<script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.rasoniT7.js"></script>
+  <link rel="stylesheet" href="/_astro/_slug_.eUhtq0iF.css">
+<style>time:where(.astro-zcsldidg){font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.9em}
+.md .code-block{position:relative;margin:1.5rem 0}.md pre{padding:1.25rem;border-radius:8px;overflow-x:auto;border:1px solid oklch(28% 0 0);margin:0}.md pre code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.875rem;line-height:1.6}.md :not(pre)>code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;background:#090909;padding:.2em .4em;border-radius:4px;font-size:.9em;border:1px solid oklch(28% 0 0)}.md h2,.md h3{margin-top:2.5rem;margin-bottom:1rem}.md p{margin:1rem 0}.md blockquote{border-left:3px solid oklch(28% 0 0);margin:1.5rem 0;padding:.5rem 1rem;background:#090909;border-radius:0 8px 8px 0}.md blockquote p{margin:.5rem 0;color:#8f8f8f}.md ul,.md ol{padding-left:1.5rem;margin:1rem 0}.md li{margin:.5rem 0}.md hr{border:none;border-top:1px solid oklch(28% 0 0);margin:2rem 0}.md img{max-width:100%;height:auto;display:block;margin:1.5rem 0}.md pre span[style*="color:#6A737D"],.md pre span[style*="color:#8b949e"]{color:#54b05a!important;font-style:italic}.tags:where(.astro-hfj6urh3){list-style:none;padding:0;margin:1rem 0;display:flex;flex-wrap:wrap;gap:.5rem}li:where(.astro-hfj6urh3) .tag-link{background:#121212;border:1px solid oklch(28% 0 0);border-radius:4px;padding:.2rem .6rem;margin:0;font-size:.8rem;color:#9e9e9e;text-decoration:none;transition:all .15s ease;display:inline-block}li:where(.astro-hfj6urh3) .tag-link:hover{background:#222;border-color:var(--accent);color:var(--accent);transform:none}
+@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-dsji2kxr-1"] { view-transition-name: title-2012-12-04-git-workflow-parte-2; }@layer astro { ::view-transition-old(title-2012-12-04-git-workflow-parte-2) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(title-2012-12-04-git-workflow-parte-2) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(title-2012-12-04-git-workflow-parte-2) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(title-2012-12-04-git-workflow-parte-2) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-vpr6a7he-2"] { view-transition-name: tag-git; }@layer astro { ::view-transition-old(tag-git) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(tag-git) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(tag-git) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(tag-git) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head>
+  <body>
+    
+  <header class="astro-np5jgbit">
+  <a href="/es/" class="site-title astro-np5jgbit"><span class="a-matias-quezada astro-np5jgbit astro-2dpizvyk">
+  <abbr class="astro-2dpizvyk">Adrian</abbr>
+  <span class="dot astro-2dpizvyk">.</span>
+  <span class="astro-2dpizvyk">Matías Quezada</span>
+</span></a>
+  <nav class="astro-np5jgbit">
+    <a href="/es/projects/" class="astro-np5jgbit">Projects</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/es/blog/" class="astro-np5jgbit">Blog</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/es/experiments/" class="astro-np5jgbit">Experiments</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/es/talks/" class="astro-np5jgbit">Talks</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/es/career/" class="astro-np5jgbit">Career</a>
+    <span class="sep astro-np5jgbit">|</span>
+    <a href="https://github.com/amatiasq" title="GitHub" class="icon-link astro-np5jgbit">
+      <svg aria-label="GitHub" width="20" height="20" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg" class="astro-np5jgbit">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="currentColor" class="astro-np5jgbit"></path>
+      </svg>
+    </a>
+    <a href="/en/blog/2012-12-04-git-workflow-parte-2/" title="English" class="lang-switch astro-bzi5jpwk" data-lang="en">
+  🇬🇧
+</a>
+
+
+
+<script type="module">function n(){const t=document.querySelector(".lang-switch");if(!t)return;const a=t.dataset.lang,e=Intl.DateTimeFormat().resolvedOptions().timeZone.startsWith("America/");a==="en"?(t.textContent=e?"🇺🇸":"🇬🇧",t.title="English"):(t.textContent=e?"🇦🇷":"🇪🇸",t.title="Español")}n();document.addEventListener("astro:after-swap",n);</script>
+  </nav>
+</header>
+<hr class="astro-np5jgbit">
+  <main>
+    <article>
+      <header>
+        <h1 data-astro-transition-scope="astro-dsji2kxr-1">GIT Workflow 2</h1>
+        <time datetime="2012-12-04T00:00:00.000Z" class="astro-zcsldidg">04 dic 2012</time>
+        <ul class="tags astro-hfj6urh3">
+    <li class="astro-hfj6urh3">
+        <a href="/es/tag/git/" class="tag-link astro-hfj6urh3">
+          <span class="astro-hfj6urh3" data-astro-transition-scope="astro-vpr6a7he-2">
+            Git
+          </span>
+        </a>
+      </li>
+  </ul>
+
+
+      </header>
+      <div class="md "><p>Continuando con <a href="http://www.amatiasq.com/2012/12/git-workflow-flujo-de-trabajo-parte-1/" title="GIT Workflow (Flujo de trabajo) (Parte 1)">mi último artículo</a>, llegó la hora de hablar del gran <em>Github Flow</em>:</p>
+<h3>Github Flow</h3>
+<p>Y finalmente <a href="http://scottchacon.com/2011/08/31/github-flow.html">el artículo</a> que ha inspirado éste. Después de probar el Git Flow (el modelo, no la herramienta) en productos profesionales y a modo de prueba en <a href="https://github.com/amatiasq/jsbase">pequeñas librerías</a> propias y <strong>aunque para proyectos grandes donde una release se planea durante semanas va bien, en pequeños proyectos, y en proyectos SaaS no acaba de encajar</strong>.</p>
+<!-- end extract -->
+
+<p>Para empezar en pequeños proyectos no hay necesidad de planificar con antelación una release, <strong>un proyecto pequeño necesita mucha actividad y poca burocracia para crecer</strong>, por otro lado, en proyectos SaaS (Software as a Serivce), es decir, productos que están disponibles online y todos los usuarios tienen la última versión y reciben los cambios inmediatamente **las versiones y releases pierden fuerza. **Porqué retrasar el lanzamiento de una nueva funcionalidad cuando todos los usuarios podrían tenerla mañana sin ningún coste? en un producto clásico las funcionalidades se empaquetan para entregar al usuario la actualización un paquete cerrado y pasar el proceso de actualización la menor cantidad de veces posibles, pero <strong>en un SaaS para el usuario no tiene ningún coste (en esfuerzo) una actualización</strong>, simplemente la próxima vez que abra el programa tendrá la funcionalidad.</p>
+<p>Un ejemplo de SaaS es Gmail (que estuvo más de 5 años en fase Beta por éste motivo), twitter o github. Y es éste último quién, como no podía ser de otra forma, utiliza <strong>un flujo de trabajo de GIT que parece encajar bastante bien con la filosofía SaaS</strong> de release constantes. Lo que ellos llaman <strong><code>Github Flow</code></strong>.</p>
+<p>Como ellos mismos dicen después de mentar las ventajas de git-flow, &quot;One of the bigger issues for me is that it’s more complicated than I think most developers and development teams actually require&quot; (Uno de sus mayores problemas para mi es que <strong>[git-flow] es más complicado de lo que creo que muchos equipos de desarrollo realmente necesitan</strong>)</p>
+<blockquote>
+<p>So, why don’t we use git-flow at GitHub? Well, the main issue is that we deploy all the time.&quot; (Porqué no usamos git-flow en Github? Bueno, el mayor problema es que <strong>nosotros hacemos releases todo el tiempo</strong>).</p>
+</blockquote>
+<p>Básicamente utilizan un flujo de trabajo que combina la potencia de GIT con las geniales herramientas de Github por lo que es aplicable tal cual a los proyectos alojados en Github.com:</p>
+<ul>
+<li>El contenido en <code>master</code> es una versión lista para ser utilizada, lo mismo que en git-flow.</li>
+<li>Crear ramas descriptivas a partir de <code>master</code> en el repositorio y hacer push constantemente.</li>
+<li>Abrir &quot;Pull Request&quot; en Github en cualquier momento</li>
+<li><strong>Hacer merge a <code>master</code> solo después de una revisión del &quot;Pull Request&quot;</strong></li>
+<li>Enviar el código a producción inmediatamente después del merge (es decir, enviar a los clientes)</li>
+</ul>
+<p>Igual que en git-flow, <code>master</code> tiene que ser código estable listo para poner en producción, pero en éste Workflow además debe ser la rama a partir de la cual crear el resto de ramas. En resumen, <strong>cualquier desarrollador puede crear una rama partiendo de <code>master</code> mientras tenga un nombre claro y coherente</strong>, bien sea para corregir un bug o implementar una nueva funcionalidad. A partir de entonces el desarrollador puede hacer todos los commits que necesite y hacer <code>push</code> a la rama en el repositorio constantemente.</p>
+<p>En Github mencionan muchas ventajas de ésta fase, en primer lugar, que al hacer pull cada desarrollador recibe información de las ramas en las que hay actividad, y si su nombre es descriptivo es sencillo de analizar. Además <strong>en la página de Github del repositorio podemos consultar las ramas actuales y cuánto se ha avanzado en cada una</strong>, como si de una lista de futuras funcionalidades se tratara (ver imagen artículo original). Por otro lado, los push constantes da visibilidad al resto del equipo de la actividad y garantiza la copia de seguridad de nuestros cambios. Y por fin mi parte favorita, mi descubrimiento del día, los Pull Request de Github.</p>
+<p><strong>Un Pull Request consiste en que después de hacer commits y push en una rama, dejamos una notificación de intención de hacer merge a <code>master</code></strong>. Al hacer un Pull Request, en la página de Github del repositorio aparece nuestra notificación con la lista de commits que hemos hecho, y todos los cambios que hemos hecho (en rojo líneas borradas y en verde líneas añadidas). Esto es muy utilizado para ofrecer al dueño de un repositorio un parche o una mejora para que sea aplicado en <code>master</code>, lo que me sorprendió es el uso que le da Github.</p>
+<p>A partir de aquí <strong>cualquier usuario puede añadir comentarios a una línea específica del código modificado en los commits</strong>, o un comentario general y abrir debate. Lo que a nivel profesional se conoce como <strong><code>code review</code></strong> (repaso del código) en el que un tercero nos ayuda a repasar nuestros cambios. Esto siempre que se enfoque con una actitud positiva por ambas partes, permite <strong>extender el conocimiento de esa sección del código y detectar bugs con antelación</strong>, simplemente porque cuatro ojos ven más que dos.</p>
+<blockquote>
+<p>Actually, we use it more as a branch conversation view more than a pull request (En realidad, <strong>[los Pull Request] los usamos más como página de conversación sobre la rama que como petición de pull</strong>).</p>
+</blockquote>
+<p>Según el <em>Github Flow</em> cuando hayamos acabado el desarrollo de la rama o simplemente nos hayamos atascado o necesitamos que un diseñador de el visto bueno al resultado (ya que se pueden adjuntar imágenes a los comentarios con <a href="http://es.wikipedia.org/wiki/Markdown">Markdown</a>), abrimos un Pull Request y <strong>escribiendo @<nombre> en el comentario esa persona recibirá una notificación de nuestro Pull Request</strong>. En Github recomiendan usar &quot;/cc @<nombre>&quot; para poner &quot;En copia&quot; a los interesados. A medida que recibimos opiniones y recomendaciones de otros usuarios mediante el Pull Request <strong>podemos seguir haciendo commits que automáticamente se añadirán al Pull Request</strong>.</p>
+<p>Una vez el trabajo está hecho y hemos pasado el <em>code review</em> esperamos (solicitamos) recibir el visto bueno de algún o varios compañeros</p>
+<blockquote>
+<p>This is generally a +1 or emoji or “:shipit:”&quot; (Esto suele ser un +1 o el emoticono “:shipit:”)</p>
+</blockquote>
+<p><strong>Y hayamos pasado los tests, podemos hacer el merge a <code>master</code> nosotros mismos</strong>, cuando hagamos push de <code>master</code> con los cambios aplicados el Pull Request se cerrará automáticamente. Finalmente, inmediatamente después de hacer el merge a <code>master</code> <strong>debemos enviar el código a producción</strong>, que en el caso de Github lo hacen mediante un comando enviado por chat, pero debemos enviar el código inmediatamente a producción para poder detectar posibles bugs con la máxima antelación posible porque si algo nos da mala imagen como desarrolladores es que el trabajo de otra persona falle al ser enviado a producción por algo que nosotros cambiamos y no enviamos. En el artículo original se puede ver una imagen en la que <strong>un solo día se actualizó el código de producción nada menos que 24 veces</strong>. El mismo código que recibimos nosotros al entrar a Github.com</p>
+<p>Ha sido largo de explicar, pero quise hacer mucho énfasis en los Pull Request ya que es un uso innovador (al menos para mi) traído de la mano de sus creadores que lo usan activamente por lo que está más que garantizada su fiabilidad. En mi opinión es <strong>el mejor flujo de trabajo para desarrollar productos SaaS</strong>, permitiendo lanzar funcionalidades constante e inmediatamente.</p>
+<p>Sin embargo, como todas las grandes metodologías, creo que es muy importante la implicación de todo el equipo en el Workflow. <strong>El Workflow está basado en que un desarrollador sabe esperar a revisar el código a fondo</strong> y recibir feedback antes de hacer el merge a master, y creo que es bastante más complicado de lo que parece superar la tentación de tener el &quot;trabajo hecho&quot; pero sin revisar.</p>
+<h3>Conclusión A la fecha me encuentro con tres Workflows para trabajar con GIT:</h3>
+<p><strong>Git-flow</strong> - Bastante genérico, en mi opinión si parte del equipo ya conoce ésta metodología es la que utilizaría &quot;por defecto&quot; al empezar un proyecto profesional. Y aunque suene evidente, no está de más decir que para pequeños proyectos puede resultar excesivo.</p>
+<h5>Pros</h5>
+<ul>
+<li><strong>Estándar</strong> - muy conocido en la comunidad GIT</li>
+<li><strong>Genérico</strong> - en mi opinión es fácil adaptar ésta metodología a medida que avanza el proyecto</li>
+</ul>
+<h5>Cons</h5>
+<ul>
+<li><strong>Complejo</strong> - Para una persona comenzando en GIT puede resultar demasiado aprender la secuencia necesaria para cada fase</li>
+</ul>
+<p><strong>Git-flow con ramas por release</strong> - No muy recomendable por añadir una complejidad excesiva, pero para los proyectos elefante en los que tenemos tres clientes con versiones distinta puede ahorrarnos tiempo y esfuerzo.</p>
+<h5>Pros</h5>
+<ul>
+<li><strong>Utilidad clara</strong> - personalmente saber con precisión dónde es útil es una ventaja a la hora de tenerla en considerarlo</li>
+</ul>
+<h5>Cons</h5>
+<ul>
+<li><strong>Rebuscado</strong> - hay que tener cierta experiencia para evitar que ésta metodología se descontrole</li>
+</ul>
+<p><strong>Github Flow</strong> - En mi opinión la solución perfecta para un producto SaaS.</p>
+<h5>Pros</h5>
+<ul>
+<li><strong>Probado</strong> - que éste sistema esté en marcha en Github da mucha confianza, máxime siendo ellos los creadores de una de las mejores herramientas para GIT</li>
+</ul>
+<h5>Cons</h5>
+<ul>
+<li><strong>Equipo conscienciado</strong> - éste Workflow requiere mucha atención ya que constantemente estaremos aplicando código en producción con los riesgos que conlleva para nuestros clientes</li>
+</ul>
+</div>
+    </article>
+  </main>
+
+  </body></html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#121212">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>SolidJS | A. Matías Quezada</title>
+    
+<meta name="astro-view-transitions-enabled" content="true">
+<meta name="astro-view-transitions-fallback" content="animate">
+<script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.rasoniT7.js"></script>
+  <link rel="stylesheet" href="/_astro/_slug_.eUhtq0iF.css">
+<style>time:where(.astro-zcsldidg){font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.9em}
+.md .code-block{position:relative;margin:1.5rem 0}.md pre{padding:1.25rem;border-radius:8px;overflow-x:auto;border:1px solid oklch(28% 0 0);margin:0}.md pre code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.875rem;line-height:1.6}.md :not(pre)>code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;background:#090909;padding:.2em .4em;border-radius:4px;font-size:.9em;border:1px solid oklch(28% 0 0)}.md h2,.md h3{margin-top:2.5rem;margin-bottom:1rem}.md p{margin:1rem 0}.md blockquote{border-left:3px solid oklch(28% 0 0);margin:1.5rem 0;padding:.5rem 1rem;background:#090909;border-radius:0 8px 8px 0}.md blockquote p{margin:.5rem 0;color:#8f8f8f}.md ul,.md ol{padding-left:1.5rem;margin:1rem 0}.md li{margin:.5rem 0}.md hr{border:none;border-top:1px solid oklch(28% 0 0);margin:2rem 0}.md img{max-width:100%;height:auto;display:block;margin:1.5rem 0}.md pre span[style*="color:#6A737D"],.md pre span[style*="color:#8b949e"]{color:#54b05a!important;font-style:italic}.tags:where(.astro-hfj6urh3){list-style:none;padding:0;margin:1rem 0;display:flex;flex-wrap:wrap;gap:.5rem}li:where(.astro-hfj6urh3) .tag-link{background:#121212;border:1px solid oklch(28% 0 0);border-radius:4px;padding:.2rem .6rem;margin:0;font-size:.8rem;color:#9e9e9e;text-decoration:none;transition:all .15s ease;display:inline-block}li:where(.astro-hfj6urh3) .tag-link:hover{background:#222;border-color:var(--accent);color:var(--accent);transform:none}
+@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-dsji2kxr-1"] { view-transition-name: title-2023-03-14-solidjs; }@layer astro { ::view-transition-old(title-2023-03-14-solidjs) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(title-2023-03-14-solidjs) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(title-2023-03-14-solidjs) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(title-2023-03-14-solidjs) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-vpr6a7he-2"] { view-transition-name: tag-javascript; }@layer astro { ::view-transition-old(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-vpr6a7he-3"] { view-transition-name: tag-typescript; }@layer astro { ::view-transition-old(tag-typescript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(tag-typescript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(tag-typescript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(tag-typescript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head>
+  <body>
+    
+  <header class="astro-np5jgbit">
+  <a href="/en/" class="site-title astro-np5jgbit"><span class="a-matias-quezada astro-np5jgbit astro-2dpizvyk">
+  <abbr class="astro-2dpizvyk">Adrian</abbr>
+  <span class="dot astro-2dpizvyk">.</span>
+  <span class="astro-2dpizvyk">Matías Quezada</span>
+</span></a>
+  <nav class="astro-np5jgbit">
+    <a href="/en/projects/" class="astro-np5jgbit">Projects</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/blog/" class="astro-np5jgbit">Blog</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/experiments/" class="astro-np5jgbit">Experiments</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/talks/" class="astro-np5jgbit">Talks</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/career/" class="astro-np5jgbit">Career</a>
+    <span class="sep astro-np5jgbit">|</span>
+    <a href="https://github.com/amatiasq" title="GitHub" class="icon-link astro-np5jgbit">
+      <svg aria-label="GitHub" width="20" height="20" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg" class="astro-np5jgbit">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="currentColor" class="astro-np5jgbit"></path>
+      </svg>
+    </a>
+    <a href="/es/blog/2023-03-14-solidjs/" title="Español" class="lang-switch astro-bzi5jpwk" data-lang="es">
+  🇪🇸
+</a>
+
+
+
+<script type="module">function n(){const t=document.querySelector(".lang-switch");if(!t)return;const a=t.dataset.lang,e=Intl.DateTimeFormat().resolvedOptions().timeZone.startsWith("America/");a==="en"?(t.textContent=e?"🇺🇸":"🇬🇧",t.title="English"):(t.textContent=e?"🇦🇷":"🇪🇸",t.title="Español")}n();document.addEventListener("astro:after-swap",n);</script>
+  </nav>
+</header>
+<hr class="astro-np5jgbit">
+  <main>
+    <article>
+      <header>
+        <h1 data-astro-transition-scope="astro-dsji2kxr-1">SolidJS</h1>
+        <time datetime="2023-03-14" class="astro-zcsldidg">Mar 14, 2023</time>
+        <ul class="tags astro-hfj6urh3">
+    <li class="astro-hfj6urh3">
+        <a href="/en/tag/javascript/" class="tag-link astro-hfj6urh3">
+          <span class="astro-hfj6urh3" data-astro-transition-scope="astro-vpr6a7he-2">
+            Javascript
+          </span>
+        </a>
+      </li><li class="astro-hfj6urh3">
+        <a href="/en/tag/typescript/" class="tag-link astro-hfj6urh3">
+          <span class="astro-hfj6urh3" data-astro-transition-scope="astro-vpr6a7he-3">
+            Typescript
+          </span>
+        </a>
+      </li>
+  </ul>
+
+
+      </header>
+      <div class="md "><p>These last years I&#39;ve past from AngularJS (v1) to Angular2+ and since I tried ReactJS I&#39;ve considered it my go-to framework.</p>
+<p>These weeks I&#39;ve been trying <a href="https://www.solidjs.com/">SolidJS</a> and when I compare it with ReactJS there are a set of things that I really like.</p>
+<h2>Direct access to DOM</h2>
+<p>There is no Virtual DOM in SolidJS</p>
+<blockquote>
+<p>DOM are the classes and functions the browser give us to modify the HTML like <code>document.createElement()</code> and <code>div.appendChild()</code></p>
+<p>Virtual DOM is, quickly explained, a lot of code that React brings so we use it instead of the real DOM, that way React has full control over the browser.</p>
+</blockquote>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">// This is how we create elements in SolidJS</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> myElement</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8"> />;</span></span>
+<span class="line"><span style="color:#E1E4E8">myElement.</span><span style="color:#B392F0">appendChild</span><span style="color:#E1E4E8">(&#x3C;</span><span style="color:#85E89D">span</span><span style="color:#E1E4E8"> />);</span></span></code></pre></div><p><a href="https://codesandbox.io/s/rough-river-dq6p8u?file=/index.tsx">View in codesandbox.io</a></p>
+<p>This in React is not possible because <code>&lt;div /&gt;</code> doesn&#39;t return the real DOM element but an internal representation.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> myElement</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8"> />;</span></span>
+<span class="line"><span style="color:#6A737D">// { type: 'div', key: null, ref: null, props: {}, ... }</span></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(myElement);</span></span></code></pre></div><p><a href="https://codesandbox.io/s/blissful-julien-kf7psp?file=/index.tsx">View in codesandbox.io</a></p>
+<h3>Direct access to DOM events</h3>
+<p>On the same line, since React hides the DOM behind Virtual DOM it also hides the events behind what they call <em>synthetic events</em>.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { createRoot } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "react-dom/client"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> MyComponent</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">button</span><span style="color:#B392F0"> onClick</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{(</span><span style="color:#FFAB70">event</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#6A737D">      // SyntheticBaseEvent {</span></span>
+<span class="line"><span style="color:#6A737D">      //   _reactName: "onClick",</span></span>
+<span class="line"><span style="color:#6A737D">      //   nativeEvent: PointerEvent,</span></span>
+<span class="line"><span style="color:#6A737D">      //   ...</span></span>
+<span class="line"><span style="color:#6A737D">      // }</span></span>
+<span class="line"><span style="color:#E1E4E8">      console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(event);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }}></span></span>
+<span class="line"><span style="color:#E1E4E8">      Hi!</span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  );</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> root</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> createRoot</span><span style="color:#E1E4E8">(document.</span><span style="color:#B392F0">getElementById</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"root"</span><span style="color:#E1E4E8">));</span></span>
+<span class="line"><span style="color:#E1E4E8">root.</span><span style="color:#B392F0">render</span><span style="color:#E1E4E8">(&#x3C;</span><span style="color:#79B8FF">MyComponent</span><span style="color:#E1E4E8"> />);</span></span></code></pre></div><p><a href="https://codesandbox.io/s/hardcore-feistel-xyzzoj?file=/index.tsx">View in codesandbox.io</a></p>
+<p>While Solid doesn&#39;t need that</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> MyComponent</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">button</span><span style="color:#B392F0"> onClick</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{(</span><span style="color:#FFAB70">event</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#6A737D">      // PointerEvent</span></span>
+<span class="line"><span style="color:#E1E4E8">      console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(event);</span></span>
+<span class="line"><span style="color:#E1E4E8">      event.target.classList.</span><span style="color:#B392F0">add</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'clicked'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    }}></span></span>
+<span class="line"><span style="color:#E1E4E8">      Hi</span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#85E89D">button</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  );</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">document.body.</span><span style="color:#B392F0">appendChild</span><span style="color:#E1E4E8">(&#x3C;</span><span style="color:#79B8FF">MyComponent</span><span style="color:#E1E4E8"> />);</span></span></code></pre></div><p><a href="https://codesandbox.io/s/romantic-leftpad-52pbf9?file=/index.tsx">View in codesandbox.io</a></p>
+<h2>Signals vs Hooks</h2>
+<p>On React Hooks are used which are &quot;magically&quot; connected to the components and can&#39;t be used outside</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { useState } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "react"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> MyComponent</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#6A737D">  // ok</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">count</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setCount</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// Invalid hook call.</span></span>
+<span class="line"><span style="color:#6A737D">// Hooks can only be called inside of the body of a function component.</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">globalCount</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setGlobalCount</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">);</span></span></code></pre></div><p><a href="https://codesandbox.io/s/festive-perlman-ongnnq?file=/index.tsx">View in codesandbox.io</a></p>
+<p>On SolidJS Signals have nothing to do with componentes, they are an independent tool and can be used without components at all.</p>
+<p>On SolidJS components are just a tool to organize code.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { createSignal } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "solid-js"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> MyComponent</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#6A737D">  // ok</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">count</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setCount</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> createSignal</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// ok</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">globalCount</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setGlobalCount</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> createSignal</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">);</span></span></code></pre></div><p><a href="https://codesandbox.io/s/affectionate-wescoff-i2uswe?file=/index.tsx">View in codesandbox.io</a></p>
+<h2>Components run only once</h2>
+<p>On React a function component runs every time something changes. This made React team feel the need to create a hook <code>useEffect()</code> which is, by difference, the most complex concept and hardest to understand in React. It&#39;s primary responsibility is to &quot;run code some times instead of every time the component is executed&quot;.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { useEffect, useState } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "react"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { createRoot } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "react-dom/client"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// we can put these values directly on useEffect's call</span></span>
+<span class="line"><span style="color:#6A737D">// but there they loose their meaning</span></span>
+<span class="line"><span style="color:#6A737D">// we create variables so what they do is clearly understood</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> EXECUTE_ONCE</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> [];</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> EXECUTE_ALWAYS</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> null</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> ONE_SECOND</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 1000</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> MyComponent</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">count</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setCount</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> useState</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Rendering..."</span><span style="color:#E1E4E8">, count);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  useEffect</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#6A737D">    // setInterval wouldn't work here for reasons</span></span>
+<span class="line"><span style="color:#6A737D">    // that escape the scope of this post</span></span>
+<span class="line"><span style="color:#6A737D">    // this serves as an example of how complex useEffect is</span></span>
+<span class="line"><span style="color:#B392F0">    setTimeout</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#B392F0"> setCount</span><span style="color:#E1E4E8">(count </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">), </span><span style="color:#79B8FF">ONE_SECOND</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">  }, </span><span style="color:#79B8FF">EXECUTE_ALWAYS</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>{count}&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> root</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> createRoot</span><span style="color:#E1E4E8">(document.</span><span style="color:#B392F0">getElementById</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'root'</span><span style="color:#E1E4E8">));</span></span>
+<span class="line"><span style="color:#E1E4E8">root.</span><span style="color:#B392F0">render</span><span style="color:#E1E4E8">(&#x3C;</span><span style="color:#79B8FF">MyComponent</span><span style="color:#E1E4E8"> />);</span></span></code></pre></div><p><a href="https://codesandbox.io/s/romantic-pine-hv1lem?file=/index.tsx">View in codesandbox.io</a></p>
+<p>While in SolidJS a component is ran only once, any change in Signals will only affect the part of the HTML (or code) that use such Signal</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { createSignal } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "solid-js"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> ONE_SECOND</span><span style="color:#F97583"> =</span><span style="color:#79B8FF"> 1000</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> MyComponent</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">count</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setCount</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> createSignal</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Rendering once"</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#B392F0">  setInterval</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#B392F0"> setCount</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">count</span><span style="color:#E1E4E8">() </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">), </span><span style="color:#79B8FF">ONE_SECOND</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>{</span><span style="color:#B392F0">count</span><span style="color:#E1E4E8">()}&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">document.body.</span><span style="color:#B392F0">appendChild</span><span style="color:#E1E4E8">(&#x3C;</span><span style="color:#79B8FF">MyComponent</span><span style="color:#E1E4E8"> />);</span></span></code></pre></div><p><a href="https://codesandbox.io/s/zen-wood-5cd41k?file=/index.tsx">View in codesandbox.io</a></p>
+<p>Here we can also appreciate the difference between SolidJS and ReactJS, the latter needs to pass through the Virtual DOM before reaching the real DOM so it needs us to import and use more abstractions:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { createRoot } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "react-dom/client"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#6A737D">// ... and later...</span></span>
+<span class="line"><span style="color:#B392F0">createRoot</span><span style="color:#E1E4E8">(document.</span><span style="color:#B392F0">getElementById</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'root'</span><span style="color:#E1E4E8">)).</span><span style="color:#B392F0">render</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">...</span><span style="color:#E1E4E8">)</span></span></code></pre></div><p>In SolidJS <code>&lt;MyComponent /&gt;</code> returns a real DOM object that we can just append to the <code>body</code> directly (never use <code>body</code>with <code>ReactDOM.createRoot()</code> or bad things will happen).</p>
+<p>I&#39;ve seen people present the fact that components run only once as something negative as &quot;thinking each state of the application from zero&quot; is one of React&#39;s mottos. But, in my opinion, that was never true due to the existence of <code>useEffect()</code>. It doesn&#39;t matter what component you&#39;re looking at, if it has <code>useEffect()</code> then we need to take into account previous and following executions.</p>
+<h2>JSX</h2>
+<p>There are also several details in the differences of JSX between ReactJS and SolidJS like how we set a CSS class to an element:</p>
+<ul>
+<li>ReactJS: <code>&lt;div className=&quot;a&quot; /&gt;</code></li>
+<li>SolidJS: <code>&lt;div class=&quot;a&quot; /&gt;</code></li>
+<li>HTML: <code>&lt;div class=&quot;a&quot;&gt;&lt;/div&gt;</code></li>
+</ul>
+<p>Or getting the real DOM object in React</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { createRef } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'react'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> MyComponent</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> ref</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> createRef</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> ref</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{ref} </span><span style="color:#B392F0">onClick</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{() </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(ref.current)} /></span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>Vs getting the DOM object in Solid:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> ref</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8"> /></span></span></code></pre></div><p>Or</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> MyComponent</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  let</span><span style="color:#E1E4E8"> ref;</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> ref</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{ref} </span><span style="color:#B392F0">onClick</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{() </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(ref)} /></span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>On top of that Solid comes with several utility components like</p>
+<ul>
+<li><code>&lt;Show when={...}&gt;</code></li>
+<li><code>&lt;For each={...}&gt;</code></li>
+<li><code>&lt;Dynamic as=&quot;div&quot; /&gt;</code></li>
+<li><a href="https://www.solidjs.com/docs/latest/api#control-flow">and more</a></li>
+</ul>
+<p>Which in React have to be implemented by hand or from code, creating a mix of JSX and JS which may be difficult to follow.</p>
+<h2>Directives</h2>
+<p>Finally and more importantly, this is a feature that I simply haven&#39;t seen in React (because it wouln&#39;t fit anyway): extend elements with code.</p>
+<p>Usually in React when we create a component that generates DOM element, for example a <code>&lt;div&gt;</code>, we have to ensure our component accepts all properties that <code>&lt;div&gt;</code> accepts, extract the ones that are relevant to our component and pass the rest to the div. This is easy in Javascript but when we use Typescript it gets a bit complicated:</p>
+<blockquote>
+<p>Note: if you&#39;re using Javascript without Typescript... go try it.</p>
+</blockquote>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">// If we don't exclude the properties we're about</span></span>
+<span class="line"><span style="color:#6A737D">// to override Typescript will throw an error</span></span>
+<span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> DivProps</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> Omit</span><span style="color:#E1E4E8">&#x3C;</span></span>
+<span class="line"><span style="color:#B392F0">    ComponentProps</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#9ECBFF">"div"</span><span style="color:#E1E4E8">>,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "onDrag"</span><span style="color:#F97583"> |</span><span style="color:#9ECBFF"> "onDragStart"</span><span style="color:#F97583"> |</span><span style="color:#9ECBFF"> "onDragEnd"</span></span>
+<span class="line"><span style="color:#E1E4E8">>;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> DraggableProps</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> DivProps</span><span style="color:#F97583"> &#x26;</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">  onDrag</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">event</span><span style="color:#F97583">:</span><span style="color:#B392F0"> MyCustomEvent</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#79B8FF"> void</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#B392F0">  onDragStart</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">event</span><span style="color:#F97583">:</span><span style="color:#B392F0"> MyCustomEvent</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#79B8FF"> void</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#B392F0">  onDragEnd</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">event</span><span style="color:#F97583">:</span><span style="color:#B392F0"> MyCustomEvent</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">=></span><span style="color:#79B8FF"> void</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> Draggable</span><span style="color:#E1E4E8">({</span></span>
+<span class="line"><span style="color:#FFAB70">  onDrag</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">  onDragStart</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">  onDragEnd</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#FFAB70">  children</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#F97583">  ...</span><span style="color:#FFAB70">divProps</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span><span style="color:#F97583">:</span><span style="color:#B392F0"> DraggableProps</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> (</span></span>
+<span class="line"><span style="color:#F97583">    &#x3C;</span><span style="color:#FFAB70">div</span></span>
+<span class="line"><span style="color:#E1E4E8">      onDrag</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{handleDrag}</span></span>
+<span class="line"><span style="color:#E1E4E8">      onDragStart</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{handleDragStart}</span></span>
+<span class="line"><span style="color:#E1E4E8">      onDragEnd</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{handleDragEnd}</span></span>
+<span class="line"><span style="color:#6A737D">      // just `draggable` doesn't work</span></span>
+<span class="line"><span style="color:#E1E4E8">      draggable</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{true}</span></span>
+<span class="line"><span style="color:#E1E4E8">      {</span><span style="color:#F97583">...</span><span style="color:#FFAB70">divProps</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#F97583">    ></span></span>
+<span class="line"><span style="color:#E1E4E8">      {</span><span style="color:#FFAB70">children</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#F97583">    &#x3C;/</span><span style="color:#E1E4E8">div</span><span style="color:#F97583">></span></span>
+<span class="line"><span style="color:#E1E4E8">  );</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  function</span><span style="color:#B392F0"> handleDrag</span><span style="color:#E1E4E8">() { </span><span style="color:#6A737D">/* ... */</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#F97583">  function</span><span style="color:#B392F0"> handleDragStart</span><span style="color:#E1E4E8">() { </span><span style="color:#6A737D">/* ... */</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#F97583">  function</span><span style="color:#B392F0"> handleDragEnd</span><span style="color:#E1E4E8">() { </span><span style="color:#6A737D">/* ... */</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>It looks like a lot of boilerplate, repetitive and doesn&#39;t provide much information.</p>
+<p>In Solid this is addressed with directives, functions that aren&#39;t components by themselves but they run over a component.</p>
+<p>Directives <strong>extend</strong> the DOM instead of <strong>containing</strong> it.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { onCleanup } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "solid-js"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> draggable</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">el</span><span style="color:#E1E4E8">, { </span><span style="color:#FFAB70">onDrag</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">onDragStart</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">onDragEnd</span><span style="color:#E1E4E8"> }) {</span></span>
+<span class="line"><span style="color:#E1E4E8">  el.</span><span style="color:#B392F0">setAttribute</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'draggable'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'true'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">  el.</span><span style="color:#B392F0">addEventListener</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'drag'</span><span style="color:#E1E4E8">, handleDrag);</span></span>
+<span class="line"><span style="color:#E1E4E8">  el.</span><span style="color:#B392F0">addEventListener</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'dragstart'</span><span style="color:#E1E4E8">, handleDragStart);</span></span>
+<span class="line"><span style="color:#E1E4E8">  el.</span><span style="color:#B392F0">addEventListener</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'dragstop'</span><span style="color:#E1E4E8">, handleDragEnd);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">  onCleanup</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    el.</span><span style="color:#B392F0">removeAttribute</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'draggable'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    el.</span><span style="color:#B392F0">removeEventListener</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'drag'</span><span style="color:#E1E4E8">, handleDrag);</span></span>
+<span class="line"><span style="color:#E1E4E8">    el.</span><span style="color:#B392F0">removeEventListener</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'dragstart'</span><span style="color:#E1E4E8">, handleDragStart);</span></span>
+<span class="line"><span style="color:#E1E4E8">    el.</span><span style="color:#B392F0">removeEventListener</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'dragstop'</span><span style="color:#E1E4E8">, handleDragEnd);</span></span>
+<span class="line"><span style="color:#E1E4E8">  });</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  function</span><span style="color:#B392F0"> handleDrag</span><span style="color:#E1E4E8">() { </span><span style="color:#6A737D">/* ... */</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#F97583">  function</span><span style="color:#B392F0"> handleDragStart</span><span style="color:#E1E4E8">() { </span><span style="color:#6A737D">/* ... */</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#F97583">  function</span><span style="color:#B392F0"> handleDragEnd</span><span style="color:#E1E4E8">() { </span><span style="color:#6A737D">/* ... */</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> element</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#B392F0"> use</span><span style="color:#E1E4E8">:</span><span style="color:#B392F0">draggable</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{{</span></span>
+<span class="line"><span style="color:#B392F0">  onDrag</span><span style="color:#E1E4E8">() { </span><span style="color:#6A737D">/* ... */</span><span style="color:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#B392F0">  onDragStart</span><span style="color:#E1E4E8">() { </span><span style="color:#6A737D">/* ... */</span><span style="color:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#B392F0">  onDragEnd</span><span style="color:#E1E4E8">() { </span><span style="color:#6A737D">/* ... */</span><span style="color:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#E1E4E8">}} />;</span></span></code></pre></div><p><a href="https://codesandbox.io/s/eager-banach-2tdqdn?file=/index.tsx">View in codesandbox.io</a></p>
+<h2>Drawbacks</h2>
+<p>There are two points particularly painful when comparing Solid with React:</p>
+<h3>1. <strong>DO NOT DESTRUCTURE PROPERTIES</strong></h3>
+<p>The <code>props</code> object in SolidJS is a <code>Proxy</code>, if you don&#39;t know what it means it&#39;s enough to be aware that Solid knows when you accesss <code>props.something</code> and will return the updated value if it has changed.</p>
+<p>If we use destructuring of <code>props</code> we&#39;re reading all properties once when the component is created and if any of them was a Signal we won&#39;t get any updates:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { createSignal } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "solid-js"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// DON'T DO THIS IN SOLID</span></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> MyComponent</span><span style="color:#E1E4E8">({ </span><span style="color:#FFAB70">a</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">b</span><span style="color:#E1E4E8"> }) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>{a} - {b}&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">signal1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setSignal1</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> createSignal</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">signal2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setSignal2</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> createSignal</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> element</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#79B8FF">MyComponent</span><span style="color:#B392F0"> a</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span><span style="color:#B392F0">signal1</span><span style="color:#E1E4E8">()} </span><span style="color:#B392F0">b</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span><span style="color:#B392F0">signal2</span><span style="color:#E1E4E8">()} />;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// &#x3C;div> won't be updated</span></span>
+<span class="line"><span style="color:#B392F0">setSignal1</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Hello'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#B392F0">setSignal2</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'World'</span><span style="color:#E1E4E8">)</span></span></code></pre></div><p>Instead of that we should take <code>props</code> as a single variable and access it&#39;s properties wherever we use them:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { createSignal } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> "solid-js"</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> MyComponent</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">props</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>{props.a} - {props.b}&#x3C;/</span><span style="color:#85E89D">div</span><span style="color:#E1E4E8">>;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">signal1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setSignal1</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> createSignal</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">signal2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">setSignal2</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> createSignal</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> element</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#79B8FF">MyComponent</span><span style="color:#B392F0"> a</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span><span style="color:#B392F0">signal1</span><span style="color:#E1E4E8">()} </span><span style="color:#B392F0">b</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span><span style="color:#B392F0">signal2</span><span style="color:#E1E4E8">()} />;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// &#x3C;div> will update once</span></span>
+<span class="line"><span style="color:#B392F0">setSignal1</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Hello'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#6A737D">// &#x3C;div> will update twice</span></span>
+<span class="line"><span style="color:#B392F0">setSignal2</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'World'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// or</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { batch } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'solid-js'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// &#x3C;div> will only be updated once</span></span>
+<span class="line"><span style="color:#B392F0">batch</span><span style="color:#E1E4E8">(() </span><span style="color:#F97583">=></span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">  setSignal1</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Hello'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#B392F0">  setSignal2</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'World'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span></code></pre></div><h3>2. Props manipulation</h3>
+<p>Following the previous point, this means that in Solid we can&#39;t just manipulate props</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">a</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">b</span><span style="color:#E1E4E8">, </span><span style="color:#F97583">...</span><span style="color:#79B8FF">rest</span><span style="color:#E1E4E8"> } </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> props</span></span>
+<span class="line"><span style="color:#6A737D">// or</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> newProps</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> { </span><span style="color:#F97583">...</span><span style="color:#E1E4E8">defaultProps, </span><span style="color:#F97583">...</span><span style="color:#E1E4E8">props };</span></span></code></pre></div><p>Solid instead provides two functions to do such operations: <code>splitProps()</code> and <code>mergeProps()</code>.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">const</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">vowels</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">consonants</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">leftovers</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#B392F0"> splitProps</span><span style="color:#E1E4E8">(</span></span>
+<span class="line"><span style="color:#E1E4E8">    props,</span></span>
+<span class="line"><span style="color:#E1E4E8">    [</span><span style="color:#9ECBFF">"a"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"e"</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#E1E4E8">    [</span><span style="color:#9ECBFF">"b"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"c"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"d"</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#6A737D">// and</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> newProps</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> mergeProps</span><span style="color:#E1E4E8">(defaultProps, props);</span></span></code></pre></div><h2>Conclusion</h2>
+<p>In summary SolidJS is a library that has learnt a lot from React and gives us a similar development experience but removing all the abstraction layers that React (necessarily) addded when the web standards weren&#39;t mature enough for the applications we are developing.</p>
+<p>I leave here my template to create projects with SolidJS, Typescript and Vite as compiler:</p>
+<p><a href="https://github.com/amatiasq/vite-solidjs-typescript-boilerplate">https://github.com/amatiasq/vite-solidjs-typescript-boilerplate</a></p>
+<p>Have a great day</p>
+</div>
+    </article>
+  </main>
+
+  </body></html>

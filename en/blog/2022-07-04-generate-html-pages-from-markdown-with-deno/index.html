@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#121212">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Generate HTML pages from TSX with Deno | A. Matías Quezada</title>
+    
+<meta name="astro-view-transitions-enabled" content="true">
+<meta name="astro-view-transitions-fallback" content="animate">
+<script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.rasoniT7.js"></script>
+  <link rel="stylesheet" href="/_astro/_slug_.eUhtq0iF.css">
+<style>time:where(.astro-zcsldidg){font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.9em}
+.md .code-block{position:relative;margin:1.5rem 0}.md pre{padding:1.25rem;border-radius:8px;overflow-x:auto;border:1px solid oklch(28% 0 0);margin:0}.md pre code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.875rem;line-height:1.6}.md :not(pre)>code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;background:#090909;padding:.2em .4em;border-radius:4px;font-size:.9em;border:1px solid oklch(28% 0 0)}.md h2,.md h3{margin-top:2.5rem;margin-bottom:1rem}.md p{margin:1rem 0}.md blockquote{border-left:3px solid oklch(28% 0 0);margin:1.5rem 0;padding:.5rem 1rem;background:#090909;border-radius:0 8px 8px 0}.md blockquote p{margin:.5rem 0;color:#8f8f8f}.md ul,.md ol{padding-left:1.5rem;margin:1rem 0}.md li{margin:.5rem 0}.md hr{border:none;border-top:1px solid oklch(28% 0 0);margin:2rem 0}.md img{max-width:100%;height:auto;display:block;margin:1.5rem 0}.md pre span[style*="color:#6A737D"],.md pre span[style*="color:#8b949e"]{color:#54b05a!important;font-style:italic}.tags:where(.astro-hfj6urh3){list-style:none;padding:0;margin:1rem 0;display:flex;flex-wrap:wrap;gap:.5rem}li:where(.astro-hfj6urh3) .tag-link{background:#121212;border:1px solid oklch(28% 0 0);border-radius:4px;padding:.2rem .6rem;margin:0;font-size:.8rem;color:#9e9e9e;text-decoration:none;transition:all .15s ease;display:inline-block}li:where(.astro-hfj6urh3) .tag-link:hover{background:#222;border-color:var(--accent);color:var(--accent);transform:none}
+@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-dsji2kxr-1"] { view-transition-name: title-2022-07-04-generate-html-pages-from-markdown-with-deno; }@layer astro { ::view-transition-old(title-2022-07-04-generate-html-pages-from-markdown-with-deno) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(title-2022-07-04-generate-html-pages-from-markdown-with-deno) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(title-2022-07-04-generate-html-pages-from-markdown-with-deno) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(title-2022-07-04-generate-html-pages-from-markdown-with-deno) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-vpr6a7he-2"] { view-transition-name: tag-typescript; }@layer astro { ::view-transition-old(tag-typescript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(tag-typescript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(tag-typescript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(tag-typescript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-vpr6a7he-3"] { view-transition-name: tag-react; }@layer astro { ::view-transition-old(tag-react) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(tag-react) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(tag-react) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(tag-react) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head>
+  <body>
+    
+  <header class="astro-np5jgbit">
+  <a href="/en/" class="site-title astro-np5jgbit"><span class="a-matias-quezada astro-np5jgbit astro-2dpizvyk">
+  <abbr class="astro-2dpizvyk">Adrian</abbr>
+  <span class="dot astro-2dpizvyk">.</span>
+  <span class="astro-2dpizvyk">Matías Quezada</span>
+</span></a>
+  <nav class="astro-np5jgbit">
+    <a href="/en/projects/" class="astro-np5jgbit">Projects</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/blog/" class="astro-np5jgbit">Blog</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/experiments/" class="astro-np5jgbit">Experiments</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/talks/" class="astro-np5jgbit">Talks</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/career/" class="astro-np5jgbit">Career</a>
+    <span class="sep astro-np5jgbit">|</span>
+    <a href="https://github.com/amatiasq" title="GitHub" class="icon-link astro-np5jgbit">
+      <svg aria-label="GitHub" width="20" height="20" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg" class="astro-np5jgbit">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="currentColor" class="astro-np5jgbit"></path>
+      </svg>
+    </a>
+    <a href="/es/blog/2022-07-04-generate-html-pages-from-markdown-with-deno/" title="Español" class="lang-switch astro-bzi5jpwk" data-lang="es">
+  🇪🇸
+</a>
+
+
+
+<script type="module">function n(){const t=document.querySelector(".lang-switch");if(!t)return;const a=t.dataset.lang,e=Intl.DateTimeFormat().resolvedOptions().timeZone.startsWith("America/");a==="en"?(t.textContent=e?"🇺🇸":"🇬🇧",t.title="English"):(t.textContent=e?"🇦🇷":"🇪🇸",t.title="Español")}n();document.addEventListener("astro:after-swap",n);</script>
+  </nav>
+</header>
+<hr class="astro-np5jgbit">
+  <main>
+    <article>
+      <header>
+        <h1 data-astro-transition-scope="astro-dsji2kxr-1">Generate HTML pages from TSX with Deno</h1>
+        <time datetime="2022-07-04T00:00:00.000Z" class="astro-zcsldidg">Jul 04, 2022</time>
+        <ul class="tags astro-hfj6urh3">
+    <li class="astro-hfj6urh3">
+        <a href="/en/tag/typescript/" class="tag-link astro-hfj6urh3">
+          <span class="astro-hfj6urh3" data-astro-transition-scope="astro-vpr6a7he-2">
+            Typescript
+          </span>
+        </a>
+      </li><li class="astro-hfj6urh3">
+        <a href="/en/tag/react/" class="tag-link astro-hfj6urh3">
+          <span class="astro-hfj6urh3" data-astro-transition-scope="astro-vpr6a7he-3">
+            React
+          </span>
+        </a>
+      </li>
+  </ul>
+
+
+      </header>
+      <div class="md "><p>I&#39;ve been working on a new version of this site with a clear idea:</p>
+<ul>
+<li>I want content to be Markdown</li>
+<li>I want it to be the fastest site ever (negotiable)</li>
+<li>Bilingual (N-lingual in fact)</li>
+</ul>
+<p>And after some months of work I found myself taking the same unspoken assuption that I recently wrote for my friend @Shakira who helped me with this beautiful design 🙌</p>
+<blockquote>
+<p>I will animate the header somehow but with CSS only, no room for JS in the site of JS guy. That&#39;s the message 🤣</p>
+</blockquote>
+<p>That&#39;s it.</p>
+<p>The post can end here.</p>
+<p>But I have more to write:</p>
+<p>That means...</p>
+<ul>
+<li>plain HTML / CSS pages</li>
+<li>CSS / JS embeded directly into HTML</li>
+<li>only necessary CSS / JS is included</li>
+</ul>
+<p>And... I need to try [Deno][1], it looks amazing, it sounds amazing and you know you&#39;ll find issues when you start using it but what may those be?</p>
+<p>Here&#39;s the trip to generate HTML pages from TSX with Deno:</p>
+<ul>
+<li>You have [Deno][2] installed</li>
+<li>Create .tsx file</li>
+<li>import <code>React</code> from <code>https://esm.sh/react</code></li>
+<li>import <code>{ renderToStaticMarkup }</code> from <code>https://esm.sh/react-dom/server</code>;</li>
+<li>this:</li>
+</ul>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">// Versions included for important reasons! 🥲</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> React </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'https://esm.sh/react@18.2.0'</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> { renderToStaticMarkup } </span><span style="color:#F97583">from</span><span style="color:#9ECBFF"> 'https://esm.sh/react-dom@18.2.0/server'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// This is our only component</span></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> MyComponent</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> &#x3C;</span><span style="color:#B392F0">p</span><span style="color:#E1E4E8">>This is my page</span><span style="color:#F97583">!&#x3C;</span><span style="color:#E1E4E8">p</span><span style="color:#F97583">></span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// renderToStaticMarkup does the magic</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> html</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> renderToStaticMarkup</span><span style="color:#E1E4E8">(&#x3C;</span><span style="color:#B392F0">MyComponent</span><span style="color:#E1E4E8"> />);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// send the resulting HTML to the program output</span></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(html);</span></span></code></pre></div><p>&quot;But Matias! want this to read from / written to the disk! not from the code itself!&quot;</p>
+<pre><code>// main.tsx
+import React from 'https://esm.sh/react@18.2.0';
+import { renderToStaticMarkup } from 'https://esm.sh/react-dom@18.2.0/server';
+
+// we read arguments
+const [input, output] = Deno.args;
+
+// input/output may be relative to current working directory
+const cwd = `file://${Deno.cwd()}/`;
+
+const input_fullpath = new URL(input, cwd).pathname;
+const output_fullpath = new URL(output, cwd).pathname;
+
+// Import .tsx file containing the page
+const inputModule = await import(input_fullpath);
+const Page = inputModule.default;
+
+const html = renderToStaticMarkup(<Page randomProp="yay" />);
+
+// Write generated HTML to disk
+await Deno.writeTextFile(output_fullpath, html);</code></pre><pre><code>// MyPage.tsx
+import React from 'https://esm.sh/react@18.2.0'
+
+export default () => <p>This is my page!<p></code></pre><div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#B392F0">deno</span><span style="color:#9ECBFF"> run</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  --allow-read=.</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  --allow-write=.</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  --allow-net=https://esm.sh</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">  ./main.tsx</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">  ./MyPage.tsx</span><span style="color:#9ECBFF"> ./MyPage.html</span></span></code></pre></div><p>Permissions explained:</p>
+<ul>
+<li><code>--allow-read=.</code> Deno allows the script to read the folder I&#39;m currenly at: <code>.</code></li>
+<li><code>--allow-write=.</code> same as above, it only needs input/output access each but <code>.</code> is enough most of the time</li>
+<li><code>--allow-net=https://esm.sh</code> requires access to esm.sh to download dependencies: <code>react</code> and <code>react-dom</code></li>
+<li><code>./main.tsx</code> that&#39;s not a permission, that&#39;s the name of the file we created above!</li>
+<li><code>./MyPage.tsx ./MyPage.html</code> those are the arguments to be passed to <code>input</code> and <code>ouput</code>, wheren&#39;t you paying attention!?</li>
+</ul>
+<p>Ok but we can make this better, we don&#39;t want to pass file by file, we want to give it a folder and for it to generate another one with same structure, if only we had a...</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> async</span><span style="color:#F97583"> function</span><span style="color:#B392F0"> getFilesRecursively</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">currentPath</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  const</span><span style="color:#79B8FF"> names</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">[] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [];</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  for</span><span style="color:#F97583"> await</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">const</span><span style="color:#79B8FF"> dirEntry</span><span style="color:#F97583"> of</span><span style="color:#E1E4E8"> Deno.</span><span style="color:#B392F0">readDir</span><span style="color:#E1E4E8">(currentPath)) {</span></span>
+<span class="line"><span style="color:#F97583">    const</span><span style="color:#79B8FF"> entryPath</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> `${</span><span style="color:#E1E4E8">root</span><span style="color:#9ECBFF">}/${</span><span style="color:#E1E4E8">dirEntry</span><span style="color:#9ECBFF">.</span><span style="color:#E1E4E8">name</span><span style="color:#9ECBFF">}`</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#E1E4E8"> (dirEntry.isDirectory) {</span></span>
+<span class="line"><span style="color:#E1E4E8">      names.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">...</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">await</span><span style="color:#B392F0"> getFilesRecursively</span><span style="color:#E1E4E8">(entryPath)).</span><span style="color:#B392F0">sort</span><span style="color:#E1E4E8">());</span></span>
+<span class="line"><span style="color:#E1E4E8">    } </span><span style="color:#F97583">else</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">      names.</span><span style="color:#B392F0">push</span><span style="color:#E1E4E8">(entryPath);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#E1E4E8"> names;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>I&#39;m sure that&#39;s part of <code>esm.sh/std</code> somewhere...</p>
+<p>Now let&#39;s update the <code>main.tsx</code> we created above:</p>
+<pre><code>// main.tsx
+import React from 'https://esm.sh/react@18.2.0';
+import { renderToStaticMarkup } from 'https://esm.sh/react-dom@18.2.0/server';
+
+// Import function to get the name of the directory of a file
+import { dirname } from 'https://deno.land/std@0.143.0/path/mod.ts';
+
+const [input, output] = Deno.args;
+
+// quick helper function is there something in the deno.land/std like this?
+const relativeToCwd = (target: string) =>
+  new URL(target, `file://${Deno.cwd()}/`);
+
+const input_dir = relativeToCwd(input);
+const output_dir = relativeToCwd(output);
+
+for (const file of await getFilesRecursively(input_dir)) {
+  // Import .tsx file containing the page
+  const inputModule = await import(file);
+  const Page = inputModule.default;
+
+  const html = renderToStaticMarkup(<Page randomProp="yay" />);
+
+  // ./input/mydir/myfile.tsx becomes
+  // ./output/mydir/myfile.html
+  const destination = file
+    .replace(input_dir, output_dir)
+    .replace(/.tsx$/, '.html');
+
+  // This creates all folders required
+  // Also if the folder is already there it doesn't throw an exception :)
+  await Deno.mkdir(dirname(destination), { recursive: true });
+
+  // Write generated HTML to disk
+  await Deno.writeTextFile(destination, html);
+}</code></pre><p>At times you may find it useful to remove the output directory before you start writing to it... I do this which is not beautiful but does the job 🤷‍♀️</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">try</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#6A737D">  // This fuction does throw an error even with `{ recursive: true }` which kind of makes sense</span></span>
+<span class="line"><span style="color:#F97583">  await</span><span style="color:#E1E4E8"> Deno.</span><span style="color:#B392F0">remove</span><span style="color:#E1E4E8">(output, { recursive: </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8"> });</span></span>
+<span class="line"><span style="color:#6A737D">  // deno-lint-ignore no-empty</span></span>
+<span class="line"><span style="color:#E1E4E8">} </span><span style="color:#F97583">catch</span><span style="color:#E1E4E8"> {}</span></span></code></pre></div><p>From this you can start creating your site with JS knowing no JS will be executed in the browser.</p>
+<pre><code>// input/index.tsx
+import React from 'https://esm.sh/react@18.2.0'
+
+// css set aside in a variable because { } would mess with React's JSX
+const styles = `
+  .body { margin: 0 }
+`
+
+export default () => (
+  <html lang="en">
+    <head>
+      <meta charSet="UTF-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>My website!</title>
+      <style>{styles}</style>
+    </head>
+    <body>
+      <p>This is my index!<p>
+    </body>
+  </html>
+)</code></pre><div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#B392F0">deno</span><span style="color:#9ECBFF"> run</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  --allow-read=.</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  --allow-write=.</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#79B8FF">  --allow-net=https://esm.sh</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">  ./main.tsx</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">  ./input</span><span style="color:#9ECBFF"> ./output</span></span></code></pre></div><p>And that would generate a file like this:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">&#x3C;</span><span style="color:#85E89D">html</span><span style="color:#B392F0"> lang</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"en"</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">head</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">meta</span><span style="color:#B392F0"> charset</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"UTF-8"</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">meta</span><span style="color:#B392F0"> http-equiv</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"X-UA-Compatible"</span><span style="color:#B392F0"> content</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"IE=edge"</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">meta</span><span style="color:#B392F0"> name</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"viewport"</span><span style="color:#B392F0"> content</span><span style="color:#E1E4E8">=</span><span style="color:#9ECBFF">"width=device-width, initial-scale=1.0"</span><span style="color:#E1E4E8"> /></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">title</span><span style="color:#E1E4E8">>My website!&#x3C;/</span><span style="color:#85E89D">title</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">style</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#B392F0">      .body</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#79B8FF">        margin</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">      }</span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;/</span><span style="color:#85E89D">style</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;/</span><span style="color:#85E89D">head</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;</span><span style="color:#85E89D">body</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">>This is my index!&#x3C;/</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">>&#x3C;/</span><span style="color:#85E89D">p</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">  &#x3C;/</span><span style="color:#85E89D">body</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">&#x3C;/</span><span style="color:#85E89D">html</span><span style="color:#E1E4E8">></span></span></code></pre></div><p>&quot;But Matias, you went through all that husle to get a slightly more complex way of writing HTML?&quot;</p>
+<p>Yes, that&#39;s exactly it, thanks for noticing. Now we have components and can componentise the sht out of those pages and since we&#39;re actually importing the files through <code>import()</code> all dependencies would be properly managed by Deno! Not just that, a Javascript environment means we can do all sort of things like processing Markdown before the generation of the page, but that&#39;s another story.</p>
+<p>Other things that I learned along the way and would love to write about:</p>
+<ul>
+<li>Import maps (with our without slash? BOTH! and with full versions!)<ul>
+<li><code>/deps/some-dependency.ts</code> why I still found them useful</li>
+<li>The hell of Deno&#39;s <code>lock.json</code> file (and why it exists)</li>
+</ul>
+</li>
+</ul>
+</div>
+    </article>
+  </main>
+
+  </body></html>

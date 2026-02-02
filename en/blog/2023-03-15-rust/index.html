@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#121212">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Rust | A. Matías Quezada</title>
+    
+<meta name="astro-view-transitions-enabled" content="true">
+<meta name="astro-view-transitions-fallback" content="animate">
+<script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.rasoniT7.js"></script>
+  <link rel="stylesheet" href="/_astro/_slug_.eUhtq0iF.css">
+<style>time:where(.astro-zcsldidg){font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.9em}
+.md .code-block{position:relative;margin:1.5rem 0}.md pre{padding:1.25rem;border-radius:8px;overflow-x:auto;border:1px solid oklch(28% 0 0);margin:0}.md pre code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.875rem;line-height:1.6}.md :not(pre)>code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;background:#090909;padding:.2em .4em;border-radius:4px;font-size:.9em;border:1px solid oklch(28% 0 0)}.md h2,.md h3{margin-top:2.5rem;margin-bottom:1rem}.md p{margin:1rem 0}.md blockquote{border-left:3px solid oklch(28% 0 0);margin:1.5rem 0;padding:.5rem 1rem;background:#090909;border-radius:0 8px 8px 0}.md blockquote p{margin:.5rem 0;color:#8f8f8f}.md ul,.md ol{padding-left:1.5rem;margin:1rem 0}.md li{margin:.5rem 0}.md hr{border:none;border-top:1px solid oklch(28% 0 0);margin:2rem 0}.md img{max-width:100%;height:auto;display:block;margin:1.5rem 0}.md pre span[style*="color:#6A737D"],.md pre span[style*="color:#8b949e"]{color:#54b05a!important;font-style:italic}.tags:where(.astro-hfj6urh3){list-style:none;padding:0;margin:1rem 0;display:flex;flex-wrap:wrap;gap:.5rem}li:where(.astro-hfj6urh3) .tag-link{background:#121212;border:1px solid oklch(28% 0 0);border-radius:4px;padding:.2rem .6rem;margin:0;font-size:.8rem;color:#9e9e9e;text-decoration:none;transition:all .15s ease;display:inline-block}li:where(.astro-hfj6urh3) .tag-link:hover{background:#222;border-color:var(--accent);color:var(--accent);transform:none}
+@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-dsji2kxr-1"] { view-transition-name: title-2023-03-15-rust; }@layer astro { ::view-transition-old(title-2023-03-15-rust) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(title-2023-03-15-rust) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(title-2023-03-15-rust) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(title-2023-03-15-rust) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-vpr6a7he-2"] { view-transition-name: tag-rust; }@layer astro { ::view-transition-old(tag-rust) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(tag-rust) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(tag-rust) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(tag-rust) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head>
+  <body>
+    
+  <header class="astro-np5jgbit">
+  <a href="/en/" class="site-title astro-np5jgbit"><span class="a-matias-quezada astro-np5jgbit astro-2dpizvyk">
+  <abbr class="astro-2dpizvyk">Adrian</abbr>
+  <span class="dot astro-2dpizvyk">.</span>
+  <span class="astro-2dpizvyk">Matías Quezada</span>
+</span></a>
+  <nav class="astro-np5jgbit">
+    <a href="/en/projects/" class="astro-np5jgbit">Projects</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/blog/" class="astro-np5jgbit">Blog</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/experiments/" class="astro-np5jgbit">Experiments</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/talks/" class="astro-np5jgbit">Talks</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/en/career/" class="astro-np5jgbit">Career</a>
+    <span class="sep astro-np5jgbit">|</span>
+    <a href="https://github.com/amatiasq" title="GitHub" class="icon-link astro-np5jgbit">
+      <svg aria-label="GitHub" width="20" height="20" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg" class="astro-np5jgbit">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="currentColor" class="astro-np5jgbit"></path>
+      </svg>
+    </a>
+    <a href="/es/blog/2023-03-15-rust/" title="Español" class="lang-switch astro-bzi5jpwk" data-lang="es">
+  🇪🇸
+</a>
+
+
+
+<script type="module">function n(){const t=document.querySelector(".lang-switch");if(!t)return;const a=t.dataset.lang,e=Intl.DateTimeFormat().resolvedOptions().timeZone.startsWith("America/");a==="en"?(t.textContent=e?"🇺🇸":"🇬🇧",t.title="English"):(t.textContent=e?"🇦🇷":"🇪🇸",t.title="Español")}n();document.addEventListener("astro:after-swap",n);</script>
+  </nav>
+</header>
+<hr class="astro-np5jgbit">
+  <main>
+    <article>
+      <header>
+        <h1 data-astro-transition-scope="astro-dsji2kxr-1">Rust</h1>
+        <time datetime="2023-03-15" class="astro-zcsldidg">Mar 15, 2023</time>
+        <ul class="tags astro-hfj6urh3">
+    <li class="astro-hfj6urh3">
+        <a href="/en/tag/rust/" class="tag-link astro-hfj6urh3">
+          <span class="astro-hfj6urh3" data-astro-transition-scope="astro-vpr6a7he-2">
+            Rust
+          </span>
+        </a>
+      </li>
+  </ul>
+
+
+      </header>
+      <div class="md "><p>I&#39;ve decided to try <a href="https://www.rust-lang.org/">rust language</a> for several reasons:</p>
+<ul>
+<li><strong>WebAssembly</strong>: I&#39;ve been looking for a language that allows me to run performant code in the browser as WebAssembly and Javascript / Typescript are not good fit for the case because of the weak typing system and the Garbage Collector.</li>
+<li><strong>No garbage collector</strong>: talking about GC, I love to run <a href="https://amatiasq.com/projects/lulas/">simulations on the web</a> and garbage collector eventually becomes an issue by making the simulation unpredictable</li>
+<li><strong>Type system</strong>: I was lucky enough to get to know F# and fell in love with it&#39;s way to use types, you start a program by defining the states of the application in it&#39;s type system. The root idea is really good but all of that translates to more types to create and instantiate at runtime which will also put more load on the Garbage Collector. Rust&#39;s type system takes the best ideas from it while removing all types at runtime.</li>
+<li><strong>Reputation</strong>: Following the public surveys on the industry it&#39;s clear that people that use Rust have found something different in this language, it&#39;s even <a href="https://www.zdnet.com/article/rust-in-the-linux-kernel-why-it-matters-and-whats-happening-next/">getting into the Linux kernel</a>.</li>
+</ul>
+<h2>The project</h2>
+<p>So why not start with something simple like <em>creating a web application that renders a graph in SVG</em>? 🧑‍💻</p>
+<p>Following <a href="https://www.youtube.com/playlist?list=PLZaoyhMXgBzoM9bfb5pyUOT3zjnaDdSEP">no boilerplate</a> I found <a href="https://yew.rs/">Yew</a>, a React-like framework for rust:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">[#function_component]</span></span>
+<span class="line"><span style="color:#F97583">fn</span><span style="color:#B392F0"> MyComponent</span><span style="color:#E1E4E8">(props</span><span style="color:#F97583">:</span><span style="color:#B392F0"> Props</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  return</span><span style="color:#B392F0"> html!</span><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#E1E4E8">    &#x3C;div>{props</span><span style="color:#F97583">.</span><span style="color:#E1E4E8">content}&#x3C;</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">div></span></span>
+<span class="line"><span style="color:#E1E4E8">  };</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>Well this looks promising.</p>
+<h2>Installation</h2>
+<p>To install Rust I ran the following commands (for unix systems like Linux and Mac) as stated in <a href="https://yew.rs/docs/getting-started/introduction">Yew&#39;s documentation</a></p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D"># from https://rustup.rs/</span></span>
+<span class="line"><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> --proto</span><span style="color:#9ECBFF"> '=https'</span><span style="color:#79B8FF"> --tlsv1.2</span><span style="color:#79B8FF"> -sSf</span><span style="color:#9ECBFF"> https://sh.rustup.rs</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> sh</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># this enables rustup command immediately</span></span>
+<span class="line"><span style="color:#79B8FF">source</span><span style="color:#9ECBFF"> "</span><span style="color:#E1E4E8">$HOME</span><span style="color:#9ECBFF">/.cargo/env"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># install something about webassembly support... I guess</span></span>
+<span class="line"><span style="color:#B392F0">rustup</span><span style="color:#9ECBFF"> target</span><span style="color:#9ECBFF"> add</span><span style="color:#9ECBFF"> wasm32-unknown-unknown</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># some dependencies we're going to need</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> --locked</span><span style="color:#9ECBFF"> trunk</span></span>
+<span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> cargo-generate</span></span></code></pre></div><p>Then generated a new project with <code>cargo generate</code> command</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#B392F0">cargo</span><span style="color:#9ECBFF"> generate</span><span style="color:#79B8FF"> --git</span><span style="color:#9ECBFF"> https://github.com/yewstack/yew-trunk-minimal-template</span></span></code></pre></div><h2>First impressions</h2>
+<p>At first glance the code looks familiar,</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">// main.rs</span></span>
+<span class="line"><span style="color:#F97583">mod</span><span style="color:#B392F0"> app</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">use</span><span style="color:#B392F0"> app</span><span style="color:#F97583">::</span><span style="color:#B392F0">App</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">fn</span><span style="color:#B392F0"> main</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#B392F0">    yew</span><span style="color:#F97583">::</span><span style="color:#B392F0">Renderer</span><span style="color:#F97583">::</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">App</span><span style="color:#E1E4E8">></span><span style="color:#F97583">::</span><span style="color:#B392F0">new</span><span style="color:#E1E4E8">()</span><span style="color:#F97583">.</span><span style="color:#B392F0">render</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">// app.rs</span></span>
+<span class="line"><span style="color:#F97583">use</span><span style="color:#B392F0"> yew</span><span style="color:#F97583">::</span><span style="color:#B392F0">prelude</span><span style="color:#F97583">::*</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">#[function_component(</span><span style="color:#B392F0">App</span><span style="color:#E1E4E8">)]</span></span>
+<span class="line"><span style="color:#F97583">pub</span><span style="color:#F97583"> fn</span><span style="color:#B392F0"> app</span><span style="color:#E1E4E8">() </span><span style="color:#F97583">-></span><span style="color:#B392F0"> Html</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    html!</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;main></span></span>
+<span class="line"><span style="color:#E1E4E8">            &#x3C;img class</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"logo"</span><span style="color:#E1E4E8"> src</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"https://yew.rs/img/logo.png"</span><span style="color:#E1E4E8"> alt</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"Yew logo"</span><span style="color:#F97583"> /</span><span style="color:#E1E4E8">></span></span>
+<span class="line"><span style="color:#E1E4E8">            &#x3C;h1>{ </span><span style="color:#9ECBFF">"Hello World!"</span><span style="color:#E1E4E8"> }&#x3C;</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">h1></span></span>
+<span class="line"><span style="color:#E1E4E8">            &#x3C;span class</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"subtitle"</span><span style="color:#E1E4E8">>{ </span><span style="color:#9ECBFF">"from Yew with "</span><span style="color:#E1E4E8"> }&#x3C;i class</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">"heart"</span><span style="color:#F97583"> /</span><span style="color:#E1E4E8">>&#x3C;</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">span></span></span>
+<span class="line"><span style="color:#E1E4E8">        &#x3C;</span><span style="color:#F97583">/</span><span style="color:#E1E4E8">main></span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>C-like syntax, quite similar to Typescript to be honest...</p>
+<ul>
+<li>the <code>#[something]</code> look like attribute / decorators</li>
+<li>looks like <code>use something</code> is used to import types and values</li>
+<li>I like how light the function syntax is by requesting just <code>fn name() -&gt; ReturnType</code></li>
+<li>By now I know that functions ending with <code>!</code> are meta-programming, code generating code at compile-time</li>
+</ul>
+<p>I heard in some video that <strong>not having semicolon in the last statement of a block is implicit return</strong> so <code>app()</code> is returning the result of the <code>html!</code> macro.</p>
+<h2>First file</h2>
+<p>Only custom types in Rust are</p>
+<h3><code>struct</code></h3>
+<p>This is a container of properties of a given type. It can be generic exactly like Typescript.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">struct</span><span style="color:#B392F0"> MyType</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  a</span><span style="color:#F97583">:</span><span style="color:#B392F0"> T</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// methods can be added later</span></span>
+<span class="line"><span style="color:#6A737D">// they can even be added by third-party modules</span></span>
+<span class="line"><span style="color:#6A737D">// we can have multiple impl blocks for the same struct</span></span>
+<span class="line"><span style="color:#6A737D">// they look like nothing more than stand-alone functions</span></span>
+<span class="line"><span style="color:#6A737D">// with nice syntax-sugar to look like methods</span></span>
+<span class="line"><span style="color:#F97583">impl</span><span style="color:#B392F0"> MyType</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#6A737D">  // what does &#x26; do here? I don't know yet 🤷</span></span>
+<span class="line"><span style="color:#F97583">  fn</span><span style="color:#B392F0"> myMethod</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">&#x26;</span><span style="color:#79B8FF">self</span><span style="color:#E1E4E8">, x</span><span style="color:#F97583">:</span><span style="color:#B392F0"> i32</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">-></span><span style="color:#B392F0"> bool</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">true</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// structs can also be tuples</span></span>
+<span class="line"><span style="color:#F97583">struct</span><span style="color:#B392F0"> Vector2</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">i32</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">i32</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// or even have no items at all</span></span>
+<span class="line"><span style="color:#F97583">struct</span><span style="color:#B392F0"> Person</span><span style="color:#E1E4E8">;</span></span></code></pre></div><h3><code>enum</code></h3>
+<p>Enums are particularly powerful, they define a &quot;one of&quot; type and each entry can have values inside</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">// this one is part of Rust</span></span>
+<span class="line"><span style="color:#F97583">enum</span><span style="color:#B392F0"> Option</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#B392F0">  Some</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#B392F0">  None</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">enum</span><span style="color:#B392F0"> Event</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">  Scroll</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  KeyDown</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">Key</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#B392F0">  Click</span><span style="color:#E1E4E8"> { x</span><span style="color:#F97583">:</span><span style="color:#B392F0"> i32</span><span style="color:#E1E4E8">, y</span><span style="color:#F97583">:</span><span style="color:#E1E4E8"> y32 },</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// yep, they can have methods too ❤️</span></span>
+<span class="line"><span style="color:#F97583">impl</span><span style="color:#B392F0"> Event</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  fn</span><span style="color:#B392F0"> something</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">&#x26;</span><span style="color:#79B8FF">self</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">-></span><span style="color:#B392F0"> i32</span><span style="color:#E1E4E8"> { </span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><h3>Back to the project</h3>
+<p>I can&#39;t wait to define my application&#39;s state with types so first thing I do is create a new file <code>types.rs</code> and create a struct inside, Github Copilot takes the rest for me</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">struct</span><span style="color:#B392F0"> Node</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  id</span><span style="color:#F97583">:</span><span style="color:#B392F0"> u64</span><span style="color:#E1E4E8">, </span><span style="color:#6A737D">// should have used i32</span></span>
+<span class="line"><span style="color:#E1E4E8">  node_type</span><span style="color:#F97583">:</span><span style="color:#B392F0"> NodeType</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  name</span><span style="color:#F97583">:</span><span style="color:#B392F0"> String</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">enum</span><span style="color:#B392F0"> NodeType</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">  Person</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  Place</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// error: global values have to be const x: Type</span></span>
+<span class="line"><span style="color:#6A737D">// but I won't know that for a while</span></span>
+<span class="line"><span style="color:#F97583">let</span><span style="color:#E1E4E8"> me </span><span style="color:#F97583">=</span><span style="color:#B392F0"> Node</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  id</span><span style="color:#F97583">:</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  node_type</span><span style="color:#F97583">:</span><span style="color:#B392F0"> NodeType</span><span style="color:#F97583">::</span><span style="color:#B392F0">Person</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  name</span><span style="color:#F97583">:</span><span style="color:#9ECBFF"> "A. Matías Quezada"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>That looks good, now let&#39;s import this file and use this value but... why is VS Code &quot;Go to definition&quot; not working?</p>
+<h2>Editor integration</h2>
+<p>I change <code>main.rs</code> to a simple case</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">fn</span><span style="color:#B392F0"> test</span><span style="color:#E1E4E8">() {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">fn</span><span style="color:#B392F0"> main</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#B392F0">    test</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>And no, VS Code doesn&#39;t know where to find <code>test</code> definition 🤦. I know from <a href="https://youtu.be/ifaLk5v3W90">my source material</a> that VS Code is integrated with Rust and I&#39;ve installed a few of the most popular Rust extensions so why is this not working?</p>
+<p>Turns out the only extension we need to work with Rust is <code>rust-analyzer</code> and I have it installed and even <a href="https://code.visualstudio.com/docs/languages/rust">VS Code</a> documentation says it should work out of the box... Tried removing any other Rust extension I had, restarting VS Code, restarting the computer, disabling and re-enabling the extension and... wait! it works now, I don&#39;t know how.</p>
+<h2>Importing a file</h2>
+<p>Ok now let&#39;s import that <code>types.rs</code> file... it should be something like <code>use types::*</code>, right?</p>
+<p><a href="https://doc.rust-lang.org/book/ch07-02-defining-modules-to-control-scope-and-privacy.html">Wrong!</a></p>
+<p>Turns out <code>use</code> keyword only creates shortcuts (aliases) for existing items, it doesn&#39;t import them.</p>
+<p>So to import a file... ok someone on the internet says you should use <code>mod filename;</code> without the <code>.rs</code> extension but that&#39;s not working for me... ok let&#39;s breath deeply.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">// main.rs</span></span>
+<span class="line"><span style="color:#6A737D">// in a rust file we can define an inner module</span></span>
+<span class="line"><span style="color:#F97583">mod</span><span style="color:#B392F0"> my_internal_module</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">  pub</span><span style="color:#F97583"> fn</span><span style="color:#B392F0"> some_internal_function</span><span style="color:#E1E4E8">() {}</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">my_internal_module</span><span style="color:#F97583">::</span><span style="color:#B392F0">some_internal_function</span><span style="color:#E1E4E8">();</span></span></code></pre></div><p>And, in theory we should be able to move the content of that module to a file called <code>my_internal_module.rs</code> and change the <code>mod</code> instruction to <code>mod my_internal_module;</code> and that should work, and it does... once.</p>
+<p>Consider the following file structure:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">// src/main.rs</span></span>
+<span class="line"><span style="color:#F97583">mod</span><span style="color:#B392F0"> my_internal_module</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">my_internal_module</span><span style="color:#F97583">::</span><span style="color:#B392F0">some_internal_function</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// src/my_internal_module.rs</span></span>
+<span class="line"><span style="color:#F97583">mod</span><span style="color:#B392F0"> another_module</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">pub</span><span style="color:#F97583"> fn</span><span style="color:#B392F0"> some_internal_function</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#B392F0">  another_module</span><span style="color:#F97583">::</span><span style="color:#B392F0">deepest_function</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// src/another_module.rs</span></span>
+<span class="line"><span style="color:#F97583">pub</span><span style="color:#F97583"> fn</span><span style="color:#B392F0"> deepest_function</span><span style="color:#E1E4E8">() {}</span></span></code></pre></div><p>In this case Rust looks up <code>another_module</code> in <code>my_internal_module/another_module.rs</code>, apparently we can&#39;t chain <code>mod</code> imports this way. It works if we move all <code>mod</code> instructions to the <code>main.rs</code> file though.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">// src/main.rs</span></span>
+<span class="line"><span style="color:#F97583">mod</span><span style="color:#B392F0"> my_internal_module</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">mod</span><span style="color:#B392F0"> another_module</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">my_internal_module</span><span style="color:#F97583">::</span><span style="color:#B392F0">some_internal_function</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// src/my_internal_module.rs</span></span>
+<span class="line"><span style="color:#F97583">pub</span><span style="color:#F97583"> fn</span><span style="color:#B392F0"> some_internal_function</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#B392F0">  another_module</span><span style="color:#F97583">::</span><span style="color:#B392F0">deepest_function</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// src/another_module.rs</span></span>
+<span class="line"><span style="color:#F97583">pub</span><span style="color:#F97583"> fn</span><span style="color:#B392F0"> deepest_function</span><span style="color:#E1E4E8">() {}</span></span></code></pre></div><p>So main behaves like an index file and root for imported files, I guess I&#39;ll have to go with this until I learn more. I ended up <a href="https://github.com/amatiasq/learn-rust/blob/d69a056f1cb35723d504c48c58ee75fa51feecb1/src/main.rs#L1-L3">importing all files from <code>main.rs</code></a>.</p>
+<h2>First errors</h2>
+<h3>Error feedback</h3>
+<p>As I&#39;m changing the code I notice the errors aren&#39;t in the right place and only update when I save the file. Of course, this is not an interpreted language, it&#39;s a copiled one so it needs me to save before it tries to understand what I wrote (I suppose). Being used to the rapid feedback of the Typescript ecosystem this breaks my flow a bit.</p>
+<p>Also looks like there are &quot;layers&quot; of errors, when I solve all of the compiler errors a second kind of errors pup up immediately all over the codebase and when I address those a bunch of warnings that haven&#39;t shown before suddently fill the place.</p>
+<p>The errors are really kind and explain exactly where the issue happened and even suggest a solution for it which is a lovely detail from the Rust compiler team.</p>
+<h3>Global values</h3>
+<p>Now that I&#39;m importing the files and both the compiler and the editor are showing me the errors I see I can&#39;t just <code>let me = Node {...}</code> outside a function. The correct way to do this is with <code>const me: Node = Node {...}</code>. Why do I need to type the type name twice? I don&#39;t know, the compiler asked for it. Is there a way to avoid that? let me know if you find the answer.</p>
+<h3>Strings are not <code>&amp;str</code></h3>
+<p>Now is where I start to get really lost, in <code>Node</code> struct I typed the property as <code>name: String</code> and when I try to instatiate the struct with <code>name: &quot;A. Matías Quezada&quot;</code> I&#39;m immediately slapped by the error: <code>expected String, found &amp;str</code> <a href="https://youtu.be/1Z9yy0t2RGQ">WAT</a></p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span> --> src/data.rs:6:11</span></span>
+<span class="line"><span>  |</span></span>
+<span class="line"><span>6 |     name: "A. Matías Quezada",</span></span>
+<span class="line"><span>  |           ^^^^^^^^^^^^^^^^^^^- help: try using a conversion method: `.to_string()`</span></span>
+<span class="line"><span>  |           |</span></span>
+<span class="line"><span>  |           expected struct `String`, found `&#x26;str`</span></span></code></pre></div><p>Copilot had added <code>.to_string()</code> at the end of it and I removed it because I considered it redundant but, hey! we&#39;re here to learn. I change it back to <code>name: &quot;A. Matías Quezada&quot;.to_string()</code> and it looks good, all other strings still fail but I save the file and no error is thrown in <em>this line</em>. I prompty add <code>.to_string()</code> to all other strings in the file, save aaaaaaaand...</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>error[E0015]: cannot call non-const fn `&#x3C;str as ToString>::to_string` in constants</span></span>
+<span class="line"><span> --> src/data.rs:6:31</span></span>
+<span class="line"><span>  |</span></span>
+<span class="line"><span>6 |     name: "A. Matías Quezada".to_string(),</span></span></code></pre></div><p>Ok... I don&#39;t know what to do now... what if... I just...</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">struct</span><span style="color:#B392F0"> Node</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    id</span><span style="color:#F97583">:</span><span style="color:#B392F0"> u64</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    node_type</span><span style="color:#F97583">:</span><span style="color:#B392F0"> NodeType</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#6A737D">    // name: String,</span></span>
+<span class="line"><span style="color:#E1E4E8">    name</span><span style="color:#F97583">:</span><span style="color:#F97583"> &#x26;</span><span style="color:#B392F0">str</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>🤞</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>error[E0106]: missing lifetime specifier</span></span>
+<span class="line"><span>  --> src/types.rs:19:15</span></span>
+<span class="line"><span>   |</span></span>
+<span class="line"><span>19 |     name: &#x26;str,</span></span>
+<span class="line"><span>   |               ^ expected named lifetime parameter</span></span>
+<span class="line"><span>   |</span></span>
+<span class="line"><span>help: consider introducing a named lifetime parameter</span></span>
+<span class="line"><span>   |</span></span>
+<span class="line"><span>16 ~ struct Node&#x3C;'a> {</span></span>
+<span class="line"><span>17 |     id: u64,</span></span>
+<span class="line"><span>18 |     node_type: NodeType,</span></span>
+<span class="line"><span>19 ~     name: &#x26;'a str,</span></span>
+<span class="line"><span>   |</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>For more information about this error, try `rustc --explain E0106`.</span></span></code></pre></div><p>Well at least it&#39;s telling me what to do, right? I just need to add a... named lifetime? parameter... whatever it is.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">struct</span><span style="color:#B392F0"> Node</span><span style="color:#E1E4E8">&#x3C;'</span><span style="color:#B392F0">a</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    id</span><span style="color:#F97583">:</span><span style="color:#B392F0"> u64</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">    node_type</span><span style="color:#F97583">:</span><span style="color:#B392F0"> NodeType</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#6A737D">    // name: String,</span></span>
+<span class="line"><span style="color:#E1E4E8">    name</span><span style="color:#F97583">:</span><span style="color:#F97583"> &#x26;</span><span style="color:#E1E4E8">'</span><span style="color:#B392F0">a</span><span style="color:#B392F0"> str</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>Ok this can&#39;t be right, let&#39;s save and see...</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span>error[E0106]: missing lifetime specifier</span></span>
+<span class="line"><span>  --> src/types.rs:30:20</span></span>
+<span class="line"><span>   |</span></span>
+<span class="line"><span>30 |     nodes: Vec&#x3C;Node>,</span></span>
+<span class="line"><span>   |                    ^^^^ expected named lifetime parameter</span></span>
+<span class="line"><span>   |</span></span>
+<span class="line"><span>help: consider introducing a named lifetime parameter</span></span>
+<span class="line"><span>   |</span></span>
+<span class="line"><span>29 ~ struct Graph&#x3C;'a> {</span></span>
+<span class="line"><span>30 ~     nodes: Vec&#x3C;Node&#x3C;'a>>,</span></span>
+<span class="line"><span>   |</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>For more information about this error, try `rustc --explain E0106`.</span></span></code></pre></div><p>Hm... ok I can do that, I also have a <code>create_graph()</code> function that probably needs to be updated:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">fn</span><span style="color:#B392F0"> create_graph</span><span style="color:#E1E4E8">&#x3C;'</span><span style="color:#B392F0">a</span><span style="color:#E1E4E8">>() </span><span style="color:#F97583">-></span><span style="color:#B392F0"> Graph</span><span style="color:#E1E4E8">&#x3C;'</span><span style="color:#B392F0">a</span><span style="color:#E1E4E8">> {</span></span>
+<span class="line"><span style="color:#B392F0">  Graph</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    nodes</span><span style="color:#F97583">:</span><span style="color:#B392F0"> vec!</span><span style="color:#E1E4E8">[me]</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>Well <a href="https://github.com/amatiasq/learn-rust/commit/1c9f5b740638eac27222a204fbec455e2cd6544a">I did something!</a>.</p>
+<h2>Takeaways</h2>
+<ul>
+<li>At first glance Rust looks simple and familiar</li>
+<li>The compiler errors are as good as they say</li>
+<li>There is no <code>null</code>, it&#39;s that simple</li>
+<li>The file structure looks familiar coming from javascript, having top-level exported functins and, optionally, classes</li>
+<li>The code is terse but with several symbols, not a fan of <code>::</code> and <code>&amp;</code> everywhere and I find <code>&lt;&#39;a&gt;</code>  difficult to type</li>
+<li>Rust doesn&#39;t allow creating logic outside a function and global values have special rules: they have to be <code>const</code> or <code>static</code> (the latter is mutable)</li>
+<li>The Rust language is quite thin and depends on libraries for most complex behaviour (async/await, http, threading...)</li>
+<li>The way to define methods is perfect, similar to C# extensions methods, allow to extend a third-party class without having access to it&#39;s source</li>
+<li>Rust output contains no types, let me repeat that, the binary knows nothing about types. The types are a tool for the developer and the compiler only</li>
+<li>There is many things about <code>lifecycle</code> that escapes my understanding but looks like we can use generic-like types to recive (from the function invoker) how long a variable should stay in memory</li>
+<li>A <code>crate</code> is a compilation unit, think of it like a DLL, an application may contain several crates</li>
+<li><a href="https://doc.rust-lang.org/book/">Rust book</a> is the next stop</li>
+</ul>
+<p>About language features:</p>
+<ul>
+<li>Love the macro system that gives us wonders like the <code>vec![1,2,3]</code> lists</li>
+<li><code>mod</code> can be use to create an inline module or to load a file from <code>main.rs</code></li>
+<li><code>use</code> creates namespace aliases and allows for multiple values or <code>*</code>: <code>use namespace::module::{A,B,C}</code></li>
+<li>Looks like there are several types for string: <code>String</code>, <code>&amp;str</code>, more?</li>
+<li>The type system is the best part I love that <code>struct</code> can be a tuple or have no items</li>
+<li>Not sure of this but looks like <code>enum</code> branches are actually structs</li>
+</ul>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">struct</span><span style="color:#B392F0"> MyStruct1</span><span style="color:#E1E4E8"> { x</span><span style="color:#F97583">:</span><span style="color:#B392F0"> i32</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#F97583">struct</span><span style="color:#B392F0"> MyStruct2</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">i32</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#6A737D">// this is like an interface</span></span>
+<span class="line"><span style="color:#6A737D">// with no members</span></span>
+<span class="line"><span style="color:#F97583">struct</span><span style="color:#B392F0"> MyStruct3</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">enum</span><span style="color:#B392F0"> MyEnum</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#6A737D">  // exactly the same code but</span></span>
+<span class="line"><span style="color:#6A737D">  // without `struct` keyword</span></span>
+<span class="line"><span style="color:#B392F0">  MyStruct1</span><span style="color:#E1E4E8"> { x</span><span style="color:#F97583">:</span><span style="color:#B392F0"> i32</span><span style="color:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#B392F0">  MyStruct2</span><span style="color:#E1E4E8">(</span><span style="color:#B392F0">i32</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#B392F0">  MyStruct3</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>Maybe I should&#39;ve started with a project I&#39;m more familiar with... did somebody say Lulas v38.0?</p>
+<p>Eat more vegetables</p>
+</div>
+    </article>
+  </main>
+
+  </body></html>

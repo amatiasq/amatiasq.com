@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#121212">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Conceptos Básicos Javascript: this, .call() y .apply() | A. Matías Quezada</title>
+    
+<meta name="astro-view-transitions-enabled" content="true">
+<meta name="astro-view-transitions-fallback" content="animate">
+<script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.rasoniT7.js"></script>
+  <link rel="stylesheet" href="/_astro/_slug_.eUhtq0iF.css">
+<style>time:where(.astro-zcsldidg){font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.9em}
+.md .code-block{position:relative;margin:1.5rem 0}.md pre{padding:1.25rem;border-radius:8px;overflow-x:auto;border:1px solid oklch(28% 0 0);margin:0}.md pre code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.875rem;line-height:1.6}.md :not(pre)>code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;background:#090909;padding:.2em .4em;border-radius:4px;font-size:.9em;border:1px solid oklch(28% 0 0)}.md h2,.md h3{margin-top:2.5rem;margin-bottom:1rem}.md p{margin:1rem 0}.md blockquote{border-left:3px solid oklch(28% 0 0);margin:1.5rem 0;padding:.5rem 1rem;background:#090909;border-radius:0 8px 8px 0}.md blockquote p{margin:.5rem 0;color:#8f8f8f}.md ul,.md ol{padding-left:1.5rem;margin:1rem 0}.md li{margin:.5rem 0}.md hr{border:none;border-top:1px solid oklch(28% 0 0);margin:2rem 0}.md img{max-width:100%;height:auto;display:block;margin:1.5rem 0}.md pre span[style*="color:#6A737D"],.md pre span[style*="color:#8b949e"]{color:#54b05a!important;font-style:italic}.tags:where(.astro-hfj6urh3){list-style:none;padding:0;margin:1rem 0;display:flex;flex-wrap:wrap;gap:.5rem}li:where(.astro-hfj6urh3) .tag-link{background:#121212;border:1px solid oklch(28% 0 0);border-radius:4px;padding:.2rem .6rem;margin:0;font-size:.8rem;color:#9e9e9e;text-decoration:none;transition:all .15s ease;display:inline-block}li:where(.astro-hfj6urh3) .tag-link:hover{background:#222;border-color:var(--accent);color:var(--accent);transform:none}
+@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-dsji2kxr-1"] { view-transition-name: title-2012-01-08-conceptos-basicos-this-call-apply; }@layer astro { ::view-transition-old(title-2012-01-08-conceptos-basicos-this-call-apply) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(title-2012-01-08-conceptos-basicos-this-call-apply) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(title-2012-01-08-conceptos-basicos-this-call-apply) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(title-2012-01-08-conceptos-basicos-this-call-apply) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-vpr6a7he-2"] { view-transition-name: tag-javascript; }@layer astro { ::view-transition-old(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head>
+  <body>
+    
+  <header class="astro-np5jgbit">
+  <a href="/es/" class="site-title astro-np5jgbit"><span class="a-matias-quezada astro-np5jgbit astro-2dpizvyk">
+  <abbr class="astro-2dpizvyk">Adrian</abbr>
+  <span class="dot astro-2dpizvyk">.</span>
+  <span class="astro-2dpizvyk">Matías Quezada</span>
+</span></a>
+  <nav class="astro-np5jgbit">
+    <a href="/es/projects/" class="astro-np5jgbit">Projects</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/es/blog/" class="astro-np5jgbit">Blog</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/es/experiments/" class="astro-np5jgbit">Experiments</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/es/talks/" class="astro-np5jgbit">Talks</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/es/career/" class="astro-np5jgbit">Career</a>
+    <span class="sep astro-np5jgbit">|</span>
+    <a href="https://github.com/amatiasq" title="GitHub" class="icon-link astro-np5jgbit">
+      <svg aria-label="GitHub" width="20" height="20" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg" class="astro-np5jgbit">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="currentColor" class="astro-np5jgbit"></path>
+      </svg>
+    </a>
+    <a href="/en/blog/2012-01-08-conceptos-basicos-this-call-apply/" title="English" class="lang-switch astro-bzi5jpwk" data-lang="en">
+  🇬🇧
+</a>
+
+
+
+<script type="module">function n(){const t=document.querySelector(".lang-switch");if(!t)return;const a=t.dataset.lang,e=Intl.DateTimeFormat().resolvedOptions().timeZone.startsWith("America/");a==="en"?(t.textContent=e?"🇺🇸":"🇬🇧",t.title="English"):(t.textContent=e?"🇦🇷":"🇪🇸",t.title="Español")}n();document.addEventListener("astro:after-swap",n);</script>
+  </nav>
+</header>
+<hr class="astro-np5jgbit">
+  <main>
+    <article>
+      <header>
+        <h1 data-astro-transition-scope="astro-dsji2kxr-1">Conceptos Básicos Javascript: this, .call() y .apply()</h1>
+        <time datetime="2012-01-08T00:00:00.000Z" class="astro-zcsldidg">08 ene 2012</time>
+        <ul class="tags astro-hfj6urh3">
+    <li class="astro-hfj6urh3">
+        <a href="/es/tag/javascript/" class="tag-link astro-hfj6urh3">
+          <span class="astro-hfj6urh3" data-astro-transition-scope="astro-vpr6a7he-2">
+            Javascript
+          </span>
+        </a>
+      </li>
+  </ul>
+
+
+      </header>
+      <div class="md "><p>Antes de continuar con el Patrón Promise me gustaría explicar en paralelo Conceptos Básicos de Javascript. Entendiendo que estamos hablando de Javascript como lenguaje y no vamos a hablar sobre conceptos básicos del DOM o como abrir una nueva ventana en el navegador, sino detalles de Javascript puro, tanto en cliente como en servidor.</p>
+<h3>De dónde sale <em>this</em></h3>
+<p>He pensado que sería un buen punto empezar por una curiosidad bastante desconocida para los recién llegados a Javascript: La variable <code>this</code>, también llamado el <code>scope</code> o más correctamente <code>contexto</code> de la función. En los lenguajes basados en clases más extendidos (Java, C++, C#...) encontramos que <strong>los métodos de la clase siempre disponen de la variable <code>this</code> que nos permite acceder a nuestra propia instancia</strong> sobre la que se está ejecutando el método. Es decir, si tenemos la clase...</p>
+<!-- end extract -->
+
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> MyClass</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  String </span><span style="color:#FFAB70">myField</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">  void</span><span style="color:#B392F0"> myMethod</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#79B8FF">    this</span><span style="color:#E1E4E8">.myField;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>Veremos que en myMethod siempre tendremos <code>this</code> apuntando a una variable del tipo <code>MyClass</code> que contendrá un campo <code>myField</code>. En Javascript ésto no es así, <strong>en Javascript todo son objetos</strong>, incluidas las funciones y métodos, ambos <strong>son instancias de <code>Function</code></strong>, y como tales no están ligadas a un objeto en particular. Miremos el código:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> myFunction</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.name);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> objectA </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  name: </span><span style="color:#9ECBFF">'Alice'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  myMethod: myFunction,</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> objectB </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  name: </span><span style="color:#9ECBFF">'Bob'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#E1E4E8">  myMethod: myFunction,</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre></div><p>Aquí tenemos dos objetos totalmente independientes y ambos tienen la propiedad <code>myMethod</code> apuntado a <code>myFunction</code> a pesar de que no tienen una clase en común más que <code>Object</code>. Entonces cuál es <strong>el valor de this</strong> en <code>myFunction</code>? No es fijo, <strong>cambia según como lo llamemos</strong>.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">objectA.</span><span style="color:#B392F0">myMethod</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#6A737D">// Imprime "Alice"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">objectB.</span><span style="color:#B392F0">myMethod</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#6A737D">// Imprime "Bob"</span></span></code></pre></div><p><a href="http://jsfiddle.net/amatiasq/YUX5B/" target="_blank">Pruébame</a></p>
+<!--more Seguir leyendo → -->
+
+<p>Como vemos el valor de <code>this</code> cambia según sobre que objeto lo llamemos. Bien, Javascript sabe que valor tiene que poner a <code>this</code> antes de llamar a una función, pero nosotros necesitamos entenderlo para no encontrarnos con bugs imposibles de corregir. Para ésto hay una regla de oro: <strong>el objeto <code>this</code> pasado a una función es el objeto que está antes del punto que precede los paréntesis que invocan a la función</strong>. Es decir, la llamada <code>objectA.myMethod()</code> la podríamos dividir en cuatro partes: _ <strong>objectA</strong>: El objeto que contiene la función _ <strong>. (punto)</strong>: Separa el objeto de su propiedad (la función) _ <strong>myMethod</strong>: Nombre de la función _ <strong>() (paréntesis)</strong>: Ejecutan la función En éste caso vemos que</p>
+<p><strong>antes del punto está <code>objectA</code></strong> por lo que será <code>objectA</code> lo <strong>que se le pasará a la variable <code>this</code></strong> del método <code>myMethod</code>.</p>
+<h3>Casos más complejos</h3>
+<h4>Más de un punto</h4>
+<p>Ahora vamos a ver casos en los que tenemos más o menos de un punto, es menos difícil de lo que parece. Para empezar, que pasa si usamos namespaces:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">amq.test.StringHelper.</span><span style="color:#B392F0">firstToUpperCase</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'myname'</span><span style="color:#E1E4E8">);</span></span></code></pre></div><p>Aquí cuál es el valor de <code>this</code>? Si miramos la regla de oro veremos que solo el punto que precede a los paréntesis debe importarnos, por lo que tenemos:</p>
+<ul>
+<li><strong>amq.test.StringHelper</strong>: El objeto que contiene la función</li>
+<li><strong>. (punto)</strong>: Separa el objeto de su propiedad (la función)</li>
+<li><strong>firstToUpperCase</strong>: Nombre de la función</li>
+<li><strong>() (paréntesis)</strong>: Ejecutan la función El valor de</li>
+</ul>
+<p><strong><code>this</code> siempre es el objeto que está antes del último punto</strong>, es decir, el objeto <strong>que contiene la función</strong>.</p>
+<h4>Sin puntos</h4>
+<p>Pero que pasa si no hay ningún punto? si la función no está en ningún objeto?</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> testScope</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#B392F0">testScope</span><span style="color:#E1E4E8">();</span></span></code></pre></div><p>Aquí podríamos pensar que <code>this</code> es <code>null</code> y tendría sentido pero no, Javascript define que una función invocada sin contexto, el contexto debe ser el Objeto Global, que en el caso de un navegador sería <code>window</code>. Por lo que en <strong>una función que no esté contenida en ningún objeto recibirá el objeto global</strong> como <code>this</code>.</p>
+<h3>Callbacks</h3>
+<p>Ya con toda ésta base podemos abordar el problema de los callbacks, supongamos que tenemos una función que hace un proceso asíncrono y necesitamos pasarle un callback para que se ejecute cuando el proceso asíncrono termine. Para el ejemplo pondremos que la tarea asíncrona sea esperar un segundo</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> esperarUnSegundo</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">callback</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#B392F0">  setTimeout</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#B392F0">    callback</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">  }, </span><span style="color:#79B8FF">1000</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span></code></pre></div><p>Perfecto, ya tenemos una función que espera que pase un segundo y llama al callback, pero que pasa si la usamos de ésta forma?</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> alice </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  nombre: </span><span style="color:#9ECBFF">'Alice'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  cansarse</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#B392F0">    alert</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.nombre </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> ' se ha cansado de esperar'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"><span style="color:#B392F0">esperarUnSegundo</span><span style="color:#E1E4E8">(alice.cansarse);</span></span></code></pre></div><p><a href="http://jsfiddle.net/amatiasq/erfJF/" target="_blank">Pruébame</a></p>
+<p>Aquí tenemos un problema, al parecer <code>this.nombre</code> no es &quot;Alice&quot;. Porqué? Repasemos la regla de oro, <code>this</code> será el objeto que está antes del punto que precede a los paréntesis que ejecutan la función. Busquemos los paréntesis que ejecutan la función:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#B392F0">callback</span><span style="color:#E1E4E8">();</span></span></code></pre></div><p>Y vemos que no hay ningún punto delante. <strong>La función la hemos extraído del objeto</strong> <code>alice</code>, pero al extraerla la hemos desvinculado de él y al llamarlo ya no se le pasa <code>alice</code> porque ya no se la llama con <code>alice.&lt;nombre del método&gt;</code> Entonces cómo hacemos para que callback no pierda su contexto? para que mantenga el valor de <code>this</code> a <code>alice</code>?</p>
+<h3>Los métodos de <code>Function</code></h3>
+<p>Para ésto vienen en nuestra ayuda los métodos de <code>Function</code>, como ya dijimos, <strong>las funciones son instancias de la clase <code>Function</code> y como tal tienen también métodos propios</strong>. Los más utilizados son <code>.call()</code> y <code>.apply()</code></p>
+<h4><code>.call()</code> Imaginemos que tenemos otra vez el objeto <code>alice</code> y que guardamos su método en una variable.</h4>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> alice </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  nombre: </span><span style="color:#9ECBFF">'Alice'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  cansarse</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">.nombre);</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> myFunction </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> alice.cansarse;</span></span></code></pre></div><p>Si llamamos a <code>myFunction</code> directamente lo estaríamos llamando sin contexto por lo el la variable <code>this</code> tendría el objeto global dentro de <code>myFunction</code>, como podemos hacer que ejecute <code>myFunction</code> pero pasándole <code>alice</code> como <code>this</code>? Para ésto tenemos las funciones <code>.call()</code> y <code>.apply()</code>, empecemos por la función <code>.call()</code>.</p>
+<p><strong>La función <code>.call()</code> recibe los mismos argumentos que la función mas uno, el valor que tendrá <code>this</code> que se pasa antes que los demás argumentos</strong>. Es decir, nuestra función <code>myFunction</code> no recibe ningún argumento así que si llamamos a su método <code>.call()</code> y le pasamos lo que queremos que sea <code>this</code> es decir, <code>alice</code> conseguiremos que el método funcione igual que si lo hubiésemos llamado con <code>alice.cansarse</code></p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">myFunction.</span><span style="color:#B392F0">call</span><span style="color:#E1E4E8">(alice);</span></span></code></pre></div><p><a href="http://jsfiddle.net/amatiasq/kbr5t/" target="_blank">Pruébame</a></p>
+<p>Ahora vamos a probar lo mismo con una función que reciba argumentos:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> alice </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  nombre: </span><span style="color:#9ECBFF">'Alice'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  saludar</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">amigo1</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">amigo2</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#B392F0">    alert</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Hola '</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> amigo1 </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> ' y '</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> amigo2 </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> ', yo soy '</span><span style="color:#F97583"> +</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.nombre);</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> myFunction </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> alice.saludar;</span></span>
+<span class="line"><span style="color:#E1E4E8">myFunction.</span><span style="color:#B392F0">call</span><span style="color:#E1E4E8">(alice, </span><span style="color:#9ECBFF">'Bob'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Rob'</span><span style="color:#E1E4E8">);</span></span></code></pre></div><p><a href="http://jsfiddle.net/amatiasq/HZuPL/" target="_blank">Pruébame</a></p>
+<p>Como se ve, hemos conseguido modificar el valor que tiene <code>this</code> cuando se ejecuta la función, es decir el contexto.</p>
+<h4>.apply()</h4>
+<p>El método <code>.apply()</code> actúa de forma bastante similar a <code>.call()</code>, pero con una variación, solo <strong>recibe dos argumentos, el primero es el contexto de la función</strong>, el valor de <code>this</code> <strong>y el segundo será un array que contendrá los argumentos que se le pasarán a la función</strong>, veamos su uso en el ejemplo anterior:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">myFunction.</span><span style="color:#B392F0">apply</span><span style="color:#E1E4E8">(alice, [</span><span style="color:#9ECBFF">'Bob'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Rob'</span><span style="color:#E1E4E8">]);</span></span></code></pre></div><p><a href="http://jsfiddle.net/amatiasq/bSmeR/" target="_blank">Pruébame</a></p>
+<p>Esto aunque en un principio parezca bastante inútil nos servirá cuando, queriendo o no cambiar el contexto de una función, <strong>querramos llamarla y no sepamos ni nos interese saber cuántos argumentos tiene</strong>, supongamos que tenemos la función <code>callWithAlice()</code> que llama a la función <code>.saludar()</code> de <code>alice</code> y le pasa todos los argumentos que recibe.</p>
+<p><strong>Nota 1:</strong> Para ésto hace falta aclarar que el objeto <code>arguments</code> es una especie de array con los argumentos pasados a la función, más adelante profundizaremos en ello.</p>
+<p><strong>Nota 2:</strong> En éste caso no queremos cambiar el contexto, pero como estamos llamando a <code>.apply()</code> tenemos que darle uno, por lo que le damos <code>alice</code> que es el contexto que ya tenía.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> callWithAlice</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#E1E4E8">  alice.saludar.</span><span style="color:#B392F0">apply</span><span style="color:#E1E4E8">(alice, </span><span style="color:#79B8FF">arguments</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#B392F0">callWithAlice</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Rob'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Bob'</span><span style="color:#E1E4E8">);</span></span></code></pre></div><p><a href="http://jsfiddle.net/amatiasq/VrESt/" target="_blank">Pruébame</a></p>
+<h4>Bonus: .bind()</h4>
+<p>Ahora que ya entendemos el contexto, <code>.call()</code> y <code>.apply()</code> sabremos que cuando pasemos una función como callback si no queremos perder el contexto de la función deberemos hacer:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> esperarUnSegundo</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">callback</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#B392F0">  setTimeout</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#B392F0">    callback</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">  }, </span><span style="color:#79B8FF">1000</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">esperarUnSegundo</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#E1E4E8">  alice.</span><span style="color:#B392F0">myMethod</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span></code></pre></div><p>O bien:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> esperarUnSegundo</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">callback</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">context</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#B392F0">  setTimeout</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#E1E4E8">    callback.</span><span style="color:#B392F0">call</span><span style="color:#E1E4E8">(context);</span></span>
+<span class="line"><span style="color:#E1E4E8">  }, </span><span style="color:#79B8FF">1000</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">});</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">esperarUnSegundo</span><span style="color:#E1E4E8">(alice.myMethod, alice);</span></span></code></pre></div><p>Pero ésto puede ser un poco tedioso cuando manejas muchos callbacks de éste tipo, para ello se ha creado el método <code>.bind()</code>. Es un método de <code>Function</code> que devuelve otra función. Confuso, verdad?</p>
+<p><strong><code>.bind()</code> recibe un argumento, el contexto que se le podrá a la función sobre la que se aplica el <code>.bind()</code> y devolverá una función</strong> que cuando sea llamada ejecutará la función original con el contexto que se le pasó a <code>.bind()</code>. Lo veremos mejor con un ejemplo:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> alice </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">  nombre: </span><span style="color:#9ECBFF">'Alice'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#B392F0">  saludar</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Hola! Soy '</span><span style="color:#F97583"> +</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.nombre);</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> myFunction </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> alice.saludar.</span><span style="color:#B392F0">bind</span><span style="color:#E1E4E8">(alice);</span></span>
+<span class="line"><span style="color:#B392F0">myFunction</span><span style="color:#E1E4E8">();</span></span></code></pre></div><p><a href="http://jsfiddle.net/amatiasq/NUWCy/" target="_blank">Pruébame</a></p>
+<p>Lo que hemos hecho en la línea 8 es crear una función que cuando sea invocada llamará a <code>saludar</code> y le pasará <code>alice</code> como contexto.</p>
+<h3>Y ya está!</h3>
+<p>Con éste repaso ya deberíamos ser capaces de entender la parte más complicada para un recién llegado a Javascript, la modificación del contexto. Es una técnica que requiere mucha práctica, pero detrás de la cual se esconde la mitad del potencial de Javascript y como tal, también nos abre los ojos a muchos bugs que de otra forma serían imposibles de entender.</p>
+<p>De hecho, para los que les gusta romperse la cabeza como yo, les dejo un caramelo: Todas las funciones tienen los métodos <code>.call()</code>, <code>.apply()</code> y <code>.bind()</code>, es cierto. Pero éstos métodos también son funciones, eso significa que podemos hacer ésto? Que resultado tendría? Se los dejo a ustedes ;)</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">alice.saludar.call.call.call.call.apply.</span><span style="color:#B392F0">bind</span><span style="color:#E1E4E8">();</span></span></code></pre></div><p>Y que pasa si llamo a uno de éstos métodos y no le paso scope?</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#E1E4E8">alice.saludar.</span><span style="color:#B392F0">call</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">null</span><span style="color:#E1E4E8">);</span></span></code></pre></div><p>Espero que haya sido claro y conciso, pero me temo que ha sido más de lo primero que de lo segundo. Pronto tendré otro artículo sobre Conceptos Básicos de Javascript. Saludos.</p>
+</div>
+    </article>
+  </main>
+
+  </body></html>

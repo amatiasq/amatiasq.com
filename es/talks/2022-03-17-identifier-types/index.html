@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#121212">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Tipos de identificación en Typescript | A. Matías Quezada</title>
+    
+<meta name="astro-view-transitions-enabled" content="true">
+<meta name="astro-view-transitions-fallback" content="animate">
+<script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.rasoniT7.js"></script>
+  <link rel="stylesheet" href="/_astro/_slug_.eUhtq0iF.css">
+<style>.md .code-block{position:relative;margin:1.5rem 0}.md pre{padding:1.25rem;border-radius:8px;overflow-x:auto;border:1px solid oklch(28% 0 0);margin:0}.md pre code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.875rem;line-height:1.6}.md :not(pre)>code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;background:#090909;padding:.2em .4em;border-radius:4px;font-size:.9em;border:1px solid oklch(28% 0 0)}.md h2,.md h3{margin-top:2.5rem;margin-bottom:1rem}.md p{margin:1rem 0}.md blockquote{border-left:3px solid oklch(28% 0 0);margin:1.5rem 0;padding:.5rem 1rem;background:#090909;border-radius:0 8px 8px 0}.md blockquote p{margin:.5rem 0;color:#8f8f8f}.md ul,.md ol{padding-left:1.5rem;margin:1rem 0}.md li{margin:.5rem 0}.md hr{border:none;border-top:1px solid oklch(28% 0 0);margin:2rem 0}.md img{max-width:100%;height:auto;display:block;margin:1.5rem 0}.md pre span[style*="color:#6A737D"],.md pre span[style*="color:#8b949e"]{color:#54b05a!important;font-style:italic}.tags:where(.astro-hfj6urh3){list-style:none;padding:0;margin:1rem 0;display:flex;flex-wrap:wrap;gap:.5rem}li:where(.astro-hfj6urh3) .tag-link{background:#121212;border:1px solid oklch(28% 0 0);border-radius:4px;padding:.2rem .6rem;margin:0;font-size:.8rem;color:#9e9e9e;text-decoration:none;transition:all .15s ease;display:inline-block}li:where(.astro-hfj6urh3) .tag-link:hover{background:#222;border-color:var(--accent);color:var(--accent);transform:none}
+.hero-image:where(.astro-cr55g75e){margin:1.5rem 0}.hero-image:where(.astro-cr55g75e) img{width:100%;height:auto;border-radius:8px;border:1px solid oklch(28% 0 0)}.iframe-container:where(.astro-cr55g75e){position:relative;margin:1.5rem 0}iframe:where(.astro-cr55g75e){width:100%;border:1px solid oklch(28% 0 0);border-radius:8px;aspect-ratio:16 / 9}.pause-btn:where(.astro-cr55g75e){position:absolute;top:.5rem;right:.5rem;background:#161616cc;border:1px solid oklch(40% 0 0);border-radius:4px;color:#fff;padding:.25rem .5rem;cursor:pointer;font-size:1rem;opacity:0;transition:opacity .2s}.iframe-container:where(.astro-cr55g75e):hover .pause-btn:where(.astro-cr55g75e){opacity:1}
+@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-jgdyqnes-1"] { view-transition-name: title-2022-03-17-identifier-types; }@layer astro { ::view-transition-old(title-2022-03-17-identifier-types) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(title-2022-03-17-identifier-types) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(title-2022-03-17-identifier-types) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(title-2022-03-17-identifier-types) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-jgdyqnes-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-jgdyqnes-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-jgdyqnes-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-jgdyqnes-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-jgdyqnes-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-jgdyqnes-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-jgdyqnes-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-jgdyqnes-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-v46fx5eq-2"] { view-transition-name: img-2022-03-17-identifier-types; }@layer astro { ::view-transition-old(img-2022-03-17-identifier-types) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(img-2022-03-17-identifier-types) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(img-2022-03-17-identifier-types) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(img-2022-03-17-identifier-types) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-v46fx5eq-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-v46fx5eq-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-v46fx5eq-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-v46fx5eq-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-v46fx5eq-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-v46fx5eq-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-v46fx5eq-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-v46fx5eq-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-vpr6a7he-3"] { view-transition-name: tag-typescript; }@layer astro { ::view-transition-old(tag-typescript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(tag-typescript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(tag-typescript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(tag-typescript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-3"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-3"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-3"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-3"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head>
+  <body>
+    
+  <header class="astro-np5jgbit">
+  <a href="/es/" class="site-title astro-np5jgbit"><span class="a-matias-quezada astro-np5jgbit astro-2dpizvyk">
+  <abbr class="astro-2dpizvyk">Adrian</abbr>
+  <span class="dot astro-2dpizvyk">.</span>
+  <span class="astro-2dpizvyk">Matías Quezada</span>
+</span></a>
+  <nav class="astro-np5jgbit">
+    <a href="/es/projects/" class="astro-np5jgbit">Projects</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/es/blog/" class="astro-np5jgbit">Blog</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/es/experiments/" class="astro-np5jgbit">Experiments</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/es/talks/" class="astro-np5jgbit">Talks</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/es/career/" class="astro-np5jgbit">Career</a>
+    <span class="sep astro-np5jgbit">|</span>
+    <a href="https://github.com/amatiasq" title="GitHub" class="icon-link astro-np5jgbit">
+      <svg aria-label="GitHub" width="20" height="20" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg" class="astro-np5jgbit">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="currentColor" class="astro-np5jgbit"></path>
+      </svg>
+    </a>
+    <a href="/en/talks/2022-03-17-identifier-types/" title="English" class="lang-switch astro-bzi5jpwk" data-lang="en">
+  🇬🇧
+</a>
+
+
+
+<script type="module">function n(){const t=document.querySelector(".lang-switch");if(!t)return;const a=t.dataset.lang,e=Intl.DateTimeFormat().resolvedOptions().timeZone.startsWith("America/");a==="en"?(t.textContent=e?"🇺🇸":"🇬🇧",t.title="English"):(t.textContent=e?"🇦🇷":"🇪🇸",t.title="Español")}n();document.addEventListener("astro:after-swap",n);</script>
+  </nav>
+</header>
+<hr class="astro-np5jgbit">
+  <main class="astro-cr55g75e">
+    <article class="astro-cr55g75e">
+      <h1 class="astro-cr55g75e" data-astro-transition-scope="astro-jgdyqnes-1">Tipos de identificación en Typescript</h1>
+
+      <nav class="project-links astro-cr55g75e">
+          <a href="https://docs.google.com/presentation/d/e/2PACX-1vQrG_Ovz6TC208tg8wzBY-EhnQ6b2MJfVb-RMFDxJf7eEwNpYzMBDqeMBMrzKF420gcOuE1nHTg6AV9/pub" target="_blank" rel="noopener" class="astro-cr55g75e">Slides</a>
+          
+        </nav>
+
+      <ul class="tags astro-hfj6urh3">
+    <li class="astro-hfj6urh3">
+        <a href="/es/tag/typescript/" class="tag-link astro-hfj6urh3">
+          <span class="astro-hfj6urh3" data-astro-transition-scope="astro-vpr6a7he-3">
+            Typescript
+          </span>
+        </a>
+      </li>
+  </ul>
+
+
+
+      <div class="iframe-container astro-cr55g75e" data-astro-transition-scope="astro-v46fx5eq-2">
+          <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQrG_Ovz6TC208tg8wzBY-EhnQ6b2MJfVb-RMFDxJf7eEwNpYzMBDqeMBMrzKF420gcOuE1nHTg6AV9/embed?start=true&loop=true&delayms=3000" data-src="https://docs.google.com/presentation/d/e/2PACX-1vQrG_Ovz6TC208tg8wzBY-EhnQ6b2MJfVb-RMFDxJf7eEwNpYzMBDqeMBMrzKF420gcOuE1nHTg6AV9/embed?start=true&loop=true&delayms=3000" frameborder="0" allowfullscreen class="astro-cr55g75e"></iframe>
+          <button class="pause-btn astro-cr55g75e" title="Pause/Play">⏸</button>
+        </div>
+
+      <div class="md astro-cr55g75e"><p>Aquí explico un concepto que encontré usando Typescript donde uno puede usar un tipo &quot;string literal&quot; con &quot;union types&quot; para crear nuevos tipos únicos.</p>
+<p>Esto es particularmente útil para identificadores, los cuales (espero) nunca escribimos directamente en el código sino que son leídos de un programa externo y se pasan a otro componente intactos.</p>
+<p>Digamos que tenemos dos tipos de entidades en nuestro programa: <code>Usuario</code> y <code>Producto</code>, y ambos tienen una propiedad <code>id</code> del tipo <code>ObjectId</code>. Nada previene que accidentalmente pasemos un ID de usuario donde se espera un ID de producto, solo un error en tiempo de ejecución que asustará a nuestros usuarios y robará nuestra paz mental. Creando distintos tipos para dichos IDs (como <code>IdUsuario</code> e <code>IdProducto</code>) podemos usar el poder de Typescript para asegurarnos que nunca los mezclamos accidentalmente.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">// cualquier string sirve</span></span>
+<span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> UserId</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> 'text-random-para-UserId'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> ProductId</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> 'text-random-para-ProductId'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> getUser</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">id</span><span style="color:#F97583">:</span><span style="color:#B392F0"> UserId</span><span style="color:#E1E4E8">) {}</span></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> getProduct</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">id</span><span style="color:#F97583">:</span><span style="color:#B392F0"> ProductId</span><span style="color:#E1E4E8">) {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> userId</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> ''</span><span style="color:#F97583"> as</span><span style="color:#B392F0"> UserId</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> productId</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> ''</span><span style="color:#F97583"> as</span><span style="color:#B392F0"> ProductId</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">getUser</span><span style="color:#E1E4E8">(userId);</span></span>
+<span class="line"><span style="color:#B392F0">getUser</span><span style="color:#E1E4E8">(productId); </span><span style="color:#6A737D">// error</span></span>
+<span class="line"><span style="color:#B392F0">getUser</span><span style="color:#E1E4E8">(productId </span><span style="color:#F97583">as</span><span style="color:#B392F0"> UserId</span><span style="color:#E1E4E8">); </span><span style="color:#6A737D">// error</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">getProduct</span><span style="color:#E1E4E8">(productId);</span></span>
+<span class="line"><span style="color:#B392F0">getProduct</span><span style="color:#E1E4E8">(userId); </span><span style="color:#6A737D">// error</span></span>
+<span class="line"><span style="color:#B392F0">getProduct</span><span style="color:#E1E4E8">(userId </span><span style="color:#F97583">as</span><span style="color:#B392F0"> ProductId</span><span style="color:#E1E4E8">); </span><span style="color:#6A737D">// error</span></span></code></pre></div><p>Este fue el enfoque que tomé en una herramenta para crear bots de Discord en deno llamada <a href="https://github.com/amatiasq/deno/tree/master/denord"><code>Denord</code></a>, que usa distintos tipos de identificadores como <a href="https://github.com/amatiasq/deno/blob/master/denord/internals/endpoint-urls.ts#L74-L135"><code>GuildId</code></a> (gremio), <a href="https://github.com/amatiasq/deno/blob/bd5a49105569f3996a3c76e3dc09e3305cdeb150/denord/DiscordClient.ts#L45"><code>ChannelId</code></a> y <a href="https://github.com/amatiasq/deno/blob/bd5a49105569f3996a3c76e3dc09e3305cdeb150/denord/structure/Message.ts#L47-L53"><code>MessageId</code></a>.</p>
+<blockquote>
+<p>Actualización Julio 2022: <a href="https://zackoverflow.dev/">Zack</a> llevó esto un paso más allá creando una librería que esconde la parte desagradable de esta técnica <a href="https://github.com/modfy/nominal">https://github.com/modfy/nominal</a></p>
+</blockquote>
+<blockquote>
+<p>Actualización Agosto 2023: Esto se está convirtiendo <a href="https://typescript.tv/best-practices/improve-your-type-safety-with-branded-types/">en un patrón común llamado branded types</a></p>
+</blockquote>
+<blockquote>
+<p>Actualización Febrero 2024: Branded types ahora tiene un snippet sencillo para usarlos. <a href="https://github.com/mckravchyk/comments/discussions/7#discussioncomment-8311846">fuente</a></p>
+</blockquote>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">//   si no quieres que los strings normales sean compatibles</span></span>
+<span class="line"><span style="color:#6A737D">//   borra el signo de pregunta aquí           ->          V</span></span>
+<span class="line"><span style="color:#F97583">export</span><span style="color:#F97583"> type</span><span style="color:#B392F0"> Branded</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#B392F0">T</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">K</span><span style="color:#F97583"> extends</span><span style="color:#79B8FF"> string</span><span style="color:#E1E4E8">> </span><span style="color:#F97583">=</span><span style="color:#B392F0"> T</span><span style="color:#F97583"> &#x26;</span><span style="color:#E1E4E8"> { </span><span style="color:#FFAB70">__opaque__</span><span style="color:#F97583">?:</span><span style="color:#B392F0"> K</span><span style="color:#E1E4E8"> };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> UserId</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> Branded</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'User'</span><span style="color:#E1E4E8">>;</span></span>
+<span class="line"><span style="color:#F97583">type</span><span style="color:#B392F0"> ProductId</span><span style="color:#F97583"> =</span><span style="color:#B392F0"> Branded</span><span style="color:#E1E4E8">&#x3C;</span><span style="color:#79B8FF">string</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Product'</span><span style="color:#E1E4E8">>;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> getUser</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">userId</span><span style="color:#F97583">:</span><span style="color:#B392F0"> UserId</span><span style="color:#E1E4E8">) {}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> userId</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> '12'</span><span style="color:#F97583"> as</span><span style="color:#B392F0"> UserId</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> productId</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> '34'</span><span style="color:#F97583"> as</span><span style="color:#B392F0"> ProductId</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">const</span><span style="color:#79B8FF"> random</span><span style="color:#F97583"> =</span><span style="color:#9ECBFF"> 'hi'</span><span style="color:#E1E4E8">; </span><span style="color:#6A737D">// string</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">getUser</span><span style="color:#E1E4E8">(userId); </span><span style="color:#6A737D">// funciona</span></span>
+<span class="line"><span style="color:#B392F0">getUser</span><span style="color:#E1E4E8">(productId); </span><span style="color:#6A737D">// Type '"Product"' is not assignable to type '"User"'</span></span>
+<span class="line"><span style="color:#B392F0">getUser</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'hello'</span><span style="color:#E1E4E8">); </span><span style="color:#6A737D">// funciona por el signo de pregunta</span></span>
+<span class="line"><span style="color:#B392F0">getUser</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'hello'</span><span style="color:#F97583"> as</span><span style="color:#B392F0"> UserId</span><span style="color:#E1E4E8">); </span><span style="color:#6A737D">// funciona</span></span>
+<span class="line"><span style="color:#B392F0">getUser</span><span style="color:#E1E4E8">(random); </span><span style="color:#6A737D">// works por el signo de pregunta</span></span>
+<span class="line"><span style="color:#B392F0">getUser</span><span style="color:#E1E4E8">(random </span><span style="color:#F97583">as</span><span style="color:#B392F0"> UserId</span><span style="color:#E1E4E8">); </span><span style="color:#6A737D">// funciona</span></span></code></pre></div><p>(diapositivas solo disponible en inglés 🇬🇧)</p>
+</div>
+    </article>
+  </main>
+
+  </body></html>
+
+
+
+<script type="module">document.querySelectorAll(".iframe-container").forEach(a=>{const e=a.querySelector("iframe"),t=a.querySelector(".pause-btn");let r=!1;t?.addEventListener("click",()=>{r?(e.src=e.dataset.src||"",t.textContent="⏸"):(e.src="about:blank",t.textContent="▶"),r=!r})});</script>

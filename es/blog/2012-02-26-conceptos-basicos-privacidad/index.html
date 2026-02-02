@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="dark">
+    <meta name="theme-color" content="#121212">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <title>Conceptos Básicos Javascript: Privacidad | A. Matías Quezada</title>
+    
+<meta name="astro-view-transitions-enabled" content="true">
+<meta name="astro-view-transitions-fallback" content="animate">
+<script type="module" src="/_astro/ClientRouter.astro_astro_type_script_index_0_lang.rasoniT7.js"></script>
+  <link rel="stylesheet" href="/_astro/_slug_.eUhtq0iF.css">
+<style>time:where(.astro-zcsldidg){font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.9em}
+.md .code-block{position:relative;margin:1.5rem 0}.md pre{padding:1.25rem;border-radius:8px;overflow-x:auto;border:1px solid oklch(28% 0 0);margin:0}.md pre code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;font-size:.875rem;line-height:1.6}.md :not(pre)>code{font-family:ui-monospace,SF Mono,Menlo,Monaco,Courier New,monospace;background:#090909;padding:.2em .4em;border-radius:4px;font-size:.9em;border:1px solid oklch(28% 0 0)}.md h2,.md h3{margin-top:2.5rem;margin-bottom:1rem}.md p{margin:1rem 0}.md blockquote{border-left:3px solid oklch(28% 0 0);margin:1.5rem 0;padding:.5rem 1rem;background:#090909;border-radius:0 8px 8px 0}.md blockquote p{margin:.5rem 0;color:#8f8f8f}.md ul,.md ol{padding-left:1.5rem;margin:1rem 0}.md li{margin:.5rem 0}.md hr{border:none;border-top:1px solid oklch(28% 0 0);margin:2rem 0}.md img{max-width:100%;height:auto;display:block;margin:1.5rem 0}.md pre span[style*="color:#6A737D"],.md pre span[style*="color:#8b949e"]{color:#54b05a!important;font-style:italic}.tags:where(.astro-hfj6urh3){list-style:none;padding:0;margin:1rem 0;display:flex;flex-wrap:wrap;gap:.5rem}li:where(.astro-hfj6urh3) .tag-link{background:#121212;border:1px solid oklch(28% 0 0);border-radius:4px;padding:.2rem .6rem;margin:0;font-size:.8rem;color:#9e9e9e;text-decoration:none;transition:all .15s ease;display:inline-block}li:where(.astro-hfj6urh3) .tag-link:hover{background:#222;border-color:var(--accent);color:var(--accent);transform:none}
+@keyframes astroFadeInOut{0%{opacity:1}to{opacity:0}}@keyframes astroFadeIn{0%{opacity:0;mix-blend-mode:plus-lighter}to{opacity:1;mix-blend-mode:plus-lighter}}@keyframes astroFadeOut{0%{opacity:1;mix-blend-mode:plus-lighter}to{opacity:0;mix-blend-mode:plus-lighter}}@keyframes astroSlideFromRight{0%{transform:translate(100%)}}@keyframes astroSlideFromLeft{0%{transform:translate(-100%)}}@keyframes astroSlideToRight{to{transform:translate(100%)}}@keyframes astroSlideToLeft{to{transform:translate(-100%)}}@media (prefers-reduced-motion){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}[data-astro-transition-scope]{animation:none!important}}
+</style><style>[data-astro-transition-scope="astro-dsji2kxr-1"] { view-transition-name: title-2012-02-26-conceptos-basicos-privacidad; }@layer astro { ::view-transition-old(title-2012-02-26-conceptos-basicos-privacidad) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(title-2012-02-26-conceptos-basicos-privacidad) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(title-2012-02-26-conceptos-basicos-privacidad) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(title-2012-02-26-conceptos-basicos-privacidad) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-dsji2kxr-1"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-dsji2kxr-1"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style><style>[data-astro-transition-scope="astro-vpr6a7he-2"] { view-transition-name: tag-javascript; }@layer astro { ::view-transition-old(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }::view-transition-new(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back]::view-transition-old(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back]::view-transition-new(tag-javascript) { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; } }[data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }[data-astro-transition=back][data-astro-transition-fallback="old"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="old"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeOut; }[data-astro-transition=back][data-astro-transition-fallback="new"] [data-astro-transition-scope="astro-vpr6a7he-2"],
+			[data-astro-transition=back][data-astro-transition-fallback="new"][data-astro-transition-scope="astro-vpr6a7he-2"] { 
+	animation-duration: 180ms;
+	animation-timing-function: cubic-bezier(0.76, 0, 0.24, 1);
+	animation-fill-mode: both;
+	animation-name: astroFadeIn; }</style></head>
+  <body>
+    
+  <header class="astro-np5jgbit">
+  <a href="/es/" class="site-title astro-np5jgbit"><span class="a-matias-quezada astro-np5jgbit astro-2dpizvyk">
+  <abbr class="astro-2dpizvyk">Adrian</abbr>
+  <span class="dot astro-2dpizvyk">.</span>
+  <span class="astro-2dpizvyk">Matías Quezada</span>
+</span></a>
+  <nav class="astro-np5jgbit">
+    <a href="/es/projects/" class="astro-np5jgbit">Projects</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/es/blog/" class="astro-np5jgbit">Blog</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/es/experiments/" class="astro-np5jgbit">Experiments</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/es/talks/" class="astro-np5jgbit">Talks</a>
+    <span class="sep astro-np5jgbit">·</span>
+    <a href="/es/career/" class="astro-np5jgbit">Career</a>
+    <span class="sep astro-np5jgbit">|</span>
+    <a href="https://github.com/amatiasq" title="GitHub" class="icon-link astro-np5jgbit">
+      <svg aria-label="GitHub" width="20" height="20" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg" class="astro-np5jgbit">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="currentColor" class="astro-np5jgbit"></path>
+      </svg>
+    </a>
+    <a href="/en/blog/2012-02-26-conceptos-basicos-privacidad/" title="English" class="lang-switch astro-bzi5jpwk" data-lang="en">
+  🇬🇧
+</a>
+
+
+
+<script type="module">function n(){const t=document.querySelector(".lang-switch");if(!t)return;const a=t.dataset.lang,e=Intl.DateTimeFormat().resolvedOptions().timeZone.startsWith("America/");a==="en"?(t.textContent=e?"🇺🇸":"🇬🇧",t.title="English"):(t.textContent=e?"🇦🇷":"🇪🇸",t.title="Español")}n();document.addEventListener("astro:after-swap",n);</script>
+  </nav>
+</header>
+<hr class="astro-np5jgbit">
+  <main>
+    <article>
+      <header>
+        <h1 data-astro-transition-scope="astro-dsji2kxr-1">Conceptos Básicos Javascript: Privacidad</h1>
+        <time datetime="2012-02-26T00:00:00.000Z" class="astro-zcsldidg">26 feb 2012</time>
+        <ul class="tags astro-hfj6urh3">
+    <li class="astro-hfj6urh3">
+        <a href="/es/tag/javascript/" class="tag-link astro-hfj6urh3">
+          <span class="astro-hfj6urh3" data-astro-transition-scope="astro-vpr6a7he-2">
+            Javascript
+          </span>
+        </a>
+      </li>
+  </ul>
+
+
+      </header>
+      <div class="md "><h3>Introducción</h3>
+<p>Uno de los temas más frecuentes cuando uno se inicia en Javascript es la privacidad, principalmente viniendo de <strong>lenguajes como Java, C# o C++; donde publican o se ocultan propiedades de los objetos mediante modificadores. Javascript</strong> no posee dichos modificadores sino que <strong>todas las propiedades de los objetos son públicas</strong> lo que puede ser muy confuso para una persona poco diestra en ésta técnica, entre los que me incluyo.</p>
+<p>Personalmente cuando diseño un componente (objeto/clase/librería), es porque quiero que ese componente cumpla una funcionalidad, por ejemplo, si yo quiero tener una clase que represente a una impresora necesito enviarle datos y que los imprima; <strong>mi prioridad es que dicho componente sea sencillo de utilizar, lo que facilita la reutilización del componente</strong>. Por lo que primero imagino cómo me gustaría usarlo:</p>
+<!-- end extract -->
+
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> impresora </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Impresora</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">impresora.</span><span style="color:#B392F0">encender</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">impresora.</span><span style="color:#B392F0">imprimir</span><span style="color:#E1E4E8">(datos);</span></span>
+<span class="line"><span style="color:#E1E4E8">impresora.</span><span style="color:#B392F0">apagar</span><span style="color:#E1E4E8">();</span></span></code></pre></div><p>Como se ve, para cumplir la funcionalidad me basta con tres métodos, pero si yo escribo mi clase impresora con solo tres métodos probablemente duplicaría mucho código, por ejemplo, que <code>.imprimir()</code> y <code>.apagar()</code> deban comprobar si hay papel en la impresora.</p>
+<!--more Seguir leyendo → -->
+
+<h3>Soluciones</h3>
+<h4>Hacer toda la interfaz pública</h4>
+<p>Podríamos crear in método público <code>.hayPapel()</code>, pero personalmente prefiero que la API, la interfaz pública de mi componente sea tan sencilla como sea posible por lo que no quiero hacer ése método público. <strong>Cuando tengo que usar una librería ajena no quiero saber cómo está hecha, quiero saber como usarla</strong>. Por ello si ésta clase tiene el método <code>.hayPapel()</code> le estoy diciendo al programador que ese método está ahí para usarlo, cuando en realidad no es así, ese método está ahí para ayudarme a mi como desarrollador de la clase a no duplicar código.</p>
+<h4>Usar la convención de Barra Baja (Underscore, &#39;<code>_</code>&#39;)</h4>
+<p>Una práctica muy común en Javascript es añadir al principio o al final del nombre de la propiedad el símbolo barra baja con lo que la propiedad es pública, pero <strong>por convención las propiedades que empiezan o finalizan con barra baja no deben ser llamadas desde fuera del componente</strong>:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> Impresora</span><span style="color:#E1E4E8">() { }</span></span>
+<span class="line"><span style="color:#79B8FF">Impresora</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    encender</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8">() { </span><span style="color:#F97583">...</span><span style="color:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#B392F0">    apagar</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8">() { </span><span style="color:#F97583">...</span><span style="color:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#B392F0">    imprimir</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8">(</span><span style="color:#FFAB70">datos</span><span style="color:#E1E4E8">) { </span><span style="color:#F97583">...</span><span style="color:#E1E4E8"> },</span></span>
+<span class="line"><span style="color:#B392F0">    _hayPapel</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8">() { </span><span style="color:#F97583">...</span><span style="color:#E1E4E8"> }</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span></code></pre></div><p>Este es el método más extendido que he visto en Javascript, porque es una solución que <strong>no afecta al tiempo de ejecución del programa</strong>. Javascript simplemente accede a una propiedad pública sin pérdida de rendimiento. Es una buena solución siempre que se respete la convención, de lo contrario estaríamos acoplando componentes. Eso quiere decir que si quiero hacer pública una propiedad tengo que cambiarle el nombre en todos los puntos en que la utilizo? Desgraciadamente si, pero siempre tienes el consuelo de que será dentro de tu propia librería, ya que si cambias una variable de privada a pública no debería haber ningún punto fuera de tu código que accediera a ésa propiedad, y si lo que estás haciendo es cambiarla de pública a privada... bueno, evidentemente hay que refactorizar el código que utilizara tu librería de cualquier forma.</p>
+<h4>Privacidad por constructor</h4>
+<p>Los closures son un curioso método de privacidad, cuando creamos una función dentro de otra, <strong>la función hija puede acceder a las variables de la función padre, pero no al revés</strong>:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> a </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 5</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">    var</span><span style="color:#E1E4E8"> b </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 6</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    function</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">        var</span><span style="color:#E1E4E8"> c </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 7</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#6A737D">        // Desde aquí puedo acceder a 'a', 'b' y 'c'</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    // Desde aquí puedo acceder a 'a' y 'b'.</span></span>
+<span class="line"><span style="color:#6A737D">    // 'c' no existe</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// Desde aquí solo puedo acceder a 'a'.</span></span>
+<span class="line"><span style="color:#6A737D">// 'b' y 'c' no existen</span></span></code></pre></div><p>Con ésto podemos buscar la privacidad, si analizamos el constructor de la clase <code>Impresora</code> veremos que es una función, igual que las del ejemplo. De alguna forma <strong>podemos crear variables privadas ahí</strong>.</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> Impresora</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> a </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'Privada!'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Accediendo desde dentro:'</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> a);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> temp </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Impresora</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Intentando acceder desde fuera usando 'temp.a': "</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> temp.a);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">// Esta línea no se ejecuta porque 'a' no existe aquí y falla.</span></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Intentando acceder desde fuera usando 'a': "</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> a);</span></span></code></pre></div><p><a href="http://jsfiddle.net/amatiasq/qJnvS/" target="_blank">Pruébame</a></p>
+<p>Funciona! Ahora añadamos los métodos:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> Impresora</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> a </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'Privada!'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">Impresora</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">  probando</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Intentando acceder desde un método usando 'this.a': "</span><span style="color:#F97583"> +</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.a);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    // Esta línea no se ejecuta porque 'a' no existe aquí y falla.</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Intentando acceder desde un método usando 'a': "</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> a);</span></span>
+<span class="line"><span style="color:#E1E4E8">  },</span></span>
+<span class="line"><span style="color:#E1E4E8">};</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> temp </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Impresora</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">temp.</span><span style="color:#B392F0">probando</span><span style="color:#E1E4E8">();</span></span></code></pre></div><p><a href="http://jsfiddle.net/amatiasq/jQLQf/" target="_blank">Pruébame</a></p>
+<p>Pero no podemos acceder desde los métodos! <strong>Porque no están dentro del closure</strong>, de que nos sirve una variable privada si no podemos acceder a ella desde los métodos públicos? Hay una solución: el closure en el que hemos guardado la variable privada es el constructor del objeto, por lo que podríamos aprovechar el dinamismo de Javascript e injectar los métodos en el objeto dentro del constructor, así los métodos podrían acceder a las variables privadas:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> Impresora</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> a </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'Privada!'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // This es el objeto que éste constructor está creando</span></span>
+<span class="line"><span style="color:#79B8FF">  this</span><span style="color:#E1E4E8">.</span><span style="color:#B392F0">probando</span><span style="color:#F97583"> =</span><span style="color:#F97583"> function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Intentando acceder desde un método usando 'this.a': "</span><span style="color:#F97583"> +</span><span style="color:#79B8FF"> this</span><span style="color:#E1E4E8">.a);</span></span>
+<span class="line"><span style="color:#E1E4E8">    console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Intentando acceder desde un método usando 'a': "</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> a);</span></span>
+<span class="line"><span style="color:#E1E4E8">  };</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> temp </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Impresora</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">temp.</span><span style="color:#B392F0">probando</span><span style="color:#E1E4E8">();</span></span></code></pre></div><p><a href="http://jsfiddle.net/amatiasq/gRVqv/" target="_blank">Pruébame</a></p>
+<p>Bien! éste sistema funciona, verdad? No tiene ningún inconveniente? Bueno, tiene uno, pero no es visible a simple vista porque nuestro cerebro y el intérprete de Javascript funcionan de forma distinta. <strong>Para nosotros <code>this.probando = function() { ... }</code> es crear una función y añadirla a todos las instancias de <code>Impresora</code></strong> pero el intérprete no lo ve así, para la máquina Javascript <strong>estamos creando una función por cada método para cada instancia</strong> y tiene sentido, si la primera función <code>probando</code> que creamos accede a la variable privada <code>a</code> de la primera instancia que creamos necesitaremos una función distinta para acceder a la variable privada de la segunda instancia que creemos.</p>
+<p>Eso quiere decir que <strong>si creamos 10.000 instancias de <code>Impresora</code> tendremos 10.000 funciones que hacen casi lo mismo en la memoria? Si.</strong> Con las computadoras actuales es casi despreciable, pero si estamos manejando un proyecto en Javascript que puede estar creando y borrando instancias de la clase durante días (por ejemplo un programa de servidor o una RIA), tendremos un problema a medio plazo.</p>
+<h3>Privacidad de librería</h3>
+<p>Ahora tengo que confesar que he hecho trampas, todos los patrones descritos son para hacer privacidad a nivel de clase, pero <strong>hay una forma más sencilla de hacer privada una clase entera, los closures</strong>. Ahora pensarás &quot;pero me acabas de decir que los closures volvían a crear los métodos por cada instancia!&quot; si, cuando el closure es el constructor. <strong>Pero si englobamos toda la clase en un closure podemos tener privacidad a nivel de librería:</strong></p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">// función de ejecución inmediata, se crea, se ejecuta y no se vuelve a utilizar</span></span>
+<span class="line"><span style="color:#6A737D">// es el closure que guardará la privacidad</span></span>
+<span class="line"><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">global</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> contador </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  function</span><span style="color:#B392F0"> Impresora</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#E1E4E8">    contador</span><span style="color:#F97583">++</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">  }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">  // Creamos un método estático</span></span>
+<span class="line"><span style="color:#E1E4E8">  Impresora.</span><span style="color:#B392F0">cantidadDeInstancias</span><span style="color:#F97583"> =</span><span style="color:#F97583"> function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> contador;</span></span>
+<span class="line"><span style="color:#E1E4E8">  };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  global.Impresora </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Impresora;</span></span>
+<span class="line"><span style="color:#E1E4E8">})(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> temp </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Impresora</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> temp2 </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Impresora</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(Impresora.</span><span style="color:#B392F0">cantidadDeInstancias</span><span style="color:#E1E4E8">());</span></span></code></pre></div><p><a href="http://jsfiddle.net/amatiasq/HJzAB/" target="_blank">Pruébame</a></p>
+<p>La variable <code>contador</code> es <strong>privada a nivel de librería</strong>, significa que <strong>todo lo que esté dentro del closure accede a ella</strong> y como podemos ver todo el código dentro del closure accede a la misma variable, lo que significa que todas las instancias de <code>Impresora</code> comparten la misma variable. También podemos usar éste patrón para ocultar clases y funciones, <strong>lo único que será publicado de dentro del closure será lo que guardemos en la variable <code>global</code>.</strong></p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#6A737D">// función de ejecución inmediata, se crea, se ejecuta y no se vuelve a utilizar</span></span>
+<span class="line"><span style="color:#6A737D">// es el closure que guardará la privacidad</span></span>
+<span class="line"><span style="color:#E1E4E8">(</span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">global</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">  function</span><span style="color:#B392F0"> Papel</span><span style="color:#E1E4E8">() {}</span></span>
+<span class="line"><span style="color:#79B8FF">  Papel</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    hayPapelEn</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">impresora</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#6A737D">      // no hay papel</span></span>
+<span class="line"><span style="color:#F97583">      return</span><span style="color:#79B8FF"> false</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#B392F0">    pedirAlUsuario</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> () {</span></span>
+<span class="line"><span style="color:#E1E4E8">      console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">'Oye tu! ponme papel!'</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">  };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  var</span><span style="color:#E1E4E8"> papel </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Papel</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">  function</span><span style="color:#B392F0"> Impresora</span><span style="color:#E1E4E8">() {}</span></span>
+<span class="line"><span style="color:#79B8FF">  Impresora</span><span style="color:#E1E4E8">.</span><span style="color:#79B8FF">prototype</span><span style="color:#F97583"> =</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#B392F0">    imprimir</span><span style="color:#E1E4E8">: </span><span style="color:#F97583">function</span><span style="color:#E1E4E8"> (</span><span style="color:#FFAB70">datos</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#F97583">      if</span><span style="color:#E1E4E8"> (</span><span style="color:#F97583">!</span><span style="color:#E1E4E8">papel.</span><span style="color:#B392F0">hayPapelEn</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">)) papel.</span><span style="color:#B392F0">pedirAlUsuario</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#6A737D">      // imprimir</span></span>
+<span class="line"><span style="color:#E1E4E8">    },</span></span>
+<span class="line"><span style="color:#E1E4E8">  };</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">  global.Impresora </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> Impresora;</span></span>
+<span class="line"><span style="color:#E1E4E8">})(</span><span style="color:#79B8FF">this</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> temp </span><span style="color:#F97583">=</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> Impresora</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">temp.</span><span style="color:#B392F0">imprimir</span><span style="color:#E1E4E8">();</span></span></code></pre></div><p><a href="http://jsfiddle.net/amatiasq/vc2ke/" target="_blank">Pruébame</a></p>
+<p>Este es un patrón muy recomendable, ya que mediante una función autoejecutable ocultamos todo lo que el usuario de nuestra librería no necesita conocer. Por poner un ejemplo, <a href="http://nodejs.org/">node.js</a> utiliza un patrón similar para generar librerías, en las que todas las variables que creamos en el archivo .js quedan ocultas y solo se exponen las propiedades que añadimos al objeto global <code>exports</code>. Ejemplo de saludo.js:</p>
+<div class="code-block"><pre class="shiki github-dark" style="background-color:#24292e;color:#e1e4e8" tabindex="0"><code><span class="line"><span style="color:#F97583">var</span><span style="color:#E1E4E8"> saludo </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'Hola!'</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#F97583">function</span><span style="color:#B392F0"> saludar</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#E1E4E8">  console.</span><span style="color:#B392F0">log</span><span style="color:#E1E4E8">(saludo);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"><span style="color:#79B8FF">exports</span><span style="color:#E1E4E8">.saludar </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> saludar;</span></span></code></pre></div><p>Si tuviera que decir un defecto de éste patrón, es que <strong>todo lo que queramos englobar dentro del closure deberá estar en el mismo archivo</strong>, ya que el código debe estar dentro del closure y éste no puede estar repartido entre archivos. Ésto es un problema si queremos que dos clases con mucha lógica se comuniquen y no queremos acabar con un archivo de 1.000 líneas de código.</p>
+<h3>Resumen</h3>
+<p>No voy a opinar si la decisión de hacer todo público al crear Javascript es buena o mala porque en mi opinión <strong>no es que hacer todo público sea malo, sino que no estamos acostrumbrados a utilizarlo</strong>. Por ello, porque la mayoría de los programadores estamos acostumbrado a tener privacidad en los componentes, buscamos entre las opciones que nos da el lenguaje para simularlo.</p>
+<p>En cuanto a mi, me parece interesante las posibilidades de un lenguaje tan flexible como Javascript a nivel académico, al fin y al cabo el objetivo de la investigación es tener la mente flexible para que a la hora de la verdad podamos ver caminos alternativos que nos ofrecen una mejor solución para un problema en particular. Un ejemplo de ésto es un patrón de privacidad por instancia que descubrí recientemente, hablaré de él en el <a href="http://www.amatiasq.com/?p=208" title="Experimento: Privacidad por instancias">próximo post</a>.</p>
+</div>
+    </article>
+  </main>
+
+  </body></html>
