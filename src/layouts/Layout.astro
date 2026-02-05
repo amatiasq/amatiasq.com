@@ -54,12 +54,12 @@ const pageTitle = title ? `${title} | A. Matías Quezada` : 'A. Matías Quezada'
   }
 
   :root {
-    --bg: oklch(7% 0 0);
-    --bg-subtle: oklch(12% 0 0);
-    --text: oklch(90% 0 0);
-    --text-muted: oklch(62% 0 0);
+    --bg: #263238;
+    --bg-subtle: #2e3d44;
+    --text: #ffffff;
+    --text-muted: oklch(75% 0 0);
     --accent: oklch(75% 0.1 220);
-    --border: oklch(22% 0 0);
+    --border: #37474f;
   }
 
   * {
@@ -153,6 +153,7 @@ const pageTitle = title ? `${title} | A. Matías Quezada` : 'A. Matías Quezada'
     color: var(--text-muted);
     margin-top: 3rem;
     margin-bottom: 1rem;
+    word-spacing: 0.3em;
   }
 
   section {
@@ -248,7 +249,7 @@ const pageTitle = title ? `${title} | A. Matías Quezada` : 'A. Matías Quezada'
 
   img {
     border-radius: 6px;
-    border: 2px solid oklch(30% 0 0);
+    border: 2px solid var(--border);
     box-shadow: 0 2px 8px oklch(0% 0 0 / 0.4);
   }
 </style>

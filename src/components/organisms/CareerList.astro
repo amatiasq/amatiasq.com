@@ -58,35 +58,37 @@ const hidden = max ? processedCareer.slice(max) : [];
   ul {
     list-style: none;
     padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem 2rem;
   }
 
   li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid oklch(15% 0 0);
+    padding: 0.5rem;
+    border-radius: 6px;
     transition: background 0.15s ease;
   }
 
-  li:last-child {
-    border-bottom: none;
-  }
-
   li:hover {
-    background: oklch(12% 0 0);
-    margin: 0 -0.5rem;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
-    border-radius: 4px;
+    background: var(--bg-subtle);
   }
 
   .dates {
     display: block;
-    color: oklch(55% 0 0);
+    color: var(--text-muted);
+    font-size: 0.85rem;
   }
 
   em {
     display: block;
     font-style: normal;
-    color: oklch(65% 0 0);
+    color: var(--text-muted);
     font-size: 0.9rem;
+  }
+
+  @media (max-width: 600px) {
+    ul {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
