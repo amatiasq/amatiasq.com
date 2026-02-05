@@ -13,6 +13,7 @@ image:
 
 tags:
   - Javascript
+  - RequireJS
 ---
 
 This is a talk I gave at a Betabeers Barcelona event about how to use [RequireJS and it's CommonJS compatibility][1]:

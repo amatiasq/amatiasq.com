@@ -214,7 +214,7 @@ function getYearColor(year: number): string | null {
       position: absolute;
       left: 50%;
       width: 2px;
-      background-color: #475569;
+      background-color: var(--border);
       margin-left: -1px;
       z-index: 1;
     }
@@ -233,17 +233,17 @@ function getYearColor(year: number): string | null {
     .year-dot {
       width: 12px;
       height: 12px;
-      background-color: #1e293b;
-      border: 2px solid #475569;
+      background-color: var(--bg);
+      border: 2px solid var(--border);
       border-radius: 50%;
     }
 
     .year-label {
       font-family: ui-monospace, 'SF Mono', Menlo, Monaco, monospace;
       font-size: 0.75rem;
-      color: #64748b;
+      color: var(--text-muted);
       margin-top: 0.25rem;
-      background-color: rgba(10, 10, 10, 0.7);
+      background-color: var(--bg-subtle);
       padding: 0 0.25rem;
     }
 
@@ -314,8 +314,8 @@ function getYearColor(year: number): string | null {
 
     /* Entry card */
     .entry-card {
-      background-color: #111111;
-      border: 1px solid var(--brand, #1e293b);
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--brand, var(--border));
       border-radius: 8px;
       padding: 0.75rem 1rem;
       max-width: 300px;
@@ -329,7 +329,7 @@ function getYearColor(year: number): string | null {
     .dates {
       font-family: ui-monospace, 'SF Mono', Menlo, Monaco, monospace;
       font-size: 0.75rem;
-      color: #64748b;
+      color: var(--text-muted);
       margin-bottom: 0.25rem;
     }
 
@@ -347,7 +347,7 @@ function getYearColor(year: number): string | null {
     }
 
     .role {
-      color: #94a3b8;
+      color: var(--text-muted);
       font-size: 0.85rem;
       margin-top: 0.125rem;
     }
@@ -359,7 +359,7 @@ function getYearColor(year: number): string | null {
       top: 0.75rem;
       width: calc(1.5rem + 2px);
       height: 2px;
-      background-color: var(--brand, #334155);
+      background-color: var(--brand, var(--border));
     }
 
     .entry.right::before {

@@ -52,7 +52,7 @@ const html = await marked.parse(md);
     padding: 1.25rem;
     border-radius: 8px;
     overflow-x: auto;
-    border: 1px solid oklch(28% 0 0);
+    border: 1px solid var(--border);
     margin: 0;
   }
 
@@ -64,11 +64,11 @@ const html = await marked.parse(md);
 
   .md :not(pre) > code {
     font-family: ui-monospace, 'SF Mono', Menlo, Monaco, 'Courier New', monospace;
-    background: oklch(14% 0 0);
+    background: var(--bg-subtle);
     padding: 0.2em 0.4em;
     border-radius: 4px;
     font-size: 0.9em;
-    border: 1px solid oklch(28% 0 0);
+    border: 1px solid var(--border);
   }
 
   .md h2, .md h3 {
@@ -81,16 +81,16 @@ const html = await marked.parse(md);
   }
 
   .md blockquote {
-    border-left: 3px solid oklch(28% 0 0);
+    border-left: 3px solid var(--border);
     margin: 1.5rem 0;
     padding: 0.5rem 1rem;
-    background: oklch(14% 0 0);
+    background: var(--bg-subtle);
     border-radius: 0 8px 8px 0;
   }
 
   .md blockquote p {
     margin: 0.5rem 0;
-    color: oklch(65% 0 0);
+    color: var(--text-muted);
   }
 
   .md ul, .md ol {

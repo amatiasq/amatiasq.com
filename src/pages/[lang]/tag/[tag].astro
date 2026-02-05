@@ -71,6 +71,15 @@ export async function getStaticPaths() {
 const { tagKey, tag, lang, projects, blog, experiments, talks, career } = Astro.props;
 const { tr } = useTranslations(Astro.url);
 const tagName = getLocalizedTag(tag, lang);
+
+const sortByDate = (a: any, b: any) => b.id.localeCompare(a.id);
+const sortByFrom = (a: any, b: any) => new Date(b.data.from).getTime() - new Date(a.data.from).getTime();
+
+const sortedProjects = [...projects].sort(sortByDate);
+const sortedBlog = [...blog].sort(sortByDate);
+const sortedExperiments = [...experiments].sort(sortByDate);
+const sortedTalks = [...talks].sort(sortByDate);
+const sortedCareer = [...career].sort(sortByFrom);
 ---
 
 <Layout title={tagName}>
@@ -81,39 +90,39 @@ const tagName = getLocalizedTag(tag, lang);
       <span class="tag-chip" transition:name={`tag-${tagKey}`}>{tagName}</span>
     </header>
 
-    {projects.length > 0 && (
+    {sortedProjects.length > 0 && (
       <section>
         <h2><Tr en="Projects" es="Proyectos" /></h2>
-        <ContentCards entries={projects} basePath="/projects" />
+        <ContentCards entries={sortedProjects} basePath="/projects" />
       </section>
     )}
 
-    {blog.length > 0 && (
+    {sortedBlog.length > 0 && (
       <section>
         <h2>Blog</h2>
-        <BlogPostList posts={blog} />
+        <BlogPostList posts={sortedBlog} />
       </section>
     )}
 
-    {experiments.length > 0 && (
+    {sortedExperiments.length > 0 && (
       <section>
         <h2><Tr en="Experiments" es="Experimentos" /></h2>
-        <ContentCards entries={experiments} basePath="/experiments" />
+        <ContentCards entries={sortedExperiments} basePath="/experiments" />
       </section>
     )}
 
-    {talks.length > 0 && (
+    {sortedTalks.length > 0 && (
       <section>
         <h2><Tr en="Talks" es="Charlas" /></h2>
-        <ContentCards entries={talks} basePath="/talks" />
+        <ContentCards entries={sortedTalks} basePath="/talks" />
       </section>
     )}
 
-    {career.length > 0 && (
+    {sortedCareer.length > 0 && (
       <section>
         <h2><Tr en="Career" es="Experiencia" /></h2>
         <ul class="career-list">
-          {career.map((job: any) => (
+          {sortedCareer.map((job: any) => (
             <li>
               <Link page={`/career/${job.id.replace('.md', '')}`}>
                 <Tr value={job.data.org} />
@@ -138,17 +147,17 @@ const tagName = getLocalizedTag(tag, lang);
   }
 
   .tag-label {
-    color: oklch(60% 0 0);
+    color: var(--text-muted);
     font-size: 1rem;
   }
 
   .tag-chip {
-    background: oklch(18% 0 0);
-    border: 1px solid oklch(28% 0 0);
+    background: var(--bg-subtle);
+    border: 1px solid var(--border);
     border-radius: 4px;
     padding: 0.2rem 0.6rem;
     font-size: 0.8rem;
-    color: oklch(70% 0 0);
+    color: var(--text-muted);
     display: inline-block;
   }
 
@@ -159,7 +168,7 @@ const tagName = getLocalizedTag(tag, lang);
 
   .career-list li {
     padding: 0.5rem 0;
-    border-bottom: 1px solid oklch(15% 0 0);
+    border-bottom: 1px solid var(--border);
   }
 
   .career-list li:last-child {
@@ -167,6 +176,6 @@ const tagName = getLocalizedTag(tag, lang);
   }
 
   .role {
-    color: oklch(60% 0 0);
+    color: var(--text-muted);
   }
 </style>
