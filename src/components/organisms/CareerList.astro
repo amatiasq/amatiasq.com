@@ -24,7 +24,7 @@ const hidden = max ? processedCareer.slice(max) : [];
 <ul>
   {visible.map((item: any) => (
     <li>
-      <span class="dates"><Time date={item.data.from} omitDay /> — <Time date={item.data.to} omitDay /></span>
+      <span class="dates"><Time date={item.data.from} omitDay /> — {item.data.to ? <Time date={item.data.to} omitDay /> : <Tr en="Current" es="Actual" />}</span>
       {item.data.link ? (
         <a href={item.data.link} target="_blank" rel="noopener"><Tr value={item.data.org} /></a>
       ) : (
@@ -41,7 +41,7 @@ const hidden = max ? processedCareer.slice(max) : [];
     <ul>
       {hidden.map((item: any) => (
         <li>
-          <span class="dates"><Time date={item.data.from} omitDay /> — <Time date={item.data.to} omitDay /></span>
+          <span class="dates"><Time date={item.data.from} omitDay /> — {item.data.to ? <Time date={item.data.to} omitDay /> : <Tr en="Current" es="Actual" />}</span>
           {item.data.link ? (
             <a href={item.data.link} target="_blank" rel="noopener"><Tr value={item.data.org} /></a>
           ) : (
