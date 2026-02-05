@@ -1,6 +1,7 @@
 ---
 import Time from '../atoms/Time.astro';
 import Tr from '../atoms/Translation.astro';
+import { useTranslations } from '../../i18n';
 
 interface Props {
   career: any[];
@@ -8,6 +9,7 @@ interface Props {
 }
 
 const { career, max } = Astro.props;
+const { tr } = useTranslations(Astro.url);
 
 const processedCareer = career
   .filter((item: any) => !item.data.hide)
@@ -26,7 +28,7 @@ const hidden = max ? processedCareer.slice(max) : [];
     <li>
       <span class="dates"><Time date={item.data.from} omitDay /> — {item.data.to ? <Time date={item.data.to} omitDay /> : <Tr en="Current" es="Actual" />}</span>
       {item.data.link ? (
-        <a href={item.data.link} target="_blank" rel="noopener"><Tr value={item.data.org} /></a>
+        <a href={tr(item.data.link)} target="_blank" rel="noopener"><Tr value={item.data.org} /></a>
       ) : (
         <span><Tr value={item.data.org} /></span>
       )}
@@ -43,7 +45,7 @@ const hidden = max ? processedCareer.slice(max) : [];
         <li>
           <span class="dates"><Time date={item.data.from} omitDay /> — {item.data.to ? <Time date={item.data.to} omitDay /> : <Tr en="Current" es="Actual" />}</span>
           {item.data.link ? (
-            <a href={item.data.link} target="_blank" rel="noopener"><Tr value={item.data.org} /></a>
+            <a href={tr(item.data.link)} target="_blank" rel="noopener"><Tr value={item.data.org} /></a>
           ) : (
             <span><Tr value={item.data.org} /></span>
           )}
