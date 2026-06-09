@@ -1,11 +1,18 @@
 import { defineCollection, z } from 'astro:content';
+import type { StringifiedDate } from './util/date';
 
 // shared schemas
 
 const translatable = (type: z.ZodType) =>
   z.union([type, z.array(type), z.object({ en: type, es: type })]);
 
-const DateSchema = z.union([z.date(), z.string().refine((v) => new Date(v))]);
+const DateSchema = z.union([
+  z.date(),
+  z
+    .string()
+    .refine((v) => new Date(v))
+    .transform((v) => v as StringifiedDate),
+]);
 const TranslatableSchema = translatable(z.string());
 const TranslatableUrlSchema = translatable(z.string().url());
 
