@@ -1,0 +1,32 @@
+#!/bin/bash -e
+
+# amq amatiasq.com check — full local CI check for amatiasq.com.
+#
+# Mirrors .github/workflows/ci-amatiasq.com.yml so a green CI run and a local
+# `amq amatiasq.com check` cannot diverge:
+#   install deps (bun) + typecheck (astro check).
+#
+# Runtime: Bun. Install is skipped when node_modules is already present so
+# repeated local runs stay fast; CI has no node_modules and installs fresh.
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+  self="$(basename "$0")"
+  echo "Usage: $self"
+  echo
+  echo "Runs the full CI check for amatiasq.com (Bun):"
+  echo "  1. bun install (skipped when node_modules already exists)"
+  echo "  2. bunx astro check"
+  echo
+  echo "Mirrors .github/workflows/ci-amatiasq.com.yml. Does nothing else."
+  exit 0
+fi
+
+if [ ! -d node_modules ]; then
+  echo "==> bun install"
+  bun install
+else
+  echo "==> deps present, skipping bun install"
+fi
+
+echo "==> typecheck (astro check)"
+bunx astro check
