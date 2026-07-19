@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<head>
+  <title>Matrix</title>
+
+  <style>
+    body {
+      background-color: #000;
+      margin: 0;
+      height: 100vh;
+      width: 100vw;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canv"></canvas>
+
+  <script>
+    const message = readMessage();
+    const canvas = document.getElementById('canv');
+    const ctx = canvas.getContext('2d');
+    const charHeight = 20;
+    const charWidth = 16;
+    let memory, buffer, width, height, cols, cursors;
+
+    window.addEventListener('resize', resize);
+    canvas.addEventListener('click', () =>
+      canvas.requestFullscreen().then(resize)
+    );
+
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, width, height);
+
+    resize();
+    setInterval(matrix, 50);
+
+    console.log({ message });
+
+    function matrix() {
+      ctx.fillStyle = '#0001';
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.fillStyle = '#0f0';
+      ctx.font = '15pt monospace';
+
+      cursors.forEach((row, col) => {
+        const char = getNextChar(col, row);
+
+        cursors[col] = restartColumn(row) ? 0 : row + 1;
+        buffer[col][row] = char;
+
+        const y = row * charHeight;
+        const x = col * charWidth;
+        ctx.fillText(char, x, y);
+      });
+
+      const tmp = memory;
+      memory = buffer;
+      buffer = tmp;
+    }
+
+    function getNextChar(col, row) {
+      if (message) {
+        const before = get(col - 1, row);
+        if (message.includes(before)) {
+          const val = messageChar(before, +1);
+          if (val) return val;
+          if (before === message[message.length - 1]) return message[0];
+        }
+
+        const prev = get(col, row);
+        if (message.includes(prev)) {
+          return prev;
+        }
+
+        const after = get(col + 1, row);
+        if (message.includes(after)) {
+          const val = messageChar(after, -1);
+          if (val) return val;
+        }
+      }
+
+      return String.fromCharCode(Math.random() * 128);
+    }
+
+    function restartColumn(y) {
+      return y > (100 + Math.random() * 10000) / charHeight;
+    }
+
+    function get(col, row) {
+      const data = memory[col];
+      return data && data[row];
+    }
+
+    function messageChar(needle, modifier) {
+      const index = message.indexOf(needle);
+      return message[index + modifier];
+    }
+
+    function resize() {
+      width = canvas.width = document.body.offsetWidth;
+      height = canvas.height = document.body.offsetHeight;
+      cols = Math.floor(width / charWidth) + 1;
+      cursors = Array(cols).fill(0);
+      memory = Array(cols)
+        .fill(0)
+        .map((_) => []);
+      buffer = Array(cols)
+        .fill(0)
+        .map((_) => []);
+    }
+
+    function readMessage() {
+      const query = decodeURIComponent(location.hash || location.search).slice(
+        1
+      );
+
+      if (!query) {
+        return '';
+      }
+
+      if (query === '-') {
+        return decodeURIComponent('MICA%E2%99%A5');
+      }
+
+      return query.toUpperCase().trim();
+    }
+  </script>
+</body>

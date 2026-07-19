@@ -1,0 +1,23 @@
+version: '3.5'
+
+services:
+  nginx:
+    container_name: amq-amatiasq
+    image: nginx
+    restart: unless-stopped
+    expose:
+      - 80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ./logs:/var/log/nginx
+      - ./www:/www:ro
+    environment:
+      - VIRTUAL_HOST=amatiasq.com,www.amatiasq.com,amq.im,www.amq.im
+      - LETSENCRYPT_HOST=amatiasq.com,www.amatiasq.com,amq.im,www.amq.im
+      - LETSENCRYPT_EMAIL=amatiasq@gmail.com
+    networks:
+      - exposed
+
+networks:
+  exposed:
+    external: true

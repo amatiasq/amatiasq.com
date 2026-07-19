@@ -1,0 +1,1596 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Layout Editor</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked@9/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4/dist/js-yaml.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lz-string@1/libs/lz-string.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #2a2a2e;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── TOOLBAR ── */
+    #toolbar {
+      background: #1e1e2e;
+      color: #cdd6f4;
+      padding: 0 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+      border-bottom: 1px solid #45475a;
+      height: 44px;
+    }
+    .tb-lbl { font-size: 11px; color: #9399b2; white-space: nowrap; }
+    .tb-sep { width: 1px; height: 24px; background: #45475a; margin: 0 3px; }
+    #img-path {
+      background: #313244; border: 1px solid #45475a; border-radius: 4px;
+      color: #cdd6f4; padding: 4px 8px; font-size: 12px; width: 250px;
+    }
+    #img-path:focus { outline: none; border-color: #7287fd; }
+    .btn {
+      background: #313244; border: 1px solid #45475a; border-radius: 4px;
+      color: #cdd6f4; padding: 4px 10px; font-size: 12px; cursor: pointer;
+      white-space: nowrap; user-select: none; line-height: 1;
+    }
+    .btn:hover { background: #45475a; }
+    .btn.primary { background: #1e66f5; border-color: #1e66f5; color: #fff; }
+    .btn.primary:hover { background: #2878ff; }
+    .btn.active { background: #7287fd; border-color: #7287fd; color: #fff; }
+    .btn.danger { border-color: #f38ba8; color: #f38ba8; }
+    .btn.danger:hover { background: #f38ba8; color: #1e1e2e; }
+    .btn.bold-btn { font-weight: 700; font-size: 13px; width: 30px; padding: 4px 0; text-align: center; }
+
+    /* ── FONT SIZE STEPPER ── */
+    .font-stepper {
+      display: flex; align-items: stretch;
+      border: 1px solid #45475a; border-radius: 4px;
+      overflow: hidden; background: #313244;
+    }
+    .font-stepper:focus-within { border-color: #7287fd; }
+    #size-inp {
+      background: transparent; border: none; outline: none;
+      color: #cdd6f4; font-size: 12px;
+      width: 38px; text-align: center; padding: 0;
+      -moz-appearance: textfield;
+    }
+    #size-inp::-webkit-outer-spin-button,
+    #size-inp::-webkit-inner-spin-button { display: none; }
+    .stepper-btns {
+      display: flex; flex-direction: column;
+      border-left: 1px solid #45475a;
+    }
+    .stepper-btn {
+      background: #313244; border: none; color: #9399b2;
+      cursor: pointer; padding: 0 5px; font-size: 7px;
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      line-height: 1;
+    }
+    .stepper-btn:hover { background: #45475a; color: #cdd6f4; }
+    .stepper-btn + .stepper-btn { border-top: 1px solid #45475a; }
+
+    #box-props { display: none; align-items: center; gap: 5px; }
+    #status { font-size: 11px; color: #6c7086; padding: 0 8px; }
+
+    /* ── WORKSPACE ── */
+    #workspace { flex: 1; display: flex; overflow: hidden; }
+
+    /* ── CANVAS AREA ── */
+    #canvas-wrap {
+      flex: 1; overflow: auto; padding: 24px;
+    }
+    #canvas-sizer {
+      /* tamaño visual = natural × zoom; permite scroll correcto */
+      position: relative; display: inline-block;
+    }
+    #canvas {
+      position: relative; flex-shrink: 0;
+      transform-origin: top left;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+    }
+    #canvas.empty {
+      width: 595px; height: 842px; background: #f5f0e8;
+      border: 2px dashed #666; display: flex; align-items: center;
+      justify-content: center; color: #888; font-size: 15px;
+    }
+    #bg-img { display: block; width: 100%; pointer-events: none; user-select: none; }
+
+    /* ── TEXT BOX ── */
+    .tbox { position: absolute; overflow: visible; }
+
+    /* drag bar appears on select */
+    .tbox-bar {
+      display: none; position: absolute; top: -18px; left: 0; right: 0;
+      height: 16px; background: #1e66f5; border-radius: 3px 3px 0 0;
+      padding: 0 6px; align-items: center; gap: 4px; cursor: grab;
+      font-size: 9px; font-weight: 600; letter-spacing: 1px; color: #fff;
+      user-select: none; text-transform: uppercase;
+    }
+    .tbox-bar:active { cursor: grabbing; }
+    .tbox-bar-id { opacity: 0.7; }
+    .tbox-bar-del {
+      margin-left: auto; cursor: pointer; font-size: 11px;
+      opacity: 0.8; line-height: 1;
+    }
+    .tbox-bar-del:hover { opacity: 1; }
+
+    .tbox.sel { z-index: 10; }
+
+    /* inner content wrapper */
+    .tbox-inner {
+      position: relative; min-height: 1.2em; word-break: break-word;
+      outline: 1.5px dashed transparent; transition: outline-color 0.1s;
+    }
+    .tbox:hover .tbox-inner { outline-color: rgba(30,102,245,0.35); }
+    .tbox.sel .tbox-inner { outline-color: #1e66f5; }
+    .tbox.sel .tbox-bar { display: flex; }
+
+    /* resize handle — right edge */
+    .tbox-rh {
+      position: absolute; right: -8px; top: 0; bottom: 0; width: 12px;
+      cursor: ew-resize; display: flex; align-items: center; justify-content: center;
+    }
+    .tbox-rh::after {
+      content: ''; width: 4px; height: 28px; min-height: 28px;
+      background: #1e66f5; border-radius: 2px; opacity: 0; transition: opacity 0.15s;
+    }
+    .tbox:hover .tbox-rh::after { opacity: 0.4; }
+    .tbox.sel .tbox-rh::after { opacity: 1; }
+
+    /* rendered view */
+    .tbox-view {
+      cursor: text; min-height: 1em;
+      line-height: 1.35; padding: 4px 6px;
+    }
+    .tbox-view p { margin: 0; }
+    .tbox-view h1, .tbox-view h2, .tbox-view h3,
+    .tbox-view h4, .tbox-view h5, .tbox-view h6 { margin: 0; line-height: 1.2; }
+    .tbox-view ul, .tbox-view ol { margin: 0; padding-left: 1.2em; }
+
+    /* markdown source editor */
+    .tbox-ed {
+      display: none; width: 100%; background: transparent !important;
+      border: 1px dashed rgba(30,102,245,0.6); border-radius: 2px; outline: none;
+      resize: none; overflow: hidden; padding: 4px 6px;
+      font-family: inherit;
+      color: inherit; font-weight: inherit; line-height: 1.4;
+      -webkit-appearance: none; appearance: none;
+    }
+    .tbox-ed:focus { background: transparent !important; outline: none; }
+    .tbox-ed:focus { background: rgba(255,255,255,0.98); }
+
+    /* ── SIDEBAR ── */
+    #sidebar {
+      width: 280px; flex-shrink: 0; border-left: 1px solid #313244;
+      background: #181825; display: flex; flex-direction: column;
+    }
+    .sb-hdr {
+      padding: 7px 12px; font-size: 10px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase; color: #7287fd;
+      border-bottom: 1px solid #313244;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    #yaml-ta {
+      flex: 1; background: #11111b; color: #a6e3a1; border: none; outline: none;
+      padding: 10px; font-family: 'Menlo', 'Consolas', monospace;
+      font-size: 10.5px; line-height: 1.6; resize: none; tab-size: 2;
+    }
+    .sb-footer { border-top: 1px solid #313244; padding: 8px; display: flex; gap: 6px; }
+    .sb-footer .btn { flex: 1; text-align: center; }
+  @media print {
+    @page { margin: 0; }
+    body, html {
+      display: block !important;
+      overflow: visible !important;
+      background: white !important;
+    }
+    #toolbar, #sidebar { display: none !important; }
+    #canvas-wrap, #canvas-sizer {
+      display: block !important;
+      overflow: visible !important;
+      padding: 0 !important; margin: 0 !important;
+      width: auto !important; height: auto !important;
+    }
+    #canvas {
+      /* zoom escala fuentes + layout proporcionalmente al tamaño de la página */
+      zoom: var(--print-scale, 1) !important;
+      transform: none !important;
+      box-shadow: none !important;
+      margin: 0 !important;
+    }
+    .tbox-bar, .tbox-resize { display: none !important; }
+    .tbox.sel .tbox-inner { outline: none !important; }
+    .tbox-view.empty { visibility: hidden !important; }
+    .tbox-ed { display: none !important; }
+  }
+
+  /* ── SIDEBAR OCULTO ── */
+  #sidebar.hidden { display: none !important; }
+
+  /* ── MÓVIL ── */
+  @media (max-width: 768px) {
+    #toolbar {
+      height: auto !important;
+      padding: 8px !important;
+      gap: 8px !important;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 10px 18px !important;
+      font-size: 16px !important;
+    }
+    .btn.bold-btn { width: 46px !important; font-size: 18px !important; }
+    .tb-lbl { font-size: 14px !important; }
+    .tb-sep { height: 32px !important; }
+    #img-path {
+      font-size: 15px !important;
+      padding: 8px 10px !important;
+      width: 180px !important;
+    }
+    #size-inp {
+      font-size: 15px !important;
+      width: 52px !important;
+    }
+    .stepper-btn { font-size: 10px !important; padding: 0 8px !important; }
+    #status { font-size: 14px !important; }
+  }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════ TOOLBAR ════════════════ -->
+<div id="toolbar">
+  <span class="tb-lbl">Imagen / PDF:</span>
+  <input type="text" id="img-path" value="D&amp;D2024pag1.png" placeholder="ruta o URL (.png, .jpg, .pdf)">
+  <button class="btn primary" onclick="loadImage()">Cargar</button>
+  <label class="btn" title="Seleccionar archivo local" style="cursor:pointer">
+    📂 <input type="file" accept="image/*,.pdf" style="display:none" onchange="loadFile(this)">
+  </label>
+
+  <div class="tb-sep"></div>
+
+  <button class="btn" onclick="zoom(-0.1)" title="Reducir (-)">−</button>
+  <span id="zoom-lbl" style="font-size:11px;color:#9399b2;min-width:36px;text-align:center">100%</span>
+  <button class="btn" onclick="zoom(+0.1)" title="Ampliar (+)">＋</button>
+  <button class="btn" onclick="zoomFit()" title="Ajustar a ventana">⊡</button>
+
+  <div class="tb-sep"></div>
+
+  <button class="btn" onclick="shareYaml()" title="Copiar URL con YAML comprimido">🔗 Compartir</button>
+
+  <div class="tb-sep"></div>
+
+  <button class="btn primary" onclick="addBox()" title="Nueva caja (N)">＋ Nueva caja</button>
+
+  <div class="tb-sep"></div>
+
+  <div id="box-props">
+    <span class="tb-lbl">Tamaño:</span>
+    <div class="font-stepper">
+      <input type="number" id="size-inp" value="24" oninput="setProp('fontSize', +this.value)">
+      <div class="stepper-btns">
+        <button class="stepper-btn" onclick="stepFontSize(+1)" tabindex="-1">▲</button>
+        <button class="stepper-btn" onclick="stepFontSize(-1)" tabindex="-1">▼</button>
+      </div>
+    </div>
+
+    <button class="btn bold-btn" id="btn-bold" onclick="toggleBold()">B</button>
+
+    <div class="tb-sep"></div>
+
+    <button class="btn" id="btn-al" onclick="setProp('align','left')"    title="Izquierda">⬅</button>
+    <button class="btn" id="btn-ac" onclick="setProp('align','center')"  title="Centro">↔</button>
+    <button class="btn" id="btn-ar" onclick="setProp('align','right')"   title="Derecha">➡</button>
+    <button class="btn" id="btn-aj" onclick="setProp('align','justify')" title="Justificado">☰</button>
+
+    <div class="tb-sep"></div>
+
+    <button class="btn danger" onclick="deleteSelected()" title="Eliminar caja (Supr)">✕</button>
+  </div>
+
+  <span id="status"></span>
+  <button class="btn" id="btn-sidebar" onclick="toggleSidebar()" title="Mostrar/ocultar YAML" style="margin-left:auto">☰ YAML</button>
+</div>
+
+<!-- ════════════════ WORKSPACE ════════════════ -->
+<div id="workspace">
+
+  <div id="canvas-wrap">
+    <div id="canvas-sizer">
+      <div id="canvas" class="empty" tabindex="-1" style="outline:none">
+        <span>Carga una imagen para comenzar</span>
+        <img id="bg-img" style="display:none" alt="">
+        <div id="guides" style="position:absolute;inset:0;pointer-events:none;z-index:9999"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sidebar">
+    <div class="sb-hdr">
+      <span>YAML</span>
+      <span id="extends-indicator" style="display:none;font-size:9px;color:#a6e3a1;font-weight:400;text-transform:none;letter-spacing:0"></span>
+      <span id="yaml-hint" style="font-size:9px;color:#6c7086;font-weight:400;text-transform:none;letter-spacing:0">coordenadas en % de imagen</span>
+    </div>
+    <textarea id="yaml-ta" spellcheck="false"></textarea>
+    <div class="sb-footer">
+      <button class="btn" onclick="loadFromYaml()">↩ Cargar desde YAML</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// ══════════════════════════════════════════════════
+// ESTADO
+// ══════════════════════════════════════════════════
+/**
+ * FONT_TO_CSS — convierte el tamaño de fuente (valor de display/YAML) a px CSS.
+ *
+ * Escala exponencial: cada 12 unidades = doble de tamaño visual.
+ *   n=12  →  12 px   (texto pequeño)
+ *   n=24  →  24 px   (cuerpo)
+ *   n=36  →  48 px   (subtítulo)
+ *   n=48  →  96 px   (título grande)
+ *
+ * El valor almacenado en el YAML ES el valor de display (lo que escribe el usuario).
+ */
+const FONT_TO_CSS = n => 6 * Math.pow(2, n / 12);
+
+const S = {
+  image: 'D&D2024pag1.png',
+  boxes: [],
+  sel: null,
+  selSet: new Set(),
+  editing: null,
+  drag: null,
+  idCtr: 1,
+  loading: false,   // true durante loadFromYaml, bloquea updateYaml intermedio
+  contentOrder: [], // orden de las claves en la sección content (preserva el orden del usuario)
+  _fromUrl: false,  // true si el estado actual viene de ?y= y aún no ha sido modificado
+  yamlHeader: '',   // comentarios al inicio del YAML que se preservan
+  extends: null,    // URL of base YAML (extends feature)
+  base: null,       // parsed base YAML object { image, zoom, boxes, content }
+  _baseUrl: null,   // cached URL to avoid re-fetching same base
+};
+
+const canvas   = document.getElementById('canvas');
+const bgImg    = document.getElementById('bg-img');
+const yamlTA   = document.getElementById('yaml-ta');
+const boxProps = document.getElementById('box-props');
+
+// ══════════════════════════════════════════════════
+// INDEXEDDB — almacén de archivos locales
+// ══════════════════════════════════════════════════
+const fileDB = {
+  _db: null,
+  async open() {
+    if (this._db) return this._db;
+    return new Promise((resolve, reject) => {
+      const req = indexedDB.open('dnd-layout-files', 1);
+      req.onupgradeneeded = e => e.target.result.createObjectStore('files');
+      req.onsuccess  = e => { this._db = e.target.result; resolve(this._db); };
+      req.onerror    = e => reject(e.target.error);
+    });
+  },
+  async save(key, data) {
+    const db = await this.open();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction('files', 'readwrite');
+      tx.objectStore('files').put(data, key);
+      tx.oncomplete = resolve;
+      tx.onerror    = e => reject(e.target.error);
+    });
+  },
+  async load(key) {
+    const db = await this.open();
+    return new Promise((resolve, reject) => {
+      const req = db.transaction('files', 'readonly').objectStore('files').get(key);
+      req.onsuccess = e => resolve(e.target.result ?? null);
+      req.onerror   = e => reject(e.target.error);
+    });
+  },
+};
+
+// ══════════════════════════════════════════════════
+// IMAGEN / PDF
+// ══════════════════════════════════════════════════
+async function loadImage() {
+  const url = document.getElementById('img-path').value.trim();
+  if (!url) return;
+  S.image = url;
+
+  // Primero buscar en IndexedDB (archivos locales guardados)
+  try {
+    const stored = await fileDB.load(url);
+    if (stored) {
+      if (url.toLowerCase().endsWith('.pdf')) {
+        await loadPdfData(stored); return;
+      } else {
+        applyImageUrl(URL.createObjectURL(new Blob([stored]))); return;
+      }
+    }
+  } catch (_) { /* sin entrada en IndexedDB, continuar */ }
+
+  // Fallback: cargar por URL
+  if (url.toLowerCase().endsWith('.pdf')) {
+    loadPdfUrl(url);
+  } else {
+    applyImageUrl(url);
+  }
+}
+
+// Carga desde un <input type="file">
+function loadFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  document.getElementById('img-path').value = file.name;
+  S.image = file.name;
+  if (file.type === 'application/pdf' || file.name.toLowerCase().endsWith('.pdf')) {
+    const reader = new FileReader();
+    reader.onload = async e => {
+      await fileDB.save(file.name, e.target.result);  // guarda ArrayBuffer
+      loadPdfData(e.target.result);
+    };
+    reader.readAsArrayBuffer(file);
+  } else {
+    // Guardar imagen en IndexedDB para persistencia
+    const reader = new FileReader();
+    reader.onload = async e => {
+      await fileDB.save(file.name, e.target.result);
+      applyImageUrl(URL.createObjectURL(new Blob([e.target.result])));
+    };
+    reader.readAsArrayBuffer(file);
+  }
+  input.value = '';
+}
+
+async function loadPdfUrl(url) {
+  status('Cargando PDF…');
+  try {
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    const pdf  = await pdfjsLib.getDocument(url).promise;
+    await renderPdfPage(pdf);
+  } catch (err) {
+    const isCors = err.message?.includes('CORS') || err.name === 'UnknownErrorException'
+                || err.message?.includes('Unexpected server response');
+    if (isCors) {
+      status('⚠ CORS bloqueado — descarga el PDF y usa el botón 📂');
+      alert('No se puede cargar el PDF desde esa URL por restricciones CORS del servidor.\n\nSolución: descarga el archivo y ábrelo con el botón 📂.');
+    } else {
+      status('⚠ Error cargando PDF: ' + err.message);
+    }
+  }
+}
+
+async function loadPdfData(arrayBuffer) {
+  status('Cargando PDF…');
+  try {
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    await renderPdfPage(pdf);
+  } catch (err) {
+    status('⚠ Error cargando PDF: ' + err.message);
+  }
+}
+
+async function renderPdfPage(pdf) {
+  const page     = await pdf.getPage(1);
+  const viewport = page.getViewport({ scale: 2 });   // ×2 para buena resolución
+  const tmp      = document.createElement('canvas');
+  tmp.width  = viewport.width;
+  tmp.height = viewport.height;
+  await page.render({ canvasContext: tmp.getContext('2d'), viewport }).promise;
+  applyImageUrl(tmp.toDataURL('image/png'));
+  status('PDF renderizado: ' + tmp.width + '×' + tmp.height + 'px');
+}
+
+function applyImageUrl(url) {
+  bgImg.src = url;
+  bgImg.style.display = 'none';
+  bgImg.onload = () => {
+    canvas.classList.remove('empty');
+    canvas.querySelector('span')?.remove();
+    bgImg.style.display = 'block';
+    naturalW = bgImg.naturalWidth;
+    naturalH = bgImg.naturalHeight;
+    canvas.style.width  = naturalW + 'px';
+    canvas.style.height = naturalH + 'px';
+    updatePrintScale();
+    zoomFit();
+    if (S._pending?.length) {
+      const contentMap = S._pendingContent || {};
+      for (const b of S._pending) {
+        if (contentMap[b.id] !== undefined) b.content = contentMap[b.id];
+        S.boxes.push(b);
+        mountBox(b);
+      }
+      S._pending = null;
+      S._pendingContent = null;
+    }
+    if (S._pendingZoom) {
+      applyZoom(S._pendingZoom);
+      S._pendingZoom = null;
+    }
+    if (!url.startsWith('data:')) status('Imagen: ' + naturalW + '×' + naturalH + 'px');
+    updateYaml();
+  };
+  bgImg.onerror = () => status('⚠ No se pudo cargar la imagen');
+}
+
+// ══════════════════════════════════════════════════
+// CAJAS: CREAR / ELIMINAR
+// ══════════════════════════════════════════════════
+function addBox() {
+  const box = {
+    id:       'caja_' + (S.idCtr++),
+    x:        5,    // % canvas width
+    y:        5,    // % canvas height
+    width:    22,   // % canvas width
+    fontSize: 24,
+    bold:     false,
+    align:    'left',
+    content:  '',
+  };
+  S.boxes.push(box);
+  mountBox(box);
+  select(box.id);
+  enterEdit(box.id);
+  updateYaml();
+}
+
+function mountBox(box) {
+  const el = document.createElement('div');
+  el.className = 'tbox';
+  el.id = 'box_' + box.id;
+  el.style.left  = box.x     + '%';
+  el.style.top   = box.y     + '%';
+  el.style.width = box.width + '%';
+
+  el.innerHTML = `
+    <div class="tbox-bar">
+      <span class="tbox-bar-id">${box.id}</span>
+      <span class="tbox-bar-del" title="Eliminar" onclick="deleteBox('${box.id}')">✕</span>
+    </div>
+    <div class="tbox-inner">
+      <div class="tbox-view"></div>
+      <textarea class="tbox-ed" rows="1" placeholder="Escribe markdown..."></textarea>
+      <div class="tbox-rh"></div>
+    </div>
+  `;
+
+  applyStyles(el, box);
+  renderView(el, box);
+
+  const view = el.querySelector('.tbox-view');
+  const ed   = el.querySelector('.tbox-ed');
+  const rh   = el.querySelector('.tbox-rh');
+  const bar  = el.querySelector('.tbox-bar');
+
+  // Click anywhere on box → select + drag (unless rh, bar, or editor textarea)
+  el.addEventListener('mousedown', e => {
+    if (e.target === rh  || rh.contains(e.target))  return;
+    if (e.target === bar || bar.contains(e.target))  return;
+    if (e.target === ed  || ed.contains(e.target))   return;
+    const additive = e.shiftKey || e.metaKey || e.ctrlKey;
+    if (additive) e.preventDefault(); // evitar selección de texto nativa
+    e.stopPropagation();
+    if (!additive && S.selSet.has(box.id) && S.selSet.size > 1) {
+      // Caja ya seleccionada en multi-selección: arrastrar todas sin cambiar selección
+      startDrag(e, box.id, 'move');
+    } else {
+      select(box.id, additive);
+      if (!additive) startDrag(e, box.id, 'move');
+    }
+  });
+
+  // Doble click en el texto → entrar en edición
+  view.addEventListener('dblclick', e => { e.stopPropagation(); enterEdit(box.id); });
+
+  // Drag bar → move (drag all selected if multi)
+  bar.addEventListener('mousedown', e => {
+    e.preventDefault(); e.stopPropagation();
+    select(box.id, e.shiftKey || e.metaKey || e.ctrlKey);
+    startDrag(e, box.id, 'move');
+  });
+
+  // Resize handle → resize
+  rh.addEventListener('mousedown', e => {
+    e.preventDefault(); e.stopPropagation();
+    startDrag(e, box.id, 'resize');
+  });
+
+  // Editor events
+  ed.addEventListener('input', () => {
+    box.content = ed.value;
+    autoH(ed);
+    updateYaml();
+  });
+  ed.addEventListener('blur',    () => setTimeout(() => { if (S.editing === box.id) exitEdit(box.id); }, 80));
+  // Y el keydown del textarea: Escape sale de edición
+  ed.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { e.preventDefault(); exitEdit(box.id); }
+  });
+
+  canvas.appendChild(el);
+}
+
+function deleteBox(id) {
+  document.getElementById('box_' + id)?.remove();
+  S.boxes = S.boxes.filter(b => b.id !== id);
+  S.selSet.delete(id);
+  if (S.sel === id) S.sel = S.selSet.size ? [...S.selSet].at(-1) : null;
+  if (S.editing === id) S.editing = null;
+  if (!S.sel) boxProps.style.display = 'none';
+  updateYaml();
+}
+
+function deleteSelected() {
+  for (const id of [...S.selSet]) deleteBox(id);
+}
+
+// ══════════════════════════════════════════════════
+// ESTILOS Y MARKDOWN
+// ══════════════════════════════════════════════════
+function applyStyles(el, box) {
+  const view = el.querySelector('.tbox-view');
+  const ed   = el.querySelector('.tbox-ed');
+  const scaledPx = FONT_TO_CSS(box.fontSize) + 'px';
+  const css  = { fontSize: scaledPx, fontWeight: box.bold ? '700' : '400', textAlign: box.align };
+  Object.assign(view.style, css);
+  Object.assign(ed.style, { fontSize: scaledPx, fontWeight: box.bold ? '700' : '400', textAlign: box.align, color: getComputedStyle(view).color });
+}
+
+function renderView(el, box) {
+  const view = el.querySelector('.tbox-view');
+  if (box.content) {
+    view.style.opacity = '1';
+    view.classList.remove('empty');
+    view.innerHTML = marked.parse(box.content);
+  } else {
+    view.style.opacity = '0.3';
+    view.classList.add('empty');
+    view.innerHTML = `<em style="word-break:break-all;white-space:normal">${box.id}</em>`;
+  }
+}
+
+function autoH(ta) {
+  ta.style.height = 'auto';
+  ta.style.height = ta.scrollHeight + 'px';
+}
+
+// ══════════════════════════════════════════════════
+// SELECCIÓN
+// ══════════════════════════════════════════════════
+function select(id, additive = false) {
+  if (!additive) {
+    // Limpiar selección anterior
+    S.selSet.forEach(bid => document.getElementById('box_' + bid)?.classList.remove('sel'));
+    S.selSet.clear();
+  } else if (S.selSet.has(id)) {
+    // Shift+click sobre caja ya seleccionada → deseleccionar
+    document.getElementById('box_' + id)?.classList.remove('sel');
+    S.selSet.delete(id);
+    S.sel = S.selSet.size ? [...S.selSet].at(-1) : null;
+    if (!S.sel) { boxProps.style.display = 'none'; return; }
+    syncPropsPanel(S.boxes.find(b => b.id === S.sel));
+    return;
+  }
+
+  S.selSet.add(id);
+  S.sel = id;
+  document.getElementById('box_' + id)?.classList.add('sel');
+
+  const box = S.boxes.find(b => b.id === id);
+  if (box) syncPropsPanel(box);
+  boxProps.style.display = 'flex';
+  if (S.editing !== id) canvas.focus();
+}
+
+function deselect() {
+  if (S.editing) return;
+  S.selSet.forEach(id => document.getElementById('box_' + id)?.classList.remove('sel'));
+  S.selSet.clear();
+  S.sel = null;
+  boxProps.style.display = 'none';
+}
+
+function syncPropsPanel(box) {
+  document.getElementById('size-inp').value = box.fontSize;
+  document.getElementById('btn-bold').classList.toggle('active', box.bold);
+  ['al','ac','ar','aj'].forEach(k => document.getElementById('btn-'+k).classList.remove('active'));
+  const map = { left:'al', center:'ac', right:'ar', justify:'aj' };
+  if (map[box.align]) document.getElementById('btn-' + map[box.align]).classList.add('active');
+}
+
+function stepFontSize(delta) {
+  if (!S.sel) return;
+  const box = S.boxes.find(b => b.id === S.sel);
+  if (!box) return;
+  setProp('fontSize', box.fontSize + delta);
+}
+
+// ══════════════════════════════════════════════════
+// EDICIÓN
+// ══════════════════════════════════════════════════
+function enterEdit(id) {
+  if (S.editing === id) return;
+  if (S.editing) exitEdit(S.editing);
+  S.editing = id;
+
+  const el   = document.getElementById('box_' + id);
+  const box  = S.boxes.find(b => b.id === id);
+  const view = el.querySelector('.tbox-view');
+  const ed   = el.querySelector('.tbox-ed');
+
+  view.style.display = 'none';
+  ed.style.display   = 'block';
+  applyStyles(el, box);   // asegura font-size correcto antes de calcular altura
+  ed.value = box?.content || '';
+  autoH(ed);
+  ed.focus();
+}
+
+function exitEdit(id) {
+  if (S.editing !== id) return;
+  S.editing = null;
+
+  const el   = document.getElementById('box_' + id);
+  if (!el) return;
+  const box  = S.boxes.find(b => b.id === id);
+  const view = el.querySelector('.tbox-view');
+  const ed   = el.querySelector('.tbox-ed');
+
+  box.content = ed.value;
+  renderView(el, box);
+  view.style.display = 'block';
+  ed.style.display   = 'none';
+  ed.blur();
+  canvas.focus();
+  updateYaml();
+}
+
+// ══════════════════════════════════════════════════
+// PROPIEDADES
+// ══════════════════════════════════════════════════
+function setProp(prop, val) {
+  if (!S.sel) return;
+  for (const id of S.selSet) {
+    const box = S.boxes.find(b => b.id === id);
+    if (!box) continue;
+    box[prop] = val;
+    applyStyles(document.getElementById('box_' + id), box);
+  }
+  // Sincronizar panel desde la caja primaria
+  const primary = S.boxes.find(b => b.id === S.sel);
+  if (primary) syncPropsPanel(primary);
+  updateYaml();
+}
+
+function toggleBold() {
+  if (!S.sel) return;
+  const primary = S.boxes.find(b => b.id === S.sel);
+  if (primary) setProp('bold', !primary.bold);
+}
+
+// ══════════════════════════════════════════════════
+// SNAP GUIDES
+// ══════════════════════════════════════════════════
+const SNAP_PX = 6;
+
+function getBoxRect(id) {
+  const el = document.getElementById('box_' + id);
+  if (!el) return null;
+  const cr = canvas.getBoundingClientRect();
+  const er = el.getBoundingClientRect();
+  return {
+    l:  er.left   - cr.left,
+    t:  er.top    - cr.top,
+    r:  er.right  - cr.left,
+    b:  er.bottom - cr.top,
+    cx: er.left + er.width  / 2 - cr.left,
+    cy: er.top  + er.height / 2 - cr.top,
+    w:  er.width,
+    h:  er.height,
+  };
+}
+
+function snapAndGuide(dragId, x_px, y_px) {
+  const cw = canvas.offsetWidth;
+  const ch = canvas.offsetHeight;
+  const self = getBoxRect(dragId);
+  if (!self) return { x: x_px, y: y_px, guides: [] };
+
+  const w = self.w, h = self.h;
+
+  // Puntos de snap del objeto que se arrastra (relativos al origen del box)
+  const dxPts = [ { v: x_px,       off: 0   },   // borde izq
+                  { v: x_px + w/2,  off: w/2 },   // centro
+                  { v: x_px + w,    off: w   } ];  // borde der
+  const dyPts = [ { v: y_px,       off: 0   },
+                  { v: y_px + h/2,  off: h/2 },
+                  { v: y_px + h,    off: h   } ];
+
+  // Referencias: bordes del canvas + bordes/centros de otras cajas
+  const refsX = [0, cw / 2, cw];
+  const refsY = [0, ch / 2, ch];
+  for (const box of S.boxes) {
+    if (box.id === dragId) continue;
+    const r = getBoxRect(box.id);
+    if (!r) continue;
+    refsX.push(r.l, r.cx, r.r);
+    refsY.push(r.t, r.cy, r.b);
+  }
+
+  let bestX = null, bestXOff = 0, bestXD = SNAP_PX;
+  let bestY = null, bestYOff = 0, bestYD = SNAP_PX;
+
+  for (const dp of dxPts) {
+    for (const ref of refsX) {
+      const d = Math.abs(dp.v - ref);
+      if (d < bestXD) { bestXD = d; bestX = ref; bestXOff = dp.off; }
+    }
+  }
+  for (const dp of dyPts) {
+    for (const ref of refsY) {
+      const d = Math.abs(dp.v - ref);
+      if (d < bestYD) { bestYD = d; bestY = ref; bestYOff = dp.off; }
+    }
+  }
+
+  const guides = [];
+  const fx = bestX !== null ? (guides.push({ type:'v', pos: bestX }), bestX - bestXOff) : x_px;
+  const fy = bestY !== null ? (guides.push({ type:'h', pos: bestY }), bestY - bestYOff) : y_px;
+
+  return { x: fx, y: fy, guides };
+}
+
+function renderGuides(lines) {
+  const g = document.getElementById('guides');
+  g.innerHTML = '';
+  for (const line of lines) {
+    const d = document.createElement('div');
+    d.style.cssText = line.type === 'v'
+      ? `position:absolute;top:0;bottom:0;left:${line.pos}px;width:1px;background:#ff3b30;`
+      : `position:absolute;left:0;right:0;top:${line.pos}px;height:1px;background:#ff3b30;`;
+    g.appendChild(d);
+  }
+}
+
+function clearGuides() {
+  document.getElementById('guides').innerHTML = '';
+}
+
+// ══════════════════════════════════════════════════
+// DRAG & RESIZE
+// ══════════════════════════════════════════════════
+function startDrag(e, id, type) {
+  const cr  = canvas.getBoundingClientRect();
+  const box = S.boxes.find(b => b.id === id);
+  const isMulti = type === 'move' && S.selSet.has(id) && S.selSet.size > 1;
+
+  if (isMulti) {
+    const initPositions = {};
+    for (const bid of S.selSet) {
+      const b = S.boxes.find(b => b.id === bid);
+      if (b) initPositions[bid] = { x: b.x, y: b.y };
+    }
+    S.drag = { type: 'multi-move', id, ids: [...S.selSet], initPositions,
+               mx0: e.clientX, my0: e.clientY, cw: cr.width, ch: cr.height, moved: false };
+  } else {
+    S.drag = { type, id,
+               mx0: e.clientX, my0: e.clientY,
+               bx0: box.x, by0: box.y, bw0: box.width,
+               cw: cr.width, ch: cr.height, moved: false };
+  }
+  document.body.style.userSelect = 'none';
+  document.body.style.cursor     = type === 'move' ? 'grabbing' : 'ew-resize';
+}
+
+document.addEventListener('mousemove', e => {
+  if (!S.drag) return;
+  const d = S.drag;
+
+  if (Math.abs(e.clientX - d.mx0) > 3 || Math.abs(e.clientY - d.my0) > 3) d.moved = true;
+
+  if (d.type === 'multi-move') {
+    const dxPct = ((e.clientX - d.mx0) / d.cw) * 100;
+    const dyPct = ((e.clientY - d.my0) / d.ch) * 100;
+    for (const bid of d.ids) {
+      const box = S.boxes.find(b => b.id === bid);
+      const el  = document.getElementById('box_' + bid);
+      if (!box || !el) continue;
+      const init = d.initPositions[bid];
+      box.x = Math.max(0, Math.min(95, init.x + dxPct));
+      box.y = Math.max(0, Math.min(98, init.y + dyPct));
+      el.style.left = box.x + '%';
+      el.style.top  = box.y + '%';
+    }
+    return;
+  }
+
+  const box = S.boxes.find(b => b.id === d.id);
+  const el  = document.getElementById('box_' + d.id);
+  if (!box || !el) return;
+
+  if (d.type === 'move') {
+    const cw = d.cw, ch = d.ch;
+    const rawX = (d.bx0 / 100) * cw + (e.clientX - d.mx0);
+    const rawY = (d.by0 / 100) * ch + (e.clientY - d.my0);
+    let x = rawX, y = rawY, guides = [];
+    if (d.moved) ({ x, y, guides } = snapAndGuide(d.id, rawX, rawY));
+    box.x = Math.max(0, Math.min(cw - 4, x)) / cw * 100;
+    box.y = Math.max(0, Math.min(ch - 4, y)) / ch * 100;
+    el.style.left = box.x + '%';
+    el.style.top  = box.y + '%';
+    renderGuides(guides);
+  } else {
+    const dx = ((e.clientX - d.mx0) / d.cw) * 100;
+    box.width = Math.max(4, Math.min(100 - box.x, d.bw0 + dx));
+    el.style.width = box.width + '%';
+  }
+});
+
+document.addEventListener('mouseup', e => {
+  if (!S.drag) return;
+  const d = S.drag;
+  S.drag = null;
+  clearGuides();
+  document.body.style.userSelect = '';
+  document.body.style.cursor     = '';
+
+  // Click sin movimiento → solo seleccionado (doble click entra en edición)
+  updateYaml();
+});
+
+// Clic en fondo → deseleccionar
+canvas.addEventListener('mousedown', e => {
+  if (e.target === canvas || e.target === bgImg) {
+    if (S.editing) exitEdit(S.editing);
+    deselect();
+  }
+});
+
+// ══════════════════════════════════════════════════
+// HISTORIAL (undo/redo)
+// ══════════════════════════════════════════════════
+const LS_HIST_KEY  = 'dnd-layout-editor-history';
+const MAX_HISTORY  = 80;
+const H = { stack: [], index: -1, restoring: false };
+
+function loadHistory() {
+  try {
+    const raw = localStorage.getItem(LS_HIST_KEY);
+    if (raw) { const d = JSON.parse(raw); H.stack = d.stack || []; H.index = d.index ?? -1; }
+  } catch(e) {}
+}
+
+function saveHistory() {
+  try { localStorage.setItem(LS_HIST_KEY, JSON.stringify({ stack: H.stack, index: H.index })); }
+  catch(e) {}
+}
+
+function pushHistory(yaml) {
+  if (H.restoring) return;
+  // Descartar redo history
+  H.stack = H.stack.slice(0, H.index + 1);
+  // No duplicar si el último snapshot es idéntico
+  if (H.stack[H.stack.length - 1] === yaml) return;
+  H.stack.push(yaml);
+  if (H.stack.length > MAX_HISTORY) H.stack.shift();
+  H.index = H.stack.length - 1;
+  saveHistory();
+}
+
+let histDebounce;
+function scheduleHistory() {
+  if (H.restoring) return;
+  clearTimeout(histDebounce);
+  histDebounce = setTimeout(() => pushHistory(toYaml()), 600);
+}
+
+function undo() {
+  if (H.index <= 0) { status('Nada que deshacer'); return; }
+  H.index--;
+  saveHistory();
+  restoreSnapshot(H.stack[H.index]);
+  status('Deshacer (' + H.index + '/' + (H.stack.length - 1) + ')');
+}
+
+function redo() {
+  if (H.index >= H.stack.length - 1) { status('Nada que rehacer'); return; }
+  H.index++;
+  saveHistory();
+  restoreSnapshot(H.stack[H.index]);
+  status('Rehacer (' + H.index + '/' + (H.stack.length - 1) + ')');
+}
+
+async function restoreSnapshot(yaml) {
+  H.restoring = true;
+  yamlTA.value = yaml;
+  await loadFromYaml();
+  H.restoring = false;
+  // Sincronizar textarea y storage con el estado real post-carga
+  yamlTA.value = toYaml();
+  saveToStorage();
+}
+
+// ══════════════════════════════════════════════════
+// YAML
+// ══════════════════════════════════════════════════
+function updateYaml() {
+  if (H.restoring || S.loading) return;
+  if (!yamlTA._skipUpdate && document.activeElement !== yamlTA) {
+    yamlTA.value = toYaml();
+  }
+  if (S._fromUrl) {
+    S._fromUrl = false;  // primera modificación: activar persistencia normal
+    return;              // esta vez no guardar — el siguiente cambio sí lo hará
+  }
+  saveToStorage();
+  scheduleHistory();
+}
+
+function toYaml() {
+  // When extends is active, output sparse child YAML
+  if (S.extends && S.base) return toYamlSparse();
+
+  let y = (S.yamlHeader ? S.yamlHeader + '\n' : '')
+        + `image: "${S.image}"\nzoom: ${currentZoom}\n`;
+
+  // Content: mapa id → contenido (solo cajas con contenido)
+  // Orden: primero las claves en S.contentOrder (orden del usuario), luego las nuevas
+  y += `\ncontent:\n`;
+  const boxesWithContent = S.boxes.filter(b => b.content);
+  const withContentIds   = new Set(boxesWithContent.map(b => b.id));
+  const ordered = [
+    ...S.contentOrder.filter(id => withContentIds.has(id)),
+    ...boxesWithContent.filter(b => !S.contentOrder.includes(b.id)).map(b => b.id),
+  ];
+  for (const id of ordered) {
+    const b = S.boxes.find(x => x.id === id);
+    if (!b) continue;
+    if (b.content.includes('\n')) {
+      const lines = b.content.split('\n').map(l => '    ' + l).join('\n');
+      y += `  ${b.id}: |\n${lines}\n`;
+    } else {
+      const esc = b.content.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+      y += `  ${b.id}: "${esc}"\n`;
+    }
+  }
+
+  // Layout: boxes sin content (después)
+  y += `\nboxes:\n`;
+  for (const b of S.boxes) {
+    y += `  - id: "${b.id}"\n`;
+    y += `    x: ${b.x.toFixed(3)}\n`;
+    y += `    y: ${b.y.toFixed(3)}\n`;
+    y += `    width: ${b.width.toFixed(3)}\n`;
+    y += `    fontSize: ${b.fontSize}\n`;
+    y += `    bold: ${b.bold}\n`;
+    y += `    align: "${b.align}"\n`;
+  }
+
+  return y;
+}
+
+// ── Extends helpers ──────────────────────────────
+
+function mergeYaml(base, child) {
+  if (!base) return child;
+  const baseBoxMap  = Object.fromEntries((base.boxes  || []).map(b => [b.id, b]));
+  const childBoxMap = Object.fromEntries((child.boxes || []).map(b => [b.id, b]));
+  const allIds = [...new Set([...Object.keys(baseBoxMap), ...Object.keys(childBoxMap)])];
+  return {
+    image:   child.image || base.image,
+    zoom:    child.zoom ?? base.zoom ?? 1,
+    content: { ...(base.content || {}), ...(child.content || {}) },
+    boxes:   allIds.map(id => ({ ...(baseBoxMap[id] || {}), ...(childBoxMap[id] || {}), id })),
+  };
+}
+
+function boxDiff(box, baseBoxMap) {
+  const base = baseBoxMap[box.id];
+  if (!base) return undefined; // new box — caller handles full output
+  const DEFAULTS = { x: 5, y: 5, width: 20, fontSize: 24, bold: false, align: 'left' };
+  const diff = {};
+  for (const k of ['x', 'y', 'width', 'fontSize', 'bold', 'align']) {
+    const bval = base[k] ?? DEFAULTS[k];
+    const cval = box[k];
+    const differs = (typeof cval === 'number')
+      ? Math.abs(cval - bval) > 0.0005
+      : cval !== bval;
+    if (differs) diff[k] = cval;
+  }
+  return Object.keys(diff).length ? diff : null; // null = no changes
+}
+
+function toYamlSparse() {
+  const base        = S.base || {};
+  const baseBoxMap  = Object.fromEntries((base.boxes || []).map(b => [b.id, b]));
+  const baseContent = base.content || {};
+
+  let y = (S.yamlHeader ? S.yamlHeader + '\n' : '')
+        + `extends: "${S.extends}"\n`;
+
+  // image — only if differs from base
+  if (S.image !== (base.image || '')) {
+    y += `image: "${S.image}"\n`;
+  }
+
+  // zoom — only if differs from base
+  const baseZoom = base.zoom ?? 1;
+  if (Math.abs(currentZoom - baseZoom) > 0.0005) {
+    y += `zoom: ${currentZoom}\n`;
+  }
+
+  // content — only keys that differ from base
+  const boxesWithDiffContent = S.boxes.filter(b => {
+    const baseVal = baseContent[b.id] ?? '';
+    return b.content && b.content !== baseVal;
+  });
+  if (boxesWithDiffContent.length) {
+    const withDiffIds = new Set(boxesWithDiffContent.map(b => b.id));
+    const ordered = [
+      ...S.contentOrder.filter(id => withDiffIds.has(id)),
+      ...boxesWithDiffContent.filter(b => !S.contentOrder.includes(b.id)).map(b => b.id),
+    ];
+    y += `\ncontent:\n`;
+    for (const id of ordered) {
+      const b = S.boxes.find(x => x.id === id);
+      if (!b) continue;
+      if (b.content.includes('\n')) {
+        const lines = b.content.split('\n').map(l => '    ' + l).join('\n');
+        y += `  ${b.id}: |\n${lines}\n`;
+      } else {
+        const esc = b.content.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+        y += `  ${b.id}: "${esc}"\n`;
+      }
+    }
+  }
+
+  // boxes — only changed boxes, only changed properties (+ id always)
+  const diffBoxLines = [];
+  for (const b of S.boxes) {
+    if (!baseBoxMap[b.id]) {
+      // New box not in base — output in full
+      let bl = `  - id: "${b.id}"\n`;
+      bl += `    x: ${b.x.toFixed(3)}\n`;
+      bl += `    y: ${b.y.toFixed(3)}\n`;
+      bl += `    width: ${b.width.toFixed(3)}\n`;
+      bl += `    fontSize: ${b.fontSize}\n`;
+      bl += `    bold: ${b.bold}\n`;
+      bl += `    align: "${b.align}"\n`;
+      diffBoxLines.push(bl);
+    } else {
+      const diff = boxDiff(b, baseBoxMap);
+      if (!diff) continue; // no changes, skip
+      let bl = `  - id: "${b.id}"\n`;
+      if ('x'        in diff) bl += `    x: ${diff.x.toFixed(3)}\n`;
+      if ('y'        in diff) bl += `    y: ${diff.y.toFixed(3)}\n`;
+      if ('width'    in diff) bl += `    width: ${diff.width.toFixed(3)}\n`;
+      if ('fontSize' in diff) bl += `    fontSize: ${diff.fontSize}\n`;
+      if ('bold'     in diff) bl += `    bold: ${diff.bold}\n`;
+      if ('align'    in diff) bl += `    align: "${diff.align}"\n`;
+      diffBoxLines.push(bl);
+    }
+  }
+  if (diffBoxLines.length) {
+    y += `\nboxes:\n` + diffBoxLines.join('');
+  }
+
+  return y;
+}
+
+function updateExtendsIndicator() {
+  const el   = document.getElementById('extends-indicator');
+  const hint = document.getElementById('yaml-hint');
+  if (S.extends) {
+    const name = S.extends.split('/').pop().split('?')[0] || S.extends;
+    el.textContent  = '⤴ ' + name;
+    el.style.display = '';
+    if (hint) hint.style.display = 'none';
+  } else {
+    el.style.display = 'none';
+    if (hint) hint.style.display = '';
+  }
+}
+
+async function loadFromYaml() {
+  S.loading = true;
+  try {
+    const raw = yamlTA.value;
+
+    // Extraer y preservar los comentarios del inicio del YAML
+    const headerLines = [];
+    for (const line of raw.split('\n')) {
+      if (/^\s*#/.test(line) || line.trim() === '') headerLines.push(line);
+      else break;
+    }
+    // Solo guardar si hay comentarios reales (no solo líneas vacías)
+    S.yamlHeader = headerLines.some(l => /^\s*#/.test(l))
+      ? headerLines.join('\n').trimEnd() + '\n'
+      : '';
+
+    const childData = jsyaml.load(raw);
+
+    // ── Handle extends ──
+    if (childData.extends) {
+      S.extends = childData.extends;
+      if (!S.base || S._baseUrl !== childData.extends) {
+        try {
+          status('Cargando base: ' + childData.extends.split('/').pop() + '…');
+          const resp = await fetch(childData.extends);
+          if (!resp.ok) throw new Error('HTTP ' + resp.status);
+          const baseYaml = await resp.text();
+          S.base    = jsyaml.load(baseYaml);
+          S._baseUrl = childData.extends;
+        } catch (err) {
+          status('⚠ No se pudo cargar la base: ' + err.message);
+          S.base    = null;
+          S._baseUrl = null;
+        }
+      }
+    } else {
+      S.extends  = null;
+      S.base     = null;
+      S._baseUrl = null;
+    }
+
+    updateExtendsIndicator();
+
+    // Merge base + child to produce effective data
+    const data = mergeYaml(S.base, childData);
+    // ───────────────────
+
+    // ── Guardar estado previo para reconciliación de renombres ──
+    const prevBoxMap     = {};
+    const prevContentMap = {};   // id → content (solo las que tienen contenido)
+    for (const b of S.boxes) {
+      prevBoxMap[b.id] = b;
+      if (b.content) prevContentMap[b.id] = b.content;
+    }
+
+    // Eliminar cajas existentes
+    document.querySelectorAll('.tbox').forEach(el => el.remove());
+    S.boxes   = [];
+    S.sel     = null;
+    S.selSet.clear();
+    S.editing = null;
+    boxProps.style.display = 'none';
+
+    if (data.image && data.image !== S.image) {
+      S.image = data.image;
+      document.getElementById('img-path').value = data.image;
+      S._pendingZoom = data.zoom || null;
+      loadImage();
+    } else if (data.zoom) {
+      applyZoom(data.zoom);
+    }
+    if (Array.isArray(data.boxes)) {
+      const contentMap = { ...(data.content || {}) };
+      // Preservar el orden de las claves tal como aparecen en el YAML
+      S.contentOrder = Object.keys(data.content || {});
+      const newBoxIds  = data.boxes.map(b => b.id).filter(Boolean);
+
+      // ── A) Rename en CONTENT: el usuario renombró una key del content ──────
+      // Detectamos: key que desapareció del content y hay una key nueva
+      // con el MISMO valor → es un rename de la key.
+      // Si esa key vieja corresponde a una caja que sigue en boxes,
+      // actualizamos el id de esa caja en data.boxes.
+      const removedContentKeys = Object.keys(prevContentMap)
+        .filter(k => !(k in contentMap));
+      const addedContentKeys   = Object.keys(contentMap)
+        .filter(k => !newBoxIds.includes(k) && !(k in prevContentMap));
+
+      for (const removedKey of removedContentKeys) {
+        const oldVal = prevContentMap[removedKey];
+        if (!oldVal) continue;
+        // Buscar key añadida con el mismo valor (no vacío)
+        const matchKey = addedContentKeys.find(k => contentMap[k] === oldVal);
+        if (!matchKey) continue;
+        // La caja correspondiente debe seguir en boxes con el mismo ID
+        const boxEntry = data.boxes.find(b => b.id === removedKey);
+        if (boxEntry) {
+          boxEntry.id = matchKey;          // renombrar la caja in-place
+          // Actualizar el orden preservado
+          const idx = S.contentOrder.indexOf(removedKey);
+          if (idx !== -1) S.contentOrder[idx] = matchKey;
+          addedContentKeys.splice(addedContentKeys.indexOf(matchKey), 1);
+          status(`Reasignado: "${removedKey}" → "${matchKey}"`);
+        }
+      }
+
+      // ── B) Rename en BOXES: el usuario renombró un id en boxes ─────────────
+      // Recalcular newBoxIds tras posibles cambios del paso A
+      const updatedBoxIds = data.boxes.map(b => b.id).filter(Boolean);
+      const removedBoxIds = Object.keys(prevBoxMap).filter(id => !updatedBoxIds.includes(id));
+      const addedBoxIds   = updatedBoxIds.filter(id => !(id in contentMap) && !(id in prevBoxMap));
+
+      for (const removedId of removedBoxIds) {
+        if (!contentMap[removedId]) continue;
+        const old = prevBoxMap[removedId];
+        let bestMatch = null, bestScore = Infinity;
+        for (const addedId of addedBoxIds) {
+          const nd = data.boxes.find(b => b.id === addedId);
+          if (!nd) continue;
+          const score = Math.pow((nd.x ?? 5)          - old.x,         2)
+                      + Math.pow((nd.y ?? 5)          - old.y,         2)
+                      + Math.pow((nd.width ?? 20)     - old.width,     2)
+                      + Math.pow(((nd.fontSize ?? 24) - old.fontSize) * 0.1, 2);
+          if (score < bestScore) { bestScore = score; bestMatch = addedId; }
+        }
+        if (bestMatch !== null && bestScore < 0.01) {
+          contentMap[bestMatch] = contentMap[removedId];
+          delete contentMap[removedId];
+          // Actualizar el orden preservado
+          const idx = S.contentOrder.indexOf(removedId);
+          if (idx !== -1) S.contentOrder[idx] = bestMatch;
+          addedBoxIds.splice(addedBoxIds.indexOf(bestMatch), 1);
+          status(`Reasignado: "${removedId}" → "${bestMatch}"`);
+        }
+      }
+      // ───────────────────────────────────────────────────────────────────────
+
+      for (const b of data.boxes) {
+        const box = {
+          id:       b.id       || ('caja_' + S.idCtr++),
+          x:        b.x        ?? 5,
+          y:        b.y        ?? 5,
+          width:    b.width    ?? 20,
+          fontSize: b.fontSize ?? 24,
+          bold:     b.bold     ?? false,
+          align:    b.align    ?? 'left',
+          content:  ((contentMap[b.id] ?? b.content) ?? '').trimEnd(),
+        };
+        S.boxes.push(box);
+        mountBox(box);
+      }
+    }
+    status('✓ Cargado: ' + S.boxes.length + ' cajas');
+  } catch (err) {
+    status('⚠ Error en YAML: ' + err.message);
+    console.error(err);
+  }
+  S.loading = false;
+  if (!H.restoring) {
+    // Siempre actualizar el textarea para mostrar el estado reconciliado
+    yamlTA.value = toYaml();
+    saveToStorage();
+    scheduleHistory();
+  }
+}
+
+// ══════════════════════════════════════════════════
+// ZOOM
+// ══════════════════════════════════════════════════
+let currentZoom = 1;     // escala actual
+let naturalW = 0;        // ancho natural de la imagen
+let naturalH = 0;
+
+// A4 en CSS px (1px = 1/96in): 210mm × 297mm sin márgenes
+const A4_W = 210 / 25.4 * 96;  // ≈ 794px
+const A4_H = 297 / 25.4 * 96;  // ≈ 1123px
+
+function updatePrintScale() {
+  if (!naturalW || !naturalH) return;
+  // Escala para que el canvas quepa en A4 sin márgenes manteniendo proporción
+  const scale = Math.min(A4_W / naturalW, A4_H / naturalH);
+  canvas.style.setProperty('--print-scale', scale.toFixed(6));
+}
+
+function applyZoom(z) {
+  currentZoom = Math.min(4, Math.max(0.1, z));
+  canvas.style.transform = `scale(${currentZoom})`;
+  // El sizer tiene el tamaño visual para que el scroll funcione
+  const sizer = document.getElementById('canvas-sizer');
+  sizer.style.width  = Math.round(naturalW * currentZoom) + 'px';
+  sizer.style.height = Math.round(naturalH * currentZoom) + 'px';
+  document.getElementById('zoom-lbl').textContent = Math.round(currentZoom * 100) + '%';
+  updateYaml();
+}
+
+function zoom(delta) {
+  // Pasos más cómodos: 10% pero redondeados a múltiplos de 0.1
+  applyZoom(Math.round((currentZoom + delta) * 10) / 10);
+}
+
+function zoomFit() {
+  if (!naturalW) return;
+  const wrapW = document.getElementById('canvas-wrap').clientWidth - 48;
+  const wrapH = document.getElementById('canvas-wrap').clientHeight - 48;
+  const z = Math.min(wrapW / naturalW, wrapH / naturalH);
+  applyZoom(Math.floor(z * 10) / 10);
+}
+
+// Ctrl/Cmd + rueda del ratón para zoom
+document.getElementById('canvas-wrap').addEventListener('wheel', e => {
+  if (e.ctrlKey || e.metaKey) {
+    e.preventDefault();
+    zoom(e.deltaY < 0 ? 0.1 : -0.1);
+  }
+}, { passive: false });
+
+// ── Teclado: + / - para zoom cuando no se edita
+
+document.addEventListener('keydown', e => {
+  const active      = document.activeElement;
+  const isTextField = active?.tagName === 'INPUT' || active?.tagName === 'TEXTAREA';
+
+  // Flechas: mover todas las cajas seleccionadas
+  if (['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(e.key) && S.sel && !isTextField) {
+    e.preventDefault();
+    const px = e.shiftKey ? 10 : 1;
+    const cw = canvas.offsetWidth;
+    const ch = canvas.offsetHeight;
+    for (const id of S.selSet) {
+      const box = S.boxes.find(b => b.id === id);
+      const el  = document.getElementById('box_' + id);
+      if (!box || !el) continue;
+      if (e.key === 'ArrowLeft')  box.x = Math.max(0,  box.x - (px / cw) * 100);
+      if (e.key === 'ArrowRight') box.x = Math.min(95, box.x + (px / cw) * 100);
+      if (e.key === 'ArrowUp')    box.y = Math.max(0,  box.y - (px / ch) * 100);
+      if (e.key === 'ArrowDown')  box.y = Math.min(98, box.y + (px / ch) * 100);
+      el.style.left = box.x + '%';
+      el.style.top  = box.y + '%';
+    }
+    updateYaml();
+    return;
+  }
+
+  if (isTextField) return;
+
+  const cmd = e.metaKey || e.ctrlKey;
+
+  // Undo / Redo (también funciona cuando hay texto seleccionado en el YAML)
+  if (e.key === 'z' && cmd && !e.shiftKey) { undo(); e.preventDefault(); return; }
+  if ((e.key === 'z' && cmd && e.shiftKey) || (e.key === 'y' && cmd)) { redo(); e.preventDefault(); return; }
+
+  // N → nueva caja
+  if (e.key === 'n' && !cmd) { addBox(); e.preventDefault(); }
+
+  // Cmd+C → copiar todas las cajas seleccionadas
+  if (e.key === 'c' && cmd && S.sel) {
+    S._clipboard = [...S.selSet].map(id => ({ ...S.boxes.find(b => b.id === id) }));
+    status('Copiado: ' + S._clipboard.length + ' caja(s)');
+    e.preventDefault();
+  }
+
+  // Cmd+V → pegar cajas copiadas (desplazadas 2%)
+  if (e.key === 'v' && cmd && S._clipboard?.length) {
+    const newBoxes = S._clipboard.map(src => ({
+      ...src, id: 'caja_' + (S.idCtr++), x: src.x + 2, y: src.y + 2
+    }));
+    S.selSet.forEach(id => document.getElementById('box_' + id)?.classList.remove('sel'));
+    S.selSet.clear(); S.sel = null;
+    newBoxes.forEach(box => { S.boxes.push(box); mountBox(box); S.selSet.add(box.id); box._el = document.getElementById('box_' + box.id); box._el?.classList.add('sel'); });
+    S.sel = newBoxes.at(-1).id;
+    updateYaml();
+    e.preventDefault();
+  }
+
+  // Cmd+D → duplicar seleccionadas (atajo rápido)
+  if (e.key === 'd' && cmd && S.sel) {
+    const srcs = [...S.selSet].map(id => ({ ...S.boxes.find(b => b.id === id) }));
+    S.selSet.forEach(id => document.getElementById('box_' + id)?.classList.remove('sel'));
+    S.selSet.clear(); S.sel = null;
+    srcs.forEach(src => {
+      const box = { ...src, id: 'caja_' + (S.idCtr++), x: src.x + 2, y: src.y + 2 };
+      S.boxes.push(box); mountBox(box); S.selSet.add(box.id);
+      document.getElementById('box_' + box.id)?.classList.add('sel');
+    });
+    S.sel = [...S.selSet].at(-1);
+    updateYaml();
+    e.preventDefault();
+  }
+
+  if ((e.key === 'Delete' || e.key === 'Backspace') && S.sel) {
+    deleteSelected(); e.preventDefault();
+  }
+  if (e.key === 'Enter' && S.sel) {
+    enterEdit(S.sel); e.preventDefault();
+  }
+  if (e.key === 'Escape') {
+    if (S.editing) exitEdit(S.editing);
+    else deselect();
+  }
+});
+
+// ══════════════════════════════════════════════════
+// LOCAL STORAGE
+// ══════════════════════════════════════════════════
+const LS_KEY = 'dnd-layout-editor';
+
+function saveToStorage() {
+  try {
+    localStorage.setItem(LS_KEY, toYaml());
+  } catch(e) { /* quota exceeded etc */ }
+}
+
+async function loadFromStorage() {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    if (!raw) { loadImage(); return; }
+    yamlTA.value = raw;
+    await loadFromYaml();
+  } catch(e) {
+    loadImage();
+  }
+}
+
+// ══════════════════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════════════════
+let statusTimer;
+function status(msg) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  clearTimeout(statusTimer);
+  statusTimer = setTimeout(() => el.textContent = '', 3500);
+}
+
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const btn = document.getElementById('btn-sidebar');
+  sidebar.classList.toggle('hidden');
+  btn.classList.toggle('active', sidebar.classList.contains('hidden'));
+}
+
+// ══════════════════════════════════════════════════
+// COMPARTIR — URL con YAML comprimido
+// ══════════════════════════════════════════════════
+function shareYaml() {
+  const compressed = LZString.compressToEncodedURIComponent(toYaml());
+  const url = location.origin + location.pathname + '?y=' + compressed;
+  navigator.clipboard.writeText(url).then(
+    () => status('🔗 URL copiada al portapapeles'),
+    () => { prompt('Copia esta URL:', url); }
+  );
+}
+
+async function loadFromUrl() {
+  const params = new URLSearchParams(location.search);
+  const y = params.get('y');
+  if (!y) return false;
+  try {
+    const yaml = LZString.decompressFromEncodedURIComponent(y);
+    if (!yaml) return false;
+    yamlTA.value = yaml;
+    S._fromUrl = true;   // no persistir hasta que el usuario haga un cambio
+    await loadFromYaml();
+    // Limpiar el parámetro de la URL sin recargar
+    history.replaceState(null, '', location.pathname);
+    status('🔗 YAML cargado desde URL compartida');
+    return true;
+  } catch (e) {
+    status('⚠ URL inválida');
+    return false;
+  }
+}
+
+// Arrancar: restaurar desde localStorage (o cargar imagen por defecto)
+window.addEventListener('load', async () => {
+  loadHistory();
+  if (!await loadFromUrl()) await loadFromStorage();
+
+  // Recargar el YAML solo al perder el foco del textarea
+  yamlTA.addEventListener('blur', async () => {
+    yamlTA._skipUpdate = true;
+    await loadFromYaml();
+    yamlTA._skipUpdate = false;
+  });
+});
+</script>
+</body>
+</html>

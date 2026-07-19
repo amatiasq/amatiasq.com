@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Speedback session</title>
+    <link rel="stylesheet" href="https://unpkg.com/mvp.css" />
+
+    <style>
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        width: 40rem;
+      }
+      textarea {
+        font-size: 1rem;
+        height: 5rem;
+      }
+      #output {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+      .round {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <section>
+      <form>
+        <label for="input">
+          Type the names below separated by comma or new lines
+        </label>
+        <textarea id="input" required></textarea>
+        <div>
+          <input type="checkbox" id="shuffle" />
+          <label for="shuffle">Shuffle</label>
+        </div>
+        <button type="submit">PAIR!</button>
+        <div id="output"></div>
+      </form>
+    </section>
+
+    <template id="session">
+      <div class="round">
+        <h2>Round</h2>
+        <ol></ol>
+      </div>
+    </template>
+
+    <script>
+      const $form = document.querySelector('form');
+      const $input = document.querySelector('#input');
+      const $shuffle = document.querySelector('#shuffle');
+      const $output = document.querySelector('#output');
+      const $template = document.querySelector('template#session');
+
+      $form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        run();
+      });
+
+      $input.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter') return;
+
+        run();
+
+        if (event.shiftKey) event.preventDefault();
+      });
+
+      const config = location.hash || location.search;
+
+      if (config) {
+        $input.value = config.substr(1);
+        run();
+      }
+
+      function run() {
+        const names = getInput();
+        const result = configureSessions(names);
+        updateUrl(names);
+        render(result);
+      }
+
+      function getInput() {
+        const input = $input.value;
+        const names = new Set(input.split(/,|\n/g).filter(Boolean));
+        console.log('Input', { input, names });
+        return [...names];
+      }
+
+      function updateUrl(names) {
+        const { origin, pathname } = location;
+        const url = `${origin}${pathname}?${names.join(',')}`;
+        history.pushState({}, 'Speedback session', url);
+      }
+
+      function render(result) {
+        $output.innerHTML = '';
+
+        for (const session of result) {
+          const $session = $template.content.cloneNode(true);
+          const [$h2, $ol] = $session.firstElementChild.children;
+
+          $h2.innerText = `Round ${result.indexOf(session) + 1}`;
+
+          for (const pair of session) {
+            const $li = document.createElement('li');
+            $li.textContent = pair.join(' - ');
+            $ol.appendChild($li);
+          }
+
+          $output.appendChild($session);
+        }
+      }
+
+      function configureSessions(original) {
+        const names = [...original];
+
+        if (names.length % 2 == 1) {
+          names.push(null);
+        }
+
+        const people = names.length;
+        const rounds = people - 1;
+        const half = people / 2;
+        const result = [];
+        const indexes = names.map((_, i) => i).slice(1);
+
+        for (let i = 0; i < rounds; i++) {
+          const session = [];
+          const newIndexes = [0, ...indexes];
+
+          const firstHalf = newIndexes.slice(0, half);
+          const secondHalf = newIndexes.slice(half, people).reverse();
+
+          for (let i = 0; i < firstHalf.length; i++) {
+            session.push(
+              [names[firstHalf[i]], names[secondHalf[i]]].filter(Boolean)
+            );
+          }
+
+          // rotating the array
+          indexes.push(indexes.shift());
+          result.push(shuffle(session));
+        }
+
+        return shuffle(result);
+      }
+
+      function shuffle(original) {
+        if (!$shuffle.checked) {
+          return original;
+        }
+
+        const array = [...original];
+        let index = array.length;
+
+        while (index) {
+          const random = Math.floor(Math.random() * index);
+          index--;
+          [array[index], array[random]] = [array[random], array[index]];
+        }
+
+        return array;
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Blank</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        background-color: black;
+      }
+    </style>
+  </head>
+
+  <body>
+    <script>
+      const { search, hash } = location;
+
+      if (search || hash) {
+        document.body.style.backgroundColor = hash || search.substr(1);
+      }
+
+      document.body.addEventListener('click', () => {
+        document.body.requestFullscreen();
+      });
+    </script>
+  </body>
+</html>
