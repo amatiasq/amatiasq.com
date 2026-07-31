@@ -4,7 +4,7 @@ title:
   es: Modulariza tu Javascript
 
 links:
-  slides: https://repos.amatiasq.com/requirejs-speech-amatiasq/public/
+  slides: https://slides.amatiasq.com/requirejs/
 
 image:
   src: requirejs.png
@@ -14,6 +14,12 @@ image:
 tags:
   - Javascript
   - RequireJS
+
+iframe:
+  src: 'https://slides.amatiasq.com/requirejs/'
+  style: |
+    margin: 1rem 0 0;
+    height: calc(calc(var(--available-width) * 0.563) + 36px);
 ---
 
 This is a talk I gave at a Betabeers Barcelona event about how to use [RequireJS and it's CommonJS compatibility][1]:
@@ -26,9 +32,9 @@ define(function (require, exports, module) {
 });
 ```
 
-Sadly I choose a [niche presentation micro-framework][2] which at some point I forgot how to run and couldn't invest the time to re-learn it. This wouldn't had happen if I documented or at least took notes about how to use it, lesson learned.
+Sadly I chose a [niche presentation micro-framework][2] which at some point I forgot how to run and couldn't invest the time to re-learn it. This wouldn't have happened if I had documented it, or at least taken notes about how to use it — lesson learned.
 
-The unformatted conntent of the slides is still accessible [here][3]
+The deck has since been re-authored from its original source into [Slidev](https://sli.dev), speaker notes and all, and runs again at [slides.amatiasq.com/requirejs](https://slides.amatiasq.com/requirejs/).
 
 ---
 
@@ -50,10 +56,9 @@ define(function (require, exports, module) {
 });
 ```
 
-Por desgracia elegí un [micro-framework de presentaciones][2] que en algún momento olvidé como usar y no pude invertir el tiempo en volver a aprenderlo. Esto no habría pasado si hubiese documentado o al menos hubiese tomado notas sobre como usarlo, lección aprendida.
+Por desgracia elegí un [micro-framework de presentaciones][2] que en algún momento olvidé cómo usar y no pude invertir el tiempo en volver a aprenderlo. Esto no habría pasado si lo hubiese documentado, o al menos hubiese tomado notas sobre cómo usarlo — lección aprendida.
 
-El contenido sin formato de las diapositivas sigue accesible [aquí][3]
+Desde entonces las diapositivas se han vuelto a escribir a partir de su fuente original en [Slidev](https://sli.dev), con notas del ponente incluidas, y funcionan de nuevo en [slides.amatiasq.com/requirejs](https://slides.amatiasq.com/requirejs/).
 
 [1]: https://requirejs.org/docs/commonjs.html
 [2]: https://github.com/bespokejs/bespoke
-[3]: https://repos.amatiasq.com/requirejs-speech-amatiasq/slides.html

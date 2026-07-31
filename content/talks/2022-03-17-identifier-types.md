@@ -9,13 +9,13 @@ image:
   es: Tipos Identificadores - Aprovecha el poder del sistema de tipos
 
 links:
-  slides: https://docs.google.com/presentation/d/e/2PACX-1vQrG_Ovz6TC208tg8wzBY-EhnQ6b2MJfVb-RMFDxJf7eEwNpYzMBDqeMBMrzKF420gcOuE1nHTg6AV9/pub
+  slides: https://slides.amatiasq.com/identifier-types/
 
 tags:
   - Typescript
 
 iframe:
-  src: 'https://docs.google.com/presentation/d/e/2PACX-1vQrG_Ovz6TC208tg8wzBY-EhnQ6b2MJfVb-RMFDxJf7eEwNpYzMBDqeMBMrzKF420gcOuE1nHTg6AV9/embed?start=true&loop=true&delayms=3000'
+  src: 'https://slides.amatiasq.com/identifier-types/'
   style: |
     margin: 1rem 0 0;
     height: calc(calc(var(--available-width) * 0.563) + 36px);

@@ -3,7 +3,7 @@ title: Mind optimization
 
 links:
   # live: http://amatiasq.com/mind-optimization
-  slides: https://docs.google.com/presentation/d/e/2PACX-1vQi4i1jz4sRQNqz8iPt2B0BO3hnPbK0pX-3mU009Bnsk5nhDLUOQ8aAKNTL5mqnAn3dtKgflmQ90eWS/pub
+  slides: https://slides.amatiasq.com/mind-optimization/
 
 image:
   src: mind-optimization.png
@@ -15,7 +15,7 @@ tags:
     es: Buenas Prácticas
 
 iframe:
-  src: "https://docs.google.com/presentation/d/e/2PACX-1vQi4i1jz4sRQNqz8iPt2B0BO3hnPbK0pX-3mU009Bnsk5nhDLUOQ8aAKNTL5mqnAn3dtKgflmQ90eWS/embed?start=true&loop=true&delayms=3000"
+  src: 'https://slides.amatiasq.com/mind-optimization/'
   style: |
     margin: 1rem 0 0;
     height: calc(calc(var(--available-width) * 0.563) + 36px);
