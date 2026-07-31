@@ -1,7 +1,11 @@
 {
   "extends": "astro/tsconfigs/strict",
   "include": [".astro/types.d.ts", "**/*"],
-  "exclude": ["dist"],
+  // infra/ is deploy config, and infra/www/ is static content served verbatim by
+  // nginx — including Deno scripts (`/deno.ts`, `/amq.ts`) that are handed to the
+  // browser as text, never built. They are not site source and must not be
+  // typechecked against this project's config.
+  "exclude": ["dist", "infra"],
   "compilerOptions": {
     "types": ["node"],
     "paths": {
