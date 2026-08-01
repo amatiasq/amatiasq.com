@@ -24,7 +24,15 @@ const { tr } = useTranslations(Astro.url);
 const title = tr(project.data.title);
 const content = Array.isArray(project.body) ? project.body : [project.body];
 const localizedContent = content[languages.indexOf(lang)] || content[0] || '';
-const iframeSrc = project.data.iframe && project.data.links?.live ? tr(project.data.links.live) : null;
+// `iframe.src` wins when it is set, so a project can embed something other than
+// whatever `links.live` points at — lulas embeds its 2014 version while the Demo
+// link goes to the current one. Same shape the talks page already uses.
+const iframeSrc =
+  typeof project.data.iframe === 'object' && project.data.iframe.src
+    ? tr(project.data.iframe.src)
+    : project.data.iframe && project.data.links?.live
+      ? tr(project.data.links.live)
+      : null;
 const slug = project.id.replace('.md', '');
 ---
 
