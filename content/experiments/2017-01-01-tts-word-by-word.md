@@ -4,7 +4,7 @@ title:
   es: Texto a voz palabra por palabra
 
 links:
-  live: https://repos.amatiasq.com/speech-test
+  live: /demos/speech-test/
 
 tags:
   - TTS
@@ -12,8 +12,8 @@ tags:
 
 iframe:
   src:
-    en: https://repos.amatiasq.com/speech-test?lang=en&text=This is a test message to check I can follow word by word what's being read
-    es: https://repos.amatiasq.com/speech-test?lang=es&text=Este es un mensaje de prueba para comprobar que puedo seguir palabra a palabra lo que se lee
+    en: /demos/speech-test/?lang=en&text=This is a test message to check I can follow word by word what's being read
+    es: /demos/speech-test/?lang=es&text=Este es un mensaje de prueba para comprobar que puedo seguir palabra a palabra lo que se lee
   style: |
     height: 450px;
     background-color: white;

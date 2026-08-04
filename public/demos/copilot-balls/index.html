@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas></canvas>
+
+    <script>
+      const canvas = document.querySelector('canvas');
+      const context = canvas.getContext('2d');
+
+      const width = (canvas.width = window.innerWidth);
+      const height = (canvas.height = window.innerHeight);
+
+      const random = (max, min = 0) => ~~(Math.random() * (max - min)) + min;
+
+      const boids = Array(30)
+        .fill()
+        .map((x) => ({
+          x: random(width),
+          y: random(height),
+          velx: random(-5, 5),
+          vely: random(-5, 5),
+          size: random(5, 10),
+          color: `hsl(${random(360)}, 100%, 50%)`,
+        }));
+
+      requestAnimationFrame(draw);
+
+      canvas.onclick = (event) => {
+        const { x, y } = event;
+        boids.forEach((boid) => {
+          const dx = x - boid.x;
+          const dy = y - boid.y;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          const angle = Math.atan2(dy, dx);
+          const force = (0.1 * boid.size) / distance;
+          const newX = force * Math.cos(angle);
+          const newY = force * Math.sin(angle);
+          boid.x += newX;
+          boid.y += newY;
+        });
+      };
+
+      function draw() {
+        context.clearRect(0, 0, width, height);
+
+        boids.forEach((boid) => {
+          updatePosition(boid);
+          applyFriction(boid);
+          roundMap(boid);
+          detectCollisions(boid);
+          drawBoid(boid);
+        });
+
+        requestAnimationFrame(draw);
+      }
+
+      function updatePosition(boid) {
+        boid.x += boid.velx;
+        boid.y += boid.vely;
+      }
+
+      function applyFriction(boid) {
+        boid.velx *= 0.99;
+        boid.vely *= 0.99;
+      }
+
+      function roundMap(boid) {
+        if (boid.x < 0) boid.x = width;
+        if (boid.x > width) boid.x = 0;
+        if (boid.y < 0) boid.y = height;
+        if (boid.y > height) boid.y = 0;
+      }
+
+      function detectCollisions(boid) {
+        boids.forEach((other) => {
+          if (boid !== other) {
+            const distance = Math.sqrt(
+              (boid.x - other.x) * (boid.x - other.x) +
+                (boid.y - other.y) * (boid.y - other.y)
+            );
+
+            if (distance < boid.size + other.size) {
+              boid.velx += other.x - boid.x;
+              boid.vely += other.y - boid.y;
+            }
+          }
+        });
+      }
+
+      function drawBoid(boid) {
+        context.beginPath();
+        context.arc(boid.x, boid.y, boid.size, 0, Math.PI * 2);
+        context.fillStyle = boid.color;
+        context.fill();
+      }
+    </script>
+  </body>
+</html>

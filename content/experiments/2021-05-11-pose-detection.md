@@ -4,7 +4,7 @@ title:
   es: Detección de pose
 
 links:
-  live: https://repos.amatiasq.com/pose-video
+  live: /demos/pose-video/
 
 tags:
   - Machine Learning
@@ -15,7 +15,7 @@ Flacky pose detection via webcam. Requires camera permissions.
 
 Works better if full body is visible on the camera.
 
-[Demo](https://repos.amatiasq.com/pose-video)
+[Demo](/demos/pose-video/)
 
 ---
 
@@ -23,4 +23,4 @@ Detección de pose via webcam que falla bastante. Requiere acceso a la cámara.
 
 Funciona mejor si se ve el cuerpo completo.
 
-[Demo](https://repos.amatiasq.com/pose-video)
+[Demo](/demos/pose-video/)

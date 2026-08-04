@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ojo de Camaleón</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        START()
+
+        function MOUSE_SE_MUEVE() {
+
+        }
+
+        function START() {
+            FONDO_NEGRO();
+            canvas.addEventListener('mousemove', NUEVO_CIRCULO);
+            canvas.addEventListener('mousemove', handleParticles);
+            requestAnimationFrame(FOTO);
+        }
+
+        function FOTO() {
+            FONDO_NEGRO();
+            DIBUJAR_CIRCULOS();
+
+            // animateParticles();
+            requestAnimationFrame(FOTO);
+        }
+
+
+        function FONDO_NEGRO() {
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        const CIRCULOS = [];
+
+        function NUEVO_CIRCULO(event) {
+            CIRCULOS.push({
+                X: event.clientX,
+                Y: event.clientY,
+                RADIO: 0,
+            })
+        }
+
+        function DIBUJAR_CIRCULOS() {
+            CIRCULOS.forEach(function (circulo) {
+                ctx.beginPath();
+                ctx.arc(circulo.X, circulo.Y, circulo.RADIO++, 0, 2 * Math.PI);
+                ctx.closePath();
+
+                // Establecer el estilo de trazo y relleno
+                ctx.strokeStyle = 'white';
+                ctx.fillStyle = 'blue';
+
+                // Dibujar el círculo
+                ctx.stroke();
+                ctx.fill();
+            });
+        }
+
+
+
+        let particlesArray = [];
+
+        class Particle {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.size = Math.random() * 5 + 1;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 - 1.5;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.size > 0.2) this.size -= 0.1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.closePath();
+                ctx.fillStyle = 'rgba(0, 100, 0, 0.5)';
+                ctx.fill();
+            }
+        }
+
+        function handleParticles(e) {
+            for (let i = 0; i < 5; i++) {
+                particlesArray.push(new Particle(e.x, e.y));
+            }
+        }
+
+        function animateParticles() {
+
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+
+                if (particlesArray[i].size <= 0.2) {
+                    particlesArray.splice(i, 1);
+                    i--;
+                }
+            }
+        }
+
+    </script>
+</body>
+
+</html>

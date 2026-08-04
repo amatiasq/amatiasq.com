@@ -14,7 +14,18 @@ const DateSchema = z.union([
     .transform((v) => v as StringifiedDate),
 ]);
 const TranslatableSchema = translatable(z.string());
-const TranslatableUrlSchema = translatable(z.string().url());
+
+// An absolute URL, or a root-relative path for something this site hosts
+// itself. The demos under `public/demos/` used to live on `repos.amatiasq.com`
+// and were absolute; now that they are ours, `/demos/<slug>/` is the honest
+// link — and the only one that works in `astro dev`.
+const UrlSchema = z
+  .string()
+  .refine(
+    (v) => v.startsWith('/') || z.string().url().safeParse(v).success,
+    'must be an absolute URL or a root-relative path',
+  );
+const TranslatableUrlSchema = translatable(UrlSchema);
 
 const ImagePreviewSchema = z.object({
   src: TranslatableSchema,

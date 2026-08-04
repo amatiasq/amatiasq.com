@@ -4,7 +4,7 @@ title:
   es: Bolas Copilot
 
 links:
-  live: https://repos.amatiasq.com/copilot-balls
+  live: /demos/copilot-balls/
 
 image:
   src: copilot-balls.png

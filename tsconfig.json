@@ -5,7 +5,13 @@
   // nginx — including Deno scripts (`/deno.ts`, `/amq.ts`) that are handed to the
   // browser as text, never built. They are not site source and must not be
   // typechecked against this project's config.
-  "exclude": ["dist", "infra"],
+  //
+  // public/ is the same story: copied verbatim into dist/. It holds the demos
+  // (`public/demos/`, including a 2.5 MB vendored Angular bundle) and the frozen
+  // v1 snapshot. Typechecking third-party JS nobody wrote here is meaningless,
+  // and on the demo bundles it crashes `astro check` outright — V8 dies in
+  // TryRunMicrotasks partway through the diagnostics.
+  "exclude": ["dist", "infra", "public"],
   "compilerOptions": {
     "types": ["node"],
     "paths": {

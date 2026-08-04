@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pose detection</title>
+    <script src="https://unpkg.com/@tensorflow/tfjs"></script>
+    <script src="https://unpkg.com/@tensorflow-models/posenet"></script>
+
+    <style>
+      body {
+        margin: 0;
+        background-color: black;
+      }
+      video,
+      canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+    </style>
+  </head>
+
+  <body>
+    <video width="300" height="300"></video>
+    <canvas></canvas>
+
+    <script>
+      const $video = document.querySelector('video');
+      const $canvas = document.querySelector('canvas');
+
+      const context = $canvas.getContext('2d');
+      const scaleFactor = 0.5;
+      const outputStride = 16;
+      const flipHorizontal = false;
+
+      let stop = false;
+      let net;
+
+      (async () => {
+        net = await posenet.load();
+        $video.srcObject = await getUserVideo();
+
+        $video.width = $canvas.width = window.innerWidth;
+        $video.height = $canvas.height = window.innerHeight;
+        $video.play();
+
+        $video.addEventListener('loadeddata', () =>
+          requestAnimationFrame(capture)
+        );
+
+        document.addEventListener('click', () => (stop = true));
+      })();
+
+      async function getUserVideo() {
+        return new Promise((resolve, reject) => {
+          navigator.getUserMedia(
+            {
+              audio: false,
+              video: { facingMode: 'user' },
+            },
+            resolve,
+            reject
+          );
+        });
+      }
+
+      async function capture() {
+        const parts = {};
+        const result = await net.estimateSinglePose(
+          $video,
+          scaleFactor,
+          flipHorizontal,
+          outputStride
+        );
+
+        // context.drawImage($img, 0, 0);
+        context.clearRect(0, 0, $canvas.width, $canvas.height);
+        console.log('result', result);
+
+        for (const { part, position, score } of result.keypoints) {
+          if (score > 0.4) {
+            circle(position);
+            parts[part] = position;
+          }
+        }
+
+        line(parts.leftShoulder, parts.rightShoulder);
+        line(parts.leftHip, parts.rightHip);
+
+        line(parts.leftElbow, parts.leftWrist);
+        line(parts.leftShoulder, parts.leftElbow);
+        line(parts.leftShoulder, parts.leftHip);
+        line(parts.leftHip, parts.leftKnee);
+        line(parts.leftKnee, parts.leftAnkle);
+
+        line(parts.rightElbow, parts.rightWrist);
+        line(parts.rightShoulder, parts.rightElbow);
+        line(parts.rightShoulder, parts.rightHip);
+        line(parts.rightHip, parts.rightKnee);
+        line(parts.rightKnee, parts.rightAnkle);
+
+        if (!stop) {
+          requestAnimationFrame(capture);
+        }
+      }
+
+      function circle({ x, y }) {
+        context.beginPath();
+        context.arc(x, y, 5, 0, Math.PI * 2);
+        context.closePath();
+        context.fillStyle = 'red';
+        context.fill();
+      }
+
+      function line(from, to) {
+        if (!from || !to) {
+          return;
+        }
+
+        context.beginPath();
+        context.moveTo(from.x, from.y);
+        context.lineTo(to.x, to.y);
+        context.closePath();
+        context.strokeStyle = 'red';
+        context.stroke();
+      }
+    </script>
+  </body>
+</html>

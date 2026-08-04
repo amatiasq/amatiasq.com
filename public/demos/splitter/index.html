@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Splitter</title>
+    <style>
+      body {
+        margin: 0;
+      }
+      canvas {
+        display: block;
+        cursor: ew-resize;
+      }
+      canvas.rotated {
+        cursor: ns-resize;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas></canvas>
+
+    <script type="module">
+      const canvas = document.querySelector('canvas');
+      const context = canvas.getContext('2d');
+      const rand = (max = 1, min = 0) => Math.random() * (max - min) + min;
+      const noop = () => {};
+
+      onResize();
+      window.addEventListener('resize', onResize);
+
+      const BALL_RADIUS = 10;
+      const BAR_SIZE = BALL_RADIUS * 2;
+      let bars = [];
+      let balls = [];
+
+      class Bar {
+        constructor(x, y, axis, max) {
+          this.x = x;
+          this.y = y;
+          this.axis = axis;
+          this.time = 0;
+          this.start = null;
+          this.end = null;
+          this.size = BAR_SIZE;
+          this.#updateBox(max);
+        }
+
+        get isGrowing() {
+          return this.start == null || this.end == null;
+        }
+        get isDead() {
+          return !this.isGrowing && this.start === this.end;
+        }
+        get otherAxis() {
+          return this.axis === 'x' ? 'y' : 'x';
+        }
+
+        get edges() {
+          const size = Math.min(this.time, this.size);
+          let start, end;
+
+          if (this.axis === 'x') {
+            if (this.start == null) {
+              start = {
+                x: this.box.start,
+                y: this.y - this.size / 2,
+                width: size,
+                height: this.size,
+              };
+            }
+            if (this.end == null) {
+              end = {
+                x: this.box.end - size,
+                y: this.y - this.size / 2,
+                width: size,
+                height: this.size,
+              };
+            }
+          } else {
+            if (this.start == null) {
+              start = {
+                x: this.x - this.size / 2,
+                y: this.box.start,
+                width: this.size,
+                height: size,
+              };
+            }
+            if (this.end == null) {
+              end = {
+                x: this.x - this.size / 2,
+                y: this.box.end - size,
+                width: this.size,
+                height: size,
+              };
+            }
+          }
+
+          return { start, end };
+        }
+
+        #calcDimension(axis, size) {
+          let { start, end } = this;
+
+          if (start == null) {
+            start = this[axis] - this.time;
+          }
+
+          if (end == null) {
+            end = this[axis] + this.time;
+          }
+
+          return {
+            [axis]: start,
+            [size]: end - start,
+            start,
+            end,
+          };
+        }
+
+        #updateBox(maxSize) {
+          const { axis } = this;
+          const max = axis === 'x' ? maxSize.width : maxSize.height;
+
+          this.box =
+            axis === 'x'
+              ? {
+                  y: this.y - this.size / 2,
+                  height: this.size,
+                  ...this.#calcDimension('x', 'width'),
+                }
+              : {
+                  x: this.x - this.size / 2,
+                  width: this.size,
+                  ...this.#calcDimension('y', 'height'),
+                };
+
+          if (this.box.start <= 0) {
+            this.start = 0;
+          }
+
+          if (this.box.end >= max) {
+            this.end = max;
+          }
+        }
+
+        ballHit(ball) {
+          debugger;
+          const { axis } = this;
+
+          if (ball[axis] < this[axis]) {
+            this.start = this[axis];
+          } else {
+            this.end = this[axis];
+          }
+        }
+
+        update(max) {
+          if (!this.isGrowing) {
+            return;
+          }
+
+          const untouchedBalls = balls.filter(
+            (x) => !rectCircColl(this.box, x)
+          );
+          const untouchedBars = bars.filter(
+            (x) => x !== this && !rectColl(this.box, x.box)
+          );
+
+          this.time++;
+          this.#updateBox(max);
+
+          const collidingBalls = untouchedBalls.filter((x) =>
+            rectCircColl(this.box, x)
+          );
+          const collidingBars = untouchedBars.filter((x) =>
+            rectColl(this.box, x.box)
+          );
+
+          const { axis } = this;
+
+          for (const other of collidingBalls) {
+            console.log('AH');
+            this.ballHit(other);
+          }
+
+          for (const other of collidingBars) {
+            if (other[axis] < this[axis]) {
+              this.start = this.box.start;
+            } else {
+              this.end = this.box.end;
+            }
+          }
+        }
+
+        render(context) {
+          const { x, y, width, height } = this.box;
+          const alpha = context.globalAlpha;
+
+          context.save();
+          context.globalAlpha = this.isGrowing ? 0.8 : 1;
+          context.beginPath();
+          context.fillRect(x, y, width, height);
+          context.closePath();
+
+          if (this.isGrowing) {
+            context.fillStyle = 'green';
+            const { start, end } = this.edges;
+
+            if (start) {
+              context.beginPath();
+              context.fillRect(start.x, start.y, start.width, start.height);
+              context.closePath();
+            }
+
+            if (end) {
+              context.beginPath();
+              context.fillRect(end.x, end.y, end.width, end.height);
+              context.closePath();
+            }
+          }
+
+          context.restore();
+        }
+      }
+
+      class Ball {
+        constructor() {
+          this.radius = BALL_RADIUS;
+          this.x = rand(canvas.width - this.radius, this.radius);
+          this.y = rand(canvas.height - this.radius, this.radius);
+          this.vx = rand(10, -10);
+          this.vy = rand(10, -10);
+        }
+
+        update({ width, height }) {
+          this.x += this.vx;
+          this.y += this.vy;
+
+          if (this.x <= this.radius || width - this.x <= this.radius) {
+            this.vx *= -1;
+          }
+
+          if (this.y <= this.radius || height - this.y <= this.radius) {
+            this.vy *= -1;
+          }
+
+          const collisions = bars.filter((x) => rectCircColl(x.box, this));
+
+          for (const bar of collisions) {
+            const { start, end } = bar.edges;
+
+            console.log('COLLISION', {
+              'rectCircColl(start, this)': rectCircColl(start, this),
+              'rectCircColl(end, this)': rectCircColl(end, this),
+            });
+
+            if (rectCircColl(start, this) || rectCircColl(end, this)) {
+              bar.ballHit(this);
+              this[`v${bar.axis}`] *= -1;
+            } else {
+              this[`v${bar.otherAxis}`] *= -1;
+            }
+
+            console.log('END');
+          }
+        }
+
+        render(context) {
+          context.beginPath();
+          context.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+          context.fill();
+          context.closePath();
+        }
+      }
+
+      canvas.addEventListener('click', createBar);
+      canvas.addEventListener('contextmenu', rotateMouse);
+
+      for (let i = 0; i < 10; i++) {
+        balls.push(new Ball());
+      }
+
+      requestAnimationFrame(function loop() {
+        update();
+        render();
+        requestAnimationFrame(loop);
+      });
+
+      function update() {
+        balls.forEach((ball) => ball.update(canvas));
+        bars = bars.filter((bar) => {
+          bar.update(canvas);
+          return !bar.isDead;
+        });
+      }
+
+      function render() {
+        context.fillStyle = 'black';
+        context.beginPath();
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.closePath();
+
+        context.fillStyle = 'red';
+        balls.forEach((ball) => ball.render(context));
+
+        context.fillStyle = 'blue';
+        bars.forEach((bar) => bar.render(context));
+      }
+
+      function createBar(event) {
+        bars.push(
+          new Bar(
+            event.clientX,
+            event.clientY,
+            canvas.classList.contains('rotated') ? 'y' : 'x',
+            canvas
+          )
+        );
+      }
+
+      function rotateMouse(event) {
+        event.preventDefault();
+        canvas.classList.toggle('rotated');
+      }
+
+      function onResize() {
+        canvas.width = window.visualViewport.width;
+        canvas.height = window.visualViewport.height;
+      }
+
+      function rectColl(a, b) {
+        return (
+          a.x < b.x + b.width &&
+          a.x + a.width > b.x &&
+          a.y < b.y + b.height &&
+          a.height + a.y > b.y
+        );
+      }
+
+      function rectCircColl(rect, circle) {
+        if (!rect || !circle) return false;
+
+        return (
+          rect.x < circle.x + circle.radius &&
+          rect.x + rect.width > circle.x - circle.radius &&
+          rect.y < circle.y + circle.radius &&
+          rect.height + rect.y > circle.y - circle.radius
+        );
+      }
+    </script>
+  </body>
+</html>

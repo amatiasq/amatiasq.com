@@ -2,7 +2,7 @@
 title: Pathfinding
 
 links:
-  live: https://repos.amatiasq.com/pathfinding/
+  live: /demos/pathfinding/
 
 image:
   src: pathfinding.png
