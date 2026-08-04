@@ -25,7 +25,7 @@ const title = tr(talk.data.title);
 const content = Array.isArray(talk.body) ? talk.body : [talk.body];
 const localizedContent = content[languages.indexOf(lang)] || content[0] || '';
 const iframeSrc =
-  typeof talk.data.iframe === 'object' ? talk.data.iframe.src || null : null;
+  typeof talk.data.iframe === 'object' ? tr(talk.data.iframe.src) : null;
 const slug = talk.id.replace('.md', '');
 ---
 

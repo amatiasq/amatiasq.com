@@ -3,9 +3,22 @@ const uniq = <T>(x: T[]) => Array.from(new Set(x));
 export const MISSING_TRANSLATION = 'MISSING TRANSLATION';
 export const languages = ['en', 'es'] as const;
 export type Language = (typeof languages)[number];
-export type Translatable = Record<Language, string> | string[];
+export type Translatable = string | string[] | Record<Language, string>;
 
 const defaultLang = 'en';
+
+/** Array form is positional and follows `languages`: `[en, es]`. */
+export function translate(value: Translatable, lang: Language): string {
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  if (Array.isArray(value)) {
+    return value[languages.indexOf(lang)] || value[0] || MISSING_TRANSLATION;
+  }
+
+  return value[lang] || value.en || MISSING_TRANSLATION;
+}
 
 export function multilingualPage() {
   return languages.map((x) => ({
@@ -20,28 +33,19 @@ export function useTranslations(url: URL) {
   return { lang, tr, i18n };
 
   function tr(value: null | undefined): null;
-  function tr(value: string[]): string;
   function tr(value: Translatable): string;
+  function tr(value: Translatable | null | undefined): string | null;
   function tr<T = string>(value: Record<Language, T>): T;
   function tr<T>(value: Record<Language, () => T>): T;
   function tr<T>(
-    value:
-      | null
-      | undefined
-      | string[]
-      | Record<Language, string>
-      | Record<Language, () => T>
+    value: null | undefined | Translatable | Record<Language, () => T>
   ) {
     if (!value) {
       return null;
     }
 
-    if (typeof value === 'string') {
-      return value;
-    }
-
-    if (Array.isArray(value)) {
-      return value[languages.indexOf(lang)] || value[0] || MISSING_TRANSLATION;
+    if (typeof value === 'string' || Array.isArray(value)) {
+      return translate(value, lang);
     }
 
     const key = value[lang] || value.en;

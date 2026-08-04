@@ -1,9 +1,10 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
+import { z } from 'astro/zod';
 import type { StringifiedDate } from './util/date';
 
 // shared schemas
 
-const translatable = (type: z.ZodType) =>
+const translatable = <T extends z.ZodType>(type: T) =>
   z.union([type, z.array(type), z.object({ en: type, es: type })]);
 
 const DateSchema = z.union([
@@ -22,7 +23,7 @@ const TranslatableSchema = translatable(z.string());
 const UrlSchema = z
   .string()
   .refine(
-    (v) => v.startsWith('/') || z.string().url().safeParse(v).success,
+    (v) => v.startsWith('/') || z.url().safeParse(v).success,
     'must be an absolute URL or a root-relative path',
   );
 const TranslatableUrlSchema = translatable(UrlSchema);
@@ -79,11 +80,11 @@ const projectSchema = z.object({
   links: z
     .object({
       live: TranslatableUrlSchema.optional(),
-      github: z.string().url().optional(),
-      tests: z.string().url().optional(),
+      github: z.url().optional(),
+      tests: z.url().optional(),
       video: z.union([
-        z.string().url(),
-        z.array(z.string().url())]).optional(),
+        z.url(),
+        z.array(z.url())]).optional(),
     })
     .optional(),
 });
@@ -96,8 +97,8 @@ const talkSchema = z.object({
 
   links: z
     .object({
-      slides: z.string().url().optional(),
-      video: z.string().url().optional(),
+      slides: z.url().optional(),
+      video: z.url().optional(),
     })
     .optional(),
 });

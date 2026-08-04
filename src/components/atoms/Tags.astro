@@ -1,17 +1,14 @@
 ---
 import Tr from './Translation.astro';
 import Link from './Link.astro';
+import { type Translatable } from '@/i18n';
+import { tagToKey } from '@/util/tag';
 
 interface Props {
-  tags: (string | { en: string; es: string })[] | undefined;
+  tags: Translatable[] | undefined;
 }
 
 const { tags } = Astro.props;
-
-function tagToKey(tag: string | { en: string; es: string }): string {
-  const text = typeof tag === 'string' ? tag : tag.en;
-  return text.toLowerCase();
-}
 ---
 
 {tags && tags.length > 0 && (

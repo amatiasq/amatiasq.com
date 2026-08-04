@@ -1,0 +1,85 @@
+#!/bin/bash -e
+
+# amq amatiasq.com deploy — build the site here and put it in production.
+#
+# The site is `output: 'static'`, so production is the nginx container that
+# already serves the domain: dist/ lands in its www/site/ (the ./www:/www:ro
+# volume it already mounts) and nginx reloads. No GitHub Pages, no mirror repo,
+# no push — the code you have is the code that ships.
+#
+# The nginx.conf and the rest of infra/ travel in the same command, because
+# forgetting to ship them is how /plot spent days serving a 29MB GIF that the
+# repo had already replaced.
+#
+# Reload, not restart: `nginx -s reload` swaps the config with no dropped
+# request, and it leaves the container alone. Recreating it is a separate job
+# (the container still answers to the old `com_amatiasq` name — see
+# `.agents/plan/deploy-without-push.md` §6).
+
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+  self="$(basename "$0")"
+  echo "Usage: $self [--skip-build]"
+  echo
+  echo "Builds amatiasq.com and deploys it to the VPS:"
+  echo "  1. bun install (skipped when node_modules already exists)"
+  echo "  2. bun run build"
+  echo "  3. stamp dist/version.txt with the commit being deployed"
+  echo "  4. rsync dist/ to the nginx container's www/site/ (mirrors deletions)"
+  echo "  5. rsync infra/ (nginx.conf, assets) via amq deploy-infra"
+  echo "  6. nginx -s reload"
+  echo
+  echo "  --skip-build   deploy the dist/ that is already there"
+  echo
+  echo "Config (env): VPS_HOST (default amatiasq.com),"
+  echo "              VPS_REMOTE_DIR (default vps)"
+  exit 0
+fi
+
+VPS_HOST="${VPS_HOST:-amatiasq.com}"
+VPS_REMOTE_DIR="${VPS_REMOTE_DIR:-vps}"
+SERVER_FOLDER="com_amatiasq"
+SITE_DIR="$VPS_REMOTE_DIR/docker/$SERVER_FOLDER/www/site"
+
+cd "$(dirname "$0")/.."
+
+if [[ "$1" != "--skip-build" ]]; then
+  if [ ! -d node_modules ]; then
+    echo "==> bun install"
+    bun install
+  fi
+
+  echo "==> build"
+  bun run build
+fi
+
+[ -f dist/index.html ] || { echo "no dist/index.html — nothing to deploy" >&2; exit 1; }
+
+# dist/ is gitignored, so what runs in production is otherwise unidentifiable.
+# `git status` decides the -dirty suffix: a build from an unclean tree is not
+# the commit it claims to be.
+echo "==> stamp version"
+commit="$(git rev-parse HEAD)"
+[ -z "$(git status --porcelain -- . ':!dist')" ] || commit="$commit-dirty"
+printf '%s\n%s\n' "$commit" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > dist/version.txt
+echo "    $commit"
+
+# --delete, unlike `amq deploy-infra`: every file here is generated, so a page
+# that stopped being built must stop being served. Renaming a route otherwise
+# leaves the old URL answering 200 forever.
+echo "==> rsync dist/ -> $VPS_HOST:$SITE_DIR/"
+ssh "$VPS_HOST" "mkdir -p '$SITE_DIR'"
+rsync -az --delete dist/ "$VPS_HOST:$SITE_DIR/"
+
+echo "==> ship infra (nginx.conf + assets)"
+amq deploy-infra "$SERVER_FOLDER"
+
+# Through compose and not `docker exec <name>`: the container's name is
+# whatever `compose.yml` says today, and it already changed once
+# (`com_amatiasq` -> `amq-amatiasq`). The compose project follows the server
+# folder, which is the thing this script actually knows.
+echo "==> reload nginx"
+ssh "$VPS_HOST" "cd '$VPS_REMOTE_DIR/docker/$SERVER_FOLDER' \
+  && docker compose -p 'amq_$SERVER_FOLDER' exec -T nginx nginx -t \
+  && docker compose -p 'amq_$SERVER_FOLDER' exec -T nginx nginx -s reload"
+
+echo "==> deployed: https://amatiasq.com/ ($commit)"

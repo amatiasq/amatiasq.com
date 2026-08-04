@@ -1,5 +1,10 @@
 # build output
 dist/
+# ...but the demos ship prebuilt bundles that ARE the demo: the ergodox one
+# cannot be rebuilt without a 2016 toolchain in Docker (see
+# public/demos/ergodox/README.md). The unanchored rule above swallowed it once
+# already, and the demo shipped with its scripts missing.
+!public/demos/**/dist/
 
 # generated types
 .astro/

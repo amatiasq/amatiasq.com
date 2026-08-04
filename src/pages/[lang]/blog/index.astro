@@ -4,16 +4,18 @@ import Layout from '@/layouts/Layout.astro';
 import { multilingualPage } from '@/i18n';
 import NavHeader from '@/components/organisms/NavHeader.astro';
 import BlogPostList from '@/components/organisms/BlogPostList.astro';
+import { parseDate } from '@/util/date';
 
 const blog = await getCollection('blog');
 
+// Newest first, and the id breaks ties so two posts from the same day keep
+// their order between builds.
+const publishedAt = (post: any) =>
+  new Date(post.data.published || parseDate(post.id) || 0).getTime();
+
 const sortedBlog = blog
   .filter((post: any) => !post.data.draft)
-  .sort((a: any, b: any) => {
-    const aDate = new Date(a.data.published || a.id);
-    const bDate = new Date(b.data.published || b.id);
-    return bDate.getTime() - aDate.getTime();
-  });
+  .sort((a: any, b: any) => publishedAt(b) - publishedAt(a) || a.id.localeCompare(b.id));
 
 export function getStaticPaths() {
   return multilingualPage();

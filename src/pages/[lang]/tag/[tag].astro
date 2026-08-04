@@ -1,25 +1,15 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
-import { languages, useTranslations } from '@/i18n';
+import { languages, translate, useTranslations, type Translatable } from '@/i18n';
 import NavHeader from '@/components/organisms/NavHeader.astro';
 import Tr from '@/components/atoms/Translation.astro';
 import Link from '@/components/atoms/Link.astro';
 import ContentCards from '@/components/organisms/ContentCards.astro';
 import BlogPostList from '@/components/organisms/BlogPostList.astro';
-
-// Helper to get localized tag
-function getLocalizedTag(tag: string | { en: string; es: string }, lang: string): string {
-  if (typeof tag === 'string') return tag;
-  return lang === 'es' ? tag.es : tag.en;
-}
+import { tagToKey } from '@/util/tag';
 
 export async function getStaticPaths() {
-  // Helper to normalize tag to string for comparison
-  const tagToString = (tag: string | { en: string; es: string }): string => {
-    return typeof tag === 'string' ? tag : tag.en;
-  };
-
   const [projects, blog, experiments, talks, career] = await Promise.all([
     getCollection('projects'),
     getCollection('blog'),
@@ -29,13 +19,13 @@ export async function getStaticPaths() {
   ]);
 
   // Collect all unique tags
-  const allTags = new Map<string, string | { en: string; es: string }>();
+  const allTags = new Map<string, Translatable>();
 
   const addTags = (items: any[]) => {
     for (const item of items) {
       if (item.data.tags) {
         for (const tag of item.data.tags) {
-          const key = tagToString(tag).toLowerCase();
+          const key = tagToKey(tag);
           if (!allTags.has(key)) {
             allTags.set(key, tag);
           }
@@ -58,11 +48,11 @@ export async function getStaticPaths() {
         tagKey,
         tag,
         lang,
-        projects: projects.filter(p => p.data.tags?.some((t: any) => tagToString(t).toLowerCase() === tagKey)),
-        blog: blog.filter(p => p.data.tags?.some((t: any) => tagToString(t).toLowerCase() === tagKey)),
-        experiments: experiments.filter(p => p.data.tags?.some((t: any) => tagToString(t).toLowerCase() === tagKey)),
-        talks: talks.filter(p => p.data.tags?.some((t: any) => tagToString(t).toLowerCase() === tagKey)),
-        career: career.filter(p => !p.data.hide && p.data.tags?.some((t: any) => tagToString(t).toLowerCase() === tagKey)),
+        projects: projects.filter(p => p.data.tags?.some((t: any) => tagToKey(t) === tagKey)),
+        blog: blog.filter(p => p.data.tags?.some((t: any) => tagToKey(t) === tagKey)),
+        experiments: experiments.filter(p => p.data.tags?.some((t: any) => tagToKey(t) === tagKey)),
+        talks: talks.filter(p => p.data.tags?.some((t: any) => tagToKey(t) === tagKey)),
+        career: career.filter(p => !p.data.hide && p.data.tags?.some((t: any) => tagToKey(t) === tagKey)),
       },
     }))
   );
@@ -70,7 +60,7 @@ export async function getStaticPaths() {
 
 const { tagKey, tag, lang, projects, blog, experiments, talks, career } = Astro.props;
 const { tr } = useTranslations(Astro.url);
-const tagName = getLocalizedTag(tag, lang);
+const tagName = translate(tag, lang);
 
 const sortByDate = (a: any, b: any) => b.id.localeCompare(a.id);
 const sortByFrom = (a: any, b: any) => new Date(b.data.from).getTime() - new Date(a.data.from).getTime();

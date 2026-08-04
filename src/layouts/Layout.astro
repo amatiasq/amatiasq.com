@@ -1,6 +1,6 @@
 ---
 import { useTranslations } from '../i18n';
-import { ViewTransitions } from 'astro:transitions';
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
   title?: string | null;
@@ -21,7 +21,7 @@ const pageTitle = title ? `${title} | A. Matías Quezada` : 'A. Matías Quezada'
     <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{pageTitle}</title>
-    <ViewTransitions />
+    <ClientRouter />
   </head>
   <body>
     <slot />
