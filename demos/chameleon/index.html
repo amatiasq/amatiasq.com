@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <title>Ojo de Camaleón</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="color" value="#0b9108" hidden>
+    <canvas id="canvas"></canvas>
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const color = document.querySelector("input");
+        const VIDA_CIRCULO = 100;
+        const GROSOR = 3;
+        const USER_POSITION = {};
+
+        START()
+
+        function START() {
+            FONDO_NEGRO();
+            canvas.addEventListener('mousemove', USER_MOVES);
+
+            // canvas.addEventListener('touchmove', USER_MOVES);
+            window.addEventListener('touchstart', event => {
+                event.target.addEventListener('touchmove', USER_MOVES)
+                event.target.addEventListener('touchend', function a() {
+                    event.target.removeEventListener('touchmove', USER_MOVES)
+                    event.target.removeEventListener('touchend', a);
+                })
+            });
+
+            requestAnimationFrame(FOTO);
+        }
+
+        function FOTO() {
+            NUEVO_CIRCULO()
+            FONDO_NEGRO();
+            DIBUJAR_CIRCULOS();
+            requestAnimationFrame(FOTO);
+        }
+
+        function USER_MOVES(event) {
+            if (event.type.startsWith('touch')) {
+                USER_POSITION.x = event.touches[0].clientX;
+                USER_POSITION.y = event.touches[0].clientY;
+            } else {
+                USER_POSITION.x = event.clientX;
+                USER_POSITION.y = event.clientY;
+            }
+
+            // NUEVO_CIRCULO();
+        }
+
+        function FONDO_NEGRO() {
+            ctx.globalAlpha = 1;
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        let CIRCULOS = [];
+
+        function NUEVO_CIRCULO(x, y) {
+            CIRCULOS.push({
+                X: USER_POSITION.x,
+                Y: USER_POSITION.y,
+                TIEMPO: 0
+            });
+        }
+
+        function DIBUJAR_CIRCULOS() {
+            CIRCULOS = CIRCULOS.filter(function (circulo) {
+                const distance = GROSOR / 2
+                const t = circulo.TIEMPO++;
+                DELINEADOR(circulo.X, circulo.Y, '#6bce69', t - distance,);
+                RELLENO(circulo.X, circulo.Y, color.value, t);
+                DELINEADOR(circulo.X, circulo.Y, '#6bce69', t + distance);
+                return circulo.TIEMPO < VIDA_CIRCULO;
+            });
+        }
+
+        function DELINEADOR(x, y, color, radio) {
+            CIRCULO(x, y, color, radio, 1)
+        }
+
+        function RELLENO(x, y, color, radio) {
+            CIRCULO(x, y, color, radio, GROSOR)
+        }
+
+        function CIRCULO(x, y, color, radio, grosor) {
+            if (radio < 0) return;
+
+            ctx.beginPath();
+            ctx.arc(x, y, radio, 0, 2 * Math.PI);
+            ctx.closePath();
+            ctx.globalAlpha = 1 - 1 / VIDA_CIRCULO * radio;
+            ctx.strokeStyle = color;
+            ctx.lineWidth = grosor;
+            ctx.stroke();
+        }
+    </script>
+</body>
+
+</html>

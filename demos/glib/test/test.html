@@ -1,0 +1,17 @@
+<script>
+	function action(width, height, zoom) {
+		console.log('SQUARE:', width, 'x', height);
+		for (var i = 0; i < height; i++) for (var j = 0; j < width; j++) {
+			var x = i * width + j;
+			var y = (i * width * zoom) + j;
+			var z = y + width * zoom
+
+			console.log(x, y, z);
+		}
+	}
+
+	action(2, 2, 2);
+	action(3, 3, 2);
+	action(2, 3, 2);
+
+</script>

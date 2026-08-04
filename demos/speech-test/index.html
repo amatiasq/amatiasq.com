@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charste="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>Test</title>
+    <style>
+      textarea, button {
+        font-size: 3em;
+        display: block;
+        width: 100%;
+      }
+      table, table input, table select {
+        font-size: 1.5em;
+      }
+    </style>
+  </head>
+
+  <body>
+    <textarea rows="5">Este es un mensaje de prueba para comprobar que puedo seguir palabra a palabra lo que se lee</textarea>
+    <button type="submit">Leer</button>
+
+    <table border="0">
+      <tr>
+        <th>Velocidad</th>
+        <td><input type="number" name="speed" step="0.01" min="0.01" max="5" value="0.8"></td>
+      </tr>
+      <tr>
+        <th>Idioma</th>
+        <td>
+          <select name="lang">
+            <option value="es" selected>Espa&ntilde;ol</option>
+            <option value="en">English</option>
+          </select>
+        </td>
+      </tr>
+
+    <script>
+      const $input = document.querySelector('textarea');
+      const $button = document.querySelector('button');
+      const $lang = document.querySelector('[name="lang"]')
+      const $speed = document.querySelector('[name="speed"]');
+
+      $button.addEventListener('click', () => {
+        const message = $input.value || 'Dame algo para leer, idiota';
+        const speech = new SpeechSynthesisUtterance(message);
+        speech.rate = $speed.value;
+        speech.lang = $lang.value;
+
+        speech.addEventListener('boundary', e => {
+          const index = e.charIndex;
+          const word = message.substr(index).split(' ')[0];
+
+          $input.focus();
+          $input.setSelectionRange(index, index + word.length);
+        });
+
+        speech.addEventListener('end', e => $button.focus());
+        window.speechSynthesis.speak(speech);
+      });
+
+      const query = readQueryParameters()
+
+      if (query.lang) {
+        $lang.value = query.lang;
+      }
+
+      if (query.text) {
+        $input.value = query.text;
+      }
+
+      function readQueryParameters() {
+        const query = location.search.slice(1);
+        const entries = query.split('&').map(x=> x.split('=').map(decodeURIComponent))
+        return Object.fromEntries(entries)
+      }
+    </script>
+  </body>
+</html>
