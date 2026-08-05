@@ -17,9 +17,8 @@ const DateSchema = z.union([
 const TranslatableSchema = translatable(z.string());
 
 // An absolute URL, or a root-relative path for something this site hosts
-// itself. The demos under `public/demos/` used to live on `repos.amatiasq.com`
-// and were absolute; now that they are ours, `/demos/<slug>/` is the honest
-// link — and the only one that works in `astro dev`.
+// itself. The demos under `public/demos/` are ours, so `/demos/<slug>/` is the
+// honest link — and the only one that works in `astro dev`.
 const UrlSchema = z
   .string()
   .refine(

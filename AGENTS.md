@@ -1,46 +1,37 @@
-# Filosofía del Proyecto
+# amatiasq.com — AGENTS.md
 
-Este es el portfolio profesional de A. Matías Quezada. Es su carta de presentación profesional.
+El portfolio profesional de A. Matías Quezada: su carta de presentación. Astro.
+Las reglas generales están en el [`AGENTS.md`](../AGENTS.md) raíz —
+*minimal everything*, CSS antes que JS de cliente— y aquí sólo va lo propio.
 
-## Principios fundamentales
+## Contenido
 
-### Simplicidad y minimalismo
-- El código debe ser simple y fácil de entender
-- Menos es más: si se puede hacer con menos código, hazlo con menos
-- Evitar abstracciones innecesarias
-- No añadir features que no se han pedido
+Una página por proyecto público en `content/projects/` y por experimento en
+`content/experiments/`. El raíz obliga a actualizar la página en el mismo cambio
+que modifica el proyecto: es user-facing y una entrada obsoleta desinforma.
 
-### HTML mínimo
-- El HTML generado debe ser el mínimo posible
-- Evitar wrappers y contenedores innecesarios
-- Estructura semántica y limpia
+Los demos viven en `public/demos/`, servidos tal cual. Son código antiguo
+archivado: no los lintes ni los actualices.
 
-### JavaScript mínimo
-- Evitar JavaScript del lado del cliente siempre que sea posible
-- Preferir CSS para animaciones e interacciones
-- Si no es absolutamente necesario, no lo incluyas
+## Diseño
 
-### Rendimiento
-- La página debe cargar lo más rápido posible
-- Optimizar imágenes y assets
-- Evitar dependencias pesadas
-
-### Elegancia
-- El diseño debe ser limpio y profesional
-- Consistencia visual en toda la página
-- Animaciones sutiles, no llamativas (esto es profesional, es serio)
-- Las animaciones de texto son para texto, no para cajas o contenedores
+- Esto es profesional y serio: animaciones sutiles, no llamativas.
+- **Las animaciones de texto son para texto**, no para cajas ni contenedores.
+- Consistencia visual en toda la página.
+- El HTML generado, mínimo: nada de wrappers ni contenedores de más.
 
 ## Internacionalización
 
-La página es multilingüe (español e inglés, posiblemente catalán en el futuro). Usar siempre el componente `<Tr>` para textos que deben ser traducibles.
+Español e inglés (quizá catalán en el futuro). Todo texto traducible pasa por el
+componente `<Tr>`.
 
-## Timeline de Career
+## Timeline de carrera
 
-El timeline de experiencia profesional tiene configuración en `src/components/organisms/CareerTimeline.astro`:
+`src/components/organisms/CareerTimeline.astro` tiene la escala:
 
 ```javascript
-const PIXELS_PER_YEAR = 60; // Ajustar para cambiar la distancia entre años
+const PIXELS_PER_YEAR = 60; // distancia entre años
 ```
 
-Las fechas de los trabajos son sagradas - no modificar fechas reales. Si se necesita ajustar visualización, usar campos separados.
+**Las fechas de los trabajos son sagradas**: son reales y no se tocan. Si hay que
+ajustar la visualización, usa campos aparte.
