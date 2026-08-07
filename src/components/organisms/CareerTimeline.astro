@@ -9,13 +9,8 @@ interface Props {
 
 const { career } = Astro.props;
 
-/***********************************************
- * CONFIGURACIÓN DEL TIMELINE
- * Cambia este valor para ajustar la distancia entre años
- ***********************************************/
 const PIXELS_PER_YEAR = 60;
 
-// Brand colors for known companies
 const brandColors: Record<string, string> = {
   'YEGO': '#E11D48',
   'Catch': '#9333EA',
@@ -50,7 +45,6 @@ function getColor(org: string): string {
   return `hsl(${hue}, 60%, 50%)`;
 }
 
-// Process career data
 const processedCareer = career
   .filter((item: any) => !item.data.hide)
   .map((item: any) => {
@@ -70,7 +64,6 @@ const processedCareer = career
   })
   .sort((a: any, b: any) => b.fromDate.getTime() - a.fromDate.getTime());
 
-// Calculate year range based on today's date
 const today = new Date();
 const allYears = processedCareer.flatMap((item: any) => [item.fromYear, item.toYear]);
 const minYear = Math.min(...allYears);
@@ -80,23 +73,17 @@ const displayMaxYear = today.getFullYear();
 // Years to display (exclude the oldest year to avoid dangling point)
 const years = Array.from({ length: displayMaxYear - minYear }, (_, i) => displayMaxYear - i);
 
-// Pixels per year for scaling
-const pxPerYear = PIXELS_PER_YEAR;
-const totalHeight = (maxYear - minYear) * pxPerYear; // From Jan (maxYear) to Jan (minYear)
+const totalHeight = (maxYear - minYear) * PIXELS_PER_YEAR; // From Jan (maxYear) to Jan (minYear)
 
 // Calculate position for a date (0 = top = maxYear, 100% = bottom = minYear)
 function getYearPosition(year: number, month: number = 0): number {
-  // Convert to year fraction: Aug 2022 = 2022.67 (month 8 of 12)
   const yearFraction = year + month / 12;
-  // Distance from maxYear (top of timeline)
   const offset = maxYear - yearFraction;
-  return offset * pxPerYear;
+  return offset * PIXELS_PER_YEAR;
 }
 
-// Minimum card height for mobile spacing
 const minCardHeight = 100;
 
-// Assign sides alternating and calculate mobile positions
 let lastMobileBottom = 0;
 const positionedCareer = processedCareer.map((item: any, index: number) => {
   const startPos = getYearPosition(item.fromYear, item.fromMonth);
@@ -115,24 +102,20 @@ const positionedCareer = processedCareer.map((item: any, index: number) => {
   return { ...item, top, height, mobileTop, side };
 });
 
-// Today's position
 const todayPos = getYearPosition(today.getFullYear(), today.getMonth());
 const currentYear = today.getFullYear();
 
-// Current job color (if any job has no end date)
 const currentJob = processedCareer.find((item: any) => !item.data.to);
 const todayColor = currentJob?.color || null;
 
-// Calculate where the line should start and end
 const lineStart = Math.min(todayPos, ...positionedCareer.map((item: any) => item.top));
 const lineEnd = Math.max(...positionedCareer.map((item: any) => item.top + item.height));
 const mobileLineEnd = Math.max(...positionedCareer.map((item: any) => item.mobileTop + Math.max(item.height, minCardHeight)));
 
-// Get color for a year if a job's duration covers it
 function getYearColor(year: number): string | null {
   for (const item of processedCareer) {
     // Job covers the year if: fromDate <= Jan of year < toDate
-    const yearStart = new Date(year, 0, 1); // Jan 1 of the year
+    const yearStart = new Date(year, 0, 1);
     if (item.fromDate <= yearStart && yearStart < item.toDate) {
       return item.color;
     }

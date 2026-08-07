@@ -1,87 +1,47 @@
 # `amatiasq.com` sale de GitHub Pages
 
-**Estado**: hecho y **en producción**, sin revisar por un humano. Commits
-`16da57d` (deploy + nginx), `3b4e6be` (apagar Pages), `e62d87b` (arreglo en
-`amq deploy-infra`).
+En producción, sin revisar por un humano. Commits `16da57d`, `3b4e6be`,
+`e62d87b`.
 
-Ejecuta `.agents/plan/deploy-without-push.md`.
+`amq amatiasq.com deploy` construye `dist/` en local y lo rsyncea a
+`vps/docker/com_amatiasq/www/site/` —dentro del `./www:/www:ro` que el
+contenedor ya montaba—, sube `infra/` y recarga nginx. Cero saltos por GitHub.
 
-## Qué corre ahora
-
-`amq amatiasq.com deploy` construye `dist/` en local, lo rsyncea a
-`vps/docker/com_amatiasq/www/site/` (dentro del volumen `./www:/www:ro` que el
-contenedor ya montaba), sube `infra/` y recarga nginx. Cero saltos por GitHub.
-
-`location /` sirve desde disco. Detalles que costaron un rato:
+Lo que costó un rato del `location /`:
 
 - **`index index.html` y nada de `try_files`**: es lo que hace el 301 de
-  `/en/blog` a `/en/blog/`. Con `try_files $uri $uri/` la página se sirve pero
-  sin la barra, y el build enlaza con ella (`trailingSlash: 'always'`).
+  `/en/blog` a `/en/blog/`. Con `try_files $uri $uri/` la página se sirve sin la
+  barra, y el build enlaza con ella (`trailingSlash: 'always'`).
 - **`absolute_redirect off`**: nginx-proxy termina el TLS, así que este server
-  solo ve http y redirigía a `http://`.
-- **`error_page 403 =404`**: un directorio sin `index.html` (p.ej. `/demos/`) es
-  una URL que nadie construyó, no un permiso denegado.
-- **El rsync del sitio lleva `--delete`**, al revés que `amq deploy-infra`. Todo
-  lo que hay ahí es generado; sin eso, las tres carpetas de etiqueta que
-  renombró la subida a Astro 7 seguirían respondiendo 200 para siempre.
-- **`dist/version.txt`** lleva el commit desplegado (con sufijo `-dirty` si el
-  árbol no estaba limpio). `dist/` está en `.gitignore`; antes lo garantizaba
-  Pages, que construía desde un commit conocido. Resuelve el punto de
-  trazabilidad que el plan dejaba abierto en su §6.
+  sólo ve http y redirigía a `http://`.
+- **`error_page 403 =404`**: un directorio sin `index.html` (`/demos/`) es una
+  URL que nadie construyó, no un permiso denegado.
+- **El rsync del sitio lleva `--delete`**, al revés que `amq deploy-infra`: todo
+  lo que hay ahí es generado. Sin eso, las tres carpetas de etiqueta que renombró
+  Astro 7 seguirían respondiendo 200 para siempre.
+- **`dist/version.txt`** lleva el commit desplegado (`-dirty` si el árbol estaba
+  sucio). Antes la trazabilidad la daba Pages, que construía de un commit
+  conocido; `dist/` está gitignorado.
 
 ## El bug que se llevó por delante dos deploys
 
 `amq deploy-infra` usaba `rsync -az`. rsync escribe un temporal y lo renombra,
 así que el fichero nuevo estrena inodo — y compose monta ficheros sueltos **por
-inodo**. El contenedor siguió leyendo el fichero viejo, sin nombre ya pero vivo
-gracias al propio montaje.
-
-El resultado es especialmente traicionero: el deploy termina bien, `nginx -t`
-valida... el fichero que nadie está leyendo, y producción se queda igual.
-`--inplace` (commit `e62d87b`) lo evita para todos los proyectos, no solo este.
-
-**No cura un montaje ya roto**: hubo que recrear el contenedor una vez. Al
-hacerlo con `amq vps pull-and-restart com_amatiasq` el contenedor pasó de
-llamarse `com_amatiasq` a `amq-amatiasq`, que es lo que dice el `compose.yml` de
-este repo desde la migración a `{project}/infra/` y que el servidor nunca había
-aplicado.
-
-**Eso toca el punto que el plan §6 dejaba fuera a propósito** (el miedo a dos
-contenedores con el mismo `VIRTUAL_HOST` haciendo round-robin, como le pasó a
-`meme`). No ocurrió, y no podía: el contenedor viejo llevaba las etiquetas
-`com.docker.compose.project=amq_com_amatiasq` / `service=nginx`, así que
-`docker compose down` lo eliminó antes de crear el nuevo. Comprobado después:
-un solo contenedor. Lo que sigue pendiente de §6 es el resto del renombrado —
-la carpeta del servidor sigue siendo `com_amatiasq`.
-
-## Verificación en producción
-
-La prueba de aceptación del plan, que llevaba días commiteada y sin desplegar:
-
-```
-$ curl -sI https://amatiasq.com/plot | grep -i content-
-content-type: video/mp4
-content-length: 2735265        (antes: image/gif, 29506767)
-```
-
-Y además: cero cabeceras `x-github-*`; `/version.txt` devuelve el commit;
-`/`, `/en/`, `/es/`, `/rss.xml`, una entrada de blog, una de carrera y un
-proyecto en 200; `/en/blog` → 301 a `/en/blog/` con `Location` relativa;
-`/demos/glib/test/`, `/demos/ergodox/`, `/demos/pathfinding/`,
-`/demos/chameleon/` vivos — con lo que cae el punto 1 de
-`../../.agents/plans/retire-vps-repos.md`; las rutas propias del nginx
-(`/book/limites`, `/js`, `/install`, `/cv-en`, `/template`, `/s`, `/glib`)
-intactas; `/nope` da 404; los assets de `/_astro/` con `immutable`; `amq.im` y
-`www.amatiasq.com` también sirven.
+inodo**: el contenedor siguió leyendo el viejo, ya sin nombre pero vivo gracias
+al propio montaje. Traicionero, porque el deploy termina bien y `nginx -t` valida
+el fichero que nadie lee. `--inplace` (`e62d87b`) lo evita para todos los
+proyectos. **No cura un montaje ya roto**: hubo que recrear el contenedor, y al
+hacerlo pasó a llamarse `amq-amatiasq`, que es lo que dice el `compose.yml` desde
+la migración a `{project}/infra/`. El miedo a dos contenedores con el mismo
+`VIRTUAL_HOST` haciendo round-robin (como le pasó a `meme`) no se materializó:
+el viejo llevaba etiquetas de compose, así que `docker compose down` lo eliminó
+antes de crear el nuevo.
 
 ## Pendiente
 
-- **Desactivar Pages en `amatiasq/amatiasq.com`** desde la web de GitHub. El
-  workflow que publicaba ya no existe, así que el contenido se queda congelado,
-  pero el sitio de Pages sigue en pie y ya no lo mira nadie.
-- **`/meme/<name>` está roto en producción**, y lo estaba antes de esto: el
-  `location` hace `root /www/memes` y esa carpeta no existe en el servidor. Los
-  memes viven en su propio servicio desde hace meses. No se toca aquí porque no
-  es de este plan, pero alguien debería decidir si esa ruta se borra o se
-  arregla.
-- Renombrar la carpeta del servidor `com_amatiasq` → `amatiasq.com` (plan §6).
+- **Desactivar Pages** en `amatiasq/amatiasq.com` desde la web de GitHub: el
+  workflow ya no existe, pero el sitio sigue en pie y ya no lo mira nadie.
+- **`/meme/<name>` está roto** —y lo estaba antes—: su `location` hace
+  `root /www/memes`, carpeta que no existe en el servidor desde que los memes
+  tienen servicio propio. Alguien tiene que decidir si se borra o se arregla.
+- Renombrar la carpeta del servidor `com_amatiasq` → `amatiasq.com`.

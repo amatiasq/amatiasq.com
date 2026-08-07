@@ -47,8 +47,6 @@ const IframePreviewSchema = z.union([
 
 // collection schemas
 
-const markdownLoader = createMarkdownLoader();
-
 const blogSchema = z.object({
   draft: z.boolean().optional(),
   published: DateSchema.optional(),
@@ -131,10 +129,8 @@ export const collections = {
   }),
 };
 
-//
-// below is the implementation of createMarkdownLoader
-// pay no attention to it
-//
+// Astro's `glob()` loader with one line changed: `store.set({ body })` splits the
+// body by language. Deleting it kills multilingual markdown — see AGENTS.md.
 
 import { parseFrontmatter } from '@astrojs/markdown-remark';
 import { type LoaderContext } from 'astro/loaders';
@@ -146,181 +142,165 @@ import pLimit from 'p-limit';
 import { relative, sep } from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
 
-function createMarkdownLoader() {
-  return function markdownLoader(path: string) {
-    const globOptions = { pattern: '*.md', base: path };
-    const fileToIdMap = new Map();
+function markdownLoader(path: string) {
+  const globOptions = { pattern: '*.md', base: path };
+  const fileToIdMap = new Map();
 
-    return {
-      name: 'amq-loader',
-      async load({
-        config,
-        logger,
-        watcher,
-        parseData,
-        store,
-        generateDigest,
-      }: LoaderContext) {
-        const untouchedEntries = new Set(store.keys());
+  return {
+    name: 'amq-loader',
+    async load({ config, logger, watcher, parseData, store }: LoaderContext) {
+      const untouchedEntries = new Set(store.keys());
 
-        const baseDir = globOptions.base
-          ? new URL(globOptions.base, config.root)
-          : config.root;
+      const baseDir = globOptions.base
+        ? new URL(globOptions.base, config.root)
+        : config.root;
 
-        if (!baseDir.pathname.endsWith('/')) {
-          baseDir.pathname = `${baseDir.pathname}/`;
-        }
+      if (!baseDir.pathname.endsWith('/')) {
+        baseDir.pathname = `${baseDir.pathname}/`;
+      }
 
-        const filePath = fileURLToPath(baseDir);
-        const relativePath = relative(fileURLToPath(config.root), filePath);
-        const exists = existsSync(baseDir);
+      const filePath = fileURLToPath(baseDir);
+      const relativePath = relative(fileURLToPath(config.root), filePath);
+      const exists = existsSync(baseDir);
 
-        if (!exists) {
-          logger.warn(
-            `The base directory "${fileURLToPath(baseDir)}" does not exist.`
-          );
-        }
+      if (!exists) {
+        logger.warn(
+          `The base directory "${fileURLToPath(baseDir)}" does not exist.`
+        );
+      }
 
-        const files = await fastGlob(globOptions.pattern, {
-          cwd: fileURLToPath(baseDir),
-        });
+      const files = await fastGlob(globOptions.pattern, {
+        cwd: fileURLToPath(baseDir),
+      });
 
-        if (exists && files.length === 0) {
-          logger.warn(
-            `No files found matching "${globOptions.pattern}" in directory "${relativePath}"`
-          );
+      if (exists && files.length === 0) {
+        logger.warn(
+          `No files found matching "${globOptions.pattern}" in directory "${relativePath}"`
+        );
+        return;
+      }
+
+      const limit = pLimit(10);
+
+      await Promise.all(
+        files.map((entry) => limit(() => syncData(entry, baseDir)))
+      );
+
+      untouchedEntries.forEach((id) => store.delete(id));
+
+      if (!watcher) return;
+
+      const basePath = fileURLToPath(baseDir);
+      const matchesGlob = (entry: string) =>
+        !entry.startsWith('../') &&
+        micromatch.isMatch(entry, globOptions.pattern);
+
+      watcher.on('add', onChange);
+      watcher.on('change', onChange);
+
+      watcher.on('unlink', async (deletedPath) => {
+        const entry = posixRelative(basePath, deletedPath);
+
+        if (!matchesGlob(entry)) {
           return;
         }
 
-        const limit = pLimit(10);
+        const id = fileToIdMap.get(deletedPath);
 
-        await Promise.all(
-          files.map((entry) => limit(() => syncData(entry, baseDir)))
-        );
+        if (id) {
+          store.delete(id);
+          fileToIdMap.delete(deletedPath);
+        }
+      });
 
-        untouchedEntries.forEach((id) => store.delete(id));
+      async function onChange(changedPath: string) {
+        const entry = posixRelative(basePath, changedPath);
+        if (!matchesGlob(entry)) {
+          return;
+        }
 
-        if (!watcher) return;
+        const baseUrl = pathToFileURL(basePath);
+        const oldId = fileToIdMap.get(changedPath);
+        await syncData(entry, baseUrl, oldId);
+        logger.info(`Reloaded data from ${green(entry)}`);
+      }
 
-        const basePath = fileURLToPath(baseDir);
-        const matchesGlob = (entry: string) =>
-          !entry.startsWith('../') &&
-          micromatch.isMatch(entry, globOptions.pattern);
-
-        watcher.on('add', onChange);
-        watcher.on('change', onChange);
-
-        watcher.on('unlink', async (deletedPath) => {
-          const entry = posixRelative(basePath, deletedPath);
-
-          if (!matchesGlob(entry)) {
+      async function syncData(entry: string, base: URL, oldId = null) {
+        const fileUrl = new URL(encodeURI(entry), base);
+        const contents = await fs
+          .readFile(fileUrl, 'utf-8')
+          .catch((err: Error) => {
+            logger.error(`Error reading ${entry}: ${err.message}`);
             return;
-          }
+          });
 
-          const id = fileToIdMap.get(deletedPath);
+        if (!contents && contents !== '') {
+          logger.warn(`No contents found for ${entry}`);
+          return;
+        }
 
-          if (id) {
-            store.delete(id);
-            fileToIdMap.delete(deletedPath);
+        const { frontmatter, content } = parseFrontmatter(contents);
+        const id = entry;
+
+        if (oldId && oldId !== id) {
+          store.delete(oldId);
+        }
+
+        untouchedEntries.delete(id);
+        const existingEntry = store.get(id);
+        const digest = await digestJson({ contents });
+        const entryPath = fileURLToPath(fileUrl);
+
+        if (
+          existingEntry &&
+          existingEntry.digest === digest &&
+          existingEntry.filePath
+        ) {
+          if (existingEntry.deferredRender) {
+            store.addModuleImport(existingEntry.filePath);
           }
+          if (existingEntry.assetImports?.length) {
+            (store as any).addAssetImports(
+              existingEntry.assetImports,
+              existingEntry.filePath
+            );
+          }
+          fileToIdMap.set(entryPath, id);
+          return;
+        }
+
+        const entryRelativePath = posixRelative(
+          fileURLToPath(config.root),
+          entryPath
+        );
+        const parsedData = await parseData({
+          id,
+          data: frontmatter,
+          filePath: entryPath,
         });
 
-        async function onChange(changedPath: string) {
-          const entry = posixRelative(basePath, changedPath);
-          if (!matchesGlob(entry)) {
-            return;
-          }
+        store.set({
+          id,
+          data: parsedData,
+          body: content.split('---').filter(Boolean) as any,
+          filePath: entryRelativePath,
+          digest,
+        });
 
-          const baseUrl = pathToFileURL(basePath);
-          const oldId = fileToIdMap.get(changedPath);
-          await syncData(entry, baseUrl, oldId);
-          logger.info(`Reloaded data from ${green(entry)}`);
-        }
-
-        async function syncData(entry: string, base: URL, oldId = null) {
-          const fileUrl = new URL(encodeURI(entry), base);
-          const contents = await fs
-            .readFile(fileUrl, 'utf-8')
-            .catch((err: Error) => {
-              logger.error(`Error reading ${entry}: ${err.message}`);
-              return;
-            });
-
-          if (!contents && contents !== '') {
-            logger.warn(`No contents found for ${entry}`);
-            return;
-          }
-
-          const { frontmatter, content } = parseFrontmatter(contents);
-          const id = `${entry}`; // generateDigest({ entry, base });
-
-          if (oldId && oldId !== id) {
-            store.delete(oldId);
-          }
-
-          untouchedEntries.delete(id);
-          const existingEntry = store.get(id);
-          const digest = await digestJson({ contents });
-          const filePath2 = fileURLToPath(fileUrl);
-
-          if (
-            existingEntry &&
-            existingEntry.digest === digest &&
-            existingEntry.filePath
-          ) {
-            if (existingEntry.deferredRender) {
-              store.addModuleImport(existingEntry.filePath);
-            }
-            if (existingEntry.assetImports?.length) {
-              (store as any).addAssetImports(
-                existingEntry.assetImports,
-                existingEntry.filePath
-              );
-            }
-            fileToIdMap.set(filePath2, id);
-            return;
-          }
-
-          const relativePath2 = posixRelative(
-            fileURLToPath(config.root),
-            filePath2
-          );
-          const parsedData = await parseData({
-            id,
-            data: frontmatter,
-            filePath: filePath2,
-          });
-
-          store.set({
-            id,
-            data: parsedData,
-            body: content.split('---').filter(Boolean) as any,
-            filePath: relativePath2,
-            digest,
-          });
-
-          fileToIdMap.set(filePath2, id);
-        }
-      },
-    };
+        fileToIdMap.set(entryPath, id);
+      }
+    },
   };
+}
 
-  async function digestJson(message: any) {
-    const text = JSON.stringify(message);
-    const msgUint8 = new TextEncoder().encode(text);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hashHex = hashArray
-      .map((b) => b.toString(16).padStart(2, '0'))
-      .join('');
-    return hashHex;
-  }
+async function digestJson(message: any) {
+  const text = JSON.stringify(message);
+  const msgUint8 = new TextEncoder().encode(text);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
+}
 
-  function posixifyPath(filePath: string) {
-    return filePath.split(sep).join('/');
-  }
-
-  function posixRelative(from: string, to: string) {
-    return posixifyPath(relative(from, to));
-  }
+function posixRelative(from: string, to: string) {
+  return relative(from, to).split(sep).join('/');
 }

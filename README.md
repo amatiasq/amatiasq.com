@@ -1,32 +1,16 @@
 # amatiasq.com
 
-Portfolio profesional de A. Matías Quezada. Astro con `output: 'static'`, sobre
-Bun.
-
-## Desarrollo
-
-```sh
-bun install
-bun run dev       # http://localhost:4321
-bun run build
-bun run preview
-```
-
-## Comandos
-
-| Comando | Qué hace |
-| --- | --- |
-| `amq amatiasq.com check` | Lo mismo que CI: instala y pasa `astro check` |
-| `amq amatiasq.com deploy` | Construye y publica en producción |
+Portfolio profesional de A. Matías Quezada. Astro `output: 'static'` sobre Bun:
+`bun install` y `bun run dev` (los scripts están en `package.json`, los comandos
+de mantenimiento en `amq/`, cada uno con su `--help`).
 
 ## Despliegue
 
-`amq amatiasq.com deploy` construye `dist/` aquí y lo sube al nginx del VPS que
-ya sirve el dominio (`vps/docker/com_amatiasq/www/site/`), sube `infra/` y
-recarga nginx. **No hace falta `git push`**: lo que se despliega es el árbol de
-trabajo. El commit desplegado queda en <https://amatiasq.com/version.txt>, con
-sufijo `-dirty` si el árbol no estaba limpio.
+`amq amatiasq.com deploy` construye `dist/` **en local** y lo sube al nginx del
+VPS que ya sirve el dominio, junto con `infra/`. **No hace falta `git push`**: lo
+que se despliega es el árbol de trabajo, y el commit que salió queda en
+<https://amatiasq.com/version.txt> con sufijo `-dirty` si el árbol estaba sucio.
 
-`infra/nginx.conf` es la configuración de ese nginx: sirve el sitio en `/` y
-tiene además una quincena de rutas propias (`/book/limites`, `/plot`, `/js`,
-`/install`, redirecciones de CV…). Se despliega con el sitio.
+`infra/nginx.conf` no sirve sólo el sitio: lleva además una quincena de rutas
+propias con años de historia detrás (`/book/limites`, `/plot`, `/js`,
+`/install`, redirecciones de CV…). Se despliega con él.
