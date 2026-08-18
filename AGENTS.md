@@ -35,4 +35,4 @@ everything*, CSS antes que JS de cliente—; aquí sólo va lo propio.
   en todo el sitio y HTML generado mínimo: ni un wrapper de más.
 
 Historia: [`.agents/decisions/`](.agents/decisions). Deuda conocida y todavía sin
-tocar: [`.agents/summary/`](.agents/summary).
+tocar: [`.agents/plans/deuda-amatiasq-com.md`](.agents/plans/deuda-amatiasq-com.md).
