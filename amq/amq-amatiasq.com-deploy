@@ -53,7 +53,7 @@ commit="$(git rev-parse HEAD)"
 printf '%s\n%s\n' "$commit" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > dist/version.txt
 echo "    $commit"
 
-# --delete, unlike `amq deploy-infra`: every file here is generated, so a page
+# --delete, unlike `amq vps deploy`: every file here is generated, so a page
 # that stopped being built must stop being served. Renaming a route otherwise
 # leaves the old URL answering 200 forever.
 echo "==> rsync dist/ -> $SITE_DIR/ on the VPS"
@@ -61,7 +61,7 @@ amq vps ssh "mkdir -p '$SITE_DIR'"
 amq vps rsync --delete dist/ ":$SITE_DIR/"
 
 echo "==> ship infra (nginx.conf + assets)"
-amq deploy-infra "$SERVER_FOLDER"
+amq vps deploy "$SERVER_FOLDER"
 
 # Through compose and not `docker exec <name>`: the container's name is
 # whatever `compose.yml` says today, and it already changed once
