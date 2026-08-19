@@ -1,21 +1,21 @@
 import rss from '@astrojs/rss';
+import type { APIContext } from 'astro';
 import { getCollection } from 'astro:content';
+import { translate } from '../i18n';
 import { parseDate } from '../util/date';
 
-export async function GET(context: any) {
+export async function GET(context: APIContext) {
   const blog = await getCollection('blog');
 
+  // English only: the feed declares `<language>en</language>` and links to /en/.
   const posts = blog
-    .filter((post: any) => !post.data.draft)
-    .sort((a: any, b: any) => b.id.localeCompare(a.id))
-    .map((post: any) => {
+    .filter((post) => !post.data.draft)
+    .sort((a, b) => b.id.localeCompare(a.id))
+    .map((post) => {
       const date = post.data.published || parseDate(post.id);
-      const title = typeof post.data.title === 'string'
-        ? post.data.title
-        : post.data.title?.en || post.data.title?.es || post.id;
 
       return {
-        title,
+        title: translate(post.data.title, 'en'),
         pubDate: date ? new Date(date) : new Date(),
         link: `/en/blog/${post.id.replace('.md', '')}/`,
       };

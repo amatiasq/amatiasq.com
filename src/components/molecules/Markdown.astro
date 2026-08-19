@@ -1,6 +1,6 @@
 ---
 import { Marked } from 'marked';
-import { createHighlighter } from 'shiki';
+import { codeTheme, highlighterReady } from '@/util/highlighter';
 
 interface Props {
   md: string;
@@ -9,10 +9,7 @@ interface Props {
 
 const { md, class: className = '' } = Astro.props;
 
-const highlighter = await createHighlighter({
-  themes: ['github-dark'],
-  langs: ['javascript', 'typescript', 'html', 'css', 'json', 'bash', 'shell', 'c', 'cpp', 'csharp', 'python', 'rust', 'go', 'java', 'text', 'plaintext'],
-});
+const highlighter = await highlighterReady;
 
 const marked = new Marked({
   async: true,
@@ -26,7 +23,7 @@ marked.use({
       try {
         const html = highlighter.codeToHtml(text, {
           lang: language,
-          theme: 'github-dark',
+          theme: codeTheme,
         });
         // Wrap in a container for copy button
         return `<div class="code-block">${html}</div>`;

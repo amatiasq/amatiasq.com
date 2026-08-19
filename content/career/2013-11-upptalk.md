@@ -3,6 +3,7 @@ from: 2013-11-18
 # to: 2014-07-11
 to: 2014-08
 org: UppTalk
+color: '#06B6D4'
 link: https://upptalk.com/
 role:
   en: Senior Javascript Developer

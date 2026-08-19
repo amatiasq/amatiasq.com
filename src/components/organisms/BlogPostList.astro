@@ -1,17 +1,18 @@
 ---
+import type { CollectionEntry } from 'astro:content';
 import Time from '../atoms/Time.astro';
 import Tr from '../atoms/Translation.astro';
 import Link from '../atoms/Link.astro';
 import { parseDate } from '../../util/date';
 
 interface Props {
-  posts: any[];
+  posts: CollectionEntry<'blog'>[];
   max?: number;
 }
 
 const { posts, max } = Astro.props;
 
-const processedPosts = posts.map((post: any) => ({
+const processedPosts = posts.map((post) => ({
   ...post,
   href: `/blog/${post.id.replace('.md', '')}`,
   date: post.data.published || parseDate(post.id),
@@ -23,7 +24,7 @@ const hidden = max ? processedPosts.slice(max) : [];
 
 <ul>
   {
-    visible.map((post: any) => {
+    visible.map((post) => {
       const slug = post.id.replace('.md', '');
       return (
         <li>
@@ -45,7 +46,7 @@ const hidden = max ? processedPosts.slice(max) : [];
       <summary>{hidden.length} more</summary>
       <ul>
         {
-          hidden.map((post: any) => {
+          hidden.map((post) => {
             const slug = post.id.replace('.md', '');
             return (
               <li>

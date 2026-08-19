@@ -15,11 +15,10 @@ const experiments = await getCollection('experiments');
 const talks = await getCollection('talks');
 
 // Sort by date (newest first) - date is in the filename: YYYY-MM-DD-slug.md
-const sortByDate = (a: any, b: any) => b.id.localeCompare(a.id);
+const sortByDate = (a: { id: string }, b: { id: string }) =>
+  b.id.localeCompare(a.id);
 
-const sortedBlog = blog
-  .filter((post: any) => !post.data.draft)
-  .sort(sortByDate);
+const sortedBlog = blog.filter((post) => !post.data.draft).sort(sortByDate);
 
 const sortedProjects = [...projects].sort(sortByDate);
 const sortedExperiments = [...experiments].sort(sortByDate);

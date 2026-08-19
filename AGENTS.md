@@ -34,5 +34,5 @@ everything*, CSS antes que JS de cliente—; aquí sólo va lo propio.
   de texto son para texto**, no para cajas ni contenedores. Consistencia visual
   en todo el sitio y HTML generado mínimo: ni un wrapper de más.
 
-Historia: [`.agents/decisions/`](.agents/decisions). Deuda conocida y todavía sin
-tocar: [`.agents/plans/deuda-amatiasq-com.md`](.agents/plans/deuda-amatiasq-com.md).
+Historia: [`.agents/decisions/`](.agents/decisions). La deuda técnica que había
+está saldada: [`2026-08-19 deuda-tecnica.md`](.agents/decisions/2026-08-19%20deuda-tecnica.md).

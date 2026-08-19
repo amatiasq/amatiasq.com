@@ -2,6 +2,7 @@
 from: 2022-08
 to: 2023-08
 org: PrimerLearning
+color: '#4A90D9'
 link: https://www.youtube.com/c/PrimerLearning
 role:
   en: Senior Software Engineer

@@ -1,17 +1,24 @@
 ---
+import type { CollectionEntry } from 'astro:content';
 import Tr from '../atoms/Translation.astro';
 import Link from '../atoms/Link.astro';
 import Image from '../atoms/Image.astro';
 
+// The three collections that render as a card: a title and a preview image.
+type CardEntry =
+  | CollectionEntry<'projects'>
+  | CollectionEntry<'experiments'>
+  | CollectionEntry<'talks'>;
+
 interface Props {
-  entries: any[];
+  entries: CardEntry[];
   basePath: string;
   max?: number;
 }
 
 const { entries, basePath, max } = Astro.props;
 
-const processedEntries = entries.map((entry: any) => ({
+const processedEntries = entries.map((entry) => ({
   ...entry,
   href: `${basePath}/${entry.id.replace('.md', '')}`,
 }));
@@ -22,7 +29,7 @@ const hidden = max ? processedEntries.slice(max) : [];
 
 <ul>
   {
-    visible.map((entry: any) => {
+    visible.map((entry) => {
       const slug = entry.id.replace('.md', '');
       return (
         <li>
@@ -46,7 +53,7 @@ const hidden = max ? processedEntries.slice(max) : [];
       <summary>{hidden.length} more</summary>
       <ul>
         {
-          hidden.map((entry: any) => {
+          hidden.map((entry) => {
             const slug = entry.id.replace('.md', '');
             return (
               <li>

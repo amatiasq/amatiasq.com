@@ -1,59 +1,25 @@
 ---
+import type { CollectionEntry } from 'astro:content';
 import Time from '../atoms/Time.astro';
 import Tr from '../atoms/Translation.astro';
 import Link from '../atoms/Link.astro';
 
 interface Props {
-  career: any[];
+  career: CollectionEntry<'career'>[];
 }
 
 const { career } = Astro.props;
 
 const PIXELS_PER_YEAR = 60;
 
-const brandColors: Record<string, string> = {
-  'YEGO': '#E11D48',
-  'Catch': '#9333EA',
-  'PrimerLearning': '#4A90D9',
-  'Primer': '#4A90D9',
-  'Semble': '#2ECC71',
-  'ThoughtWorks': '#A855F7',
-  'Hacker': '#F97316',
-  'Hack&Craft': '#F97316',
-  'New Relic': '#008C99',
-  'Upptalk': '#06B6D4',
-  'UppTalk': '#06B6D4',
-  'Agile Contents': '#8B5CF6',
-  'PeopleWings': '#EAB308',
-  'eyeOS': '#3B82F6',
-  'Ibermática': '#DC2626',
-  'Visual': '#14B8A6',
-  'NTR': '#10B981',
-};
-
-function getColor(org: string): string {
-  for (const [key, color] of Object.entries(brandColors)) {
-    if (org.toLowerCase().includes(key.toLowerCase())) {
-      return color;
-    }
-  }
-  let hash = 0;
-  for (let i = 0; i < org.length; i++) {
-    hash = org.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  const hue = Math.abs(hash % 360);
-  return `hsl(${hue}, 60%, 50%)`;
-}
-
 const processedCareer = career
-  .filter((item: any) => !item.data.hide)
-  .map((item: any) => {
-    const orgName = typeof item.data.org === 'string' ? item.data.org : item.data.org?.en || item.data.org?.es || '';
+  .filter((item) => !item.data.hide)
+  .map((item) => {
     const fromDate = new Date(item.data.from);
     const toDate = item.data.to ? new Date(item.data.to) : new Date();
     return {
       ...item,
-      color: getColor(orgName),
+      color: item.data.color || 'var(--border)',
       fromDate,
       toDate,
       fromYear: fromDate.getFullYear(),
@@ -62,10 +28,10 @@ const processedCareer = career
       toMonth: toDate.getMonth(),
     };
   })
-  .sort((a: any, b: any) => b.fromDate.getTime() - a.fromDate.getTime());
+  .sort((a, b) => b.fromDate.getTime() - a.fromDate.getTime());
 
 const today = new Date();
-const allYears = processedCareer.flatMap((item: any) => [item.fromYear, item.toYear]);
+const allYears = processedCareer.flatMap((item) => [item.fromYear, item.toYear]);
 const minYear = Math.min(...allYears);
 // maxYear is today's date as a fraction (e.g., Jan 2026 = 2026.08)
 const maxYear = today.getFullYear() + (today.getMonth() + 1) / 12;
@@ -85,7 +51,7 @@ function getYearPosition(year: number, month: number = 0): number {
 const minCardHeight = 100;
 
 let lastMobileBottom = 0;
-const positionedCareer = processedCareer.map((item: any, index: number) => {
+const positionedCareer = processedCareer.map((item, index) => {
   const startPos = getYearPosition(item.fromYear, item.fromMonth);
   const endPos = getYearPosition(item.toYear, item.toMonth);
   // endPos is smaller (closer to top) because end date is more recent
@@ -105,12 +71,12 @@ const positionedCareer = processedCareer.map((item: any, index: number) => {
 const todayPos = getYearPosition(today.getFullYear(), today.getMonth());
 const currentYear = today.getFullYear();
 
-const currentJob = processedCareer.find((item: any) => !item.data.to);
+const currentJob = processedCareer.find((item) => !item.data.to);
 const todayColor = currentJob?.color || null;
 
-const lineStart = Math.min(todayPos, ...positionedCareer.map((item: any) => item.top));
-const lineEnd = Math.max(...positionedCareer.map((item: any) => item.top + item.height));
-const mobileLineEnd = Math.max(...positionedCareer.map((item: any) => item.mobileTop + Math.max(item.height, minCardHeight)));
+const lineStart = Math.min(todayPos, ...positionedCareer.map((item) => item.top));
+const lineEnd = Math.max(...positionedCareer.map((item) => item.top + item.height));
+const mobileLineEnd = Math.max(...positionedCareer.map((item) => item.mobileTop + Math.max(item.height, minCardHeight)));
 
 function getYearColor(year: number): string | null {
   for (const item of processedCareer) {
@@ -147,7 +113,7 @@ function getYearColor(year: number): string | null {
   })}
 
   <!-- Career entries -->
-  {positionedCareer.map((item: any) => {
+  {positionedCareer.map((item) => {
     const slug = item.id.replace('.md', '');
     return (
       <div

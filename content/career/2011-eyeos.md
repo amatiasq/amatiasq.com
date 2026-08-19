@@ -2,6 +2,7 @@
 from: 2011-06
 to: 2012-10
 org: eyeOS
+color: '#3B82F6'
 link:
     en: https://en.wikipedia.org/wiki/EyeOS
     es: https://es.wikipedia.org/wiki/EyeOS

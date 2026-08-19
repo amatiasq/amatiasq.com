@@ -1,10 +1,11 @@
 ---
+import type { CollectionEntry } from 'astro:content';
 import Time from '../atoms/Time.astro';
 import Tr from '../atoms/Translation.astro';
 import { useTranslations } from '../../i18n';
 
 interface Props {
-  career: any[];
+  career: CollectionEntry<'career'>[];
   max?: number;
 }
 
@@ -12,8 +13,8 @@ const { career, max } = Astro.props;
 const { tr } = useTranslations(Astro.url);
 
 const processedCareer = career
-  .filter((item: any) => !item.data.hide)
-  .sort((a: any, b: any) => {
+  .filter((item) => !item.data.hide)
+  .sort((a, b) => {
     const aDate = new Date(a.data.from);
     const bDate = new Date(b.data.from);
     return bDate.getTime() - aDate.getTime();
@@ -24,7 +25,7 @@ const hidden = max ? processedCareer.slice(max) : [];
 ---
 
 <ul>
-  {visible.map((item: any) => (
+  {visible.map((item) => (
     <li>
       <span class="dates"><Time date={item.data.from} omitDay /> — {item.data.to ? <Time date={item.data.to} omitDay /> : <Tr en="Current" es="Actual" />}</span>
       {item.data.link ? (
@@ -41,7 +42,7 @@ const hidden = max ? processedCareer.slice(max) : [];
   <details>
     <summary>{hidden.length} more</summary>
     <ul>
-      {hidden.map((item: any) => (
+      {hidden.map((item) => (
         <li>
           <span class="dates"><Time date={item.data.from} omitDay /> — {item.data.to ? <Time date={item.data.to} omitDay /> : <Tr en="Current" es="Actual" />}</span>
           {item.data.link ? (

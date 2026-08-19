@@ -1,0 +1,36 @@
+#!/bin/bash -e
+
+# amq amatiasq.com local — serve the site on this machine with live reload.
+# Run via `amq amatiasq.com local`.
+#
+# `astro dev`, which is a dev server and not the production build: it renders on
+# request and does not write dist/. That matters because `amq amatiasq.com
+# deploy` ships dist/ verbatim, so a dev server that wrote there would leave a
+# half-built site ready to be deployed by the next `--skip-build`.
+#
+# What it cannot tell you: anything the build resolves and the dev server fakes
+# —a renamed image, a route that stopped generating—. `amq amatiasq.com check`
+# is the one that builds.
+#
+# PORT because 4321 is Astro's default and a second Astro in the same laptop
+# takes it.
+
+case "$1" in
+  -h|--help)
+    echo "Usage: amq amatiasq.com local"
+    echo
+    echo "Serves the site with live reload. Ctrl-C stops it."
+    echo
+    echo "Config (env): PORT (default 4321)"
+    exit 0;;
+esac
+
+PORT="${PORT:-4321}"
+
+if [ ! -d node_modules ]; then
+  echo "==> bun install"
+  bun install
+fi
+
+echo "==> http://localhost:$PORT"
+exec bunx astro dev --port "$PORT"

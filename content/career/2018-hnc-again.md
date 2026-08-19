@@ -3,6 +3,7 @@ from: 2018-10
 # to: 2021-04-30
 to: 2021-05
 org: Hack&Craft
+color: '#F97316'
 link: https://hackandcraft.com/
 role:
   en: Lead Frontend Developer

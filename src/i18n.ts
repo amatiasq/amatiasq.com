@@ -20,6 +20,15 @@ export function translate(value: Translatable, lang: Language): string {
   return value[lang] || value.en || MISSING_TRANSLATION;
 }
 
+/** The loader splits every markdown body by `---` into one block per language. */
+export function localizeBody(
+  body: string | string[] | undefined,
+  lang: Language
+): string {
+  const blocks = Array.isArray(body) ? body : [body];
+  return blocks[languages.indexOf(lang)] || blocks[0] || '';
+}
+
 export function multilingualPage() {
   return languages.map((x) => ({
     params: { lang: x },

@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
-import { languages, useTranslations } from '@/i18n';
+import { languages, localizeBody, useTranslations } from '@/i18n';
 import NavHeader from '@/components/organisms/NavHeader.astro';
 import Tr from '@/components/atoms/Translation.astro';
 import Time from '@/components/atoms/Time.astro';
@@ -24,8 +24,7 @@ export async function getStaticPaths() {
 const { job, lang } = Astro.props;
 const { tr } = useTranslations(Astro.url);
 const title = tr(job.data.org) || 'Career';
-const content = Array.isArray(job.body) ? job.body : [job.body];
-const localizedContent = content[languages.indexOf(lang)] || content[0] || '';
+const localizedContent = localizeBody(job.body, lang);
 const slug = job.id.replace('.md', '');
 ---
 

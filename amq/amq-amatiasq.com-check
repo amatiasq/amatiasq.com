@@ -4,7 +4,11 @@
 #
 # Mirrors .github/workflows/ci-amatiasq.com.yml so a green CI run and a local
 # `amq amatiasq.com check` cannot diverge:
-#   install deps (bun) + typecheck (astro check).
+#   install deps (bun) + typecheck (astro check) + build.
+#
+# The build is part of the check because this is a static site: `astro check`
+# reads types and never resolves an asset import, so a renamed image or a route
+# that stopped generating passes it and dies at deploy time.
 #
 # Runtime: Bun. Install is skipped when node_modules is already present so
 # repeated local runs stay fast; CI has no node_modules and installs fresh.
@@ -18,3 +22,6 @@ fi
 
 echo "==> typecheck (astro check)"
 bunx astro check
+
+echo "==> build"
+bun run build

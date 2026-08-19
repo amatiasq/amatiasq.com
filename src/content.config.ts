@@ -60,6 +60,8 @@ const careerSchema = z.object({
   realFrom: DateSchema.optional(),
   realTo: DateSchema.optional(),
   org: TranslatableSchema.optional(),
+  // The company's brand colour, painting its card and bar in the timeline.
+  color: z.string().optional(),
   link: TranslatableUrlSchema.optional(),
   role: TranslatableSchema.optional(),
   hide: z.boolean().optional(),
@@ -131,6 +133,8 @@ export const collections = {
 
 // Astro's `glob()` loader with one line changed: `store.set({ body })` splits the
 // body by language. Deleting it kills multilingual markdown — see AGENTS.md.
+// Its two `any`s are the price of that: Astro types `body` as a single string,
+// and `addAssetImports` is missing from the public `DataStore` type upstream.
 
 import { parseFrontmatter } from '@astrojs/markdown-remark';
 import { type LoaderContext } from 'astro/loaders';
@@ -293,7 +297,7 @@ function markdownLoader(path: string) {
   };
 }
 
-async function digestJson(message: any) {
+async function digestJson(message: { contents: string }) {
   const text = JSON.stringify(message);
   const msgUint8 = new TextEncoder().encode(text);
   const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);

@@ -1,7 +1,7 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, type CollectionEntry } from 'astro:content';
 import Layout from '@/layouts/Layout.astro';
-import { languages, translate, useTranslations, type Translatable } from '@/i18n';
+import { languages, translate, type Translatable } from '@/i18n';
 import NavHeader from '@/components/organisms/NavHeader.astro';
 import Tr from '@/components/atoms/Translation.astro';
 import Link from '@/components/atoms/Link.astro';
@@ -21,7 +21,7 @@ export async function getStaticPaths() {
   // Collect all unique tags
   const allTags = new Map<string, Translatable>();
 
-  const addTags = (items: any[]) => {
+  const addTags = (items: { data: { tags?: Translatable[] } }[]) => {
     for (const item of items) {
       if (item.data.tags) {
         for (const tag of item.data.tags) {
@@ -48,22 +48,23 @@ export async function getStaticPaths() {
         tagKey,
         tag,
         lang,
-        projects: projects.filter(p => p.data.tags?.some((t: any) => tagToKey(t) === tagKey)),
-        blog: blog.filter(p => p.data.tags?.some((t: any) => tagToKey(t) === tagKey)),
-        experiments: experiments.filter(p => p.data.tags?.some((t: any) => tagToKey(t) === tagKey)),
-        talks: talks.filter(p => p.data.tags?.some((t: any) => tagToKey(t) === tagKey)),
-        career: career.filter(p => !p.data.hide && p.data.tags?.some((t: any) => tagToKey(t) === tagKey)),
+        projects: projects.filter(p => p.data.tags?.some((t) => tagToKey(t) === tagKey)),
+        blog: blog.filter(p => p.data.tags?.some((t) => tagToKey(t) === tagKey)),
+        experiments: experiments.filter(p => p.data.tags?.some((t) => tagToKey(t) === tagKey)),
+        talks: talks.filter(p => p.data.tags?.some((t) => tagToKey(t) === tagKey)),
+        career: career.filter(p => !p.data.hide && p.data.tags?.some((t) => tagToKey(t) === tagKey)),
       },
     }))
   );
 }
 
 const { tagKey, tag, lang, projects, blog, experiments, talks, career } = Astro.props;
-const { tr } = useTranslations(Astro.url);
 const tagName = translate(tag, lang);
 
-const sortByDate = (a: any, b: any) => b.id.localeCompare(a.id);
-const sortByFrom = (a: any, b: any) => new Date(b.data.from).getTime() - new Date(a.data.from).getTime();
+const sortByDate = (a: { id: string }, b: { id: string }) =>
+  b.id.localeCompare(a.id);
+const sortByFrom = (a: CollectionEntry<'career'>, b: CollectionEntry<'career'>) =>
+  new Date(b.data.from).getTime() - new Date(a.data.from).getTime();
 
 const sortedProjects = [...projects].sort(sortByDate);
 const sortedBlog = [...blog].sort(sortByDate);
@@ -112,7 +113,7 @@ const sortedCareer = [...career].sort(sortByFrom);
       <section>
         <h2><Tr en="Career" es="Experiencia" /></h2>
         <ul class="career-list">
-          {sortedCareer.map((job: any) => (
+          {sortedCareer.map((job) => (
             <li>
               <Link page={`/career/${job.id.replace('.md', '')}`}>
                 <Tr value={job.data.org} />

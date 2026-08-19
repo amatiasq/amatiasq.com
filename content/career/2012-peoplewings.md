@@ -2,6 +2,7 @@
 from: 2012-12
 to: 2013-10
 org: Peoplewings
+color: '#EAB308'
 link: https://twitter.com/peoplewings
 role: CTO
 hide: true
