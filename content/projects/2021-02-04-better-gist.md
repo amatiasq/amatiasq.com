@@ -12,11 +12,10 @@ links:
   video: https://youtu.be/GO97zFLc8T0
 
 tags:
-  - Typescript
+  - TypeScript
   - React
-  - Progressive Web Application (PWA)
-  - Page Visibility API
-  - OAuth
+  - Web APIs
+  - PWA
 ---
 
 A tool I needed to edit Github Gists. It has all the power of Visual Studio Code since it's using Monaco

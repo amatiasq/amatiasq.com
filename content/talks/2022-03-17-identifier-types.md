@@ -12,7 +12,9 @@ links:
   slides: https://slides.amatiasq.com/identifier-types/
 
 tags:
-  - Typescript
+  - TypeScript
+  - en: Type systems
+    es: Sistemas de tipos
 
 iframe:
   src: 'https://slides.amatiasq.com/identifier-types/'

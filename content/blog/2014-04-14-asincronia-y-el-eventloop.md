@@ -4,7 +4,11 @@ title:
   en: Asynchrony and the Event Loop (spanish)
   es: Asincronía y el EventLoop
 tags:
-  - Javascript
+  - JavaScript
+  - en: JavaScript internals
+    es: Fundamentos de JavaScript
+  - en: Async
+    es: Asincronía
 ---
 
 Me gustaría hacer un repaso al tema de la asincronía en Javascript porque me llama la atención que pese a tener casi 20 años es un tema que sigue madurando y he visto surgir buenas ideas recientemente.

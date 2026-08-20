@@ -4,8 +4,11 @@ title:
   en: HTML Components (spanish)
   es: Componentes HTML
 tags:
-  - Javascript
+  - JavaScript
   - HTML
+  - Web Components
+  - en: Architecture
+    es: Arquitectura
 ---
 
 Acabo de caer en cuenta de porqué no me gusta angular, backbone, ember...

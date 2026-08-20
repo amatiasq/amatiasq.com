@@ -3,7 +3,9 @@ title:
     en: Graham number with Javascript
     es: Número de Graham con Javascript
 tags:
-  - Javascript
+  - JavaScript
+  - en: Algorithms
+    es: Algoritmos
   - en: Math
     es: Matemáticas
 ---

@@ -4,7 +4,10 @@ title:
   en: ELI5 Gravity is not a force
 
 tags:
-  - Thoughts
+  - en: Science
+    es: Ciencia
+  - en: Thoughts
+    es: Reflexiones
 ---
 
 Gravity is not a force pushing you, the space you occupied moved into the earth's center and it's dragging you with it.

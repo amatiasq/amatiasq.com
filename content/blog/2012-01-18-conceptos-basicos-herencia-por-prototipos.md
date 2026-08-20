@@ -4,7 +4,9 @@ title:
   en: 'Basic Javascript Concepts: Prototypal inheritance (spanish)'
   es: 'Conceptos Básicos Javascript: Herencia por prototipos'
 tags:
-  - Javascript
+  - JavaScript
+  - en: JavaScript internals
+    es: Fundamentos de JavaScript
 ---
 
 Llegó la hora de entrar el en tema que realmente confunde a los recién llegados a Javascript, principalmente para quienes vienen de lenguajes que implementan la orientación a objetos mediante clases, que son la gran mayoría.

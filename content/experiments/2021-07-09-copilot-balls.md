@@ -12,9 +12,12 @@ image:
   es: Un montón de bolitas de colores sobre un fondo negro
 
 tags:
-  - Javascript
+  - JavaScript
   - Canvas
-  - AI
+  - en: Simulation
+    es: Simulación
+  - en: AI
+    es: IA
 
 iframe:
   style: |

@@ -5,6 +5,8 @@ title:
   es: GIT Workflow 2
 tags:
   - Git
+  - en: Best practices
+    es: Buenas prácticas
 ---
 
 Continuando con [mi último artículo][1], llegó la hora de hablar del gran _Github Flow_:

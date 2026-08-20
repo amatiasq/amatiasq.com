@@ -13,10 +13,9 @@ links:
   live: https://github.com/amatiasq/constitucion-espanola
 
 tags:
-  - Shell
-  - Javascript
+  - JavaScript
+  - Bash
   - Node.js
-  - Markdown
 ---
 
 Spanish constitution as markdown files with links to each section. There's one commit per amendment so we can see exactly what was changed.

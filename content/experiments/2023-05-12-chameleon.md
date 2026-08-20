@@ -12,9 +12,12 @@ image:
   es: Efecto similar a las ondas que producen los insectos en el agua
 
 tags:
-  - Javascript
+  - JavaScript
   - Canvas
-  - AI
+  - en: Graphics
+    es: Gráficos
+  - en: AI
+    es: IA
 
 iframe:
   style: |

@@ -20,7 +20,13 @@ const sortByDate = (a: { id: string }, b: { id: string }) =>
 
 const sortedBlog = blog.filter((post) => !post.data.draft).sort(sortByDate);
 
-const sortedProjects = [...projects].sort(sortByDate);
+// `pinned` projects lead the home page; the rest follow by date.
+const sortByPinned = (
+  a: { id: string; data: { pinned?: boolean } },
+  b: { id: string; data: { pinned?: boolean } },
+) => Number(!!b.data.pinned) - Number(!!a.data.pinned) || sortByDate(a, b);
+
+const sortedProjects = [...projects].sort(sortByPinned);
 const sortedExperiments = [...experiments].sort(sortByDate);
 const sortedTalks = [...talks].sort(sortByDate);
 

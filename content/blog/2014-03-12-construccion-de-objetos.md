@@ -4,7 +4,9 @@ title:
   en: Object construction (spanish)
   es: Construcción de objetos
 tags:
-  - Javascript
+  - JavaScript
+  - en: JavaScript internals
+    es: Fundamentos de JavaScript
 ---
 
 > Este artículo quedó muy complejo y caótico, por eso voy a intentar dividirlo en partes, recomiendo leer los nuevos post en lugar de este.

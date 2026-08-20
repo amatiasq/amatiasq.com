@@ -55,7 +55,7 @@ const slug = project.id.replace('.md', '');
           <iframe src={iframeSrc} data-src={iframeSrc} allowfullscreen />
           <button class="pause-btn" title="Pause/Play">⏸</button>
         </div>
-      ) : project.data.image && (
+      ) : project.data.image && !project.data.image.cardOnly && (
         <div class="hero-image" transition:name={`img-${slug}`}>
           <Image value={project.data.image} width={800} />
         </div>

@@ -4,7 +4,9 @@ title:
   en: 'Promise pattern: Implementation (spanish)'
   es: 'Patrón Promise: Implementación'
 tags:
-  - Javascript
+  - JavaScript
+  - en: Async
+    es: Asincronía
 ---
 
 Lo prometido es deuda (bien lo saben las funciones) y he encontrado un momento para empezar a explicar la forma en la que he implementado el patrón Promise en mi caso, no tiene porqué ser la mejor, pero cumple con su cometido.

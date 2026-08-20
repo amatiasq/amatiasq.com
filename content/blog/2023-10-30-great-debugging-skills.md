@@ -1,7 +1,10 @@
 ---
 title: Great debugging skills
 tags:
-  - Javascript
+  - en: Best practices
+    es: Buenas prácticas
+  - en: Thoughts
+    es: Reflexiones
 ---
 
 Combining a broad curiosity with two decades coding blessed me with a good smell to bug-catching, I'm planning to add "Great debugging skills" to my CV but just adding a sentence there doesn't feel right. A paragraph trying to summary

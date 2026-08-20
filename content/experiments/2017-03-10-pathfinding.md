@@ -10,9 +10,12 @@ image:
   es: En un mapa con obstáculos violetas un camino amarillo se ilumina para llegar de punto A a punto B
 
 tags:
-  - Algorithm
+  - JavaScript
   - Canvas
-  - Webpack
+  - en: Build tooling
+    es: Herramientas de build
+  - en: Algorithms
+    es: Algoritmos
 
 pinned: true
 iframe:

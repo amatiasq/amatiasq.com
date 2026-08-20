@@ -12,8 +12,9 @@ image:
   es: Una web con un campo de texto, un botón azul que dice "Pair" y tres rondas emparejando los nombres que han sido introducidos
 
 tags:
-  - Javascript
-  - Algorithm
+  - JavaScript
+  - en: Algorithms
+    es: Algoritmos
 
 iframe: true
 ---

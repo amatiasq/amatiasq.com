@@ -4,7 +4,8 @@ title:
   en: Let's get it started! (spanish)
   es: Let's get it started!
 tags:
-  - Javascript
+  - en: Thoughts
+    es: Reflexiones
 ---
 
 Bueno, ha llegado la hora de dar el siguiente paso como programador: comenzar un blog para que todos puedan criticarme por poner las llaves `{` a la derecha :D

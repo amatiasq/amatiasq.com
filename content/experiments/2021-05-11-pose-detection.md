@@ -7,8 +7,10 @@ links:
   live: /demos/pose-video/
 
 tags:
-  - Machine Learning
-  - WebAPI
+  - JavaScript
+  - Web APIs
+  - en: AI
+    es: IA
 ---
 
 Flacky pose detection via webcam. Requires camera permissions.

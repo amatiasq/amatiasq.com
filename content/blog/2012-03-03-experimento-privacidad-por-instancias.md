@@ -4,7 +4,9 @@ title:
   en: 'Experiment: Per-instance privacy (spanish)'
   es: 'Experimento: Privacidad por instancias'
 tags:
-  - Javascript
+  - JavaScript
+  - en: JavaScript internals
+    es: Fundamentos de JavaScript
 ---
 
 > Actualización 19/3/2014: Sorprendentemente parece que una propuesta del ECMAScript 6 sigue mismo el patrón descrito en este post, y yo que pensaba que era demasiado rebuscado...

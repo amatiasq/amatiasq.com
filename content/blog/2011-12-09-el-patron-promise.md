@@ -4,7 +4,11 @@ title:
   en: Promise pattern (spanish)
   es: El patrón Promise
 tags:
-  - Javascript
+  - JavaScript
+  - en: JavaScript internals
+    es: Fundamentos de JavaScript
+  - en: Async
+    es: Asincronía
 ---
 
 > Actualización 19/3/2014: Finalmente los promises se han confirmado [para el estándar ECMAScript 6][1], dentro de poco serán nativos en Javascript :D

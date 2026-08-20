@@ -3,7 +3,8 @@ title:
     en: SolidJS API
     es: SolidJS API (english)
 tags:
-  - Javascript
+  - JavaScript
+  - React
 ---
 
 ## `createSignal`

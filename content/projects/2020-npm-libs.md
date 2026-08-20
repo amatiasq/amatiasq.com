@@ -3,17 +3,21 @@ title:
   en: NPM Libraries
   es: Librerías NPM
 
+image:
+  src: npm.png
+  en: Some of the published packages on npm
+  es: Algunos de los paquetes publicados en npm
+  cardOnly: true
+
 links:
   live: https://www.npmjs.com/~amatiasq
   github: https://github.com/amatiasq/amq-libs
 
 tags:
-  - Typescript
-  - NPM
-  - Libraries
+  - TypeScript
+  - en: Real-time
+    es: Tiempo real
   - Open Source
-  - WebRTC
-  - WebSocket
 ---
 
 I creted some npm libraries with chunks of code I use in my projects.

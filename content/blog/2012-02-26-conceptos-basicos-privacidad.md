@@ -4,7 +4,9 @@ title:
   en: 'Basic Javascript Concepts: Privacy (spanish)'
   es: 'Conceptos Básicos Javascript: Privacidad'
 tags:
-  - Javascript
+  - JavaScript
+  - en: JavaScript internals
+    es: Fundamentos de JavaScript
 ---
 
 ### Introducción

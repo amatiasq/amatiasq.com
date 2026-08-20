@@ -4,7 +4,9 @@ title:
   en: ECMAScript 5 _.extend (spanish)
   es: ECMAScript 5 _.extend
 tags:
-  - Javascript
+  - JavaScript
+  - en: JavaScript internals
+    es: Fundamentos de JavaScript
 ---
 
 A algunos ya os he comentado los problemas que [NC Zakas comenta][1] con el `_.extend` de underscore y los getters:

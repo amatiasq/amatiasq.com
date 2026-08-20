@@ -1,9 +1,5 @@
 # 2026-08-19 — la deuda técnica de amatiasq.com
 
-**Review:** ⚠️ pendiente — dos cambios visibles: los `alt` de `/es/` pasan a
-estar en español y la tarjeta de Katch cambia de color. Míralos con
-`amq amatiasq.com local`.
-
 Los siete puntos del plan, hechos. Lo que merece quedar escrito:
 
 ## Había dos sistemas de i18n y el segundo nunca funcionó

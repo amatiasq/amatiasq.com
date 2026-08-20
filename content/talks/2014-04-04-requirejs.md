@@ -12,8 +12,10 @@ image:
   es: El logo de RequireJS es una diana con una flecha debajo
 
 tags:
-  - Javascript
+  - JavaScript
   - RequireJS
+  - en: Architecture
+    es: Arquitectura
 
 iframe:
   src: 'https://slides.amatiasq.com/requirejs/'

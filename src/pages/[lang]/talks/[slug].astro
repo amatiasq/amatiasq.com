@@ -48,7 +48,7 @@ const slug = talk.id.replace('.md', '');
           <iframe src={iframeSrc} data-src={iframeSrc} allowfullscreen />
           <button class="pause-btn" title="Pause/Play">⏸</button>
         </div>
-      ) : talk.data.image && (
+      ) : talk.data.image && !talk.data.image.cardOnly && (
         <div class="hero-image" transition:name={`img-${slug}`}>
           <Image value={talk.data.image} width={800} />
         </div>

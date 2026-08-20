@@ -4,8 +4,10 @@ title:
   en: Generate HTML pages from TSX with Deno
   es: Generar páginas HTML desde TSX con Deno
 tags:
-  - Typescript
+  - TypeScript
   - React
+  - en: Architecture
+    es: Arquitectura
 ---
 
 I've been working on a new version of this site with a clear idea:

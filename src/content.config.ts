@@ -31,6 +31,11 @@ const ImagePreviewSchema = z.object({
   src: TranslatableSchema,
   en: z.string(),
   es: z.string(),
+  // The card always needs a picture, or it falls back to a grey box. The detail
+  // page does not: npm's is a screenshot of somebody else's site, and the page
+  // right under it already lists the packages. `cardOnly` keeps it in the grid
+  // and out of the article.
+  cardOnly: z.boolean().optional(),
   center: z
     .string()
     .regex(/\d+(\.\d+)?% \d+(\.\d+)?%/)

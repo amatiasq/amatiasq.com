@@ -50,7 +50,7 @@ const slug = experiment.id.replace('.md', '');
           <iframe src={iframeSrc} data-src={iframeSrc} allow="microphone" allowfullscreen />
           <button class="pause-btn" title="Pause/Play">⏸</button>
         </div>
-      ) : experiment.data.image && (
+      ) : experiment.data.image && !experiment.data.image.cardOnly && (
         <div class="hero-image" transition:name={`img-${slug}`}>
           <Image value={experiment.data.image} width={800} />
         </div>

@@ -3,12 +3,17 @@ title:
   en: Text to speech word by word
   es: Texto a voz palabra por palabra
 
+image:
+  src: speech-test.png
+  en: The demo, with the test text ready to be read
+  es: La demo, con el texto de prueba listo para leerse
+
 links:
   live: /demos/speech-test/
 
 tags:
-  - TTS
-  - WebAPI
+  - JavaScript
+  - Web APIs
 
 iframe:
   src:

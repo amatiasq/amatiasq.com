@@ -11,8 +11,8 @@ image:
   es: Optimización de la mente - como reducir la carga mental
 
 tags:
-  - en: Best Practices
-    es: Buenas Prácticas
+  - en: Best practices
+    es: Buenas prácticas
 
 iframe:
   src: 'https://slides.amatiasq.com/mind-optimization/'

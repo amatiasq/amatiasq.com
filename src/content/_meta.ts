@@ -5,6 +5,7 @@ export interface ImageDeclaration {
   en?: string;
   es?: string;
   center?: string;
+  cardOnly?: boolean;
 }
 
 export type TranslatableString = string | string[] | Record<Language, string>;

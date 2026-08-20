@@ -4,7 +4,9 @@ title:
   en: Object.create vs new (spanish)
   es: Object.create vs new
 tags:
-  - Javascript
+  - JavaScript
+  - en: JavaScript internals
+    es: Fundamentos de JavaScript
 ---
 
 > Actualización 19/3/2014: Finalmente he entendido la utilidad de reemplazar `new`, se puede ver [aquí][1]

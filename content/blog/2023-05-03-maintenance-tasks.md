@@ -3,7 +3,10 @@ title:
     en: Maintenance tasks
     es: Tareas de mantenimiento
 tags:
-  - Thoughts
+  - en: Best practices
+    es: Buenas prácticas
+  - en: Thoughts
+    es: Reflexiones
 ---
 
 > To Virginia, the brightest light in the sky

@@ -11,11 +11,10 @@ image:
   es: Documentación y demostración del Web Component Hamburguer Button
 
 tags:
+  - TypeScript
+  - HTML
   - Bun
-  - Typescript
   - Web Components
-
-pinned: true
 ---
 
 A repository to store and deploy my web components. In order to create them easily I built [a simple transpiler][1] in Bun.

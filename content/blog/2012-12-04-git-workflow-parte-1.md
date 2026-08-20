@@ -5,6 +5,8 @@ title:
   es: GIT Workflow 1
 tags:
   - Git
+  - en: Best practices
+    es: Buenas prácticas
 ---
 
 Acabo de leer [un artículo][1] creado por los trabajadores de [Github][2] que han dado una vuelta de tuerca a lo que sabía de GIT y creo que será muy útil compartirlo, pero primero vamos por partes:
