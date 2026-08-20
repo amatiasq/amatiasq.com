@@ -44,7 +44,10 @@ const slug = experiment.id.replace('.md', '');
 
       {iframeSrc ? (
         <div class="iframe-container" transition:name={`img-${slug}`}>
-          <iframe src={iframeSrc} data-src={iframeSrc} allowfullscreen />
+          {/* Permissions Policy defaults `microphone` to `self`, so without
+              delegating it a cross-origin demo that needs one — walkie — is
+              dead in the embed. It only delegates: the browser still asks. */}
+          <iframe src={iframeSrc} data-src={iframeSrc} allow="microphone" allowfullscreen />
           <button class="pause-btn" title="Pause/Play">⏸</button>
         </div>
       ) : experiment.data.image && (
