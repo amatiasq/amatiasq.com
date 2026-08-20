@@ -47,9 +47,9 @@ en el comentario del loader. `astro check` queda a cero avisos.
 
 ## Trampa: `amq <proj> check` desde un worktree
 
-El dispatcher hace `cd` a `$MONOREPO/<proyecto>`, o sea al checkout principal:
-un `amq amatiasq.com check` lanzado desde un worktree comprueba el árbol de
-otro. Aquí se corrió `bash amq/amq-amatiasq.com-check` a pelo. Es el bug ya
-registrado en
-[`amq-cd-sigue-al-script.md`](../../../.agents/plans/amq-cd-sigue-al-script.md);
-no se ha tocado nada para esquivarlo desde este proyecto.
+El dispatcher hacía `cd` a `$MONOREPO/<proyecto>`, o sea al checkout principal:
+un `amq amatiasq.com check` lanzado desde un worktree comprobaba el árbol de
+otro. Aquí se corrió `bash amq/amq-amatiasq.com-check` a pelo. Arreglado el
+2026-08-21
+([`amq-cd-sigue-al-script.md`](../../../.agents/decisions/2026-08-21%20amq-cd-sigue-al-script.md));
+no se tocó nada en este proyecto para esquivarlo.
