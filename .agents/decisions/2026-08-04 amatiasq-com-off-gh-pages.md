@@ -1,4 +1,4 @@
-# `amatiasq.com` sale de GitHub Pages
+# 2026-08-04 — `amatiasq.com` sale de GitHub Pages
 
 En producción, sin revisar por un humano. Commits `16da57d`, `3b4e6be`,
 `e62d87b`.

@@ -330,20 +330,10 @@
 </div>
 
 <script>
-// ══════════════════════════════════════════════════
-// ESTADO
-// ══════════════════════════════════════════════════
-/**
- * FONT_TO_CSS — convierte el tamaño de fuente (valor de display/YAML) a px CSS.
- *
- * Escala exponencial: cada 12 unidades = doble de tamaño visual.
- *   n=12  →  12 px   (texto pequeño)
- *   n=24  →  24 px   (cuerpo)
- *   n=36  →  48 px   (subtítulo)
- *   n=48  →  96 px   (título grande)
- *
- * El valor almacenado en el YAML ES el valor de display (lo que escribe el usuario).
- */
+// ── Estado ──
+// Tamaño de fuente del YAML a px CSS, escala exponencial: cada 12 unidades
+// dobla el tamaño (12→12px, 24→24px, 48→96px). El YAML guarda lo que escribe
+// el usuario.
 const FONT_TO_CSS = n => 6 * Math.pow(2, n / 12);
 
 const S = {
@@ -1284,11 +1274,8 @@ async function loadFromYaml() {
       S.contentOrder = Object.keys(data.content || {});
       const newBoxIds  = data.boxes.map(b => b.id).filter(Boolean);
 
-      // ── A) Rename en CONTENT: el usuario renombró una key del content ──────
-      // Detectamos: key que desapareció del content y hay una key nueva
-      // con el MISMO valor → es un rename de la key.
-      // Si esa key vieja corresponde a una caja que sigue en boxes,
-      // actualizamos el id de esa caja en data.boxes.
+      // Una key que desaparece del content mientras aparece otra con el MISMO
+      // valor es un rename: la caja de boxes que la usaba cambia de id.
       const removedContentKeys = Object.keys(prevContentMap)
         .filter(k => !(k in contentMap));
       const addedContentKeys   = Object.keys(contentMap)
