@@ -1,29 +1,17 @@
 #!/bin/bash -e
-
-# amq amatiasq.com deploy — build the site here and put it in production.
+# amq amatiasq.com deploy [--skip-build] — build the site here and put it in
+# production: dist/ lands in the nginx container's www/site/ and nginx
+# reloads. No GitHub Pages, no mirror repo, no push — the code you have is the
+# code that ships. `--skip-build` ships the dist/ that is already there.
 #
-# The site is `output: 'static'`, so production is the nginx container that
-# already serves the domain: dist/ lands in its www/site/ (the ./www:/www:ro
-# volume it already mounts) and nginx reloads. No GitHub Pages, no mirror repo,
-# no push — the code you have is the code that ships.
-#
-# The nginx.conf and the rest of infra/ travel in the same command, because
-# forgetting to ship them is how /plot spent days serving a 29MB GIF that the
-# repo had already replaced.
-#
-# Reload, not restart: `nginx -s reload` swaps the config with no dropped
-# request, and it leaves the container alone. Recreating it is a separate job
-# (the container still answers to the old `com_amatiasq` name — see
-# `.agents/plan/deploy-without-push.md` §6).
+# infra/ (nginx.conf + assets) travels in the same command, because forgetting
+# it is how /plot spent days serving a GIF the repo had already replaced.
+# Reload, not restart: no dropped requests and the container stays put. The
+# version stamp takes a -dirty suffix from an unclean tree.
+# Config (env): VPS_REMOTE_DIR (default vps).
 
 case "$1" in
-  -h|--help)
-    echo "Usage: amq amatiasq.com deploy [--skip-build]"
-    echo
-    echo "  --skip-build   ship the dist/ that is already there"
-    echo
-    echo "Config (env): VPS_REMOTE_DIR (default vps)"
-    exit 0;;
+  -h|--help|help) awk 'NR>1 && !/^#/{exit} NR>1{sub(/^# ?/, ""); print}' "$0"; exit 0;;
 esac
 
 VPS_REMOTE_DIR="${VPS_REMOTE_DIR:-vps}"
