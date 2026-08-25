@@ -1,5 +1,6 @@
 import { defineCollection } from 'astro:content';
 import { z } from 'astro/zod';
+import { splitByLanguage } from './i18n';
 import type { StringifiedDate } from './util/date';
 
 // shared schemas
@@ -291,7 +292,7 @@ function markdownLoader(path: string) {
         store.set({
           id,
           data: parsedData,
-          body: content.split('---').filter(Boolean) as any,
+          body: splitByLanguage(content) as any,
           filePath: entryRelativePath,
           digest,
         });

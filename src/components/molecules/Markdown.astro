@@ -68,6 +68,21 @@ const html = await marked.parse(md);
     border: 1px solid var(--border);
   }
 
+  /* Prose links carry no colour of their own: --accent and --text are both
+   * white, so without an underline a link is pixel-identical to the text
+   * around it. Nav, cards and tags are deliberately undecorated, hence `.md`. */
+  .md a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    text-decoration-color: color-mix(in oklch, currentColor 45%, transparent);
+  }
+
+  .md a:hover {
+    text-decoration-thickness: 2px;
+    text-decoration-color: currentColor;
+  }
+
   .md h2, .md h3 {
     margin-top: 2.5rem;
     margin-bottom: 1rem;

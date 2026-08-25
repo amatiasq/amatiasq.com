@@ -13,7 +13,7 @@
   // TryRunMicrotasks partway through the diagnostics.
   "exclude": ["dist", "infra", "public"],
   "compilerOptions": {
-    "types": ["node"],
+    "types": ["node", "bun"],
     "paths": {
       "@/*": ["./src/*"]
     }

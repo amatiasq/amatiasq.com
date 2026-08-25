@@ -2,11 +2,16 @@
 # amq amatiasq.com check — full local CI check for amatiasq.com.
 #
 # Mirrors .github/workflows/ci-amatiasq.com.yml so a green CI run and a local
-# check cannot diverge: install deps (bun) + typecheck (astro check) + build.
+# check cannot diverge: install deps (bun) + typecheck (astro check) + tests
+# (bun test) + build.
 #
 # The build is part of the check because this is a static site: `astro check`
 # never resolves an asset import, so a renamed image or a route that stopped
 # generating passes it and dies at deploy time.
+#
+# Los tests van antes del build porque tardan menos de un segundo y cubren lo
+# que el build no mira: que un `[texto][1]` resuelva en todos los idiomas. El
+# build es feliz sirviendo la referencia como texto plano.
 #
 # Install is skipped when node_modules is present so repeated runs stay fast.
 
@@ -23,6 +28,9 @@ fi
 
 echo "==> typecheck (astro check)"
 bunx astro check
+
+echo "==> tests (bun test)"
+bun test src/
 
 echo "==> build"
 bun run build

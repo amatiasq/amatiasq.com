@@ -16,7 +16,11 @@ everything*, CSS antes que JS de cliente—; aquí sólo va lo propio.
   `useTranslations(Astro.url)`, o el componente `<Tr>`— es lo único que lo
   resuelve. Español e inglés; quizá catalán algún día.
 - **Body por idioma** — el cuerpo de cada markdown se parte por `---` en un
-  bloque por idioma, posicional como el array de `Translatable`.
+  bloque por idioma, posicional como el array de `Translatable`. Las
+  definiciones de enlace (`[1]: …`) se escriben una vez al final del fichero y
+  `splitByLanguage` las reparte a todos los bloques: sin eso sólo resuelven en
+  el último idioma y el resto pinta `[texto][1]` como texto plano. Lo cubre
+  `src/content.test.ts`, sobre los ficheros de verdad.
 - **Demos** — `public/demos/`, servidos tal cual. Código antiguo archivado, que
   a menudo ya no se puede reconstruir: no lo lintes ni lo actualices. Por eso
   `public/` está fuera de `tsconfig.json`.

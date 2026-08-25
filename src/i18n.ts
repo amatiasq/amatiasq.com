@@ -20,6 +20,31 @@ export function translate(value: Translatable, lang: Language): string {
   return value[lang] || value.en || MISSING_TRANSLATION;
 }
 
+/**
+ * Link reference definitions (`[1]: https://…`) are written once at the end of
+ * the file, but the body is split into one block per language, so every block
+ * but the last would lose them and render `[text][1]` as literal text. Strip
+ * them from the blocks and re-append the full set to each one.
+ */
+const LINK_DEFINITION = /^\[[^\]]+\]:[ \t]+\S.*$/gm;
+
+/**
+ * Splits a markdown body by `---` into one block per language, positional and
+ * following `languages`. The content loader stores what this returns and
+ * `localizeBody` reads it back, so the two have to agree.
+ */
+export function splitByLanguage(content: string): string[] {
+  const blocks = content.split('---').filter(Boolean);
+  const definitions = content.match(LINK_DEFINITION);
+
+  if (!definitions) {
+    return blocks;
+  }
+
+  const suffix = `\n\n${definitions.join('\n')}\n`;
+  return blocks.map((x) => x.replace(LINK_DEFINITION, '').trimEnd() + suffix);
+}
+
 /** The loader splits every markdown body by `---` into one block per language. */
 export function localizeBody(
   body: string | string[] | undefined,

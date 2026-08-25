@@ -1,0 +1,19 @@
+#!/bin/bash -e
+# amq amatiasq.com test — la suite de tests del proyecto. Corre via
+# `amq amatiasq.com test`, y `amq amatiasq.com check` la incluye.
+
+case "$1" in
+  -h|--help|help)
+    awk 'NR>1 && /^#/ {sub(/^# ?/,""); print; next} NR>1 {exit}' "$0"
+    exit 0
+    ;;
+esac
+
+cd "$(dirname "$0")/.."
+
+if [ ! -d node_modules ]; then
+  echo "==> bun install"
+  bun install
+fi
+
+exec bun test src/ "$@"
