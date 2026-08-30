@@ -10,10 +10,6 @@ export type StringifiedDate = YearOnly | YearMonth | YearMonthDay;
 
 const dateRegex = /^(\d{4})-(?:(\d{2})-)?(?:(\d{2})-)?/;
 
-export function getSlugWithoutDate(slug: string) {
-  return slug.replace(dateRegex, '');
-}
-
 export function parseDate(slug: string): StringifiedDate | null {
   const match = slug.match(dateRegex);
 

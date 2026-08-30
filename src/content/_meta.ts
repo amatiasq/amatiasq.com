@@ -1,4 +1,4 @@
-import type { Language, Translatable } from '../i18n';
+import type { Translatable } from '../i18n';
 
 export interface ImageDeclaration {
   src?: Translatable;
@@ -8,4 +8,3 @@ export interface ImageDeclaration {
   cardOnly?: boolean;
 }
 
-export type TranslatableString = string | string[] | Record<Language, string>;

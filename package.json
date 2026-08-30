@@ -16,7 +16,6 @@
     "kleur": "^4.1.5",
     "marked": "^17.0.1",
     "micromatch": "^4.0.8",
-    "open-props": "2.0.0-beta.5",
     "p-limit": "^7.3.1",
     "shiki": "^3.21.0"
   },
@@ -26,5 +25,10 @@
     "@types/micromatch": "^4.0.10",
     "@types/node": "^25.9.2",
     "typescript": "^6.0.3"
+  },
+  "knip": {
+    "entry": ["src/**/*.test.ts"],
+    "ignore": ["infra/**", "public/**"],
+    "ignoreDependencies": ["@astrojs/check"]
   }
 }
