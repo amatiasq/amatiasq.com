@@ -9,6 +9,8 @@ case "$1" in
     ;;
 esac
 
+amq need bun
+
 cd "$(dirname "$0")/.."
 
 if [ ! -d node_modules ]; then

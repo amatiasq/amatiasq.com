@@ -14,6 +14,8 @@ case "$1" in
   -h|--help|help) awk 'NR>1 && !/^#/{exit} NR>1{sub(/^# ?/, ""); print}' "$0"; exit 0;;
 esac
 
+amq need bun
+
 VPS_REMOTE_DIR="${VPS_REMOTE_DIR:-vps}"
 SERVER_FOLDER="com_amatiasq"
 SITE_DIR="$VPS_REMOTE_DIR/docker/$SERVER_FOLDER/www/site"
