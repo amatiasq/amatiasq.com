@@ -3,140 +3,55 @@ import type { CollectionEntry } from 'astro:content';
 import Time from '../atoms/Time.astro';
 import Tr from '../atoms/Translation.astro';
 import Link from '../atoms/Link.astro';
+import { layoutTimeline } from '@/util/timeline';
 
 interface Props {
   career: CollectionEntry<'career'>[];
 }
 
 const { career } = Astro.props;
+const timeline = layoutTimeline(career, new Date());
 
-const PIXELS_PER_YEAR = 60;
-
-const processedCareer = career
-  .filter((item) => !item.data.hide)
-  .map((item) => {
-    const fromDate = new Date(item.data.from);
-    const toDate = item.data.to ? new Date(item.data.to) : new Date();
-    return {
-      ...item,
-      color: item.data.color || 'var(--border)',
-      fromDate,
-      toDate,
-      fromYear: fromDate.getFullYear(),
-      fromMonth: fromDate.getMonth(),
-      toYear: toDate.getFullYear(),
-      toMonth: toDate.getMonth(),
-    };
-  })
-  .sort((a, b) => b.fromDate.getTime() - a.fromDate.getTime());
-
-const today = new Date();
-const allYears = processedCareer.flatMap((item) => [item.fromYear, item.toYear]);
-const minYear = Math.min(...allYears);
-// maxYear is today's date as a fraction (e.g., Jan 2026 = 2026.08)
-const maxYear = today.getFullYear() + (today.getMonth() + 1) / 12;
-const displayMaxYear = today.getFullYear();
-// Years to display (exclude the oldest year to avoid dangling point)
-const years = Array.from({ length: displayMaxYear - minYear }, (_, i) => displayMaxYear - i);
-
-const totalHeight = (maxYear - minYear) * PIXELS_PER_YEAR; // From Jan (maxYear) to Jan (minYear)
-
-// Calculate position for a date (0 = top = maxYear, 100% = bottom = minYear)
-function getYearPosition(year: number, month: number = 0): number {
-  const yearFraction = year + month / 12;
-  const offset = maxYear - yearFraction;
-  return offset * PIXELS_PER_YEAR;
-}
-
-const minCardHeight = 100;
-
-let lastMobileBottom = 0;
-const positionedCareer = processedCareer.map((item, index) => {
-  const startPos = getYearPosition(item.fromYear, item.fromMonth);
-  const endPos = getYearPosition(item.toYear, item.toMonth);
-  // endPos is smaller (closer to top) because end date is more recent
-  const top = endPos;
-  const height = startPos - endPos;
-
-  // Mobile position: ensure no overlap with previous card
-  const mobileTop = Math.max(top, lastMobileBottom + 10);
-  lastMobileBottom = mobileTop + Math.max(height, minCardHeight);
-
-  // Alternate sides: even index = right, odd index = left
-  const side = index % 2 === 0 ? 'right' : 'left';
-
-  return { ...item, top, height, mobileTop, side };
-});
-
-const todayPos = getYearPosition(today.getFullYear(), today.getMonth());
-const currentYear = today.getFullYear();
-
-const currentJob = processedCareer.find((item) => !item.data.to);
-const todayColor = currentJob?.color || null;
-
-const lineStart = Math.min(todayPos, ...positionedCareer.map((item) => item.top));
-const lineEnd = Math.max(...positionedCareer.map((item) => item.top + item.height));
-const mobileLineEnd = Math.max(...positionedCareer.map((item) => item.mobileTop + Math.max(item.height, minCardHeight)));
-
-function getYearColor(year: number): string | null {
-  for (const item of processedCareer) {
-    // Job covers the year if: fromDate <= Jan of year < toDate
-    const yearStart = new Date(year, 0, 1);
-    if (item.fromDate <= yearStart && yearStart < item.toDate) {
-      return item.color;
-    }
-  }
-  return null;
+function dotStyle(color: string | null): string {
+  return color ? `background-color: ${color}; border-color: ${color}` : '';
 }
 ---
 
 <div class="career-timeline">
-  <!-- Central line -->
-  <div class="central-line" style={`top: ${lineStart}px; height: ${lineEnd - lineStart}px`}></div>
+  <div class="central-line" style={`top: ${timeline.line.start}px; height: ${timeline.line.end - timeline.line.start}px`}></div>
 
-  <!-- Today marker -->
-  <div class="year-marker today" style={`top: ${todayPos}px`}>
-    <span class="year-dot" style={todayColor ? `background-color: ${todayColor}; border-color: ${todayColor}` : ''}></span>
+  <div class="year-marker today" style={`top: ${timeline.today.top}px`}>
+    <span class="year-dot" style={dotStyle(timeline.today.color)}></span>
   </div>
 
-  <!-- Year markers -->
-  {years.map((year) => {
-    const yearColor = getYearColor(year);
-    const isCurrentYear = year === currentYear;
-    // Skip current year if Today is within first 2 months (too close)
-    if (isCurrentYear && today.getMonth() < 2) return null;
-    return (
-      <div class="year-marker" style={`top: ${getYearPosition(year)}px`}>
-        <span class="year-dot" style={yearColor ? `background-color: ${yearColor}; border-color: ${yearColor}` : ''}></span>
-      </div>
-    );
-  })}
+  {timeline.years.map((year) => (
+    <div class="year-marker" style={`top: ${year.top}px`}>
+      <span class="year-dot" style={dotStyle(year.color)}></span>
+    </div>
+  ))}
 
-  <!-- Career entries -->
-  {positionedCareer.map((item) => {
-    const slug = item.id.replace('.md', '');
+  {timeline.jobs.map(({ job, color, top, height, mobileTop, side }) => {
+    const slug = job.id.replace('.md', '');
     return (
       <div
-        class:list={['entry', item.side]}
-        style={`top: ${item.top}px; --mobile-top: ${item.mobileTop}px; --brand: ${item.color}`}
+        class:list={['entry', side]}
+        style={`top: ${top}px; --mobile-top: ${mobileTop}px; --brand: ${color}`}
       >
-        <!-- Duration bar on the timeline -->
         <div
           class="duration-line"
-          style={`height: ${Math.max(item.height, 20)}px; background-color: ${item.color}`}
+          style={`height: ${Math.max(height, 20)}px; background-color: ${color}`}
         ></div>
 
-        <!-- Card -->
         <Link page={`/career/${slug}`} class="entry-link">
           <div class="entry-card">
             <div class="card-content">
               <div class="dates">
-                <Time date={item.data.from} omitDay /> — {item.data.to ? <Time date={item.data.to} omitDay /> : <Tr en="Current" es="Actual" />}
+                <Time date={job.data.from} omitDay /> — {job.data.to ? <Time date={job.data.to} omitDay /> : <Tr en="Current" es="Actual" />}
               </div>
-              <span class="org" style={`color: ${item.color}`} transition:name={`title-${slug}`}>
-                <Tr value={item.data.org} />
+              <span class="org" style={`color: ${color}`} transition:name={`title-${slug}`}>
+                <Tr value={job.data.org} />
               </span>
-              {item.data.role && <div class="role"><Tr value={item.data.role} /></div>}
+              {job.data.role && <div class="role"><Tr value={job.data.role} /></div>}
             </div>
           </div>
         </Link>
@@ -144,7 +59,7 @@ function getYearColor(year: number): string | null {
     );
   })}
 
-  <style define:vars={{ totalHeight: `${totalHeight}px`, mobileHeight: `${mobileLineEnd + 50}px` }}>
+  <style define:vars={{ totalHeight: `${timeline.height}px`, mobileHeight: `${timeline.mobileHeight}px` }}>
     .career-timeline {
       position: relative;
       width: 100%;
@@ -187,14 +102,6 @@ function getYearColor(year: number): string | null {
       border-radius: 50%;
     }
 
-    .year-label {
-      font-family: ui-monospace, 'SF Mono', Menlo, Monaco, monospace;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      margin-top: 0.25rem;
-      background-color: var(--bg-subtle);
-      padding: 0 0.25rem;
-    }
 
     /* Entry positioning */
     .entry {
@@ -289,11 +196,6 @@ function getYearColor(year: number): string | null {
       display: inline-block;
     }
 
-    a.org:hover {
-      text-decoration: underline;
-      background: transparent;
-      transform: none;
-    }
 
     .role {
       color: var(--text-muted);

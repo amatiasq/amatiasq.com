@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && bun amq/lib/build-sw.ts",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -27,7 +27,7 @@
     "typescript": "^6.0.3"
   },
   "knip": {
-    "entry": ["src/**/*.test.ts"],
+    "entry": ["src/**/*.test.ts", "amq/lib/*.ts"],
     "ignore": ["infra/**", "public/**"],
     "ignoreDependencies": ["@astrojs/check"]
   }

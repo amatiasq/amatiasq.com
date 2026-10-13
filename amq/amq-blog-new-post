@@ -1,0 +1,147 @@
+#!/bin/bash -e
+# amq blog new-post <título…> — crea el post de hoy en `content/blog/` y lo abre
+# en $EDITOR. Al cerrarlo pregunta si postear: que sí quita el `draft: true`,
+# commitea y lanza `amq amatiasq.com deploy`; cualquier otra cosa —«no», Enter
+# vacío, Ctrl-C, o un editor que salió con error— lo commitea como borrador. Se
+# commitea sólo ese fichero, nunca el resto del árbol.
+#
+# Si al cerrar el editor el fichero sigue igual que la plantilla, se borra y no
+# hay commit: un post vacío no es un borrador, es un descuido.
+#
+# El slug sale del título, en minúsculas y sin acentos; la fecha, de hoy. Sin
+# argumentos el título se pide por stdin, y si el fichero de hoy ya existe
+# aborta: un post no se sobrescribe.
+
+case "$1" in
+  -h|--help|help) awk 'NR>1 && !/^#/{exit} NR>1{sub(/^# ?/, ""); print}' "$0"; exit 0;;
+esac
+
+amq need git
+
+# El editor se comprueba antes de escribir nada: abortar con el fichero ya
+# creado deja un post huérfano que el siguiente intento se encuentra puesto.
+if [ -z "$EDITOR" ]; then
+  echo 'Sin $EDITOR no hay dónde escribir el post. Aborto.' >&2
+  exit 1
+fi
+
+cd "$(dirname "$0")/.."
+
+title="$*"
+if [ -z "$title" ]; then
+  if [ -t 0 ]; then
+    read -r -p 'Título: ' title || true
+  else
+    title="$(cat)"
+  fi
+fi
+title="$(printf '%s' "$title" | sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//')"
+if [ -z "$title" ]; then
+  echo 'Sin título no hay post.' >&2
+  exit 1
+fi
+
+# El slug: el título en minúsculas, sin acentos y con guiones, como `amq plans
+# capture`. `tr` no baja los acentuados —son multibyte—, de ahí la tabla.
+slug="$(printf '%s' "$title" | tr '[:upper:]' '[:lower:]')"
+for pair in á:a é:e í:i ó:o ú:u ü:u ñ:n Á:a É:e Í:i Ó:o Ú:u Ü:u Ñ:n; do
+  slug="${slug//${pair%%:*}/${pair##*:}}"
+done
+slug="$(printf '%s' "$slug" |
+  LC_ALL=C sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//' |
+  cut -c1-64)"
+slug="${slug%-}"
+if [ -z "$slug" ]; then
+  echo "El título «$title» no deja ninguna letra para el slug." >&2
+  exit 1
+fi
+
+file="content/blog/$(date +%Y-%m-%d)-$slug.md"
+if [ -e "$file" ]; then
+  echo "Ya existe amatiasq.com/$file — no lo sobrescribo." >&2
+  exit 1
+fi
+
+template="$(mktemp)"
+edited="$(mktemp)"
+trap 'rm -f "$template" "$edited"' EXIT
+
+# El título va entre comillas porque un `:` sin ellas rompe el YAML, y un título
+# lo lleva a menudo. El cuerpo es un bloque por idioma partido por `---`,
+# posicional: inglés primero, español después (AGENTS.md, «Body por idioma»).
+# Van en comentario HTML para que el que se quede sin escribir no pinte nada.
+yaml_title="$(printf '%s' "$title" | sed 's/\\/\\\\/g; s/"/\\"/g')"
+cat > "$template" <<EOF
+---
+draft: true
+title:
+  en: "$yaml_title"
+  es: "$yaml_title"
+# tags:
+#   - en: Thoughts
+#     es: Reflexiones
+---
+
+<!-- English -->
+
+---
+
+<!-- Español -->
+EOF
+cp "$template" "$file"
+
+untouched() {
+  cmp -s "$template" "$file" || return 0
+  rm -f "$file"
+  echo "El post salió igual que la plantilla: borrado, sin commit."
+  exit 0
+}
+
+# `git commit -- <fichero>` commitea esa ruta y nada más, mire como mire el
+# índice: el árbol es el del usuario y puede tener media docena de cosas a
+# medias que no son de este post.
+save-draft() {
+  trap - INT
+  untouched
+  git add -- "$file"
+  git commit -q -m "blog(draft): $slug" -- "$file"
+  echo "Borrador commiteado: amatiasq.com/$file"
+  exit 0
+}
+
+post() {
+  trap - INT
+  sed '/^draft: true$/d' "$file" > "$edited"
+  cat "$edited" > "$file"
+  git add -- "$file"
+  git commit -q -m "blog: $slug" -- "$file"
+  echo "Posteado: amatiasq.com/$file"
+  amq amatiasq.com deploy
+  exit 0
+}
+
+# Desde aquí el fichero existe, así que un Ctrl-C ya no puede perder lo que se
+# escribió: se guarda de borrador igual que un «no».
+trap 'echo; save-draft' INT
+
+# $EDITOR va sin comillas a propósito: el suyo es «code --wait» y citarlo lo
+# convierte en un ejecutable con un espacio en el nombre, que no existe.
+# shellcheck disable=SC2086
+status=0
+$EDITOR "$file" || status=$?
+
+if [ "$status" -ne 0 ]; then
+  echo "El editor salió con $status; guardo borrador." >&2
+  save-draft
+fi
+
+untouched
+
+printf '¿Postear? [s/N] '
+answer=
+read -r answer || answer=
+
+case "$answer" in
+  [sSyY]|[sS][ií]|[yY][eE][sS]) post;;
+  *) save-draft;;
+esac

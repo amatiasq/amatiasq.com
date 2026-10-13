@@ -10,12 +10,12 @@ tags:
     es: Reflexiones
 ---
 
-Gravity is not a force pushing you, the space you occupied moved into the earth's center and it's dragging you with it.
+Gravity is not a force pushing you. The space you occupied moved into the earth's center and it's dragging you with it.
 
-By not following space into the earth you are moving through it. So time slows down.
+By not following space into the earth you are moving through it. So time slows down. 🤯
 
 ---
 
-La gravedad no es una fuerza que te empuje, el espacio que ocupabas se movió hacia el centro de la tierra arrastrándote con él.
+La gravedad no es una fuerza que te empuje. El espacio que ocupabas se movió hacia el centro de la tierra arrastrándote con él.
 
-Al no seguir al espacio hacia el centro de la tierra te mueves a través de él. Por lo que el tiempo se relentiza.
+Al no seguir al espacio hacia el centro de la tierra te mueves a través de él. Por lo que el tiempo se relentiza. 🤯

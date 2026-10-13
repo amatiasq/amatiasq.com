@@ -12,6 +12,8 @@ esac
 
 amq need bun
 
+cd "$(dirname "$0")/.."
+
 PORT="${PORT:-4321}"
 
 if [ ! -d node_modules ]; then

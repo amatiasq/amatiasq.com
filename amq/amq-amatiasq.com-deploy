@@ -1,35 +1,31 @@
 #!/bin/bash -e
 # amq amatiasq.com deploy [--skip-build] — build the site here and put it in
-# production: dist/ lands in the nginx container's www/site/ and nginx
-# reloads. No GitHub Pages, no mirror repo, no push — the code you have is the
+# production: dist/ lands in the docroot of whichever nginx is serving the
+# domain. No GitHub Pages, no mirror repo, no push — the code you have is the
 # code that ships. `--skip-build` ships the dist/ that is already there.
 #
-# infra/ (nginx.conf + assets) travels in the same command, because forgetting
-# it is how /plot spent days serving a GIF the repo had already replaced.
-# Reload, not restart: no dropped requests and the container stays put. The
-# version stamp takes a -dirty suffix from an unclean tree.
-# Config (env): VPS_REMOTE_DIR (default vps).
+# El build es el de `amq amatiasq.com check`, que corre entero y para el deploy
+# si algo falla: el frontmatter de un post recién escrito sólo se rompe al
+# construir, y enterarse con el rsync a medio camino es tarde. No se construye
+# dos veces — el dist/ que sube es el que dejó el check.
+#
+# infra/www/ (the loose files the routes alias) travels in the same command,
+# because forgetting it is how /plot spent days serving a GIF the repo had
+# already replaced. Con el nginx común sirviendo, el routing es su conf.d/ —
+# `services/nginx-static`— y `amq nginx-static deploy` lo sube al final; con el
+# nginx por sitio, su nginx.conf vive en el servidor y esto no lo toca.
+# The version stamp takes a -dirty suffix from an unclean tree.
 
 case "$1" in
   -h|--help|help) awk 'NR>1 && !/^#/{exit} NR>1{sub(/^# ?/, ""); print}' "$0"; exit 0;;
 esac
 
-amq need bun
-
-VPS_REMOTE_DIR="${VPS_REMOTE_DIR:-vps}"
-SERVER_FOLDER="com_amatiasq"
-SITE_DIR="$VPS_REMOTE_DIR/docker/$SERVER_FOLDER/www/site"
+VPS_REMOTE_DIR=vps
 
 cd "$(dirname "$0")/.."
 
 if [[ "$1" != "--skip-build" ]]; then
-  if [ ! -d node_modules ]; then
-    echo "==> bun install"
-    bun install
-  fi
-
-  echo "==> build"
-  bun run build
+  amq amatiasq.com check
 fi
 
 [ -f dist/index.html ] || { echo "no dist/index.html — nothing to deploy" >&2; exit 1; }
@@ -43,23 +39,34 @@ commit="$(git rev-parse HEAD)"
 printf '%s\n%s\n' "$commit" "$(date -u +%Y-%m-%dT%H:%M:%SZ)" > dist/version.txt
 echo "    $commit"
 
-# --delete, unlike `amq vps deploy`: every file here is generated, so a page
+# El docroot lo decide qué nginx está arriba, no el repo: desde el 2026-09-18
+# sirve el común de `services/nginx-static` y la rama de abajo es la vuelta
+# atrás, que arranca otra vez el nginx por sitio.
+if amq vps ssh 'docker ps --format "{{.Names}}"' | grep -qx nginx-static; then
+  SITE_DIR="$VPS_REMOTE_DIR/docker/nginx-static/www/amatiasq.com"
+  shared_nginx=1
+else
+  SITE_DIR="$VPS_REMOTE_DIR/docker/com_amatiasq/www"
+  shared_nginx=0
+fi
+echo "==> docroot: $SITE_DIR"
+
+# No --delete: the server holds a couple of legacy pages this repo never had,
+# and the routes still alias them.
+echo "==> rsync infra/www/ -> $SITE_DIR/ on the VPS"
+amq vps ssh "mkdir -p '$SITE_DIR/site'"
+amq vps rsync infra/www/ ":$SITE_DIR/"
+
+# --delete here, and only here: every file under site/ is generated, so a page
 # that stopped being built must stop being served. Renaming a route otherwise
 # leaves the old URL answering 200 forever.
-echo "==> rsync dist/ -> $SITE_DIR/ on the VPS"
-amq vps ssh "mkdir -p '$SITE_DIR'"
-amq vps rsync --delete dist/ ":$SITE_DIR/"
+echo "==> rsync dist/ -> $SITE_DIR/site/ on the VPS"
+amq vps rsync --delete dist/ ":$SITE_DIR/site/"
 
-echo "==> ship infra (nginx.conf + assets)"
-amq vps deploy "$SERVER_FOLDER"
-
-# Through compose and not `docker exec <name>`: the container's name is
-# whatever `compose.yml` says today, and it already changed once
-# (`com_amatiasq` -> `amq-amatiasq`). The compose project follows the server
-# folder, which is the thing this script actually knows.
-echo "==> reload nginx"
-amq vps ssh "cd '$VPS_REMOTE_DIR/docker/$SERVER_FOLDER' \
-  && docker compose -p 'amq_$SERVER_FOLDER' exec -T nginx nginx -t \
-  && docker compose -p 'amq_$SERVER_FOLDER' exec -T nginx nginx -s reload"
+# El nginx por sitio lee del bind mount y no necesita nada; el común sí, que su
+# routing viaja aquí.
+if [ "$shared_nginx" = 1 ]; then
+  amq nginx-static deploy
+fi
 
 echo "==> deployed: https://amatiasq.com/ ($commit)"

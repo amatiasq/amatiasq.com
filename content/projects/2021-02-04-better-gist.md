@@ -7,7 +7,6 @@ image:
   es: Captura de pantalla de Better GIst
 
 links:
-  live: https://gist.amatiasq.com/
   github: https://github.com/amatiasq/np/
   video: https://youtu.be/GO97zFLc8T0
 

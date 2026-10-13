@@ -1,42 +1,41 @@
 # amatiasq.com — AGENTS.md
 
-El portfolio profesional de A. Matías Quezada: su carta de presentación. Astro
-estático sobre Bun; qué es y cómo se despliega, en [`README.md`](README.md). Las
-reglas generales están en el [`AGENTS.md`](../AGENTS.md) raíz —*minimal
-everything*, CSS antes que JS de cliente—; aquí sólo va lo propio.
+A. Matías Quezada's professional portfolio: his calling card. Static Astro on
+Bun; what it is and how it deploys, in [`README.md`](README.md).
 
-## Glosario
+## Glossary
 
-- **Colección** — cada carpeta de `content/`: `blog`, `career`, `projects`,
-  `talks`, `experiments`. Hay una página por proyecto público y por experimento,
-  y el raíz obliga a actualizarla en el mismo cambio que toca el proyecto: es
-  user-facing y una entrada obsoleta desinforma.
-- **Translatable** — cualquier texto del sitio: un `string`, un `[en, es]`
-  posicional o un `{ en, es }`. El idioma lo decide la URL, y `tr()` —de
-  `useTranslations(Astro.url)`, o el componente `<Tr>`— es lo único que lo
-  resuelve. Español e inglés; quizá catalán algún día.
-- **Body por idioma** — el cuerpo de cada markdown se parte por `---` en un
-  bloque por idioma, posicional como el array de `Translatable`. Las
-  definiciones de enlace (`[1]: …`) se escriben una vez al final del fichero y
-  `splitByLanguage` las reparte a todos los bloques: sin eso sólo resuelven en
-  el último idioma y el resto pinta `[texto][1]` como texto plano. Lo cubre
-  `src/content.test.ts`, sobre los ficheros de verdad.
-- **Demos** — `public/demos/`, servidos tal cual. Código antiguo archivado, que
-  a menudo ya no se puede reconstruir: no lo lintes ni lo actualices. Por eso
-  `public/` está fuera de `tsconfig.json`.
+- **Collection** — each folder in `content/`: `blog`, `career`, `projects`,
+  `talks`, `experiments`. There's a page per public project and per
+  experiment, updated in the same change that touches the project: it's
+  user-facing and a stale entry misinforms.
+- **Translatable** — any text on the site: a `string`, a positional
+  `[en, es]` or an `{ en, es }`. The URL decides the language, and `tr()` —from
+  `useTranslations(Astro.url)`, or the `<Tr>` component— is the only thing that
+  resolves it. Spanish and English; maybe Catalan some day.
+- **Per-language body** — each markdown body is split by `---` into one block
+  per language, positional like the `Translatable` array. Link definitions
+  (`[1]: …`) are written once at the end of the file and `splitByLanguage`
+  hands them to every block: without that they only resolve in the last
+  language and the rest paint `[text][1]` as plain text. `src/content.test.ts`
+  covers it, over the real files.
+- **Demos** — `public/demos/`, served as they are. Old archived code that
+  often can't be rebuilt anymore: don't lint or update it. That's why
+  `public/` is outside `tsconfig.json`.
 
-## Invariantes
+## Invariants
 
-- **El loader propio de `content.config.ts` es lo que hace posible el markdown
-  multilingüe**, y no se puede sustituir por el `glob()` oficial de Astro: el
-  body sólo se puede partir por idioma llamando a `store.set({ body })`, y eso
-  únicamente se puede hacer dentro de un loader. Parece copia gratuita del
-  oficial; no lo es.
-- **Las fechas de los trabajos son sagradas**: son reales y no se tocan. Si hay
-  que ajustar la visualización del timeline, se hace con campos aparte.
-- **Esto es serio: animaciones sutiles, nunca llamativas**, y **las animaciones
-  de texto son para texto**, no para cajas ni contenedores. Consistencia visual
-  en todo el sitio y HTML generado mínimo: ni un wrapper de más.
-
-Historia: [`.agents/decisions/`](.agents/decisions). La deuda técnica que había
-está saldada: [`2026-08-19 deuda-tecnica.md`](.agents/decisions/2026-08-19%20deuda-tecnica.md).
+- **The custom loader in `content.config.ts` is what makes multilingual
+  markdown possible**, and Astro's official `glob()` can't replace it: the body
+  can only be split per language by calling `store.set({ body })`, and that's
+  only possible inside a loader. It looks like a needless copy of the official
+  one; it isn't.
+- **Collection schemas live in `src/content.schemas.ts`**, not in
+  `content.config.ts`: that file imports `astro:content`, which only exists
+  inside Astro, and `amq amatiasq.com check` needs them to say which
+  frontmatter is broken —and offer to fill it— before paying for a build.
+- **Job dates are sacred**: they're real and aren't touched. If the timeline
+  display needs adjusting, it's done with separate fields.
+- **This is serious: subtle animations, never flashy**, and **text animations
+  are for text**, not for boxes or containers. Visual consistency across the
+  site and minimal generated HTML: not one extra wrapper. CSS before client JS.

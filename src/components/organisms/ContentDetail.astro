@@ -1,0 +1,134 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Layout from '@/layouts/Layout.astro';
+import { localizeBody, useTranslations, type Language, type Translatable } from '@/i18n';
+import NavHeader from '@/components/organisms/NavHeader.astro';
+import Tr from '@/components/atoms/Translation.astro';
+import Markdown from '@/components/molecules/Markdown.astro';
+import Image from '@/components/atoms/Image.astro';
+import Tags from '@/components/atoms/Tags.astro';
+
+interface Props {
+  entry: CollectionEntry<'projects' | 'experiments' | 'talks'>;
+  lang: Language;
+  // Label to URL, in order; an empty URL leaves the link out.
+  links: Record<string, Translatable | undefined>;
+}
+
+const { entry, lang, links } = Astro.props;
+const { tr } = useTranslations(Astro.url);
+const { data } = entry;
+const title = tr(data.title);
+const slug = entry.id.replace('.md', '');
+const localizedContent = localizeBody(entry.body, lang);
+const presentLinks = Object.entries(links).filter(
+  (link): link is [string, Translatable] => Boolean(link[1]),
+);
+const iframeSrc = embeddedUrl();
+
+// `iframe.src` wins over `links.live`, so an entry can embed something other
+// than its Demo link: lulas embeds its 2014 version, the TTS demo a test text.
+function embeddedUrl(): string | null {
+  if (typeof data.iframe === 'object' && data.iframe.src) return tr(data.iframe.src);
+  const live = data.links && 'live' in data.links ? data.links.live : undefined;
+  return data.iframe && live ? tr(live) : null;
+}
+---
+
+<Layout title={title}>
+  <NavHeader />
+  <main>
+    <article>
+      <h1 transition:name={`title-${slug}`}><Tr value={data.title} /></h1>
+
+      {presentLinks.length > 0 && (
+        <nav class="project-links">
+          {presentLinks.map(([label, href]) => (
+            <a href={tr(href)} target="_blank" rel="noopener">{label}</a>
+          ))}
+        </nav>
+      )}
+
+      <Tags tags={data.tags} />
+
+      {iframeSrc ? (
+        <div class="iframe-container" transition:name={`img-${slug}`}>
+          {/* Permissions Policy defaults `microphone` to `self`: without delegating
+              it, a cross-origin demo that needs one (walkie) is dead in the
+              embed. It only delegates; the browser still asks. */}
+          <iframe src={iframeSrc} data-src={iframeSrc} allow="microphone" allowfullscreen />
+          <button class="pause-btn" title="Pause/Play">⏸</button>
+        </div>
+      ) : data.image && !data.image.cardOnly && (
+        <div class="hero-image" transition:name={`img-${slug}`}>
+          <Image value={data.image} width={800} />
+        </div>
+      )}
+
+      <Markdown md={localizedContent} />
+    </article>
+  </main>
+</Layout>
+
+<style>
+  .hero-image {
+    margin: 1.5rem 0;
+  }
+
+  .hero-image :global(img) {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid oklch(28% 0 0);
+  }
+
+  .iframe-container {
+    position: relative;
+    margin: 1.5rem 0;
+  }
+
+  iframe {
+    width: 100%;
+    border: 1px solid oklch(28% 0 0);
+    border-radius: 8px;
+    aspect-ratio: 16 / 9;
+  }
+
+  .pause-btn {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    background: oklch(20% 0 0 / 0.8);
+    border: 1px solid oklch(40% 0 0);
+    border-radius: 4px;
+    color: white;
+    padding: 0.25rem 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .iframe-container:hover .pause-btn {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.iframe-container').forEach(container => {
+    const iframe = container.querySelector('iframe') as HTMLIFrameElement;
+    const btn = container.querySelector('.pause-btn') as HTMLButtonElement;
+    let paused = false;
+
+    btn?.addEventListener('click', () => {
+      if (paused) {
+        iframe.src = iframe.dataset.src || '';
+        btn.textContent = '⏸';
+      } else {
+        iframe.src = 'about:blank';
+        btn.textContent = '▶';
+      }
+      paused = !paused;
+    });
+  });
+</script>

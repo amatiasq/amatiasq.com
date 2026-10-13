@@ -1,16 +1,18 @@
 # amatiasq.com
 
-Portfolio profesional de A. Matías Quezada. Astro `output: 'static'` sobre Bun:
-`bun install` y `bun run dev` (los scripts están en `package.json`, los comandos
-de mantenimiento en `amq/`, cada uno con su `--help`).
+A. Matías Quezada's professional portfolio. Astro `output: 'static'` on Bun:
+`bun install` and `bun run dev` (scripts are in `package.json`, maintenance
+commands in `amq/`, each with its `--help`).
 
-## Despliegue
+## Deploy
 
-`amq amatiasq.com deploy` construye `dist/` **en local** y lo sube al nginx del
-VPS que ya sirve el dominio, junto con `infra/`. **No hace falta `git push`**: lo
-que se despliega es el árbol de trabajo, y el commit que salió queda en
-<https://amatiasq.com/version.txt> con sufijo `-dirty` si el árbol estaba sucio.
+`amq amatiasq.com deploy` builds `dist/` **locally** and uploads it to the
+VPS's shared nginx, along with `infra/www/`. **No `git push` needed**: what
+ships is the working tree, and the commit it came from is at
+<https://amatiasq.com/version.txt>, with a `-dirty` suffix if the tree was
+dirty.
 
-`infra/nginx.conf` no sirve sólo el sitio: lleva además una quincena de rutas
-propias con años de historia detrás (`/book/limites`, `/plot`, `/js`,
-`/install`, redirecciones de CV…). Se despliega con él.
+The domain doesn't serve only the site: it also carries about fifteen routes
+of its own with years of history behind them (`/book/limites`, `/plot`, `/js`,
+`/install`, CV redirects…), and the loose files those alias are `infra/www/`.
+The routing lives in the shared nginx's config and ships in the same `deploy`.
